@@ -1,0 +1,11 @@
+study_prefix = "quality"
+
+[sql_config]
+file_names = [
+    "metadata.sql",
+]
+
+[table_builder_config]
+file_names = [
+    "q_ref_target_valid.py",
+]
