@@ -1,7 +1,7 @@
 CREATE TABLE quality__q_ref_target_valid_{{ src|lower }}_{{ dest|lower }} AS
 SELECT
     src.id,
-    src.subject AS target
+    src.{{ field }} AS target
 FROM {{ src|lower }} AS src
 LEFT JOIN {{ dest|lower }} AS dest
 ON SUBSTRING(src.{{ field }}.reference, LENGTH('{{ dest }}/') + 1) = dest.id
