@@ -16,7 +16,8 @@ CREATE TABLE quality__q_ref_target_valid_summary AS (
         SELECT
             {{ entry_key }}_numerator.entry_key AS source_and_target,
             numerator,
-            denominator
+            denominator,
+            CAST(numerator AS real) / denominator AS percentage
         FROM {{ entry_key }}_numerator
         JOIN {{ entry_key }}_denominator
         ON {{ entry_key }}_numerator.entry_key = {{ entry_key }}_denominator.entry_key
