@@ -1,20 +1,18 @@
-CREATE TABLE quality__q_ref_target_valid_summary AS (
+CREATE TABLE quality__{{ metric }}_summary AS (
     WITH
-    {%- for entry_key, entry_values in entries.items() %}
-    {%- for src, dest in entry_values.items() %}
+    {%- for entry_key, src in entries.items() %}
     {{ entry_key }}_numerator AS (
-        SELECT '{{ entry_key }}' AS entry_key, COUNT(DISTINCT(id)) AS numerator FROM quality__q_ref_target_valid_{{ entry_key }}
+        SELECT '{{ entry_key }}' AS entry_key, COUNT(DISTINCT(id)) AS numerator FROM quality__{{ metric }}_{{ entry_key }}
     ),
     {{ entry_key }}_denominator AS (
         SELECT '{{ entry_key }}' AS entry_key, COUNT(id) AS denominator FROM {{ src|lower }}
     ),
     {%- endfor %}
-    {%- endfor %}
 
     union_table AS (
         {%- for entry_key in entries %}
         SELECT
-            {{ entry_key }}_numerator.entry_key AS source_and_target,
+            {{ entry_key }}_numerator.entry_key AS id,
             numerator,
             denominator,
             CAST(numerator AS real) / denominator AS percentage

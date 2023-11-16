@@ -1,0 +1,8 @@
+CREATE TABLE quality__q_ref_target_pop_{{ src|lower }}_{{ dest|lower }} AS (
+SELECT
+    src.id,
+    src.{{ field }} AS target
+FROM {{ src|lower }} AS src
+WHERE
+    src.{{ field }}.reference NOT LIKE '{{ dest }}/%'
+);

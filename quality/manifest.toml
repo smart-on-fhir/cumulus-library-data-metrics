@@ -7,5 +7,6 @@ file_names = [
 
 [table_builder_config]
 file_names = [
+    "q_ref_target_pop.py",
     "q_ref_target_valid.py",
 ]
