@@ -15,7 +15,11 @@ CREATE TABLE quality__{{ metric }}_summary AS (
             {{ entry_key }}_numerator.entry_key AS id,
             numerator,
             denominator,
-            CAST(numerator AS real) / denominator AS percentage
+            CASE
+                WHEN denominator = 0
+                THEN 0.0
+                ELSE CAST(numerator AS real) / denominator
+            END AS percentage
         FROM {{ entry_key }}_numerator
         JOIN {{ entry_key }}_denominator
         ON {{ entry_key }}_numerator.entry_key = {{ entry_key }}_denominator.entry_key
