@@ -1,0 +1,18 @@
+CREATE TABLE quality__q_term_use_{{ src|lower }}_{{ field|lower }} AS (
+WITH
+    flattened_and_grouped AS (
+        SELECT
+            id,
+            ANY_VALUE({{ field }}) AS {{ field }},
+            ARRAY_AGG(t.row.system) AS {{ field }}_systems
+        FROM {{ src|lower }},
+            UNNEST({{ field }}.coding) AS t (row)
+        GROUP BY id
+    )
+SELECT
+    src.id,
+    src.{{ field }}
+FROM flattened_and_grouped AS src
+WHERE
+    ARRAY_POSITION(src.{{ field }}_systems, '{{ system }}') = 0
+);

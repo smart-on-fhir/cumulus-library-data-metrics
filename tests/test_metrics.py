@@ -17,6 +17,9 @@ class MetricsTestCase(unittest.TestCase):
     def test_q_ref_target_valid(self):
         self.run_study("q_ref_target_valid")
 
+    def test_q_term_use(self):
+        self.run_study("q_term_use")
+
 
     # **********************************
     # ** Support code below this line **
@@ -78,7 +81,7 @@ export_list = [
             # Uncomment this for extra debugging
             # import duckdb
             # df = duckdb.connect(f"{tmpdir}/duck.db").execute("SELECT * FROM xxx").df()
-            # print(df)
+            # print(df.to_string())
 
             csv_path = f"{tmpdir}/counts/quality/quality__{metric}_summary.csv"
             with open(csv_path, "r", encoding="utf8") as f:

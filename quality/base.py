@@ -16,8 +16,12 @@ class MetricMixin:
 
     def make_summary(self) -> str:
         """Makes a summary table, from all the individual metric tables"""
+        return self.render_sql("base.summary", entries=self.summary_entries, metric=self.name)
+
+    @staticmethod
+    def render_sql(template: str, **kwargs) -> str:
         path = os.path.dirname(__file__)
-        with open(f"{path}/base.summary.jinja") as file:
-            sql = jinja2.Template(file.read()).render(entries=self.summary_entries, metric=self.name)
+        with open(f"{path}/{template}.jinja") as file:
+            sql = jinja2.Template(file.read()).render(**kwargs)
             # print(sql)
             return sql

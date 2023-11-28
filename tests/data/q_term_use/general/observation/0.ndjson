@@ -1,0 +1,2 @@
+{"id": "valid-code", "code": {"coding":  [{"system": "http://loinc.org"}]}}
+{"id": "valid-value", "valueCodeableConcept": {"coding":  [{"system": "http://snomed.info/sct"}]}}

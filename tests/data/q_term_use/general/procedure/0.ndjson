@@ -1,0 +1,7 @@
+{"id": "valid-simple", "code": {"coding":  [{"system": "http://www.ama-assn.org/go/cpt"}]}}
+{"id": "valid-multiple", "code": {"coding":  [{"system": "nope"}, {"system": "http://www.ama-assn.org/go/cpt"}]}}
+{"id": "bad-system", "code": {"coding":  [{"system": "nope"}]}}
+{"id": "missing-system", "code": {"coding":  [{"display": "No system"}]}}
+{"id": "empty-coding", "code": {"coding": []}}
+{"id": "missing-coding", "code": {"text": "No coding"}}
+{"id": "missing-code"}
