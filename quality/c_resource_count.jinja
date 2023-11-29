@@ -1,0 +1,83 @@
+CREATE TABLE quality__count_c_resource_count_{{ src|lower }}_{{ period|lower }} AS (
+{%- set cat_field = category %}
+WITH
+
+{%- if systems %}
+-- Flatten categories of the provided system and recombine the codes as a list
+{%- set system_list = "('" + systems|join("', '") + "')" %}
+flattened_and_grouped AS (
+    SELECT
+        id,
+        ARRAY_AGG(u.coding.code) AS grouped_categories
+    FROM {{ src|lower }} AS src,
+        UNNEST({{ category }}) AS cc (cc_row),
+        UNNEST(cc.cc_row.coding) AS u (coding)
+    WHERE
+        u.coding.system in {{ system_list }}
+    GROUP BY id
+),
+-- Left join back to src to catch rows without a proper system category
+grouped_category_src AS (
+    SELECT src.*, grouped_categories
+    FROM {{ src|lower }} AS src
+    LEFT JOIN flattened_and_grouped
+    ON src.id = flattened_and_grouped.id
+),
+{%- set src = 'grouped_category_src' %}
+{%- set cat_field = 'grouped_categories' %}
+{%- endif %}
+
+simplified AS (
+    SELECT
+        id
+
+        -- Convert array of categories into one string, separated by semicolon
+        {%- if category %}
+        , COALESCE(
+            ARRAY_JOIN(
+                ARRAY_SORT(
+                    {{ cat_field }}
+                ), '; '
+            ),
+            'None'
+        ) AS {{ category }}
+        {%- endif %}
+
+        -- Parse string datetime into a single period string
+        {%- if dates %}
+        , COALESCE(
+            CAST(date_trunc('{{ period }}', date(from_iso8601_timestamp(
+                COALESCE(
+                    {{ dates|join(', ') }}
+                )
+            ))) AS VARCHAR),
+            'None'
+        ) AS {{ period }}
+        {%- endif %}
+    FROM {{ src|lower }}
+)
+
+SELECT
+    COUNT(DISTINCT id) AS cnt
+
+    {%- if category %}
+    , {{ category }}
+    {%- endif %}
+
+    {%- if dates %}
+    , {{ period }}
+    {%- endif %}
+FROM simplified
+{%- if category or dates %}
+GROUP BY CUBE(
+    {%- if category %}
+    {{ category }}
+    {%- endif %}
+
+    {%- if dates %}
+    {%- if category %},{%- endif %}
+    {{ period }}
+    {%- endif %}
+)
+{% endif %}
+);

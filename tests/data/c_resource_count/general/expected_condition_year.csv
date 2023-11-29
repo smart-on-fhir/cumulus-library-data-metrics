@@ -1,0 +1,16 @@
+cnt,category,year
+10,,
+7,,2023-01-01
+4,encounter-diagnosis,
+3,encounter-diagnosis,2023-01-01
+2,,None
+2,problem-list-item,
+2,problem-list-item,2023-01-01
+2,encounter-diagnosis; problem-list-item,
+2,None,
+1,,2022-01-01
+1,encounter-diagnosis; problem-list-item,2023-01-01
+1,encounter-diagnosis; problem-list-item,2022-01-01
+1,encounter-diagnosis,None
+1,None,None
+1,None,2023-01-01

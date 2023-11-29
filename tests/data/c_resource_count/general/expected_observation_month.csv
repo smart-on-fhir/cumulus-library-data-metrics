@@ -1,0 +1,17 @@
+cnt,category,month
+7,,
+3,,None
+3,None,
+2,exam,
+2,None,None
+1,,2023-10-01
+1,,2023-02-01
+1,,2022-10-01
+1,,2022-06-01
+1,procedure,
+1,procedure,None
+1,laboratory,
+1,laboratory,2023-02-01
+1,exam,2023-10-01
+1,exam,2022-10-01
+1,None,2022-06-01

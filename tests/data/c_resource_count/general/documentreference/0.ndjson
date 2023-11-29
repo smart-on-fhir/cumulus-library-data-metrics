@@ -1,0 +1,5 @@
+{"id": "with-date", "category": [{"coding": [{"code": "clinical-note", "system": "http://hl7.org/fhir/us/core/CodeSystem/us-core-documentreference-category"}]}], "date": "2023-10-04"}
+{"id": "no-date", "category": [{"coding": [{"code": "clinical-note", "system": "http://hl7.org/fhir/us/core/CodeSystem/us-core-documentreference-category"}]}]}
+{"id": "unrelated-category", "category": [{"coding": [{"code": "1234", "system": "nope"}]}]}
+{"id": "no-category", "date": "2022-09-04"}
+{"id": "nothing"}

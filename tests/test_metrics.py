@@ -1,5 +1,6 @@
 """Base class support for unit tests"""
 
+import glob
 import os
 import shutil
 import tempfile
@@ -10,6 +11,9 @@ from cumulus_library import cli
 
 class MetricsTestCase(unittest.TestCase):
     """Test case for quality metrics"""
+
+    def test_c_resource_count(self):
+        self.run_study("c_resource_count")
 
     def test_q_ref_target_pop(self):
         self.run_study("q_ref_target_pop")
@@ -35,6 +39,22 @@ class MetricsTestCase(unittest.TestCase):
         test_dir = os.path.dirname(__file__)
         root_dir = os.path.dirname(test_dir)
         data_dir = f"{test_dir}/data/{metric}/{test}"
+        result_table = f"quality__{metric}_summary"
+        result_table = "quality__count_c_resource_count_allergyintolerance_year"
+
+        # OK which tables are we going to compare in this test?
+        expected_result_paths = sorted(glob.glob(f"{data_dir}/expected_*.csv"))
+        expected_names = [
+            path.removeprefix(f"{data_dir}/expected_").removesuffix(".csv")
+            for path in expected_result_paths
+        ]
+        if expected_names == ["summary"]:
+            expected_tables = {"summary": f"quality__{metric}_summary"}
+        else:
+            expected_tables = {name: f"quality__count_{metric}_{name}" for name in expected_names}
+        export_tables = '","'.join(expected_tables.values())
+
+        # Set up and run the study!
         with tempfile.TemporaryDirectory() as tmpdir:
             # Copy all our study code to this tmpdir
             shutil.copytree(f"{root_dir}/quality", f"{tmpdir}/quality")
@@ -52,7 +72,7 @@ file_names = [
 
 [export_config]
 export_list = [
-    "quality__{metric}_summary",
+    "{export_tables}",
 ]
                     """
                 )
@@ -80,15 +100,20 @@ export_list = [
 
             # Uncomment this for extra debugging
             # import duckdb
-            # df = duckdb.connect(f"{tmpdir}/duck.db").execute("SELECT * FROM xxx").df()
+            # df = duckdb.connect(f"{tmpdir}/duck.db").execute("select * from quality__count_c_resource_count_allergyintolerance_year").df()
             # print(df.to_string())
 
-            csv_path = f"{tmpdir}/counts/quality/quality__{metric}_summary.csv"
-            with open(csv_path, "r", encoding="utf8") as f:
-                csv = f.read()
-            expected_path = f"{data_dir}/expected.csv"
-            with open(expected_path, "r", encoding="utf8") as f:
-                expected_lines = f.readlines()
-                # To allow for comments in expected files, strip them out here
-                expected = ''.join(line for line in expected_lines if not line.startswith("#"))
-            self.assertEqual(expected, csv)
+            # Check each output with the saved & expected version
+            for short_name, full_name in expected_tables.items():
+                csv_path = f"{tmpdir}/counts/quality/{full_name}.csv"
+                with open(csv_path, "r", encoding="utf8") as f:
+                    csv = f.read()
+
+                expected_path = f"{data_dir}/expected_{short_name}.csv"
+                with open(expected_path, "r", encoding="utf8") as f:
+                    expected_lines = f.readlines()
+                    # To allow for comments in expected files, strip them out here
+                    expected = ''.join(line for line in expected_lines if not line.startswith("#"))
+
+                explanation = f"{short_name}:\n{csv}"
+                self.assertEqual(expected, csv, explanation)

@@ -1,0 +1,9 @@
+cnt,category,month
+3,,
+2,,None
+2,inpatient,
+1,,2002-07-01
+1,inpatient,None
+1,inpatient,2002-07-01
+1,None,
+1,None,None

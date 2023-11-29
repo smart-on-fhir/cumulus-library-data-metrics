@@ -1,14 +1,15 @@
 CREATE TABLE quality__q_term_use_{{ src|lower }}_{{ field|lower }} AS (
 WITH
-    flattened_and_grouped AS (
-        SELECT
-            id,
-            ANY_VALUE({{ field }}) AS {{ field }},
-            ARRAY_AGG(t.row.system) AS {{ field }}_systems
-        FROM {{ src|lower }},
-            UNNEST({{ field }}.coding) AS t (row)
-        GROUP BY id
-    )
+flattened_and_grouped AS (
+    SELECT
+        id,
+        -- Athena does not have ANY_VALUE, so aggregate and grab first value instead
+        ARRAY_AGG({{ field }})[1] AS {{ field }},
+        ARRAY_AGG(t.row.system) AS {{ field }}_systems
+    FROM {{ src|lower }},
+        UNNEST({{ field }}.coding) AS t (row)
+    GROUP BY id
+)
 SELECT
     src.id,
     src.{{ field }}

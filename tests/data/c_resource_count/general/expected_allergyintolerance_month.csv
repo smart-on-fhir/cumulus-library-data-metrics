@@ -1,0 +1,17 @@
+cnt,category,month
+7,,
+3,,2023-10-01
+3,food,
+2,,None
+2,None,
+1,,2023-11-01
+1,,2022-11-01
+1,medication,
+1,medication,2023-10-01
+1,food; medication,
+1,food; medication,2022-11-01
+1,food,None
+1,food,2023-11-01
+1,food,2023-10-01
+1,None,None
+1,None,2023-10-01

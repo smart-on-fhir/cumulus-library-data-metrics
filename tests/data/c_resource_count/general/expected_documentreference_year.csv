@@ -1,0 +1,11 @@
+cnt,category,year
+5,,
+3,,None
+3,None,
+2,clinical-note,
+2,None,None
+1,,2023-01-01
+1,,2022-01-01
+1,clinical-note,None
+1,clinical-note,2023-01-01
+1,None,2022-01-01

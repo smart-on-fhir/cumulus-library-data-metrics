@@ -1,0 +1,7 @@
+{"id": "recordedDate", "category": ["food"], "recordedDate": "2023-11-28", "onsetDateTime": "2001-01-01", "onsetPeriod": {"start": "2002-02-02"}}
+{"id": "onsetDateTime", "category": ["medication"], "onsetDateTime": "2023-10-04", "onsetPeriod": {"start": "2002-02-02"}}
+{"id": "onsetPeriod", "category": ["food"], "onsetPeriod": {"start": "2023-10-04"}}
+{"id": "multiple-categories", "category": ["medication", "food"], "recordedDate": "2022-11-27"}
+{"id": "no-category", "recordedDate": "2023-10-03"}
+{"id": "no-date", "category": ["food"]}
+{"id": "nothing"}
