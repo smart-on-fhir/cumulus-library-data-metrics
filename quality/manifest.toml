@@ -2,6 +2,7 @@ study_prefix = "quality"
 
 [sql_config]
 file_names = [
+    "c_pt_deceased_count.sql",
     "metadata.sql",
 ]
 
@@ -15,6 +16,7 @@ file_names = [
 
 [export_config]
 export_list = [
+    "quality__count_c_pt_deceased_count",
     "quality__count_c_resource_count_allergyintolerance_month",
     "quality__count_c_resource_count_allergyintolerance_year",
     "quality__count_c_resource_count_condition_month",

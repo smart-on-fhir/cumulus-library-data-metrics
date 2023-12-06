@@ -12,6 +12,9 @@ from cumulus_library import cli
 class MetricsTestCase(unittest.TestCase):
     """Test case for quality metrics"""
 
+    def test_c_pt_deceased_count(self):
+        self.run_study("c_pt_deceased_count", builder=False)
+
     def test_c_resource_count(self):
         self.run_study("c_resource_count")
 
@@ -34,7 +37,7 @@ class MetricsTestCase(unittest.TestCase):
         super().setUp()
         self.maxDiff = None
 
-    def run_study(self, metric: str, test: str = "general") -> None:
+    def run_study(self, metric: str, test: str = "general", builder: bool = True) -> None:
         """Runs a single test case"""
         test_dir = os.path.dirname(__file__)
         root_dir = os.path.dirname(test_dir)
@@ -43,15 +46,15 @@ class MetricsTestCase(unittest.TestCase):
         result_table = "quality__count_c_resource_count_allergyintolerance_year"
 
         # OK which tables are we going to compare in this test?
-        expected_result_paths = sorted(glob.glob(f"{data_dir}/expected_*.csv"))
+        expected_result_paths = sorted(glob.glob(f"{data_dir}/expected*.csv"))
         expected_names = [
-            path.removeprefix(f"{data_dir}/expected_").removesuffix(".csv")
+            path.removeprefix(f"{data_dir}/expected").removesuffix(".csv")
             for path in expected_result_paths
         ]
         if expected_names == ["summary"]:
             expected_tables = {"summary": f"quality__{metric}_summary"}
         else:
-            expected_tables = {name: f"quality__count_{metric}_{name}" for name in expected_names}
+            expected_tables = {name: f"quality__count_{metric}{name}" for name in expected_names}
         export_tables = '","'.join(expected_tables.values())
 
         # Set up and run the study!
@@ -61,14 +64,25 @@ class MetricsTestCase(unittest.TestCase):
 
             # But change the manifest to only run one test metric, for speed reasons
             with open(f"{tmpdir}/quality/manifest.toml", "w", encoding="utf8") as f:
-                f.write(
-                    f"""
-study_prefix = "quality"
-
+                if builder:
+                    file_config = f"""
 [table_builder_config]
 file_names = [
     "{metric}.py",
 ]
+"""
+                else:
+                    file_config = f"""
+[sql_config]
+file_names = [
+    "{metric}.sql",
+]
+"""
+                f.write(
+                    f"""
+study_prefix = "quality"
+
+{file_config}
 
 [export_config]
 export_list = [
@@ -109,7 +123,7 @@ export_list = [
                 with open(csv_path, "r", encoding="utf8") as f:
                     csv = f.read()
 
-                expected_path = f"{data_dir}/expected_{short_name}.csv"
+                expected_path = f"{data_dir}/expected{short_name}.csv"
                 with open(expected_path, "r", encoding="utf8") as f:
                     expected_lines = f.readlines()
                     # To allow for comments in expected files, strip them out here
