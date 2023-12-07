@@ -39,7 +39,7 @@ simplified AS (
                     {{ cat_field }}
                 ), '; '
             ),
-            'None'
+            'missing-or-null'
         ) AS {{ category }}
         {%- endif %}
 
@@ -51,7 +51,7 @@ simplified AS (
                     {{ dates|join(', ') }}
                 )
             ))) AS VARCHAR),
-            'None'
+            'missing-or-null'
         ) AS {{ period }}
         {%- endif %}
     FROM {{ src|lower }}

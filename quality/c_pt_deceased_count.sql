@@ -20,7 +20,7 @@ simplified AS (
 
         COALESCE(
           gender,
-          'None'
+          'missing-or-null'
         ) AS administrative_gender,
 
         -- Calculate age at death.
@@ -44,7 +44,7 @@ simplified AS (
                 )
                 AS VARCHAR
             ),
-            'None'
+            'missing-or-null'
         ) AS age
 
     FROM parsed

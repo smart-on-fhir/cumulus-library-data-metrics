@@ -2,14 +2,14 @@ cnt,category,year
 7,,
 4,,2023-01-01
 3,food,
-2,,None
+2,,missing-or-null
 2,food,2023-01-01
-2,None,
+2,missing-or-null,
 1,,2022-01-01
 1,medication,
 1,medication,2023-01-01
 1,food; medication,
 1,food; medication,2022-01-01
-1,food,None
-1,None,None
-1,None,2023-01-01
+1,food,missing-or-null
+1,missing-or-null,missing-or-null
+1,missing-or-null,2023-01-01

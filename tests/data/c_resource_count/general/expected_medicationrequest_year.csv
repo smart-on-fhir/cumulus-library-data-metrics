@@ -1,9 +1,9 @@
 cnt,category,year
 3,,
-2,,None
+2,,missing-or-null
 2,inpatient,
 1,,2002-01-01
-1,inpatient,None
+1,inpatient,missing-or-null
 1,inpatient,2002-01-01
-1,None,
-1,None,None
+1,missing-or-null,
+1,missing-or-null,missing-or-null

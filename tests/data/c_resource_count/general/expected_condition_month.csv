@@ -3,17 +3,17 @@ cnt,category,month
 4,,2023-10-01
 4,encounter-diagnosis,
 3,,2023-11-01
-2,,None
+2,,missing-or-null
 2,problem-list-item,
 2,encounter-diagnosis; problem-list-item,
 2,encounter-diagnosis,2023-10-01
-2,None,
+2,missing-or-null,
 1,,2022-11-01
 1,problem-list-item,2023-11-01
 1,problem-list-item,2023-10-01
 1,encounter-diagnosis; problem-list-item,2023-11-01
 1,encounter-diagnosis; problem-list-item,2022-11-01
-1,encounter-diagnosis,None
+1,encounter-diagnosis,missing-or-null
 1,encounter-diagnosis,2023-11-01
-1,None,None
-1,None,2023-10-01
+1,missing-or-null,missing-or-null
+1,missing-or-null,2023-10-01
