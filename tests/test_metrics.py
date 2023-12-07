@@ -51,8 +51,8 @@ class MetricsTestCase(unittest.TestCase):
             path.removeprefix(f"{data_dir}/expected").removesuffix(".csv")
             for path in expected_result_paths
         ]
-        if expected_names == ["summary"]:
-            expected_tables = {"summary": f"quality__{metric}_summary"}
+        if expected_names == ["_summary"]:
+            expected_tables = {"_summary": f"quality__{metric}_summary"}
         else:
             expected_tables = {name: f"quality__count_{metric}{name}" for name in expected_names}
         export_tables = '","'.join(expected_tables.values())

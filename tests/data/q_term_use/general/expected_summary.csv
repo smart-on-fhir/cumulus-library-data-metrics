@@ -1,9 +1,9 @@
 id,numerator,denominator,percentage
 # Various edge cases here in procedure
-procedure_code,2,7,0.2857143
+procedure_code,5,7,0.71428573
 # Rest are just short happy-path checks to confirm that we look at the right json field
-observation_valuecodeableconcept,0,2,0.0
-observation_code,0,2,0.0
+observation_valuecodeableconcept,1,2,0.5
+observation_code,1,2,0.5
 medicationrequest_medicationcodeableconcept,0,1,0.0
 medication_code,0,1,0.0
 immunization_vaccinecode,0,1,0.0
