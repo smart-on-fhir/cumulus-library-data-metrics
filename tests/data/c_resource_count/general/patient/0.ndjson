@@ -1,2 +1,3 @@
-{"id": "1"}
-{"id": "2"}
+{"id": "active", "active": true}
+{"id": "inactive", "active": false}
+{"id": "nothing"}

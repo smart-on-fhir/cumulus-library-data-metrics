@@ -38,9 +38,6 @@
     {% if src in systems %}
         {% set join_table = dest + '_tmp_codes' %}
         {{ extract_codes(src, 'verificationstatus', systems[src], join_table) }},
-
-    {% elif src != 'Patient' %} -- Patient has no status ('active' is close, but not the same)
-        {% set status_field = 'status' %}
     {%- endif %}
 
     -- Now extract the status
@@ -50,12 +47,16 @@
             {% if join_table %}
             ARRAY_JOIN(ARRAY_SORT(join_table.codes), '; ')
 
-            {% elif status_field %}
-            {{ status_field }}
+            {% elif src == 'Patient' %}
+            CASE WHEN active IS NULL
+            THEN NULL
+            ELSE (CASE WHEN active THEN 'active' ELSE 'inactive' END)
+            END
 
             {% else %}
-            NULL
-            {% endif %}
+            status
+            {%- endif %}
+
             AS status
         FROM {{ src|lower }} AS src
 

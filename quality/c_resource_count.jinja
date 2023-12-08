@@ -54,8 +54,8 @@ simplified AS (
 
         COALESCE(
             src_status.status,
-            'missing-or-null',
-        ) AS status,
+            'missing-or-null'
+        ) AS status
     FROM {{ src|lower }} AS src
     LEFT JOIN src_status
     ON src.id = src_status.id

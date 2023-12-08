@@ -1,3 +1,5 @@
 cnt,status
-2,
-2,missing-or-null
+3,
+1,missing-or-null
+1,inactive
+1,active

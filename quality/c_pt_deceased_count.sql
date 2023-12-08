@@ -4,6 +4,7 @@ WITH
 parsed AS (
     SELECT
         id,
+        active,
         gender,
         from_iso8601_timestamp(birthDate) AS birthDate,
         deceasedBoolean,
@@ -19,9 +20,14 @@ simplified AS (
         id,
 
         COALESCE(
-          gender,
-          'missing-or-null'
+            gender,
+            'missing-or-null'
         ) AS administrative_gender,
+
+        CASE WHEN active IS NULL
+        THEN 'missing-or-null'
+        ELSE (CASE WHEN active THEN 'active' ELSE 'inactive' END)
+        END AS status,
 
         -- Calculate age at death.
         -- Note that if deceasedBoolean is used instead of deceasedDateTime,
@@ -53,10 +59,12 @@ simplified AS (
 SELECT
     COUNT(DISTINCT id) AS cnt,
     administrative_gender,
+    status,
     age
 FROM simplified
 GROUP BY CUBE(
     administrative_gender,
+    status,
     age
 )
 );
