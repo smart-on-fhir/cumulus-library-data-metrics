@@ -18,7 +18,7 @@ CREATE TABLE quality__{{ metric }}_summary AS (
             CASE
                 WHEN denominator = 0
                 THEN 0.0
-                ELSE CAST(numerator AS real) / denominator
+                ELSE CAST(CAST(numerator AS real) / denominator AS DECIMAL(5, 4))
             END AS percentage
         FROM {{ entry_key }}_numerator
         JOIN {{ entry_key }}_denominator
