@@ -22,6 +22,9 @@ class MetricMixin:
     def render_sql(template: str, **kwargs) -> str:
         path = os.path.dirname(__file__)
         with open(f"{path}/{template}.jinja") as file:
-            sql = jinja2.Template(file.read()).render(**kwargs)
+            template = file.read()
+            loader = jinja2.FileSystemLoader(path)
+            env = jinja2.Environment(loader=loader).from_string(template)
+            sql = env.render(**kwargs)
             # print(sql)
             return sql

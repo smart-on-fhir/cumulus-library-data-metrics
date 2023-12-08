@@ -1,3 +1,5 @@
 {"id": "performedDateTime", "performedDateTime": "2023-10-04"}
 {"id": "performedPeriod", "performedPeriod": {"start": "2023-02-04"}}
+{"id": "completed", "status": "completed"}
+{"id": "entered-in-error", "status": "entered-in-error"}
 {"id": "nothing"}

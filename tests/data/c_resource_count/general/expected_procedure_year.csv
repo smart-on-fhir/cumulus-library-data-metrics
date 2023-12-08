@@ -1,4 +1,11 @@
-cnt,year
-3,
-2,2023-01-01
-1,missing-or-null
+cnt,year,status
+5,,
+3,,missing-or-null
+3,missing-or-null,
+2,2023,
+2,2023,missing-or-null
+1,,entered-in-error
+1,,completed
+1,missing-or-null,missing-or-null
+1,missing-or-null,entered-in-error
+1,missing-or-null,completed

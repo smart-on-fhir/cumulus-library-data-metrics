@@ -1,0 +1,67 @@
+-- Extracts the codes from a codeableConcept and puts it in dest (id, codes).
+{% macro extract_codes(src, src_field, systems, dest, is_array=false) -%}
+    -- Support both a list of systems or a single system
+    {%- if systems is string %}
+        {%- set system_list = "('" + systems + "')" %}
+    {%- else %}
+        {%- set system_list = "('" + systems|join("', '") + "')" %}
+    {%- endif %}
+
+    -- Flatten codings of the provided system and recombine the codes as a list
+    {{ dest }} AS (
+        SELECT
+            id,
+            ARRAY_AGG(c.coding.code) AS codes
+        FROM {{ src|lower }},
+            {%- if is_array %}
+            UNNEST({{ src_field }}) AS cc (cc_row),
+            UNNEST(cc.cc_row.coding) AS c (coding)
+            {%- else %}
+            UNNEST({{ src_field }}.coding) AS c (coding)
+            {%- endif %}
+        WHERE
+            c.coding.system in {{ system_list }}
+        GROUP BY id
+    )
+{%- endmacro %}
+
+
+-- Extracts the status field and puts it in dest (id, status).
+{% macro extract_status(src, dest) -%}
+    -- Annoyingly, allergies and conditions use a codeableConcept field.
+    {% set systems = {
+            'AllergyIntolerance': 'http://terminology.hl7.org/CodeSystem/allergyintolerance-verification',
+            'Condition': 'http://terminology.hl7.org/CodeSystem/condition-ver-status',
+    } %}
+
+    -- Check what kind of resource we are dealing with
+    {% if src in systems %}
+        {% set join_table = dest + '_tmp_codes' %}
+        {{ extract_codes(src, 'verificationstatus', systems[src], join_table) }},
+
+    {% elif src != 'Patient' %} -- Patient has no status ('active' is close, but not the same)
+        {% set status_field = 'status' %}
+    {%- endif %}
+
+    -- Now extract the status
+    {{ dest }} AS (
+        SELECT
+            src.id,
+            {% if join_table %}
+            ARRAY_JOIN(ARRAY_SORT(join_table.codes), '; ')
+
+            {% elif status_field %}
+            {{ status_field }}
+
+            {% else %}
+            NULL
+            {% endif %}
+            AS status
+        FROM {{ src|lower }} AS src
+
+        {%- if join_table %}
+        JOIN {{ join_table }} AS join_table
+        ON src.id = join_table.id
+        {%- endif %}
+    )
+{%- endmacro %}

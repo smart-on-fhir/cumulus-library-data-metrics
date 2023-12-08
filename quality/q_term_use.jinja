@@ -1,13 +1,16 @@
+{% import 'utils.jinja' as utils %}
+
 CREATE TABLE quality__q_term_use_{{ src|lower }}_{{ field|lower }} AS (
 WITH
+{{ utils.extract_status(src, 'src_status') }},
 
 -- Flatten the coding and group the systems as an array
 flattened_and_grouped AS (
     SELECT
         id,
-        ARRAY_AGG(t.row.system) AS {{ field }}_systems
+        ARRAY_AGG(c.coding.system) AS systems
     FROM {{ src|lower }},
-        UNNEST({{ field }}.coding) AS t (row)
+        UNNEST({{ field }}.coding) AS c (coding)
     GROUP BY id
 ),
 
@@ -15,18 +18,22 @@ flattened_and_grouped AS (
 rejoined_src AS (
     SELECT
         src.id,
-        {{ field }},
-        {{ field }}_systems
+        src_status.status,
+        src.{{ field }},
+        flattened_and_grouped.systems
     FROM {{ src|lower }} AS src
+    LEFT JOIN src_status
+    ON src.id = src_status.id
     LEFT JOIN flattened_and_grouped
     ON src.id = flattened_and_grouped.id
 )
 
 SELECT
     id,
+    status,
     {{ field }}
 FROM rejoined_src
 WHERE
-    {{ field }}_systems is NULL
-    OR ARRAY_POSITION({{ field }}_systems, '{{ system }}') = 0
+    systems is NULL
+    OR ARRAY_POSITION(systems, '{{ system }}') = 0
 );

@@ -7,7 +7,7 @@ cnt,administrative_gender,age
 1,unknown,23
 1,other,
 1,other,missing-or-null
-1,male,
-1,male,missing-or-null
 1,missing-or-null,
 1,missing-or-null,24
+1,male,
+1,male,missing-or-null

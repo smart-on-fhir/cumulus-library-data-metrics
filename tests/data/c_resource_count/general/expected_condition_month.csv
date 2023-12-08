@@ -1,19 +1,37 @@
-cnt,category,month
-10,,
-4,,2023-10-01
-4,encounter-diagnosis,
-3,,2023-11-01
-2,,missing-or-null
-2,problem-list-item,
-2,encounter-diagnosis; problem-list-item,
-2,encounter-diagnosis,2023-10-01
-2,missing-or-null,
-1,,2022-11-01
-1,problem-list-item,2023-11-01
-1,problem-list-item,2023-10-01
-1,encounter-diagnosis; problem-list-item,2023-11-01
-1,encounter-diagnosis; problem-list-item,2022-11-01
-1,encounter-diagnosis,missing-or-null
-1,encounter-diagnosis,2023-11-01
-1,missing-or-null,missing-or-null
-1,missing-or-null,2023-10-01
+cnt,category,month,status
+10,,,
+10,,,missing-or-null
+4,,2023-10,
+4,,2023-10,missing-or-null
+4,encounter-diagnosis,,
+4,encounter-diagnosis,,missing-or-null
+3,,2023-11,
+3,,2023-11,missing-or-null
+2,,missing-or-null,
+2,,missing-or-null,missing-or-null
+2,problem-list-item,,
+2,problem-list-item,,missing-or-null
+2,missing-or-null,,
+2,missing-or-null,,missing-or-null
+2,encounter-diagnosis; problem-list-item,,
+2,encounter-diagnosis; problem-list-item,,missing-or-null
+2,encounter-diagnosis,2023-10,
+2,encounter-diagnosis,2023-10,missing-or-null
+1,,2022-11,
+1,,2022-11,missing-or-null
+1,problem-list-item,2023-11,
+1,problem-list-item,2023-11,missing-or-null
+1,problem-list-item,2023-10,
+1,problem-list-item,2023-10,missing-or-null
+1,missing-or-null,missing-or-null,
+1,missing-or-null,missing-or-null,missing-or-null
+1,missing-or-null,2023-10,
+1,missing-or-null,2023-10,missing-or-null
+1,encounter-diagnosis; problem-list-item,2023-11,
+1,encounter-diagnosis; problem-list-item,2023-11,missing-or-null
+1,encounter-diagnosis; problem-list-item,2022-11,
+1,encounter-diagnosis; problem-list-item,2022-11,missing-or-null
+1,encounter-diagnosis,missing-or-null,
+1,encounter-diagnosis,missing-or-null,missing-or-null
+1,encounter-diagnosis,2023-11,
+1,encounter-diagnosis,2023-11,missing-or-null

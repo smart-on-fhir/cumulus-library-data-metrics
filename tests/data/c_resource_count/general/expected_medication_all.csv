@@ -1,2 +1,3 @@
-cnt
-3
+cnt,status
+3,
+3,missing-or-null

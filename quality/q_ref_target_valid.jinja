@@ -1,21 +1,26 @@
+{% import 'utils.jinja' as utils %}
+
 CREATE TABLE quality__q_ref_target_valid_{{ src|lower }}_{{ dest|lower }} AS (
-{%- if is_array %}
 WITH
-    flattened AS (
+{{ utils.extract_status(src, 'src_status') }}
+
+{%- if is_array %}
+    , flattened AS (
         SELECT id, t.row AS unnested_field
         FROM {{ src|lower }},
             UNNEST({{ field }}) AS t (row)
     )
+{%- set src = 'flattened' %}
 {%- set field = 'unnested_field' %}
 {%- endif %}
+
 SELECT
     src.id,
+    src_status.status,
     src.{{ field }} AS target
-{%- if is_array %}
-FROM flattened AS src
-{%- else %}
 FROM {{ src|lower }} AS src
-{%- endif %}
+LEFT JOIN src_status
+ON src.id = src_status.id
 LEFT JOIN {{ dest|lower }} AS dest
 ON SUBSTRING(src.{{ field }}.reference, LENGTH('{{ dest }}/') + 1) = dest.id
 WHERE

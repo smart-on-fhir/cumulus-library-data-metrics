@@ -1,15 +1,41 @@
-cnt,category,year
-7,,
-4,,2023-01-01
-3,food,
-2,,missing-or-null
-2,food,2023-01-01
-2,missing-or-null,
-1,,2022-01-01
-1,medication,
-1,medication,2023-01-01
-1,food; medication,
-1,food; medication,2022-01-01
-1,food,missing-or-null
-1,missing-or-null,missing-or-null
-1,missing-or-null,2023-01-01
+cnt,category,year,status
+11,,,
+8,,,missing-or-null
+6,,missing-or-null,
+6,missing-or-null,,
+5,missing-or-null,missing-or-null,
+4,,2023,
+4,,2023,missing-or-null
+3,,missing-or-null,missing-or-null
+3,missing-or-null,,missing-or-null
+3,food,,
+3,food,,missing-or-null
+2,missing-or-null,missing-or-null,missing-or-null
+2,food,2023,
+2,food,2023,missing-or-null
+1,,,entered-in-error
+1,,,confirmed; unconfirmed
+1,,,confirmed
+1,,missing-or-null,entered-in-error
+1,,missing-or-null,confirmed; unconfirmed
+1,,missing-or-null,confirmed
+1,,2022,
+1,,2022,missing-or-null
+1,missing-or-null,,entered-in-error
+1,missing-or-null,,confirmed; unconfirmed
+1,missing-or-null,,confirmed
+1,missing-or-null,missing-or-null,entered-in-error
+1,missing-or-null,missing-or-null,confirmed; unconfirmed
+1,missing-or-null,missing-or-null,confirmed
+1,missing-or-null,2023,
+1,missing-or-null,2023,missing-or-null
+1,medication,,
+1,medication,,missing-or-null
+1,medication,2023,
+1,medication,2023,missing-or-null
+1,food; medication,,
+1,food; medication,,missing-or-null
+1,food; medication,2022,
+1,food; medication,2022,missing-or-null
+1,food,missing-or-null,
+1,food,missing-or-null,missing-or-null
