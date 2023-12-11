@@ -1,0 +1,170 @@
+{% import 'utils.jinja' as utils %}
+
+-- CodeableConcepts have a text field, but not Codings.
+-- We are currently ignoring display values of Codings entirely.
+{% set uses_text = not is_coding %}
+
+CREATE TABLE quality__count_c_term_coverage_{{ src|lower }}_{{ field|lower }} AS (
+WITH
+src_status AS {{ utils.extract_status(src) }},
+
+{% if category_system %}
+src_categories AS {{ utils.extract_codes(src, 'category', system=category_system, is_array=true) }},
+{% endif %}
+
+src_systems AS (
+    SELECT
+        id,
+
+    {% if is_coding %} -- a single Coding field
+        ARRAY_AGG({{ field }}.system) AS systems
+    FROM {{ src|lower }}
+
+    {% elif is_array %} -- array of CodeableConcepts
+        ARRAY_AGG(c.coding.system) AS systems
+    FROM {{ src|lower }},
+        UNNEST({{ field }}) AS cc (cc_row),
+        UNNEST(cc.cc_row.coding) AS c (coding)
+
+    {% else %} -- default is a single CodeableConcept
+        ARRAY_AGG(c.coding.system) AS systems
+    FROM {{ src|lower }},
+        UNNEST({{ field }}.coding) AS c (coding)
+    {% endif %}
+
+    GROUP BY id
+),
+
+{% if uses_text %}
+src_text_array AS (
+    SELECT
+        id,
+
+    {% if is_array %}
+        ARRAY_AGG(cc.cc_row.text) AS texts
+    FROM {{ src|lower }},
+        UNNEST({{ field }}) AS cc (cc_row)
+
+    {% else %}
+        ARRAY_AGG({{ field }}.text) AS texts
+    FROM {{ src|lower }}
+    {% endif %}
+
+    GROUP BY id
+),
+src_text_counts AS (
+    SELECT
+        id,
+        SUM(
+            CASE WHEN {{ utils.is_empty_string('u.text') }}
+            THEN 1
+            ELSE 0
+            END
+        ) AS empty_count,
+        COUNT(texts) AS total_count
+    FROM src_text_array,
+        UNNEST(texts) AS u (text)
+    GROUP BY id
+),
+{% endif %}
+
+simplified AS (
+    SELECT
+        src.id,
+
+        {% if dates %}
+        {{ utils.get_date(dates, 'year') }} AS "year",
+        {% endif %}
+
+        {% if category_system %}
+        {{ utils.array_to_string('src_categories.codes') }} AS category,
+        {% endif %}
+
+        {% if uses_text %}
+        CASE WHEN
+            src_text_counts.total_count IS NULL
+            OR src_text_counts.empty_count = src_text_counts.total_count
+        THEN 'No Text'
+        ELSE
+            CASE WHEN src_text_counts.empty_count > 0
+            THEN 'Partial Text'
+            ELSE 'Has Text'
+            END
+        END AS has_text,
+        {% endif %}
+
+        {{ utils.array_to_string('src_systems.systems') }} AS systems,
+        {{ utils.coalesce_missing('src_status.status') }} AS status
+
+    FROM {{ src|lower }} AS src
+    LEFT JOIN src_systems
+    ON src.id = src_systems.id
+    LEFT JOIN src_status
+    ON src.id = src_status.id
+
+    {% if uses_text %}
+    LEFT JOIN src_text_counts
+    ON src.id = src_text_counts.id
+    {% endif %}
+
+    {% if category_system %}
+    LEFT JOIN src_categories
+    ON src.id = src_categories.id
+    {% endif %}
+
+    GROUP BY
+        src.id,
+        src_status.status,
+
+        {% if dates %}
+        {{ dates|join(", ") }},
+        {% endif %}
+
+        {% if category_system %}
+        src_categories.codes,
+        {% endif %}
+
+        {% if uses_text %}
+        src_text_counts.empty_count,
+        src_text_counts.total_count,
+        {% endif %}
+
+        src_systems.systems
+)
+
+SELECT
+    COUNT(DISTINCT id) AS cnt,
+
+    {% if category_system %}
+    category,
+    {% endif %}
+
+    systems,
+    status
+
+    {% if dates %}
+    , "year"
+    {% endif %}
+
+    {% if uses_text %}
+    , has_text
+    {% endif %}
+
+FROM simplified
+GROUP BY CUBE(
+    {% if category_system %}
+    category,
+    {% endif %}
+
+    systems,
+    status
+
+    {% if dates %}
+    , "year"
+    {% endif %}
+
+    {% if uses_text %}
+    , has_text
+    {% endif %}
+)
+);

@@ -3,11 +3,11 @@
 CREATE TABLE quality__count_c_resource_count_{{ src|lower }}_{{ period|lower }} AS (
 {%- set cat_field = category %}
 WITH
-{{ utils.extract_status(src, 'src_status') }},
+src_status AS {{ utils.extract_status(src) }},
 
 {%- if systems %}
 -- Flatten categories of the provided system and recombine the codes as a list
-{{ utils.extract_codes(src, cat_field, systems, 'extracted_codes', is_array=true) }},
+extracted_codes AS {{ utils.extract_codes(src, cat_field, system=systems, is_array=true) }},
 
 -- Left join back to src to catch rows without a proper system category
 grouped_category_src AS (
@@ -26,36 +26,17 @@ simplified AS (
 
         -- Convert array of categories into one string, separated by semicolon
         {%- if category %}
-        COALESCE(
-            ARRAY_JOIN(
-                ARRAY_SORT(
-                    {{ cat_field }}
-                ), '; '
-            ),
-            'missing-or-null'
-        ) AS {{ category }},
+        {{ utils.array_to_string(cat_field) }} AS {{ category }},
         {%- endif %}
 
         -- Parse string datetime into a single period string
-        {%- if dates %}
-        COALESCE(
-            SUBSTR(
-                CAST(date_trunc('{{ period }}', date(from_iso8601_timestamp(
-                    COALESCE(
-                        {{ dates|join(', ') }}
-                    )
-                ))) AS VARCHAR),
-                1,
-                {% if period == 'year' %} 4 {% else %} 7 {% endif %}
-            ),
-            'missing-or-null'
-        ) AS {{ period }},
-        {%- endif %}
+        {% if dates %}
+        {{ utils.get_date(dates, period) }} AS {{ period }},
+        {% endif %}
 
-        COALESCE(
-            src_status.status,
-            'missing-or-null'
-        ) AS status
+        {% call utils.coalesce_missing() %}
+            src_status.status
+        {% endcall %} AS status
     FROM {{ src|lower }} AS src
     LEFT JOIN src_status
     ON src.id = src_status.id

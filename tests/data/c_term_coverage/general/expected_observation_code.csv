@@ -1,0 +1,121 @@
+cnt,category,systems,status,year,has_text
+7,,,,,
+7,,,,missing-or-null,
+7,,,missing-or-null,,
+7,,,missing-or-null,missing-or-null,
+6,,,,,No Text
+6,,,,missing-or-null,No Text
+6,,,missing-or-null,,No Text
+6,,,missing-or-null,missing-or-null,No Text
+3,,code1,,,
+3,,code1,,missing-or-null,
+3,,code1,missing-or-null,,
+3,,code1,missing-or-null,missing-or-null,
+2,,missing-or-null,,,
+2,,missing-or-null,,,No Text
+2,,missing-or-null,,missing-or-null,
+2,,missing-or-null,,missing-or-null,No Text
+2,,missing-or-null,missing-or-null,,
+2,,missing-or-null,missing-or-null,,No Text
+2,,missing-or-null,missing-or-null,missing-or-null,
+2,,missing-or-null,missing-or-null,missing-or-null,No Text
+2,,code1,,,No Text
+2,,code1,,missing-or-null,No Text
+2,,code1,missing-or-null,,No Text
+2,,code1,missing-or-null,missing-or-null,No Text
+2,missing-or-null,,,,
+2,missing-or-null,,,,No Text
+2,missing-or-null,,,missing-or-null,
+2,missing-or-null,,,missing-or-null,No Text
+2,missing-or-null,,missing-or-null,,
+2,missing-or-null,,missing-or-null,,No Text
+2,missing-or-null,,missing-or-null,missing-or-null,
+2,missing-or-null,,missing-or-null,missing-or-null,No Text
+2,missing-or-null,missing-or-null,,,
+2,missing-or-null,missing-or-null,,,No Text
+2,missing-or-null,missing-or-null,,missing-or-null,
+2,missing-or-null,missing-or-null,,missing-or-null,No Text
+2,missing-or-null,missing-or-null,missing-or-null,,
+2,missing-or-null,missing-or-null,missing-or-null,,No Text
+2,missing-or-null,missing-or-null,missing-or-null,missing-or-null,
+2,missing-or-null,missing-or-null,missing-or-null,missing-or-null,No Text
+2,exam; vital-signs,,,,
+2,exam; vital-signs,,,,No Text
+2,exam; vital-signs,,,missing-or-null,
+2,exam; vital-signs,,,missing-or-null,No Text
+2,exam; vital-signs,,missing-or-null,,
+2,exam; vital-signs,,missing-or-null,,No Text
+2,exam; vital-signs,,missing-or-null,missing-or-null,
+2,exam; vital-signs,,missing-or-null,missing-or-null,No Text
+2,exam,,,,
+2,exam,,,,No Text
+2,exam,,,missing-or-null,
+2,exam,,,missing-or-null,No Text
+2,exam,,missing-or-null,,
+2,exam,,missing-or-null,,No Text
+2,exam,,missing-or-null,missing-or-null,
+2,exam,,missing-or-null,missing-or-null,No Text
+2,exam,code1,,,
+2,exam,code1,,,No Text
+2,exam,code1,,missing-or-null,
+2,exam,code1,,missing-or-null,No Text
+2,exam,code1,missing-or-null,,
+2,exam,code1,missing-or-null,,No Text
+2,exam,code1,missing-or-null,missing-or-null,
+2,exam,code1,missing-or-null,missing-or-null,No Text
+1,,,,,Has Text
+1,,,,missing-or-null,Has Text
+1,,,missing-or-null,,Has Text
+1,,,missing-or-null,missing-or-null,Has Text
+1,,code2,,,
+1,,code2,,,No Text
+1,,code2,,missing-or-null,
+1,,code2,,missing-or-null,No Text
+1,,code2,missing-or-null,,
+1,,code2,missing-or-null,,No Text
+1,,code2,missing-or-null,missing-or-null,
+1,,code2,missing-or-null,missing-or-null,No Text
+1,,code1; code2,,,
+1,,code1; code2,,,No Text
+1,,code1; code2,,missing-or-null,
+1,,code1; code2,,missing-or-null,No Text
+1,,code1; code2,missing-or-null,,
+1,,code1; code2,missing-or-null,,No Text
+1,,code1; code2,missing-or-null,missing-or-null,
+1,,code1; code2,missing-or-null,missing-or-null,No Text
+1,,code1,,,Has Text
+1,,code1,,missing-or-null,Has Text
+1,,code1,missing-or-null,,Has Text
+1,,code1,missing-or-null,missing-or-null,Has Text
+1,vital-signs,,,,
+1,vital-signs,,,,Has Text
+1,vital-signs,,,missing-or-null,
+1,vital-signs,,,missing-or-null,Has Text
+1,vital-signs,,missing-or-null,,
+1,vital-signs,,missing-or-null,,Has Text
+1,vital-signs,,missing-or-null,missing-or-null,
+1,vital-signs,,missing-or-null,missing-or-null,Has Text
+1,vital-signs,code1,,,
+1,vital-signs,code1,,,Has Text
+1,vital-signs,code1,,missing-or-null,
+1,vital-signs,code1,,missing-or-null,Has Text
+1,vital-signs,code1,missing-or-null,,
+1,vital-signs,code1,missing-or-null,,Has Text
+1,vital-signs,code1,missing-or-null,missing-or-null,
+1,vital-signs,code1,missing-or-null,missing-or-null,Has Text
+1,exam; vital-signs,code2,,,
+1,exam; vital-signs,code2,,,No Text
+1,exam; vital-signs,code2,,missing-or-null,
+1,exam; vital-signs,code2,,missing-or-null,No Text
+1,exam; vital-signs,code2,missing-or-null,,
+1,exam; vital-signs,code2,missing-or-null,,No Text
+1,exam; vital-signs,code2,missing-or-null,missing-or-null,
+1,exam; vital-signs,code2,missing-or-null,missing-or-null,No Text
+1,exam; vital-signs,code1; code2,,,
+1,exam; vital-signs,code1; code2,,,No Text
+1,exam; vital-signs,code1; code2,,missing-or-null,
+1,exam; vital-signs,code1; code2,,missing-or-null,No Text
+1,exam; vital-signs,code1; code2,missing-or-null,,
+1,exam; vital-signs,code1; code2,missing-or-null,,No Text
+1,exam; vital-signs,code1; code2,missing-or-null,missing-or-null,
+1,exam; vital-signs,code1; code2,missing-or-null,missing-or-null,No Text

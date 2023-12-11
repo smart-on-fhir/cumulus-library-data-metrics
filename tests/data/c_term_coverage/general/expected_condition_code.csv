@@ -1,0 +1,121 @@
+cnt,category,systems,status,year,has_text
+6,,,,,
+6,,,,missing-or-null,
+6,,,missing-or-null,,
+6,,,missing-or-null,missing-or-null,
+5,,,,,No Text
+5,,,,missing-or-null,No Text
+5,,,missing-or-null,,No Text
+5,,,missing-or-null,missing-or-null,No Text
+3,,system1,,,
+3,,system1,,missing-or-null,
+3,,system1,missing-or-null,,
+3,,system1,missing-or-null,missing-or-null,
+2,,system1,,,No Text
+2,,system1,,missing-or-null,No Text
+2,,system1,missing-or-null,,No Text
+2,,system1,missing-or-null,missing-or-null,No Text
+2,problem-list-item,,,,
+2,problem-list-item,,,,No Text
+2,problem-list-item,,,missing-or-null,
+2,problem-list-item,,,missing-or-null,No Text
+2,problem-list-item,,missing-or-null,,
+2,problem-list-item,,missing-or-null,,No Text
+2,problem-list-item,,missing-or-null,missing-or-null,
+2,problem-list-item,,missing-or-null,missing-or-null,No Text
+2,problem-list-item,system1,,,
+2,problem-list-item,system1,,,No Text
+2,problem-list-item,system1,,missing-or-null,
+2,problem-list-item,system1,,missing-or-null,No Text
+2,problem-list-item,system1,missing-or-null,,
+2,problem-list-item,system1,missing-or-null,,No Text
+2,problem-list-item,system1,missing-or-null,missing-or-null,
+2,problem-list-item,system1,missing-or-null,missing-or-null,No Text
+2,encounter-diagnosis; problem-list-item,,,,
+2,encounter-diagnosis; problem-list-item,,,,No Text
+2,encounter-diagnosis; problem-list-item,,,missing-or-null,
+2,encounter-diagnosis; problem-list-item,,,missing-or-null,No Text
+2,encounter-diagnosis; problem-list-item,,missing-or-null,,
+2,encounter-diagnosis; problem-list-item,,missing-or-null,,No Text
+2,encounter-diagnosis; problem-list-item,,missing-or-null,missing-or-null,
+2,encounter-diagnosis; problem-list-item,,missing-or-null,missing-or-null,No Text
+1,,,,,Has Text
+1,,,,missing-or-null,Has Text
+1,,,missing-or-null,,Has Text
+1,,,missing-or-null,missing-or-null,Has Text
+1,,system2,,,
+1,,system2,,,No Text
+1,,system2,,missing-or-null,
+1,,system2,,missing-or-null,No Text
+1,,system2,missing-or-null,,
+1,,system2,missing-or-null,,No Text
+1,,system2,missing-or-null,missing-or-null,
+1,,system2,missing-or-null,missing-or-null,No Text
+1,,system1; system2,,,
+1,,system1; system2,,,No Text
+1,,system1; system2,,missing-or-null,
+1,,system1; system2,,missing-or-null,No Text
+1,,system1; system2,missing-or-null,,
+1,,system1; system2,missing-or-null,,No Text
+1,,system1; system2,missing-or-null,missing-or-null,
+1,,system1; system2,missing-or-null,missing-or-null,No Text
+1,,system1,,,Has Text
+1,,system1,,missing-or-null,Has Text
+1,,system1,missing-or-null,,Has Text
+1,,system1,missing-or-null,missing-or-null,Has Text
+1,,missing-or-null,,,
+1,,missing-or-null,,,No Text
+1,,missing-or-null,,missing-or-null,
+1,,missing-or-null,,missing-or-null,No Text
+1,,missing-or-null,missing-or-null,,
+1,,missing-or-null,missing-or-null,,No Text
+1,,missing-or-null,missing-or-null,missing-or-null,
+1,,missing-or-null,missing-or-null,missing-or-null,No Text
+1,missing-or-null,,,,
+1,missing-or-null,,,,No Text
+1,missing-or-null,,,missing-or-null,
+1,missing-or-null,,,missing-or-null,No Text
+1,missing-or-null,,missing-or-null,,
+1,missing-or-null,,missing-or-null,,No Text
+1,missing-or-null,,missing-or-null,missing-or-null,
+1,missing-or-null,,missing-or-null,missing-or-null,No Text
+1,missing-or-null,missing-or-null,,,
+1,missing-or-null,missing-or-null,,,No Text
+1,missing-or-null,missing-or-null,,missing-or-null,
+1,missing-or-null,missing-or-null,,missing-or-null,No Text
+1,missing-or-null,missing-or-null,missing-or-null,,
+1,missing-or-null,missing-or-null,missing-or-null,,No Text
+1,missing-or-null,missing-or-null,missing-or-null,missing-or-null,
+1,missing-or-null,missing-or-null,missing-or-null,missing-or-null,No Text
+1,encounter-diagnosis; problem-list-item,system2,,,
+1,encounter-diagnosis; problem-list-item,system2,,,No Text
+1,encounter-diagnosis; problem-list-item,system2,,missing-or-null,
+1,encounter-diagnosis; problem-list-item,system2,,missing-or-null,No Text
+1,encounter-diagnosis; problem-list-item,system2,missing-or-null,,
+1,encounter-diagnosis; problem-list-item,system2,missing-or-null,,No Text
+1,encounter-diagnosis; problem-list-item,system2,missing-or-null,missing-or-null,
+1,encounter-diagnosis; problem-list-item,system2,missing-or-null,missing-or-null,No Text
+1,encounter-diagnosis; problem-list-item,system1; system2,,,
+1,encounter-diagnosis; problem-list-item,system1; system2,,,No Text
+1,encounter-diagnosis; problem-list-item,system1; system2,,missing-or-null,
+1,encounter-diagnosis; problem-list-item,system1; system2,,missing-or-null,No Text
+1,encounter-diagnosis; problem-list-item,system1; system2,missing-or-null,,
+1,encounter-diagnosis; problem-list-item,system1; system2,missing-or-null,,No Text
+1,encounter-diagnosis; problem-list-item,system1; system2,missing-or-null,missing-or-null,
+1,encounter-diagnosis; problem-list-item,system1; system2,missing-or-null,missing-or-null,No Text
+1,encounter-diagnosis,,,,
+1,encounter-diagnosis,,,,Has Text
+1,encounter-diagnosis,,,missing-or-null,
+1,encounter-diagnosis,,,missing-or-null,Has Text
+1,encounter-diagnosis,,missing-or-null,,
+1,encounter-diagnosis,,missing-or-null,,Has Text
+1,encounter-diagnosis,,missing-or-null,missing-or-null,
+1,encounter-diagnosis,,missing-or-null,missing-or-null,Has Text
+1,encounter-diagnosis,system1,,,
+1,encounter-diagnosis,system1,,,Has Text
+1,encounter-diagnosis,system1,,missing-or-null,
+1,encounter-diagnosis,system1,,missing-or-null,Has Text
+1,encounter-diagnosis,system1,missing-or-null,,
+1,encounter-diagnosis,system1,missing-or-null,,Has Text
+1,encounter-diagnosis,system1,missing-or-null,missing-or-null,
+1,encounter-diagnosis,system1,missing-or-null,missing-or-null,Has Text

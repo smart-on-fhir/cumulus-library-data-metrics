@@ -2,7 +2,7 @@
 
 CREATE TABLE quality__q_ref_target_pop_{{ src|lower }}_{{ dest|lower }} AS (
 WITH
-{{ utils.extract_status(src, 'src_status') }}
+src_status AS {{ utils.extract_status(src) }}
 
 SELECT
     src.id,

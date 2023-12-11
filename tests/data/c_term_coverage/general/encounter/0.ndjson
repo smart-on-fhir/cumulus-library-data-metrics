@@ -1,0 +1,5 @@
+{"id": "class", "class": {"system": "class1"}}
+{"id": "type-single", "type": [{"coding": [{"system": "type1"}], "text": "Basic coding"}]}
+{"id": "type-multiple", "type": [{"coding": [{"system": "type1"}]}, {"coding": [{"system": "type2"}]}]}
+{"id": "type-mixed-text", "type": [{"coding": [{"system": "type1"}], "text": "Text1"}, {"coding": [{"system": "type2"}]}]}
+{"id": "nothing"}

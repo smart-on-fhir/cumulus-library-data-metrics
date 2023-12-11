@@ -1,68 +1,143 @@
--- Extracts the codes from a codeableConcept and puts it in dest (id, codes).
-{% macro extract_codes(src, src_field, systems, dest, is_array=false) -%}
+-- Extracts the codes from a codeableConcept and returns a select with (id, codes).
+{% macro extract_codes(src, src_field, system=null, is_array=false) -%}
+(
     -- Support both a list of systems or a single system
-    {%- if systems is string %}
-        {%- set system_list = "('" + systems + "')" %}
-    {%- else %}
-        {%- set system_list = "('" + systems|join("', '") + "')" %}
+    {%- if system is string %}
+        {%- set system_list = "('" + system + "')" %}
+    {%- elif system %}
+        {%- set system_list = "('" + system|join("', '") + "')" %}
     {%- endif %}
 
     -- Flatten codings of the provided system and recombine the codes as a list
-    {{ dest }} AS (
-        SELECT
-            id,
-            ARRAY_AGG(c.coding.code) AS codes
-        FROM {{ src|lower }},
-            {%- if is_array %}
-            UNNEST({{ src_field }}) AS cc (cc_row),
-            UNNEST(cc.cc_row.coding) AS c (coding)
-            {%- else %}
-            UNNEST({{ src_field }}.coding) AS c (coding)
-            {%- endif %}
-        WHERE
-            c.coding.system in {{ system_list }}
-        GROUP BY id
-    )
+    SELECT
+        id,
+        ARRAY_AGG(c.coding.code) AS codes
+    FROM {{ src|lower }},
+        {%- if is_array %}
+        UNNEST({{ src_field }}) AS cc (cc_row),
+        UNNEST(cc.cc_row.coding) AS c (coding)
+        {%- else %}
+        UNNEST({{ src_field }}.coding) AS c (coding)
+        {%- endif %}
+    {% if system_list %}
+    WHERE
+        c.coding.system in {{ system_list }}
+    {% endif %}
+    GROUP BY id
+)
 {%- endmacro %}
 
 
--- Extracts the status field and puts it in dest (id, status).
-{% macro extract_status(src, dest) -%}
+-- Extracts the status field and returns a select with (id, status).
+{% macro extract_status(src) -%}
+(
     -- Annoyingly, allergies and conditions use a codeableConcept field.
     {% set systems = {
-            'AllergyIntolerance': 'http://terminology.hl7.org/CodeSystem/allergyintolerance-verification',
-            'Condition': 'http://terminology.hl7.org/CodeSystem/condition-ver-status',
+        'AllergyIntolerance': 'http://terminology.hl7.org/CodeSystem/allergyintolerance-verification',
+        'Condition': 'http://terminology.hl7.org/CodeSystem/condition-ver-status',
     } %}
 
     -- Check what kind of resource we are dealing with
     {% if src in systems %}
-        {% set join_table = dest + '_tmp_codes' %}
-        {{ extract_codes(src, 'verificationstatus', systems[src], join_table) }},
+        {% set join_table = src + '_extract_status_tmp_codes' %}
+        WITH {{ join_table }} AS {{ extract_codes(src, 'verificationstatus', system=systems[src]) }}
     {%- endif %}
 
     -- Now extract the status
-    {{ dest }} AS (
-        SELECT
-            src.id,
-            {% if join_table %}
-            ARRAY_JOIN(ARRAY_SORT(join_table.codes), '; ')
+    SELECT
+        src.id,
+        {% if join_table %}
+        ARRAY_JOIN(ARRAY_SORT(join_table.codes), '; ')
 
-            {% elif src == 'Patient' %}
-            CASE WHEN active IS NULL
-            THEN NULL
-            ELSE (CASE WHEN active THEN 'active' ELSE 'inactive' END)
-            END
+        {% elif src == 'Patient' %}
+        {{ patient_active_status() }}
 
-            {% else %}
-            status
-            {%- endif %}
-
-            AS status
-        FROM {{ src|lower }} AS src
-
-        {%- if join_table %}
-        JOIN {{ join_table }} AS join_table
-        ON src.id = join_table.id
+        {% else %}
+        status
         {%- endif %}
+
+        AS status
+    FROM {{ src|lower }} AS src
+
+    {%- if join_table %}
+    JOIN {{ join_table }} AS join_table
+    ON src.id = join_table.id
+    {%- endif %}
+)
+{%- endmacro %}
+
+
+-- Extracts a date field from a list of choices, chops it to the period, and returns a string.
+{% macro get_date(dates, period) -%}
+    {% call coalesce_missing() %}
+        SUBSTR(
+            CAST(date_trunc('{{ period }}', date(from_iso8601_timestamp(
+                COALESCE(
+                    {{ dates|join(', ') }}
+                )
+            ))) AS VARCHAR),
+            1,
+            {% if period == 'year' %} 4 {% else %} 7 {% endif %}
+        )
+    {% endcall %}
+{%- endmacro %}
+
+
+{% macro coalesce_missing() -%}
+    {% if varargs %}
+        {% set arg = varargs[0] %}
+    {% else %}
+        {% set arg = caller() %}
+    {% endif %}
+
+    COALESCE(
+        {{ arg }},
+        'missing-or-null'
     )
+{%- endmacro %}
+
+
+{% macro patient_active_status() -%}
+    CASE WHEN active IS NULL
+    THEN NULL
+    ELSE
+        CASE WHEN active
+        THEN 'active'
+        ELSE 'inactive'
+        END
+    END
+{%- endmacro %}
+
+
+-- Converts an array to a semicolon-delineated list, or missing-or-null
+-- Can be called with the name of the array to check ('list_field')
+-- or wrapped in a call block
+{% macro array_to_string() -%}
+    {% if varargs %}
+        {% set arg = varargs[0] %}
+    {% else %}
+        {% set arg = caller() %}
+    {% endif %}
+
+    {% call coalesce_missing() %}
+        -- Use nullif to catch empty arrays being joined into the empty string
+        NULLIF(ARRAY_JOIN(ARRAY_SORT({{ arg }}), '; '), '')
+    {% endcall %}
+{%- endmacro %}
+
+
+-- Checks for NULL, '', and '\u0000' strings.
+-- Can be called with the name of the array to check ('list_field')
+-- or wrapped in a call block
+{% macro is_empty_string() -%}
+    {% if varargs %}
+        {% set arg = varargs[0] %}
+    {% else %}
+        {% set arg = caller() %}
+    {% endif %}
+
+    {{ arg }} IS NULL
+    OR {{ arg }} = ''
+    -- We've seen Cerner give back strings with just a single NUL char, so check for that too
+    OR {{ arg }} = CHR(0)
 {%- endmacro %}

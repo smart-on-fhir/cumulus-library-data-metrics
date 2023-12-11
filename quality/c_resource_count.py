@@ -10,10 +10,11 @@ from quality.base import MetricMixin
 
 class ResourceCountBuilder(MetricMixin, BaseTableBuilder):
     name = "c_resource_count"
+    uses_dates = True
 
     def make_tables(self, **kwargs) -> None:
         """Make metric tables"""
-        if "dates" in kwargs:
+        if self.get_dates(kwargs["src"]):
             self.queries.append(self.render_sql(self.name, period="month", **kwargs))
             self.queries.append(self.render_sql(self.name, period="year", **kwargs))
         else:
@@ -25,13 +26,11 @@ class ResourceCountBuilder(MetricMixin, BaseTableBuilder):
         self.make_tables(
             src="AllergyIntolerance",
             category="category",
-            dates=["recordeddate", "onsetdatetime", "onsetperiod.start"],
         )
         self.make_tables(
             src="Condition",
             category="category",
             systems=["http://terminology.hl7.org/CodeSystem/condition-category"],
-            dates=["recordeddate", "onsetdatetime", "onsetperiod.start"],
         )
         self.make_tables(
             src="Device",
@@ -40,13 +39,11 @@ class ResourceCountBuilder(MetricMixin, BaseTableBuilder):
             src="DocumentReference",
             category="category",
             systems=["http://hl7.org/fhir/us/core/CodeSystem/us-core-documentreference-category"],
-            dates=["date"],
         )
         self.make_tables(
             src="Encounter",
             category="type",
             systems=["http://www.ama-assn.org/go/cpt", "http://snomed.info/sct"],
-            dates=["period.start"],
         )
         self.make_tables(
             src="Immunization",
@@ -59,18 +56,15 @@ class ResourceCountBuilder(MetricMixin, BaseTableBuilder):
             src="MedicationRequest",
             category="category",
             systems=["http://terminology.hl7.org/CodeSystem/medicationrequest-category"],
-            dates=["authoredOn"],
         )
         self.make_tables(
             src="Observation",
             category="category",
             systems=["http://terminology.hl7.org/CodeSystem/observation-category"],
-            dates=["effectiveDateTime", "effectivePeriod.start", "effectiveInstant"],
         )
         self.make_tables(
             src="Patient",
         )
         self.make_tables(
             src="Procedure",
-            dates=["performedDateTime", "performedPeriod.start"],
         )

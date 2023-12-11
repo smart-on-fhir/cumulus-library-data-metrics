@@ -1,3 +1,5 @@
+{% import 'utils.jinja' as utils %}
+
 CREATE TABLE quality__count_c_pt_deceased_count AS (
 WITH
 
@@ -19,20 +21,18 @@ simplified AS (
     SELECT
         id,
 
-        COALESCE(
-            gender,
-            'missing-or-null'
-        ) AS administrative_gender,
+        {% call utils.coalesce_missing() %}
+            gender
+        {% endcall %} AS administrative_gender,
 
-        CASE WHEN active IS NULL
-        THEN 'missing-or-null'
-        ELSE (CASE WHEN active THEN 'active' ELSE 'inactive' END)
-        END AS status,
+        {% call utils.coalesce_missing() %}
+            {{ utils.patient_active_status() }}
+        {% endcall %} AS status,
 
         -- Calculate age at death.
         -- Note that if deceasedBoolean is used instead of deceasedDateTime,
         -- this will result in None (as we want).
-        COALESCE(
+        {% call utils.coalesce_missing() %}
             -- We want a date-difference method that takes month/day into consideration.
             -- That is, we don't want a simple (year_part - year_part) calculation.
             -- Which means DATE_DIFF in Athena, but DATE_SUB in DuckDB...  :shakes_fist:
@@ -49,9 +49,8 @@ simplified AS (
                     END
                 )
                 AS VARCHAR
-            ),
-            'missing-or-null'
-        ) AS age
+            )
+        {% endcall %} AS age
 
     FROM parsed
 )

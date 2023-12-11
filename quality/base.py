@@ -1,6 +1,7 @@
 """Module for generating q_ref_target_pop tables"""
 
 import os.path
+from typing import Optional
 
 import jinja2
 
@@ -8,6 +9,7 @@ import jinja2
 class MetricMixin:
 
     name = "base"
+    uses_dates = False
 
     def __init__(self):
         super().__init__()
@@ -19,8 +21,31 @@ class MetricMixin:
         return self.render_sql("base.summary", entries=self.summary_entries, metric=self.name)
 
     @staticmethod
-    def render_sql(template: str, **kwargs) -> str:
+    def get_dates(resource: str) -> Optional[list[str]]:
+        if resource == "AllergyIntolerance":
+            return ["recordeddate", "onsetdatetime", "onsetperiod.start"]
+        elif resource == "Condition":
+            return ["recordeddate", "onsetdatetime", "onsetperiod.start"]
+        elif resource == "DocumentReference":
+            return ["date"]
+        elif resource == "Encounter":
+            return ["period.start"]
+        elif resource == "Immunization":
+            return ["occurrenceDateTime"]
+        elif resource == "MedicationRequest":
+            return ["authoredOn"]
+        elif resource == "Observation":
+            return ["effectiveDateTime", "effectivePeriod.start", "effectiveInstant"]
+        elif resource == "Procedure":
+            return ["performedDateTime", "performedPeriod.start"]
+        return None
+
+    def render_sql(self, template: str, **kwargs) -> str:
         path = os.path.dirname(__file__)
+
+        if self.uses_dates:
+            kwargs["dates"] = self.get_dates(kwargs["src"])
+
         with open(f"{path}/{template}.jinja") as file:
             template = file.read()
             loader = jinja2.FileSystemLoader(path)

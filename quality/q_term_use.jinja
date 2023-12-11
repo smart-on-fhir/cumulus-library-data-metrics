@@ -2,7 +2,7 @@
 
 CREATE TABLE quality__q_term_use_{{ src|lower }}_{{ field|lower }} AS (
 WITH
-{{ utils.extract_status(src, 'src_status') }},
+src_status AS {{ utils.extract_status(src) }},
 
 -- Flatten the coding and group the systems as an array
 flattened_and_grouped AS (

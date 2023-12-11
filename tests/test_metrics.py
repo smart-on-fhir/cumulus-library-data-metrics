@@ -13,10 +13,13 @@ class MetricsTestCase(unittest.TestCase):
     """Test case for quality metrics"""
 
     def test_c_pt_deceased_count(self):
-        self.run_study("c_pt_deceased_count", builder=False)
+        self.run_study("c_pt_deceased_count")
 
     def test_c_resource_count(self):
         self.run_study("c_resource_count")
+
+    def test_c_term_coverage(self):
+        self.run_study("c_term_coverage")
 
     def test_q_ref_target_pop(self):
         self.run_study("q_ref_target_pop")
@@ -42,8 +45,6 @@ class MetricsTestCase(unittest.TestCase):
         test_dir = os.path.dirname(__file__)
         root_dir = os.path.dirname(test_dir)
         data_dir = f"{test_dir}/data/{metric}/{test}"
-        result_table = f"quality__{metric}_summary"
-        result_table = "quality__count_c_resource_count_allergyintolerance_year"
 
         # OK which tables are we going to compare in this test?
         expected_result_paths = sorted(glob.glob(f"{data_dir}/expected*.csv"))

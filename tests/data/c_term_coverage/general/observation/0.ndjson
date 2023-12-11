@@ -1,0 +1,7 @@
+{"id": "category-code", "category": [{"coding": [{"code": "vital-signs", "system": "http://terminology.hl7.org/CodeSystem/observation-category"}]}], "code": {"coding": [{"system": "code1"}], "text": "Basic observation"}}
+{"id": "multiple-categories", "category": [{"coding": [{"code": "vital-signs", "system": "http://terminology.hl7.org/CodeSystem/observation-category"}]}, {"coding": [{"code": "exam", "system": "http://terminology.hl7.org/CodeSystem/observation-category"}]}], "code": {"coding": [{"system": "code2"}]}}
+{"id": "multiple-codings", "category": [{"coding": [{"code": "vital-signs", "system": "http://terminology.hl7.org/CodeSystem/observation-category"}, {"code": "exam", "system": "http://terminology.hl7.org/CodeSystem/observation-category"}]}], "code": {"coding": [{"system": "code1"}, {"system": "code2"}]}}
+{"id": "unrelated-category", "category": [{"coding": [{"code": "vital-signs", "system": "nope"}]}, {"coding": [{"code": "exam", "system": "http://terminology.hl7.org/CodeSystem/observation-category"}]}], "code": {"coding": [{"system": "code1"}]}}
+{"id": "unrelated-coding", "category": [{"coding": [{"code": "vital-signs", "system": "nope"}, {"code": "exam", "system": "http://terminology.hl7.org/CodeSystem/observation-category"}]}], "code": {"coding": [{"system": "code1"}]}}
+{"id": "with-value", "valueCodeableConcept": {"coding": [{"system": "value1"}], "text": "Hello"}}
+{"id": "nothing"}
