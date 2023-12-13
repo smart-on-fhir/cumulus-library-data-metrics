@@ -47,7 +47,6 @@ class ResourceCountBuilder(MetricMixin, BaseTableBuilder):
         )
         self.make_tables(
             src="Immunization",
-            dates=["occurrenceDateTime"],
         )
         self.make_tables(
             src="Medication",

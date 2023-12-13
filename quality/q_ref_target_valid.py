@@ -30,8 +30,6 @@ class TargetValidBuilder(MetricMixin, BaseTableBuilder):
             self.make_table(src="DocumentReference", dest="Encounter", field="context.encounter", is_array=True),
             self.make_table(src="Immunization", dest="Patient", field="patient"),
             self.make_table(src="Immunization", dest="Encounter", field="encounter"),
-            # self.make_table(src="MedicationAdministration", dest="Patient", field="subject"),
-            # self.make_table(src="MedicationAdministration", dest="Encounter", field="context"),
             self.make_table(src="MedicationRequest", dest="Patient", field="subject"),
             self.make_table(src="MedicationRequest", dest="Encounter", field="encounter"),
             self.make_table(src="Observation", dest="Patient", field="subject"),

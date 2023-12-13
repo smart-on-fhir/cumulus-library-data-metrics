@@ -12,6 +12,17 @@ for some metric definitions.
 - Consider looking at macros/logic from Google's analytics if helpful:
   - https://github.com/google/fhir-dbt-analytics
 
+## Differences from Original Qualifier Metrics
+
+Across the board, we have some minor differences from the
+[upstream metric definitions](https://github.com/sync-for-science/qualifier/blob/master/metrics.md):
+- We usually stratify a metric by status as well as other fields
+- We drop MedicationAdministration from our metrics - it's not really supported in Cumulus
+- We consider Observation.effectivePeriod.start and Observation.effectiveInstant in addition
+  to Observation.effectiveDateTime
+
+Other specific deltas will be noted in the code for the given metric.
+
 ## Metric Prioritization
 
 ### Table stakes quality:
