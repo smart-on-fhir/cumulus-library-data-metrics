@@ -111,25 +111,6 @@ simplified AS (
     LEFT JOIN src_categories
     ON src.id = src_categories.id
     {% endif %}
-
-    GROUP BY
-        src.id,
-        src_status.status,
-
-        {% if dates %}
-        {{ dates|join(", ") }},
-        {% endif %}
-
-        {% if category_system %}
-        src_categories.codes,
-        {% endif %}
-
-        {% if uses_text %}
-        src_text_counts.empty_count,
-        src_text_counts.total_count,
-        {% endif %}
-
-        src_systems.systems
 )
 
 SELECT
