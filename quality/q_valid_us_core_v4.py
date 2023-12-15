@@ -44,6 +44,8 @@ class ValidUsCoreV4Builder(MetricMixin, BaseTableBuilder):
     @staticmethod
     def docref_args(cursor: DatabaseCursor, schema: str) -> dict:
         # We need to see if the content.attachment structure exists in the source
+        # because our SQL wants to reference it, but it's deeper than Cumulus's default
+        # schema depth of one, so it may not be in the schema.
         query = templates.get_column_datatype_query(
             schema, 'documentreference', 'content',
         )
@@ -61,5 +63,8 @@ class ValidUsCoreV4Builder(MetricMixin, BaseTableBuilder):
             self.make_table(src="DiagnosticReport"),
             self.make_table(src="DocumentReference", **self.docref_args(cursor, schema)),
             self.make_table(src="Encounter"),
+            self.make_table(src="Immunization"),
+            self.make_table(src="Medication"),
+            self.make_table(src="MedicationRequest"),
             self.make_summary(),
         ]

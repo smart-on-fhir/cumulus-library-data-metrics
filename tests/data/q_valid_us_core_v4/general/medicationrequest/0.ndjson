@@ -1,0 +1,10 @@
+{"id": "valid-concept", "status": "active", "intent": "plan", "medicationCodeableConcept": {"text": "X"}, "subject": {"reference": "Patient/A"}, "requester": {"display": "X"}}
+{"id": "valid-external-reference", "status": "active", "intent": "plan", "medicationReference": {"reference": "Medication/A"}, "subject": {"reference": "Patient/A"}, "requester": {"display": "X"}}
+{"id": "valid-contained-reference", "status": "active", "intent": "plan", "medicationReference": {"reference": "#A"}, "subject": {"reference": "Patient/A"}, "requester": {"display": "X"}}
+{"id": "no-status", "intent": "plan", "medicationCodeableConcept": {"text": "X"}, "subject": {"reference": "Patient/A"}, "requester": {"display": "X"}}
+{"id": "no-intent", "status": "active", "medicationCodeableConcept": {"text": "X"}, "subject": {"reference": "Patient/A"}, "requester": {"display": "X"}}
+{"id": "no-medication", "status": "active", "intent": "plan", "subject": {"reference": "Patient/A"}, "requester": {"display": "X"}}
+{"id": "no-subject", "status": "active", "intent": "plan", "medicationCodeableConcept": {"text": "X"}, "requester": {"display": "X"}}
+{"id": "group-subject", "status": "active", "intent": "plan", "medicationCodeableConcept": {"text": "X"}, "subject": {"reference": "Group/A"}, "requester": {"display": "X"}}
+{"id": "no-requester", "status": "active", "intent": "plan", "medicationCodeableConcept": {"text": "X"}, "subject": {"reference": "Patient/A"}}
+{"id": "nothing"}

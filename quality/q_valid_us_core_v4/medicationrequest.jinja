@@ -1,0 +1,15 @@
+-- http://hl7.org/fhir/us/core/STU4/StructureDefinition-us-core-medicationrequest.html
+
+SELECT
+    id,
+    (
+        status IS NOT NULL
+        AND intent IS NOT NULL
+        AND (
+            {{ utils.is_concept_valid('medicationCodeableConcept') }}
+            OR {{ utils.is_reference_valid('medicationReference') }}
+        )
+        AND {{ utils.is_reference_of_type('subject', 'Patient') }}
+        AND {{ utils.is_reference_valid('requester') }}
+    ) AS valid
+FROM {{ src }}

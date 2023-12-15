@@ -1,0 +1,7 @@
+id,status
+nothing,
+no-status,
+no-patient,completed
+no-occurrence,completed
+no-code,completed
+empty-code,completed
