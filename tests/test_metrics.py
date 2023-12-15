@@ -30,6 +30,12 @@ class MetricsTestCase(unittest.TestCase):
     def test_q_term_use(self):
         self.run_study("q_term_use")
 
+    def test_q_valid_us_core_v4(self):
+        self.run_study("q_valid_us_core_v4")
+
+    def test_q_valid_us_core_v4_docref_low_schema(self):
+        self.run_study("q_valid_us_core_v4", test="docref-low-schema")
+
 
     # **********************************
     # ** Support code below this line **
@@ -52,8 +58,8 @@ class MetricsTestCase(unittest.TestCase):
             path.removeprefix(f"{data_dir}/expected").removesuffix(".csv")
             for path in expected_result_paths
         ]
-        if expected_names == ["_summary"]:
-            expected_tables = {"_summary": f"quality__{metric}_summary"}
+        if metric.startswith("q_"):
+            expected_tables = {name: f"quality__{metric}{name}" for name in expected_names}
         else:
             expected_tables = {name: f"quality__count_{metric}{name}" for name in expected_names}
         export_tables = '","'.join(expected_tables.values())

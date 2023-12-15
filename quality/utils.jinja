@@ -12,7 +12,7 @@
     SELECT
         id,
         ARRAY_AGG(c.coding.code) AS codes
-    FROM {{ src|lower }},
+    FROM {{ src }},
         {%- if is_array %}
         UNNEST({{ src_field }}) AS cc (cc_row),
         UNNEST(cc.cc_row.coding) AS c (coding)
@@ -24,6 +24,35 @@
         c.coding.system in {{ system_list }}
     {% endif %}
     GROUP BY id
+)
+{%- endmacro %}
+
+
+-- Extracts the codes from a codeableConcept and returns a flat select with (id, code).
+{% macro extract_codes_flat(src, src_field, system=null, is_array=false) -%}
+(
+    -- Support both a list of systems or a single system
+    {%- if system is string %}
+        {%- set system_list = "('" + system + "')" %}
+    {%- elif system %}
+        {%- set system_list = "('" + system|join("', '") + "')" %}
+    {%- endif %}
+
+    -- Flatten codings of the provided system and recombine the codes as a list
+    SELECT
+        id,
+        c.coding.code AS code
+    FROM {{ src }},
+        {%- if is_array %}
+        UNNEST({{ src_field }}) AS cc (cc_row),
+        UNNEST(cc.cc_row.coding) AS c (coding)
+        {%- else %}
+        UNNEST({{ src_field }}.coding) AS c (coding)
+        {%- endif %}
+    {% if system_list %}
+    WHERE
+        c.coding.system in {{ system_list }}
+    {% endif %}
 )
 {%- endmacro %}
 
@@ -57,7 +86,7 @@
         {%- endif %}
 
         AS status
-    FROM {{ src|lower }} AS src
+    FROM {{ src }} AS src
 
     {%- if join_table %}
     JOIN {{ join_table }} AS join_table
@@ -109,6 +138,18 @@
 {%- endmacro %}
 
 
+{% macro is_reference_of_type(field, type) -%}
+(
+    {{ field }} IS NOT NULL
+    AND (
+        ({{ field }}.reference IS NOT NULL AND {{ field }}.reference LIKE '{{ type }}/%')
+        -- TODO: Should we allow this form? FHIR spec says yes... but not sure our SQL allows it
+        -- OR ({{ field }}.type IS NOT NULL AND {{ field }}.type = {{ type }})
+    )
+)
+{%- endmacro %}
+
+
 -- Converts an array to a semicolon-delineated list, or missing-or-null
 -- Can be called with the name of the array to check ('list_field')
 -- or wrapped in a call block
@@ -129,7 +170,8 @@
 -- Checks for NULL, '', and '\u0000' strings.
 -- Can be called with the name of the array to check ('list_field')
 -- or wrapped in a call block
-{% macro is_empty_string() -%}
+{% macro is_string_empty() -%}
+(
     {% if varargs %}
         {% set arg = varargs[0] %}
     {% else %}
@@ -140,4 +182,49 @@
     OR {{ arg }} = ''
     -- We've seen Cerner give back strings with just a single NUL char, so check for that too
     OR {{ arg }} = CHR(0)
+)
+{%- endmacro %}
+
+
+-- ** These next few macros check if an element is filled in.
+-- This is useful because some toplevel columns can be represented as present but with all nulls
+-- for the subfields instead of real data. That is, a CodeableConcept might look like
+-- {id=null, coding=null, text=null} in Athena instead of NULL.
+-- I'm not 100% on when that happens vs NULL - is there a difference for older data before
+-- we had a broader schema? It doesn't seem to happen for lists of concepts, at least.
+{% macro is_coding_valid(field) -%}
+(
+    {{ field }} IS NOT NULL
+    AND (
+        {{ field }}.code IS NOT NULL
+        OR NOT {{ is_string_empty(field + '.display') }}
+    )
+)
+{%- endmacro %}
+{% macro is_concept_valid(field) -%}
+(
+    {{ field }} IS NOT NULL
+    AND (
+        {{ field }}.coding IS NOT NULL
+        OR NOT {{ is_string_empty(field + '.text') }}
+    )
+)
+{%- endmacro %}
+{% macro is_period_valid(field) -%}
+(
+    {{ field }} IS NOT NULL
+    AND (
+        {{ field }}.start IS NOT NULL
+        OR {{ field }}.end IS NOT NULL
+    )
+)
+{%- endmacro %}
+{% macro is_reference_valid(field) -%}
+(
+    {{ field }} IS NOT NULL
+    AND (
+        NOT {{ is_string_empty(field + '.reference') }}
+        OR NOT {{ is_string_empty(field + '.display') }}
+    )
+)
 {%- endmacro %}

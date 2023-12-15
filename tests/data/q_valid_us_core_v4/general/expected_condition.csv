@@ -1,0 +1,12 @@
+id,status
+status-without-coding,
+status-and-entered-in-error,confirmed; entered-in-error
+nothing,
+no-subject,
+no-status-other-verification,
+no-status,
+no-code,
+no-category,
+group-subject,
+empty-subject,
+empty-code,

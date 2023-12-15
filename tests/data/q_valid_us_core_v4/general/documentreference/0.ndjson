@@ -1,0 +1,14 @@
+{"id": "valid-datetime", "status": "final", "category": [], "type": {"text": "X"}, "subject": {"reference": "Patient/A"}, "content": [{"attachment": {"contentType": "text/plain"}}]}
+{"id": "valid-period", "status": "final", "category": [], "type": {"text": "X"}, "subject": {"reference": "Patient/A"}, "content": [{"attachment": {"contentType": "text/plain"}}]}
+{"id": "valid-multiple-attachments", "status": "final", "category": [], "type": {"text": "X"}, "subject": {"reference": "Patient/A"}, "content": [{"attachment": {"contentType": "text/plain"}}, {"attachment": {"contentType": "text/html"}}]}
+{"id": "no-status", "category": [], "type": {"text": "X"}, "subject": {"reference": "Patient/A"}, "content": [{"attachment": {"contentType": "text/plain"}}]}
+{"id": "no-category", "status": "final", "type": {"text": "X"}, "subject": {"reference": "Patient/A"}, "content": [{"attachment": {"contentType": "text/plain"}}]}
+{"id": "no-type", "status": "final", "category": [], "subject": {"reference": "Patient/A"}, "content": [{"attachment": {"contentType": "text/plain"}}]}
+{"id": "empty-type", "status": "final", "category": [], "type": {}, "subject": {"reference": "Patient/A"}, "content": [{"attachment": {"contentType": "text/plain"}}]}
+{"id": "no-subject", "status": "final", "category": [], "type": {"text": "X"}, "content": [{"attachment": {"contentType": "text/plain"}}]}
+{"id": "group-subject", "status": "final", "category": [], "type": {"text": "X"}, "subject": {"reference": "Group/A"}, "content": [{"attachment": {"contentType": "text/plain"}}]}
+{"id": "mixed-attachments", "status": "final", "category": [], "type": {"text": "X"}, "subject": {"reference": "Patient/A"}, "content": [{"attachment": {"contentType": "text/plain"}}, {}]}
+{"id": "no-contenttype", "status": "final", "category": [], "type": {"text": "X"}, "subject": {"reference": "Patient/A"}, "content": [{"attachment": {"url": "hello"}}]}
+{"id": "no-attachment", "status": "final", "category": [], "type": {"text": "X"}, "subject": {"reference": "Patient/A"}, "content": [{"format": {}}]}
+{"id": "no-content", "status": "final", "category": [], "type": {"text": "X"}, "subject": {"reference": "Patient/A"}}
+{"id": "nothing"}

@@ -12,7 +12,7 @@ extracted_codes AS {{ utils.extract_codes(src, cat_field, system=systems, is_arr
 -- Left join back to src to catch rows without a proper system category
 grouped_category_src AS (
     SELECT src.*, extracted_codes.codes AS grouped_categories
-    FROM {{ src|lower }} AS src
+    FROM {{ src }} AS src
     LEFT JOIN extracted_codes
     ON src.id = extracted_codes.id
 ),
@@ -37,7 +37,7 @@ simplified AS (
         {% call utils.coalesce_missing() %}
             src_status.status
         {% endcall %} AS status
-    FROM {{ src|lower }} AS src
+    FROM {{ src }} AS src
     LEFT JOIN src_status
     ON src.id = src_status.id
 )

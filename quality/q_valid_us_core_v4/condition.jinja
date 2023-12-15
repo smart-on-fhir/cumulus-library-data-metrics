@@ -1,0 +1,47 @@
+-- http://hl7.org/fhir/us/core/STU4/StructureDefinition-us-core-condition.html
+
+WITH
+
+tmp_verification AS {{
+    utils.extract_codes_flat(
+        src,
+        'verificationstatus',
+        system='http://terminology.hl7.org/CodeSystem/condition-ver-status',
+    )
+}},
+
+tmp_simplified AS (
+    SELECT
+        src.id,
+        ARBITRARY(src.category) AS category,
+        ARBITRARY(src.code) AS code,
+        ARBITRARY(src.subject) AS subject,
+
+        BOOL_AND(
+            src.clinicalstatus.coding IS NOT NULL
+            AND (
+                tmp_verification.code IS NULL
+                OR tmp_verification.code != 'entered-in-error'
+            )
+        ) OR
+        BOOL_OR (
+            src.clinicalstatus.coding IS NULL
+            AND tmp_verification.code IS NOT NULL
+            AND tmp_verification.code = 'entered-in-error'
+        ) AS valid_status
+
+    FROM {{ src }} AS src
+    LEFT JOIN tmp_verification
+    ON tmp_verification.id = src.id
+    GROUP BY src.id
+)
+
+SELECT
+    id,
+    (
+        valid_status
+        AND category IS NOT NULL
+        AND {{ utils.is_concept_valid('code') }}
+        AND {{ utils.is_reference_of_type('subject', 'Patient') }}
+    ) AS valid
+FROM tmp_simplified

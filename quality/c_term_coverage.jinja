@@ -18,17 +18,17 @@ src_systems AS (
 
     {% if is_coding %} -- a single Coding field
         ARRAY_AGG({{ field }}.system) AS systems
-    FROM {{ src|lower }}
+    FROM {{ src }}
 
     {% elif is_array %} -- array of CodeableConcepts
         ARRAY_AGG(c.coding.system) AS systems
-    FROM {{ src|lower }},
+    FROM {{ src }},
         UNNEST({{ field }}) AS cc (cc_row),
         UNNEST(cc.cc_row.coding) AS c (coding)
 
     {% else %} -- default is a single CodeableConcept
         ARRAY_AGG(c.coding.system) AS systems
-    FROM {{ src|lower }},
+    FROM {{ src }},
         UNNEST({{ field }}.coding) AS c (coding)
     {% endif %}
 
@@ -42,12 +42,12 @@ src_text_array AS (
 
     {% if is_array %}
         ARRAY_AGG(cc.cc_row.text) AS texts
-    FROM {{ src|lower }},
+    FROM {{ src }},
         UNNEST({{ field }}) AS cc (cc_row)
 
     {% else %}
         ARRAY_AGG({{ field }}.text) AS texts
-    FROM {{ src|lower }}
+    FROM {{ src }}
     {% endif %}
 
     GROUP BY id
@@ -56,7 +56,7 @@ src_text_counts AS (
     SELECT
         id,
         SUM(
-            CASE WHEN {{ utils.is_empty_string('u.text') }}
+            CASE WHEN {{ utils.is_string_empty('u.text') }}
             THEN 1
             ELSE 0
             END
@@ -96,7 +96,7 @@ simplified AS (
         {{ utils.array_to_string('src_systems.systems') }} AS systems,
         {{ utils.coalesce_missing('src_status.status') }} AS status
 
-    FROM {{ src|lower }} AS src
+    FROM {{ src }} AS src
     LEFT JOIN src_systems
     ON src.id = src_systems.id
     LEFT JOIN src_status

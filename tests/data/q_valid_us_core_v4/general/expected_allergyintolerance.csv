@@ -1,0 +1,10 @@
+id,status
+status-without-coding,
+status-and-entered-in-error,confirmed; entered-in-error
+nothing,
+no-status-other-verification,
+no-status,
+no-patient,
+no-code,
+empty-patient,
+empty-code,

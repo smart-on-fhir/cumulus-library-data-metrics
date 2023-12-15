@@ -1,0 +1,72 @@
+-- http://hl7.org/fhir/us/core/STU4/StructureDefinition-us-core-documentreference.html
+
+{% if has_attachment %}
+
+-- Disable data/url check, because the Cumulus pipeline usually strips these fields anyway.
+{% set check_data_url = false %}
+
+WITH
+tmp_attachment_flat AS (
+    SELECT
+        id,
+
+        {% if check_data_url %}
+        u.content.attachment.data,
+        u.content.attachment.url,
+        {% endif %}
+
+        u.content.attachment.contenttype
+
+    FROM {{ src }},
+        UNNEST(content) AS u (content)
+),
+
+tmp_simplified AS (
+    SELECT
+        src.id AS id,
+        ARBITRARY(src.status) AS status,
+        ARBITRARY(src.type) AS type,
+        ARBITRARY(src.category) AS category,
+        ARBITRARY(src.subject) AS subject,
+
+        {% if check_data_url %}
+        BOOL_AND(
+            tmp_attachment_flat.data IS NOT NULL
+            OR tmp_attachment_flat.url IS NOT NULL
+        ) AS data_valid,
+        {% else %}
+        TRUE AS data_valid,
+        {% endif %}
+
+        BOOL_AND(
+            tmp_attachment_flat.contenttype IS NOT NULL
+        ) AS content_type_valid
+
+    FROM {{ src }} AS src
+    LEFT JOIN tmp_attachment_flat
+    ON tmp_attachment_flat.id = src.id
+    GROUP BY src.id
+)
+
+SELECT
+    id,
+    (
+        status IS NOT NULL
+        AND {{ utils.is_concept_valid('type') }}
+        AND category IS NOT NULL
+        AND {{ utils.is_reference_of_type('subject', 'Patient') }}
+        AND content_type_valid
+        AND data_valid
+    ) AS valid
+FROM tmp_simplified
+
+{% else %}
+
+-- If we don't have the content.attachment field (which is a US Core mandatory element),
+-- none of these rows will be valid.
+SELECT
+    id,
+    FALSE AS valid
+FROM {{ src }}
+
+{% endif %}

@@ -1,0 +1,11 @@
+-- http://hl7.org/fhir/us/core/STU4/StructureDefinition-us-core-encounter.html
+
+SELECT
+    id,
+    (
+        status IS NOT NULL
+        AND {{ utils.is_coding_valid('class') }}
+        AND type IS NOT NULL
+        AND {{ utils.is_reference_of_type('subject', 'Patient') }}
+    ) AS valid
+FROM {{ src }}

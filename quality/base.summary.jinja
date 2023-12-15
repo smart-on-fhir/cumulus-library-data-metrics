@@ -5,7 +5,7 @@ CREATE TABLE quality__{{ metric }}_summary AS (
         SELECT '{{ entry_key }}' AS entry_key, COUNT(DISTINCT(id)) AS numerator FROM quality__{{ metric }}_{{ entry_key }}
     ),
     {{ entry_key }}_denominator AS (
-        SELECT '{{ entry_key }}' AS entry_key, COUNT(id) AS denominator FROM {{ src|lower }}
+        SELECT '{{ entry_key }}' AS entry_key, COUNT(id) AS denominator FROM {{ src }}
     ),
     {%- endfor %}
 

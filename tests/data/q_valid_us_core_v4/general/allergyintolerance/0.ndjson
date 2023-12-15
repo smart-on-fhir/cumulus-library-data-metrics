@@ -1,0 +1,12 @@
+{"id": "valid-with-status", "clinicalStatus": {"coding": []}, "code": {"text": "X"}, "patient": {"reference": "Patient/X"}}
+{"id": "valid-entered-in-error", "code": {"text": "X"}, "patient": {"reference": "Patient/X"}, "verificationStatus": {"coding": [{"code": "entered-in-error", "system": "http://terminology.hl7.org/CodeSystem/allergyintolerance-verification"}, {"code": "other", "system": "other"}, {"code": "confirmed", "system": "http://terminology.hl7.org/CodeSystem/allergyintolerance-verification"}]}}
+{"id": "valid-with-verification", "clinicalStatus": {"coding": []}, "code": {"text": "X"}, "patient": {"reference": "Patient/X"}, "verificationStatus": {"coding": [{"code": "unconfirmed", "system": "http://terminology.hl7.org/CodeSystem/allergyintolerance-verification"}, {"code": "other", "system": "other"}, {"code": "confirmed", "system": "http://terminology.hl7.org/CodeSystem/allergyintolerance-verification"}]}}
+{"id": "no-status", "code": {"text": "X"}, "patient": {"reference": "Patient/X"}}
+{"id": "no-status-other-verification", "code": {"text": "X"}, "patient": {"reference": "Patient/X"}, "verificationStatus": {"coding": [{"code": "other", "system": "other"}]}}
+{"id": "status-and-entered-in-error", "clinicalStatus": {"coding": []}, "code": {"text": "X"}, "patient": {"reference": "Patient/X"}, "verificationStatus": {"coding": [{"code": "entered-in-error", "system": "http://terminology.hl7.org/CodeSystem/allergyintolerance-verification"}, {"code": "confirmed", "system": "http://terminology.hl7.org/CodeSystem/allergyintolerance-verification"}]}}
+{"id": "status-without-coding", "clinicalStatus": {}, "code": {"text": "X"}, "patient": {"reference": "Patient/X"}}
+{"id": "no-code", "clinicalStatus": {"coding": []}, "patient": {"reference": "Patient/X"}}
+{"id": "empty-code", "clinicalStatus": {"coding": []}, "code": {}, "patient": {"reference": "Patient/X"}}
+{"id": "no-patient", "clinicalStatus": {"coding": []}, "code": {"text": "X"}}
+{"id": "empty-patient", "clinicalStatus": {"coding": []}, "code": {"text": "X"}, "patient": {}}
+{"id": "nothing"}
