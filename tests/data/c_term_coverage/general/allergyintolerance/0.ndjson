@@ -1,6 +1,7 @@
 {"id": "snomed", "code": {"coding": [{"system": "http://snomed.info/sct"}]}}
 {"id": "snomed-with-text", "code": {"coding": [{"system": "http://snomed.info/sct"}], "text": "hello"}}
 {"id": "multiple-systems", "code": {"coding": [{"code": "boo"}, {"system": "other"}, {"system": "http://snomed.info/sct"}], "text": "\u0000"}}
+{"id": "repeated-systems", "code": {"coding": [{"system": "other"}, {"system": "other"}, {"system": "http://snomed.info/sct"}]}}
 {"id": "no-system", "code": {"coding": [{"code": "boo"}]}}
 {"id": "only-text", "code": {"text": "Not coded :("}}
 {"id": "empty-text", "code": {"text": ""}}

@@ -21,13 +21,13 @@ src_systems AS (
     FROM {{ src }}
 
     {% elif is_array %} -- array of CodeableConcepts
-        ARRAY_AGG(c.coding.system) AS systems
+        ARRAY_DISTINCT(ARRAY_AGG(c.coding.system)) AS systems
     FROM {{ src }},
         UNNEST({{ field }}) AS cc (cc_row),
         UNNEST(cc.cc_row.coding) AS c (coding)
 
     {% else %} -- default is a single CodeableConcept
-        ARRAY_AGG(c.coding.system) AS systems
+        ARRAY_DISTINCT(ARRAY_AGG(c.coding.system)) AS systems
     FROM {{ src }},
         UNNEST({{ field }}.coding) AS c (coding)
     {% endif %}
