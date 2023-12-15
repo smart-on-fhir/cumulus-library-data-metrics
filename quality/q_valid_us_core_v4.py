@@ -36,8 +36,10 @@ class ValidUsCoreV4Builder(MetricMixin, BaseTableBuilder):
 
     def make_table(self, **kwargs) -> str:
         """Make a single metric table"""
-        summary_key = kwargs['src'].lower()
-        self.summary_entries[summary_key] = kwargs['src']
+        summary_key = kwargs["src"].lower()
+        if "category" in kwargs:
+            summary_key += f"_{kwargs['category']}"
+        self.summary_entries[summary_key] = kwargs["src"]
 
         return self.render_sql(self.name, **kwargs)
 
@@ -66,5 +68,15 @@ class ValidUsCoreV4Builder(MetricMixin, BaseTableBuilder):
             self.make_table(src="Immunization"),
             self.make_table(src="Medication"),
             self.make_table(src="MedicationRequest"),
+            # Unlike the other resources, which check all rows, Observations are kind of a wild
+            # west where each row does not declare which profile it is TRYING to be, and categories
+            # aren't required and are US Core specific instead of FHIR specific. So it's really
+            # hard to ding any specific row for non-compliance.
+            # Instead, we take the approach of fixing the category, then treating all rows of that
+            # category as self-reported US Core rows, and check for compliance within the category.
+            # This misses some "bad behavior" like smoking statuses without a category.
+            # But :shrug: is that non-compliant? Not technically?
+            # That kind of stuff can be left to a characterization metric.
+            self.make_table(src="Observation", category="laboratory"),
             self.make_summary(),
         ]

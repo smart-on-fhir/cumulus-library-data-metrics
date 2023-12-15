@@ -172,11 +172,11 @@
 -- or wrapped in a call block
 {% macro is_string_empty() -%}
 (
-    {% if varargs %}
-        {% set arg = varargs[0] %}
-    {% else %}
-        {% set arg = caller() %}
-    {% endif %}
+    {%- if varargs -%}
+        {%- set arg = varargs[0] -%}
+    {%- else -%}
+        {%- set arg = caller() -%}
+    {%- endif -%}
 
     {{ arg }} IS NULL
     OR {{ arg }} = ''
@@ -215,7 +215,19 @@
     {{ field }} IS NOT NULL
     AND (
         {{ field }}.start IS NOT NULL
-        OR {{ field }}.end IS NOT NULL
+        OR {{ field }}."end" IS NOT NULL
+    )
+)
+{%- endmacro %}
+{% macro is_quantity_valid(field) -%}
+(
+    {{ field }} IS NOT NULL
+    AND (
+        {{ field }}."value" IS NOT NULL
+        OR {{ field }}.comparator IS NOT NULL
+        OR {{ field }}.unit IS NOT NULL
+        OR {{ field }}.system IS NOT NULL
+        OR {{ field }}.code IS NOT NULL
     )
 )
 {%- endmacro %}

@@ -1,6 +1,11 @@
 {% import 'utils.jinja' as utils %}
 
-CREATE TABLE quality__q_valid_us_core_v4_{{ src|lower }} AS (
+{% set table_name = src.lower() %}
+{% if category %}
+    {% set table_name = table_name + '_' + category %}
+{% endif %}
+
+CREATE TABLE quality__q_valid_us_core_v4_{{ table_name }} AS (
 WITH
 src_status AS {{ utils.extract_status(src) }},
 
@@ -11,7 +16,7 @@ src_status AS {{ utils.extract_status(src) }},
 --
 -- You may make additional helper tables, but please prefix with 'tmp_'
 -- to avoid any future conflicts with this template here.
-src_valid AS ({% include 'q_valid_us_core_v4/' + src.lower() + '.jinja' %})
+src_valid AS ({% include 'q_valid_us_core_v4/' + table_name + '.jinja' %})
 
 SELECT
     src_valid.id,

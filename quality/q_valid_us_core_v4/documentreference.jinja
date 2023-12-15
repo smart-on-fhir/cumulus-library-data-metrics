@@ -2,7 +2,8 @@
 
 {% if has_attachment %}
 
--- Disable data/url check, because the Cumulus pipeline usually strips these fields anyway.
+-- CUMULUS-QUIRK
+-- Disable data/url check, because the Cumulus pipeline strips these fields anyway.
 {% set check_data_url = false %}
 
 WITH

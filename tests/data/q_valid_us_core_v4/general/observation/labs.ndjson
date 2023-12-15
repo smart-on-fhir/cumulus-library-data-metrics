@@ -1,0 +1,7 @@
+{"id": "lab-valid-concept", "status": "final", "code": {"text": "X"}, "subject": {"reference": "Patient/A"}, "valueBoolean": true, "category": [{"coding": [{"code": "laboratory", "system": "http://terminology.hl7.org/CodeSystem/observation-category"}]}]}
+{"id": "lab-no-status", "code": {"text": "X"}, "subject": {"reference": "Patient/A"}, "valueBoolean": true, "category": [{"coding": [{"code": "laboratory", "system": "http://terminology.hl7.org/CodeSystem/observation-category"}]}]}
+{"id": "lab-no-code", "status": "final", "subject": {"reference": "Patient/A"}, "valueBoolean": true, "category": [{"coding": [{"code": "laboratory", "system": "http://terminology.hl7.org/CodeSystem/observation-category"}]}]}
+{"id": "lab-no-subject", "status": "final", "code": {"text": "X"}, "valueBoolean": true, "category": [{"coding": [{"code": "laboratory", "system": "http://terminology.hl7.org/CodeSystem/observation-category"}]}]}
+{"id": "lab-group-subject", "status": "final", "code": {"text": "X"}, "subject": {"reference": "Group/A"}, "valueBoolean": true, "category": [{"coding": [{"code": "laboratory", "system": "http://terminology.hl7.org/CodeSystem/observation-category"}]}]}
+{"id": "lab-only-category", "category": [{"coding": [{"code": "laboratory", "system": "http://terminology.hl7.org/CodeSystem/observation-category"}]}]}
+{"id": "lab-nothing"}

@@ -1,0 +1,19 @@
+{% import 'utils.jinja' as utils %}
+
+{% macro extract_category_slice(src, category) -%}
+(
+    WITH
+    tmp_categories AS {{
+        utils.extract_codes_flat(
+            src,
+            'category',
+            system='http://terminology.hl7.org/CodeSystem/observation-category',
+            is_array=true,
+        )
+    }}
+    SELECT
+        DISTINCT id
+    FROM tmp_categories
+    WHERE tmp_categories.code = '{{ category }}'
+)
+{%- endmacro %}
