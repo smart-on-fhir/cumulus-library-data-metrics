@@ -37,9 +37,12 @@ class ValidUsCoreV4Builder(MetricMixin, BaseTableBuilder):
     def make_table(self, **kwargs) -> str:
         """Make a single metric table"""
         summary_key = kwargs["src"].lower()
+        summary_denominator = kwargs["src"]
         if "category" in kwargs:
             summary_key += f"_{kwargs['category']}"
-        self.summary_entries[summary_key] = kwargs["src"]
+            # Setting None will tell the summary generator code to look at our pre-defined table
+            summary_denominator = None
+        self.summary_entries[summary_key] = summary_denominator
 
         return self.render_sql(self.name, **kwargs)
 

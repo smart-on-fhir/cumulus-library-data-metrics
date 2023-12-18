@@ -26,3 +26,9 @@ LEFT JOIN src_status
 ON src_valid.id = src_status.id
 WHERE src_valid.valid IS NULL OR NOT src_valid.valid
 );
+
+{% if category %}
+CREATE TABLE quality__q_valid_us_core_v4_{{ table_name }}_denominator AS (
+    {% include 'q_valid_us_core_v4/' + src.lower() + '_denominator.jinja' %}
+);
+{% endif %}

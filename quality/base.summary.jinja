@@ -1,12 +1,14 @@
 CREATE TABLE quality__{{ metric }}_summary AS (
     WITH
-    {%- for entry_key, src in entries.items() %}
+    {%- for entry_key, denominator_src in entries.items() %}
     {{ entry_key }}_numerator AS (
         SELECT '{{ entry_key }}' AS entry_key, COUNT(DISTINCT(id)) AS numerator FROM quality__{{ metric }}_{{ entry_key }}
     ),
-    {{ entry_key }}_denominator AS (
-        SELECT '{{ entry_key }}' AS entry_key, COUNT(id) AS denominator FROM {{ src }}
+    {% if denominator_src %}
+    quality__{{ metric }}_{{ entry_key }}_denominator AS (
+        SELECT '{{ entry_key }}' AS entry_key, COUNT(id) AS denominator FROM {{ denominator_src }}
     ),
+    {% endif %}
     {%- endfor %}
 
     union_table AS (
@@ -21,8 +23,8 @@ CREATE TABLE quality__{{ metric }}_summary AS (
                 ELSE CAST(CAST(numerator AS real) / denominator AS DECIMAL(5, 4))
             END AS percentage
         FROM {{ entry_key }}_numerator
-        JOIN {{ entry_key }}_denominator
-        ON {{ entry_key }}_numerator.entry_key = {{ entry_key }}_denominator.entry_key
+        INNER JOIN quality__{{ metric }}_{{ entry_key }}_denominator AS denominator_table
+        ON {{ entry_key }}_numerator.entry_key = denominator_table.entry_key
         {%- if not loop.last %}
         UNION
         {%- endif -%}

@@ -1,0 +1,10 @@
+id,numerator,denominator,percentage
+observation_laboratory,5,6,0.8333
+medicationrequest,7,10,0.7
+medication,2,3,0.6667
+immunization,6,8,0.75
+encounter,8,9,0.8889
+documentreference,11,14,0.7857
+diagnosticreport,9,12,0.75
+condition,11,14,0.7857
+allergyintolerance,9,12,0.75

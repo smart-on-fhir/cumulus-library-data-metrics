@@ -1,0 +1,11 @@
+{% import 'q_valid_us_core_v4/observation_utils.jinja' as obs_utils %}
+
+WITH
+tmp_slice AS {{ obs_utils.extract_category_slice(src, category) }}
+
+SELECT
+    'observation_{{ category }}' AS entry_key,
+    COUNT(src.id) AS denominator
+FROM {{ src }} AS src
+INNER JOIN tmp_slice
+ON tmp_slice.id = src.id
