@@ -17,3 +17,40 @@
     WHERE tmp_categories.code = '{{ category }}'
 )
 {%- endmacro %}
+
+{% macro is_value_valid(prefix) -%}
+(
+    -- Start with basic, easy, always-there simple-data fields
+    {{ prefix }}Boolean IS NOT NULL
+    OR {{ utils.is_string_valid(prefix + 'String') }}
+    OR {{ prefix }}Integer IS NOT NULL
+    OR {{ prefix }}Time IS NOT NULL
+    OR {{ prefix }}DateTime IS NOT NULL
+
+    -- Now check each complicated (struct) field separately, based on whether it's in the schema
+
+    {% if 'component.value' not in prefix or has_comp_quantity %}
+        OR {{ utils.is_quantity_valid(prefix + 'Quantity') }}
+    {% endif %}
+
+    {% if 'component.value' not in prefix or has_comp_concept %}
+        OR {{ utils.is_concept_valid(prefix + 'CodeableConcept') }}
+    {% endif %}
+
+    {% if 'component.value' not in prefix or has_comp_range %}
+        OR {{ prefix }}Range IS NOT NULL
+    {% endif %}
+
+    {% if 'component.value' not in prefix or has_comp_ratio %}
+        OR {{ prefix }}Ratio IS NOT NULL
+    {% endif %}
+
+    {% if 'component.value' not in prefix or has_comp_sample %}
+        OR {{ prefix }}SampledData.dimensions IS NOT NULL -- required field of SampledData
+    {% endif %}
+
+    {% if 'component.value' not in prefix or has_comp_period %}
+        OR {{ utils.is_period_valid(prefix + 'Period') }}
+    {% endif %}
+)
+{%- endmacro %}

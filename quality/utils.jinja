@@ -167,25 +167,6 @@
 {%- endmacro %}
 
 
--- Checks for NULL, '', and '\u0000' strings.
--- Can be called with the name of the array to check ('list_field')
--- or wrapped in a call block
-{% macro is_string_empty() -%}
-(
-    {%- if varargs -%}
-        {%- set arg = varargs[0] -%}
-    {%- else -%}
-        {%- set arg = caller() -%}
-    {%- endif -%}
-
-    {{ arg }} IS NULL
-    OR {{ arg }} = ''
-    -- We've seen Cerner give back strings with just a single NUL char, so check for that too
-    OR {{ arg }} = CHR(0)
-)
-{%- endmacro %}
-
-
 -- ** These next few macros check if an element is filled in.
 -- This is useful because some toplevel columns can be represented as present but with all nulls
 -- for the subfields instead of real data. That is, a CodeableConcept might look like
@@ -197,7 +178,7 @@
     {{ field }} IS NOT NULL
     AND (
         {{ field }}.code IS NOT NULL
-        OR NOT {{ is_string_empty(field + '.display') }}
+        OR {{ is_string_valid(field + '.display') }}
     )
 )
 {%- endmacro %}
@@ -206,7 +187,7 @@
     {{ field }} IS NOT NULL
     AND (
         {{ field }}.coding IS NOT NULL
-        OR NOT {{ is_string_empty(field + '.text') }}
+        OR {{ is_string_valid(field + '.text') }}
     )
 )
 {%- endmacro %}
@@ -235,8 +216,17 @@
 (
     {{ field }} IS NOT NULL
     AND (
-        NOT {{ is_string_empty(field + '.reference') }}
-        OR NOT {{ is_string_empty(field + '.display') }}
+        {{ is_string_valid(field + '.reference') }}
+        OR {{ is_string_valid(field + '.display') }}
     )
+)
+{%- endmacro %}
+-- Checks for NULL, empty, whitespace-only, and '\u0000' strings
+-- (We've seen Cerner give back strings with just a single NUL char.)
+{% macro is_string_valid(field) -%}
+(
+    {{ field }} IS NOT NULL
+    AND TRIM({{ field }}) <> ''
+    AND {{ field }} <> CHR(0)
 )
 {%- endmacro %}

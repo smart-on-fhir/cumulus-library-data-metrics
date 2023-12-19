@@ -1,5 +1,5 @@
 id,numerator,denominator,percentage
-observation_laboratory,5,6,0.8333
+observation_laboratory,7,10,0.7
 medicationrequest,7,10,0.7
 medication,2,3,0.6667
 immunization,6,8,0.75

@@ -2,7 +2,7 @@
 
 {% set table_name = src.lower() %}
 {% if category %}
-    {% set table_name = table_name + '_' + category %}
+    {% set table_name = table_name + '_' + category.replace('-', '_') %}
 {% endif %}
 
 CREATE TABLE quality__q_valid_us_core_v4_{{ table_name }} AS (

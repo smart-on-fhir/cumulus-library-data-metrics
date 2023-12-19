@@ -39,7 +39,7 @@ class ValidUsCoreV4Builder(MetricMixin, BaseTableBuilder):
         summary_key = kwargs["src"].lower()
         summary_denominator = kwargs["src"]
         if "category" in kwargs:
-            summary_key += f"_{kwargs['category']}"
+            summary_key += f"_{kwargs['category'].replace('-', '_')}"
             # Setting None will tell the summary generator code to look at our pre-defined table
             summary_denominator = None
         self.summary_entries[summary_key] = summary_denominator
@@ -56,9 +56,36 @@ class ValidUsCoreV4Builder(MetricMixin, BaseTableBuilder):
         )
         cursor.execute(query)
         result = cursor.fetchone()[0]
-        has_attachment = "attachment" in result
         return {
-            'has_attachment': has_attachment,
+            'has_attachment': "attachment" in result,
+        }
+
+    @staticmethod
+    def obs_args(cursor: DatabaseCursor, schema: str) -> dict:
+        # Check referenceRange.* fields
+        query = templates.get_column_datatype_query(
+            schema, 'observation', 'referencerange',
+        )
+        cursor.execute(query)
+        ref_range_result = cursor.fetchone()[0]
+
+        # Check component.* fields
+        query = templates.get_column_datatype_query(
+            schema, 'observation', 'component',
+        )
+        cursor.execute(query)
+        comp_result = cursor.fetchone()[0]
+
+        return {
+            "has_ref_range_high": "high" in ref_range_result,
+            "has_ref_range_low": "low" in ref_range_result,
+            "has_comp_data_absent": "dataabsentreason" in comp_result,
+            "has_comp_quantity": "valuequantity" in comp_result,
+            "has_comp_concept": "valuecodeableconcept" in comp_result,
+            "has_comp_range": "valuerange" in comp_result,
+            "has_comp_ratio": "valueratio" in comp_result,
+            "has_comp_sample": "valuesampleddata" in comp_result,
+            "has_comp_period": "valueperiod" in comp_result,
         }
 
     def prepare_queries(self, cursor: DatabaseCursor, schema: str, *args, **kwargs) -> None:
@@ -71,15 +98,24 @@ class ValidUsCoreV4Builder(MetricMixin, BaseTableBuilder):
             self.make_table(src="Immunization"),
             self.make_table(src="Medication"),
             self.make_table(src="MedicationRequest"),
+
             # Unlike the other resources, which check all rows, Observations are kind of a wild
             # west where each row does not declare which profile it is TRYING to be, and categories
             # aren't required and are US Core specific instead of FHIR specific. So it's really
             # hard to ding any specific row for non-compliance.
+            #
             # Instead, we take the approach of fixing the category, then treating all rows of that
             # category as self-reported US Core rows, and check for compliance within the category.
             # This misses some "bad behavior" like smoking statuses without a category.
             # But :shrug: is that non-compliant? Not technically?
             # That kind of stuff can be left to a characterization metric.
-            self.make_table(src="Observation", category="laboratory"),
+            #
+            # We only check the categories for which profiles cover the whole category.
+            # For example, 'social-history' only has the smoking-status profile, so we don't bother
+            # testing social-history. And 'exam' has no profiles. Again, a characterization metric
+            # can handle looking at those numbers better, whereas this is warning of non-compliance.
+            self.make_table(src="Observation", category="laboratory", **self.obs_args(cursor, schema)),
+            self.make_table(src="Observation", category="vital-signs", **self.obs_args(cursor, schema)),
+
             self.make_summary(),
         ]

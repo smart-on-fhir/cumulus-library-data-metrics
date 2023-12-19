@@ -1,9 +1,59 @@
--- http://hl7.org/fhir/us/core/STU4/StructureDefinition-us-core-observation-lab.html
+-- http://hl7.org/fhir/us/core/STU4/StructureDefinition-us-core-vital-signs.html
+-- and also http://hl7.org/fhir/R4/vitalsigns.html?
+--
+-- The US Core profile links to that base FHIR profile. But that base FHIR profile seems...
+-- unfinished? Like it talks about "Observation.related.type == 'has-member'" instead of the
+-- Observation.hasMember field. Still, the base FHIR profile holds some constraints that do
+-- seem to apply, like datetime must be at least to a day. (the labs US Core profile has that rule
+-- too, but not the vitals US Core profile, presumably because it was already specified in this
+-- parent profile)
+--
+-- There seem to also be some disagreements between the profiles. Like the base FHIR Vitals
+-- profile says Observation.component.valueQuantity SHALL be UCUM. And in a separate
+-- (less official?) text area, suggests that might also be true for for Observation.valueQuantity.
+-- But then the US Core profile allows both to be an extensible binding to UCUM - so more of a
+-- SHOULD then a SHALL. Where those conflicts exist, I've followed US Core.
+--
+-- But in general, this check does try to follow both profiles' constraints.
 
 {% import 'q_valid_us_core_v4/observation_utils.jinja' as obs_utils %}
 
 WITH
-tmp_slice AS {{ obs_utils.extract_category_slice(src, category) }}
+tmp_slice AS {{ obs_utils.extract_category_slice(src, category) }},
+
+tmp_grouped_checks AS (
+    SELECT
+        src.id,
+
+        -- vs-3: each component must have value or a dataAbsentReason
+        BOOL_AND(
+            c.component IS NULL
+            {% if has_comp_data_absent %}
+                OR {{ utils.is_concept_valid('c.component.dataAbsentReason') }}
+            {% endif %}
+            OR {{ obs_utils.is_value_valid('c.component.value') }}
+        ) AS vs3_valid,
+
+        -- obs-3: referenceRange must have at least a low or a high or text
+        -- (This is a basic FHIR constraint, but the profile re-iterates it, so let's check it)
+        BOOL_AND(
+            r.referenceRange IS NULL
+            {% if has_ref_range_low %}
+                OR {{ utils.is_quantity_valid('r.referenceRange.low') }}
+            {% endif %}
+            {% if has_ref_range_high %}
+                OR {{ utils.is_quantity_valid('r.referenceRange.high') }}
+            {% endif %}
+            OR {{ utils.is_string_valid('r.referenceRange.text') }}
+        ) AS obs3_valid
+
+    FROM {{ src }} AS src,
+        UNNEST(component) AS c (component),
+        UNNEST(referenceRange) AS r (referenceRange)
+    INNER JOIN tmp_slice
+    ON tmp_slice.id = src.id
+    GROUP BY src.id
+)
 
 SELECT
     src.id,
@@ -11,36 +61,37 @@ SELECT
         status IS NOT NULL
         AND {{ utils.is_concept_valid('code') }}
         AND {{ utils.is_reference_of_type('subject', 'Patient') }}
-        -- us-core-1: DateTime must be at least to day (ed: no mention of effectivePeriod...)
+        AND (
+            effectiveDateTime IS NOT NULL
+            OR {{ utils.is_period_valid('effectivePeriod') }}
+        )
+        -- vs-1: DateTime must be at least to day (ed: no mention of effectivePeriod...)
         AND (
             effectiveDateTime IS NULL
             OR LENGTH(effectiveDateTime) >= 10  -- YYYY-MM-DD
         )
-        -- us-core-2: If there is no component or hasMember element then
+        -- vs-2: If there is no component or hasMember element then
         -- either a value[x] or a data absent reason must be present
         AND (
             component IS NOT NULL
             OR hasMember IS NOT NULL
             OR {{ utils.is_concept_valid('dataAbsentReason') }}
-            -- check each of the value* variants:
-            OR {{ utils.is_quantity_valid('valueQuantity') }}
-            OR {{ utils.is_concept_valid('valueCodeableConcept') }}
-            OR valueString IS NOT NULL
-            OR valueBoolean IS NOT NULL
-            OR valueInteger IS NOT NULL
-            OR valueRange IS NOT NULL
-            OR valueRatio IS NOT NULL
-            OR valueSampledData.dimensions IS NOT NULL -- required field of SampledData
-            OR valueTime IS NOT NULL
-            OR valueDateTime IS NOT NULL
-            OR {{ utils.is_period_valid('valuePeriod') }}
+            OR {{ obs_utils.is_value_valid('value') }}
         )
-        -- us-core-3: SHALL use UCUM for coded quantity units
+        -- vs-3: each component must have value or a dataAbsentReason
         AND (
-            valueQuantity.code IS NULL
-            OR valueQuantity.system = 'http://unitsofmeasure.org'
+            tmp_grouped_checks.vs3_valid IS NULL
+            OR tmp_grouped_checks.vs3_valid
+        )
+        -- obs-3: referenceRange must have at least a low or a high or text
+        -- (This is a basic FHIR constraint, but the profile re-iterates it, so let's check it)
+        AND (
+            tmp_grouped_checks.obs3_valid IS NULL
+            OR tmp_grouped_checks.obs3_valid
         )
     ) AS valid
 FROM {{ src }} AS src
 INNER JOIN tmp_slice
 ON tmp_slice.id = src.id
+LEFT JOIN tmp_grouped_checks
+ON tmp_grouped_checks.id = src.id

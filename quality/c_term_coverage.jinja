@@ -56,9 +56,9 @@ src_text_counts AS (
     SELECT
         id,
         SUM(
-            CASE WHEN {{ utils.is_string_empty('u.text') }}
-            THEN 1
-            ELSE 0
+            CASE WHEN {{ utils.is_string_valid('u.text') }}
+            THEN 0
+            ELSE 1
             END
         ) AS empty_count,
         COUNT(texts) AS total_count
