@@ -1,0 +1,46 @@
+-- http://hl7.org/fhir/us/core/STU4/StructureDefinition-us-core-observation-lab.html
+
+{% import 'q_valid_us_core_v4/observation_utils.jinja' as obs_utils %}
+
+WITH
+tmp_slice AS {{ obs_utils.extract_category_slice(src, category) }}
+
+SELECT
+    src.id,
+    (
+        status IS NOT NULL
+        AND {{ utils.is_concept_valid('code') }}
+        AND {{ utils.is_reference_of_type('subject', 'Patient') }}
+        -- us-core-1: DateTime must be at least to day (ed: no mention of effectivePeriod...)
+        AND (
+            effectiveDateTime IS NULL
+            OR LENGTH(effectiveDateTime) >= 10  -- YYYY-MM-DD
+        )
+        -- us-core-2: If there is no component or hasMember element then
+        -- either a value[x] or a data absent reason must be present
+        AND (
+            component IS NOT NULL
+            OR hasMember IS NOT NULL
+            OR {{ utils.is_concept_valid('dataAbsentReason') }}
+            -- check each of the value* variants:
+            OR {{ utils.is_quantity_valid('valueQuantity') }}
+            OR {{ utils.is_concept_valid('valueCodeableConcept') }}
+            OR valueString IS NOT NULL
+            OR valueBoolean IS NOT NULL
+            OR valueInteger IS NOT NULL
+            OR valueRange IS NOT NULL
+            OR valueRatio IS NOT NULL
+            OR valueSampledData.dimensions IS NOT NULL -- required field of SampledData
+            OR valueTime IS NOT NULL
+            OR valueDateTime IS NOT NULL
+            OR {{ utils.is_period_valid('valuePeriod') }}
+        )
+        -- us-core-3: SHALL use UCUM for coded quantity units
+        AND (
+            valueQuantity.code IS NULL
+            OR valueQuantity.system = 'http://unitsofmeasure.org'
+        )
+    ) AS valid
+FROM {{ src }} AS src
+INNER JOIN tmp_slice
+ON tmp_slice.id = src.id
