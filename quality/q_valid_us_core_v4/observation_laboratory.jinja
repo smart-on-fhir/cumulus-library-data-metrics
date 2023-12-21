@@ -14,18 +14,16 @@ tmp_grouped_checks AS (
         BOOL_AND(
             r.referenceRange IS NULL
             {% if has_ref_range_low %}
-                OR {{ utils.is_quantity_valid('r.referenceRange.low') }}
+                OR r.referenceRange.low IS NOT NULL
             {% endif %}
             {% if has_ref_range_high %}
-                OR {{ utils.is_quantity_valid('r.referenceRange.high') }}
+                OR r.referenceRange.high IS NOT NULL
             {% endif %}
             OR {{ utils.is_string_valid('r.referenceRange.text') }}
         ) AS obs3_valid
 
-    FROM {{ src }} AS src,
+    FROM tmp_slice AS src,
         UNNEST(referenceRange) AS r (referenceRange)
-    INNER JOIN tmp_slice
-    ON tmp_slice.id = src.id
     GROUP BY src.id
 )
 
@@ -60,8 +58,6 @@ SELECT
             OR tmp_grouped_checks.obs3_valid
         )
     ) AS valid
-FROM {{ src }} AS src
-INNER JOIN tmp_slice
-ON tmp_slice.id = src.id
+FROM tmp_slice AS src
 LEFT JOIN tmp_grouped_checks
 ON tmp_grouped_checks.id = src.id

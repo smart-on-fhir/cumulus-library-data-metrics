@@ -1,5 +1,11 @@
 {% import 'q_valid_us_core_v4/observation_utils.jinja' as obs_utils %}
 
+{% set table_name = src.lower() %}
+{% if category %}
+    {% set table_name = table_name + '_' + category.replace('-', '_') %}
+{% endif %}
+
+CREATE TABLE quality__q_valid_us_core_v4_{{ table_name }}_denominator AS (
 WITH
 tmp_slice AS {{ obs_utils.extract_category_slice(src, category) }}
 
@@ -9,3 +15,4 @@ SELECT
 FROM {{ src }} AS src
 INNER JOIN tmp_slice
 ON tmp_slice.id = src.id
+);

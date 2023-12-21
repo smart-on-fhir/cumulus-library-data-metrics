@@ -10,11 +10,17 @@
             system='http://terminology.hl7.org/CodeSystem/observation-category',
             is_array=true,
         )
-    }}
-    SELECT
-        DISTINCT id
-    FROM tmp_categories
-    WHERE tmp_categories.code = '{{ category }}'
+    }},
+    tmp_ids AS (
+        SELECT
+            DISTINCT id
+        FROM tmp_categories
+        WHERE tmp_categories.code = '{{ category }}'
+    )
+    SELECT src.*
+    FROM {{ src }} AS src
+    INNER JOIN tmp_ids
+    ON tmp_ids.id = src.id
 )
 {%- endmacro %}
 
