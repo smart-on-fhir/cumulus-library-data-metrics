@@ -116,4 +116,4 @@ class ValidUsCoreV4Builder(MetricMixin, BaseTableBuilder):
         self.make_table(src="Observation", category="laboratory", **self.obs_args(cursor, schema))
         self.make_table(src="Observation", category="vital-signs", **self.obs_args(cursor, schema))
 
-        self.make_summary()
+        self.queries.append(self.make_summary())
