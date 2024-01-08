@@ -10,7 +10,7 @@ WITH
 tmp_slice AS {{ obs_utils.extract_category_slice(src, category) }}
 
 SELECT
-    'observation_{{ category }}' AS entry_key,
+    '{{ table_name }}' AS entry_key,
     COUNT(src.id) AS denominator
 FROM {{ src }} AS src
 INNER JOIN tmp_slice

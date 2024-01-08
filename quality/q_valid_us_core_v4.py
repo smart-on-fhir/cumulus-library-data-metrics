@@ -5,7 +5,8 @@ Note that this metric assumes valid FHIR behavior.
 
 That is, it only tests ADDITIONAL requirements on top of basic FHIR required fields.
 If both the FHIR spec and a US Core profile says a field is mandatory, this metric
-does not check for it.
+may not check for it (though we do allow some overlapping checks, because we mostly
+implement the checks in "Each xxx must have:" section, which do repeat base FHIR requirements.
 
 Instead, we focus on additional mandatory fields and Profile business logic like
 "if verification status is entered-in-error, clinical status SHALL NOT be present"
@@ -115,5 +116,7 @@ class ValidUsCoreV4Builder(MetricMixin, BaseTableBuilder):
         # can handle looking at those numbers better, whereas this is warning of non-compliance.
         self.make_table(src="Observation", category="laboratory", **self.obs_args(cursor, schema))
         self.make_table(src="Observation", category="vital-signs", **self.obs_args(cursor, schema))
+        # FIXME: add tests for vital-signs and/or confirm with Jamie the best way to slice this up.
+        #  He was recommending a code-based approach instead of category-based.
 
         self.queries.append(self.make_summary())

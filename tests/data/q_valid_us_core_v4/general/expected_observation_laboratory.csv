@@ -2,7 +2,9 @@ id,status
 lab-short-date,amended
 lab-only-category,
 lab-non-ucum,amended
+lab-no-values,amended
 lab-no-subject,final
 lab-no-status,
 lab-no-code,final
 lab-group-subject,final
+lab-bare-ref-range,amended

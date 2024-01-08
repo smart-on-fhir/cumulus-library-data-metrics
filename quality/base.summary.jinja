@@ -14,7 +14,7 @@ CREATE TABLE quality__{{ metric }}_summary AS (
     union_table AS (
         {%- for entry_key in entries %}
         SELECT
-            {{ entry_key }}_numerator.entry_key AS id,
+            numerator_table.entry_key AS id,
             numerator,
             denominator,
             CASE
@@ -22,9 +22,9 @@ CREATE TABLE quality__{{ metric }}_summary AS (
                 THEN 0.0
                 ELSE CAST(CAST(numerator AS real) / denominator AS DECIMAL(5, 4))
             END AS percentage
-        FROM {{ entry_key }}_numerator
+        FROM {{ entry_key }}_numerator AS numerator_table
         INNER JOIN quality__{{ metric }}_{{ entry_key }}_denominator AS denominator_table
-        ON {{ entry_key }}_numerator.entry_key = denominator_table.entry_key
+        ON numerator_table.entry_key = denominator_table.entry_key
         {%- if not loop.last %}
         UNION
         {%- endif -%}
