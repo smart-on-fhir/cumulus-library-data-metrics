@@ -12,6 +12,8 @@ immunization_encounter,0,1,0.0
 # Except DocRefs also have some extra cases around encounter array support
 documentreference_patient,0,5,0.0
 documentreference_encounter,2,5,0.4
+diagnosticreport_patient,0,1,0.0
+diagnosticreport_encounter,0,1,0.0
 device_patient,0,1,0.0
 condition_patient,0,1,0.0
 condition_encounter,0,1,0.0

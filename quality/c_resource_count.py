@@ -36,6 +36,11 @@ class ResourceCountBuilder(MetricMixin, BaseTableBuilder):
             src="Device",
         )
         self.make_tables(
+            src="DiagnosticReport",
+            category="category",
+            systems=["http://terminology.hl7.org/CodeSystem/v2-0074"],
+        )
+        self.make_tables(
             src="DocumentReference",
             category="category",
             systems=["http://hl7.org/fhir/us/core/CodeSystem/us-core-documentreference-category"],

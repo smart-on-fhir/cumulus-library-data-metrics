@@ -8,6 +8,7 @@ medicationrequest_medicationcodeableconcept,0,1,0.0
 medication_code,0,1,0.0
 immunization_vaccinecode,0,1,0.0
 documentreference_type,0,1,0.0
+diagnosticreport_code,0,1,0.0
 device_type,0,1,0.0
 condition_code,0,1,0.0
 allergyintolerance_code,0,1,0.0

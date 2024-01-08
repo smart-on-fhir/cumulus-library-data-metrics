@@ -1,0 +1,5 @@
+{"id": "with-date", "category": [{"coding": [{"code": "CT", "system": "http://terminology.hl7.org/CodeSystem/v2-0074"}]}], "effectiveDateTime": "2023-10-04"}
+{"id": "no-date", "category": [{"coding": [{"code": "CT", "system": "http://terminology.hl7.org/CodeSystem/v2-0074"}]}]}
+{"id": "unrelated-category", "category": [{"coding": [{"code": "1234", "system": "nope"}]}]}
+{"id": "no-category", "effectivePeriod": {"start": "2022-09-04"}}
+{"id": "nothing"}

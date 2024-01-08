@@ -6,6 +6,7 @@ observation_patient,0,1,0.0
 medicationrequest_patient,0,1,0.0
 immunization_patient,0,1,0.0
 documentreference_patient,0,1,0.0
+diagnosticreport_patient,0,1,0.0
 device_patient,0,1,0.0
 condition_patient,0,1,0.0
 allergyintolerance_patient,0,1,0.0

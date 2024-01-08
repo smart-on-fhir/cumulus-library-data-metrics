@@ -28,6 +28,8 @@ class MetricMixin:
             return ["recordeddate", "onsetdatetime", "onsetperiod.start"]
         elif resource == "DocumentReference":
             return ["date"]
+        elif resource == "DiagnosticReport":
+            return ["effectiveDateTime", "effectivePeriod.start"]
         elif resource == "Encounter":
             return ["period.start"]
         elif resource == "Immunization":

@@ -24,6 +24,7 @@ class TargetPopBuilder(MetricMixin, BaseTableBuilder):
             self.make_table(src="AllergyIntolerance", dest="Patient", field="patient"),
             self.make_table(src="Condition", dest="Patient", field="subject"),
             self.make_table(src="Device", dest="Patient", field="patient"),
+            self.make_table(src="DiagnosticReport", dest="Patient", field="subject"),
             self.make_table(src="DocumentReference", dest="Patient", field="subject"),
             self.make_table(src="Immunization", dest="Patient", field="patient"),
             self.make_table(src="MedicationRequest", dest="Patient", field="subject"),

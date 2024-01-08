@@ -26,6 +26,7 @@ class TermCoverageBuilder(MetricMixin, BaseTableBuilder):
                 category_system="http://terminology.hl7.org/CodeSystem/condition-category",
             ),
             self.make_table(src="Device", field="type"),
+            self.make_table(src="DiagnosticReport", field="code"),
             self.make_table(src="DocumentReference", field="type"),
             self.make_table(src="Encounter", field="class", is_coding=True),
             self.make_table(src="Encounter", field="type", is_array=True),

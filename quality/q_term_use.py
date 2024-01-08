@@ -24,6 +24,7 @@ class TermUseBuilder(MetricMixin, BaseTableBuilder):
             self.make_table(src="AllergyIntolerance", field="code", system="http://snomed.info/sct"),
             self.make_table(src="Condition", field="code", system="http://snomed.info/sct"),
             self.make_table(src="Device", field="type", system="http://snomed.info/sct"),
+            self.make_table(src="DiagnosticReport", field="code", system="http://loinc.org"),
             self.make_table(src="DocumentReference", field="type", system="http://loinc.org"),
             self.make_table(src="Immunization", field="vaccineCode", system="http://hl7.org/fhir/sid/cvx"),
             self.make_table(src="Medication", field="code", system="http://www.nlm.nih.gov/research/umls/rxnorm"),
