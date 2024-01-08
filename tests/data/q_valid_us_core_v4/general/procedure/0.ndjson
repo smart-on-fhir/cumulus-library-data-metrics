@@ -1,0 +1,11 @@
+{"id": "valid-with-datetime", "performedDateTime": "2015-02-07T13:28:17-05:00", "status": "completed", "code": {"text": "X"}, "subject": {"reference": "Patient/A"}}
+{"id": "valid-with-period", "performedPeriod": {"start": "2020"}, "status": "completed", "code": {"text": "X"}, "subject": {"reference": "Patient/A"}}
+{"id": "valid-with-string", "performedString": "yo", "status": "completed", "code": {"text": "X"}, "subject": {"reference": "Patient/A"}}
+{"id": "valid-with-age", "performedAge": {"value": 1.5}, "status": "completed", "code": {"text": "X"}, "subject": {"reference": "Patient/A"}}
+{"id": "valid-with-range", "performedRange": {"low": {"value": 1.5}}, "status": "completed", "code": {"text": "X"}, "subject": {"reference": "Patient/A"}}
+{"id": "no-status", "code": {"text": "X"}, "subject": {"reference": "Patient/A"}, "performedString": "20th century"}
+{"id": "no-code", "status": "completed", "subject": {"reference": "Patient/A"}, "performedString": "20th century"}
+{"id": "no-subject", "status": "completed", "code": {"text": "X"}, "performedString": "20th century"}
+{"id": "group-subject", "status": "completed", "code": {"text": "X"}, "subject": {"reference": "Group/A"}, "performedString": "20th century"}
+{"id": "no-performed-time", "status": "completed", "code": {"text": "X"}, "subject": {"reference": "Patient/A"}}
+{"id": "nothing"}

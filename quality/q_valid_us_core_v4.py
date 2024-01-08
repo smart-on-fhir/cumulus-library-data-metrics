@@ -118,5 +118,8 @@ class ValidUsCoreV4Builder(MetricMixin, BaseTableBuilder):
         self.make_table(src="Observation", category="vital-signs", **self.obs_args(cursor, schema))
         # FIXME: add tests for vital-signs and/or confirm with Jamie the best way to slice this up.
         #  He was recommending a code-based approach instead of category-based.
+        # FIXME: add more tests for low-schema versions of Observations
 
+        self.make_table(src="Patient")
+        self.make_table(src="Procedure")
         self.queries.append(self.make_summary())

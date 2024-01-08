@@ -1,0 +1,4 @@
+{"id": "valid", "gender": "unknown"}
+{"id": "with-active-status", "active": true}
+{"id": "with-inactive-status", "active": false}
+{"id": "nothing"}
