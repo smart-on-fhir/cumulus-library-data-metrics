@@ -12,6 +12,12 @@ from cumulus_library import cli
 class MetricsTestCase(unittest.TestCase):
     """Test case for quality metrics"""
 
+    def test_c_pt_count(self):
+        self.run_study("c_pt_count")
+
+    def test_c_pt_count_no_ext(self):
+        self.run_study("c_pt_count", test="no-ext")
+
     def test_c_pt_deceased_count(self):
         self.run_study("c_pt_deceased_count")
 

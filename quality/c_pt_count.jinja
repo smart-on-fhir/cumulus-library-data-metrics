@@ -1,0 +1,131 @@
+{% import 'utils.jinja' as utils %}
+
+CREATE TABLE quality__count_c_pt_count AS (
+WITH
+src_status AS {{ utils.extract_status('Patient') }},
+
+-- The Library 'core' study look at ethnicity and race in depth, comparing the various extension
+-- fields like 'ombCategory', 'detailed', and 'text' and using whichever it finds and grabbing a
+-- human readable text string from the whole set.
+--
+-- In contrast, this metric only pulls ethnicity and race from ombCategory (ignoring 'detailed'
+-- and 'text', instead only looking at the code & system, not the text display value).
+--
+-- This is just a quick and dirty metric, more focused on "is your body of FHIR records
+-- appropriately machine-readable?" and for that, we're more focused on the codes and systems
+-- than the text value. We don't even require any text value, providing our own.
+
+grouped_ethnicity AS (
+{% if has_extension_codes %}
+    WITH flattened_ethnicity AS (
+        SELECT
+            src.id,
+
+            CASE
+            WHEN c.ext.valuecoding.code = '2135-2' AND c.ext.valuecoding.system = 'urn:oid:2.16.840.1.113883.6.238'
+            THEN 'Hispanic or Latino'
+            WHEN c.ext.valuecoding.code = '2186-5' AND c.ext.valuecoding.system = 'urn:oid:2.16.840.1.113883.6.238'
+            THEN 'Non Hispanic or Latino'
+            ELSE CONCAT(c.ext.valuecoding.code, ' from ', c.ext.valuecoding.system)
+            END AS display
+        FROM
+            patient AS src,
+            UNNEST(extension) AS p (ext),
+            UNNEST(p.ext.extension) AS c (ext)
+        WHERE
+            p.ext.url = 'http://hl7.org/fhir/us/core/StructureDefinition/us-core-ethnicity'
+            AND c.ext.url = 'ombCategory'
+            AND c.ext.valuecoding.code IS NOT NULL
+            AND c.ext.valuecoding.system IS NOT NULL
+    )
+    SELECT
+        id,
+        {% call utils.array_to_string() %}
+          ARRAY_DISTINCT(ARRAY_AGG(display))
+        {% endcall %} AS display
+    FROM flattened_ethnicity
+    GROUP BY id
+{% else %}
+    SELECT id, '' AS display FROM patient WHERE 1=0  -- return an empty table
+{% endif %}
+),
+
+grouped_race AS (
+{% if has_extension_codes %}
+    WITH flattened_race AS (
+        SELECT
+            src.id,
+
+            CASE
+            WHEN c.ext.valuecoding.code = '1002-5' AND c.ext.valuecoding.system = 'urn:oid:2.16.840.1.113883.6.238'
+            THEN 'American Indian or Alaska Native'
+            WHEN c.ext.valuecoding.code = '2028-9' AND c.ext.valuecoding.system = 'urn:oid:2.16.840.1.113883.6.238'
+            THEN 'Asian'
+            WHEN c.ext.valuecoding.code = '2054-5' AND c.ext.valuecoding.system = 'urn:oid:2.16.840.1.113883.6.238'
+            THEN 'Black or African American'
+            WHEN c.ext.valuecoding.code = '2076-8' AND c.ext.valuecoding.system = 'urn:oid:2.16.840.1.113883.6.238'
+            THEN 'Native Hawaiian or Other Pacific Islander'
+            WHEN c.ext.valuecoding.code = '2106-3' AND c.ext.valuecoding.system = 'urn:oid:2.16.840.1.113883.6.238'
+            THEN 'White'
+            WHEN c.ext.valuecoding.code = 'UNK' AND c.ext.valuecoding.system = 'http://terminology.hl7.org/CodeSystem/v3-NullFlavor'
+            THEN 'Unknown'
+            WHEN c.ext.valuecoding.code = 'ASKU' AND c.ext.valuecoding.system = 'http://terminology.hl7.org/CodeSystem/v3-NullFlavor'
+            THEN 'Asked but no answer'
+            ELSE CONCAT(c.ext.valuecoding.code, ' from ', c.ext.valuecoding.system)
+            END AS display
+        FROM
+            patient AS src,
+            UNNEST(extension) AS p (ext),
+            UNNEST(p.ext.extension) AS c (ext)
+        WHERE
+            p.ext.url = 'http://hl7.org/fhir/us/core/StructureDefinition/us-core-race'
+            AND c.ext.url = 'ombCategory'
+            AND c.ext.valuecoding.code IS NOT NULL
+            AND c.ext.valuecoding.system IS NOT NULL
+    )
+    SELECT
+        id,
+        {% call utils.array_to_string() %}
+          ARRAY_DISTINCT(ARRAY_AGG(display))
+        {% endcall %} AS display
+    FROM flattened_race
+    GROUP BY id
+{% else %}
+    SELECT id, '' AS display FROM patient WHERE 1=0  -- return an empty table
+{% endif %}
+),
+
+simplified AS (
+    SELECT
+        src.id,
+        {{ utils.get_date(['src.birthDate'], 'year') }} AS birth_year,
+        {{ utils.coalesce_missing('src.gender') }} AS administrative_gender,
+        {{ utils.coalesce_missing('src_status.status') }} AS status,
+        {{ utils.coalesce_missing('grouped_ethnicity.display') }} AS ethnicity,
+        {{ utils.coalesce_missing('grouped_race.display') }} AS race
+
+    FROM patient AS src
+    LEFT JOIN src_status
+    ON src.id = src_status.id
+    LEFT JOIN grouped_ethnicity
+    ON src.id = grouped_ethnicity.id
+    LEFT JOIN grouped_race
+    ON src.id = grouped_race.id
+)
+
+SELECT
+    COUNT(DISTINCT id) AS cnt,
+    birth_year,
+    administrative_gender,
+    ethnicity,
+    race,
+    status
+FROM simplified
+GROUP BY CUBE(
+    birth_year,
+    administrative_gender,
+    ethnicity,
+    race,
+    status
+)
+);

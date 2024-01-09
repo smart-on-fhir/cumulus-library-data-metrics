@@ -7,6 +7,7 @@ file_names = [
 
 [table_builder_config]
 file_names = [
+    "c_pt_count.py",
     "c_pt_deceased_count.py",
     "c_resource_count.py",
     "c_term_coverage.py",
@@ -18,12 +19,15 @@ file_names = [
 
 [export_config]
 export_list = [
+    "quality__count_c_pt_count",
     "quality__count_c_pt_deceased_count",
     "quality__count_c_resource_count_allergyintolerance_month",
     "quality__count_c_resource_count_allergyintolerance_year",
     "quality__count_c_resource_count_condition_month",
     "quality__count_c_resource_count_condition_year",
     "quality__count_c_resource_count_device_all",
+    "quality__count_c_resource_count_diagnosticreport_month",
+    "quality__count_c_resource_count_diagnosticreport_year",
     "quality__count_c_resource_count_documentreference_month",
     "quality__count_c_resource_count_documentreference_year",
     "quality__count_c_resource_count_encounter_month",
@@ -40,6 +44,7 @@ export_list = [
     "quality__count_c_resource_count_procedure_year",
     "quality__count_c_term_coverage_allergyintolerance_code",
     "quality__count_c_term_coverage_device_type",
+    "quality__count_c_term_coverage_diagnosticreport_code",
     "quality__count_c_term_coverage_documentreference_type",
     "quality__count_c_term_coverage_encounter_class",
     "quality__count_c_term_coverage_encounter_type",

@@ -1,0 +1,237 @@
+cnt,birth_year,administrative_gender,ethnicity,race,status
+11,,,,,
+9,,,,,active
+7,,,,missing-or-null,
+7,,other,,,
+7,,other,,,active
+6,,,missing-or-null,,
+5,,,,missing-or-null,active
+5,2001,,,,
+5,2001,,,,active
+5,2001,other,,,
+5,2001,other,,,active
+4,,,missing-or-null,,active
+4,,other,,missing-or-null,
+4,,other,,missing-or-null,active
+4,,other,missing-or-null,,
+4,,other,missing-or-null,,active
+4,2001,,missing-or-null,,
+4,2001,,missing-or-null,,active
+4,2001,other,missing-or-null,,
+4,2001,other,missing-or-null,,active
+3,,,missing-or-null,missing-or-null,
+3,,,Hispanic or Latino,,
+3,,,Hispanic or Latino,,active
+3,,missing-or-null,,,
+3,,missing-or-null,,missing-or-null,
+3,missing-or-null,,,,
+3,missing-or-null,,,missing-or-null,
+2,,,Hispanic or Latino,missing-or-null,
+2,,,Hispanic or Latino,missing-or-null,active
+2,,missing-or-null,missing-or-null,,
+2,,missing-or-null,missing-or-null,missing-or-null,
+2,missing-or-null,,missing-or-null,,
+2,missing-or-null,,missing-or-null,missing-or-null,
+2,missing-or-null,missing-or-null,,,
+2,missing-or-null,missing-or-null,,missing-or-null,
+2,missing-or-null,missing-or-null,missing-or-null,,
+2,missing-or-null,missing-or-null,missing-or-null,missing-or-null,
+2,2001,,,missing-or-null,
+2,2001,,,missing-or-null,active
+2,2001,other,,missing-or-null,
+2,2001,other,,missing-or-null,active
+1,,,,,missing-or-null
+1,,,,,inactive
+1,,,,race from weird-system,
+1,,,,race from weird-system,active
+1,,,,missing-or-null,missing-or-null
+1,,,,missing-or-null,inactive
+1,,,,Unknown,
+1,,,,Unknown,active
+1,,,,Asked but no answer,
+1,,,,Asked but no answer,active
+1,,,,American Indian or Alaska Native; Asian; Black or African American; Native Hawaiian or Other Pacific Islander; White,
+1,,,,American Indian or Alaska Native; Asian; Black or African American; Native Hawaiian or Other Pacific Islander; White,active
+1,,,missing-or-null,,missing-or-null
+1,,,missing-or-null,,inactive
+1,,,missing-or-null,race from weird-system,
+1,,,missing-or-null,race from weird-system,active
+1,,,missing-or-null,missing-or-null,missing-or-null
+1,,,missing-or-null,missing-or-null,inactive
+1,,,missing-or-null,missing-or-null,active
+1,,,missing-or-null,Unknown,
+1,,,missing-or-null,Unknown,active
+1,,,missing-or-null,Asked but no answer,
+1,,,missing-or-null,Asked but no answer,active
+1,,,eth from weird-system,,
+1,,,eth from weird-system,,active
+1,,,eth from weird-system,missing-or-null,
+1,,,eth from weird-system,missing-or-null,active
+1,,,Non Hispanic or Latino,,
+1,,,Non Hispanic or Latino,,active
+1,,,Non Hispanic or Latino,missing-or-null,
+1,,,Non Hispanic or Latino,missing-or-null,active
+1,,,Hispanic or Latino,American Indian or Alaska Native; Asian; Black or African American; Native Hawaiian or Other Pacific Islander; White,
+1,,,Hispanic or Latino,American Indian or Alaska Native; Asian; Black or African American; Native Hawaiian or Other Pacific Islander; White,active
+1,,other,,race from weird-system,
+1,,other,,race from weird-system,active
+1,,other,,Unknown,
+1,,other,,Unknown,active
+1,,other,,Asked but no answer,
+1,,other,,Asked but no answer,active
+1,,other,missing-or-null,race from weird-system,
+1,,other,missing-or-null,race from weird-system,active
+1,,other,missing-or-null,missing-or-null,
+1,,other,missing-or-null,missing-or-null,active
+1,,other,missing-or-null,Unknown,
+1,,other,missing-or-null,Unknown,active
+1,,other,missing-or-null,Asked but no answer,
+1,,other,missing-or-null,Asked but no answer,active
+1,,other,eth from weird-system,,
+1,,other,eth from weird-system,,active
+1,,other,eth from weird-system,missing-or-null,
+1,,other,eth from weird-system,missing-or-null,active
+1,,other,Non Hispanic or Latino,,
+1,,other,Non Hispanic or Latino,,active
+1,,other,Non Hispanic or Latino,missing-or-null,
+1,,other,Non Hispanic or Latino,missing-or-null,active
+1,,other,Hispanic or Latino,,
+1,,other,Hispanic or Latino,,active
+1,,other,Hispanic or Latino,missing-or-null,
+1,,other,Hispanic or Latino,missing-or-null,active
+1,,missing-or-null,,,missing-or-null
+1,,missing-or-null,,,inactive
+1,,missing-or-null,,,active
+1,,missing-or-null,,missing-or-null,missing-or-null
+1,,missing-or-null,,missing-or-null,inactive
+1,,missing-or-null,,missing-or-null,active
+1,,missing-or-null,missing-or-null,,missing-or-null
+1,,missing-or-null,missing-or-null,,inactive
+1,,missing-or-null,missing-or-null,missing-or-null,missing-or-null
+1,,missing-or-null,missing-or-null,missing-or-null,inactive
+1,,missing-or-null,Hispanic or Latino,,
+1,,missing-or-null,Hispanic or Latino,,active
+1,,missing-or-null,Hispanic or Latino,missing-or-null,
+1,,missing-or-null,Hispanic or Latino,missing-or-null,active
+1,,female,,,
+1,,female,,,active
+1,,female,,American Indian or Alaska Native; Asian; Black or African American; Native Hawaiian or Other Pacific Islander; White,
+1,,female,,American Indian or Alaska Native; Asian; Black or African American; Native Hawaiian or Other Pacific Islander; White,active
+1,,female,Hispanic or Latino,,
+1,,female,Hispanic or Latino,,active
+1,,female,Hispanic or Latino,American Indian or Alaska Native; Asian; Black or African American; Native Hawaiian or Other Pacific Islander; White,
+1,,female,Hispanic or Latino,American Indian or Alaska Native; Asian; Black or African American; Native Hawaiian or Other Pacific Islander; White,active
+1,missing-or-null,,,,missing-or-null
+1,missing-or-null,,,,inactive
+1,missing-or-null,,,,active
+1,missing-or-null,,,missing-or-null,missing-or-null
+1,missing-or-null,,,missing-or-null,inactive
+1,missing-or-null,,,missing-or-null,active
+1,missing-or-null,,missing-or-null,,missing-or-null
+1,missing-or-null,,missing-or-null,,inactive
+1,missing-or-null,,missing-or-null,missing-or-null,missing-or-null
+1,missing-or-null,,missing-or-null,missing-or-null,inactive
+1,missing-or-null,,Hispanic or Latino,,
+1,missing-or-null,,Hispanic or Latino,,active
+1,missing-or-null,,Hispanic or Latino,missing-or-null,
+1,missing-or-null,,Hispanic or Latino,missing-or-null,active
+1,missing-or-null,other,,,
+1,missing-or-null,other,,,active
+1,missing-or-null,other,,missing-or-null,
+1,missing-or-null,other,,missing-or-null,active
+1,missing-or-null,other,Hispanic or Latino,,
+1,missing-or-null,other,Hispanic or Latino,,active
+1,missing-or-null,other,Hispanic or Latino,missing-or-null,
+1,missing-or-null,other,Hispanic or Latino,missing-or-null,active
+1,missing-or-null,missing-or-null,,,missing-or-null
+1,missing-or-null,missing-or-null,,,inactive
+1,missing-or-null,missing-or-null,,missing-or-null,missing-or-null
+1,missing-or-null,missing-or-null,,missing-or-null,inactive
+1,missing-or-null,missing-or-null,missing-or-null,,missing-or-null
+1,missing-or-null,missing-or-null,missing-or-null,,inactive
+1,missing-or-null,missing-or-null,missing-or-null,missing-or-null,missing-or-null
+1,missing-or-null,missing-or-null,missing-or-null,missing-or-null,inactive
+1,2003,,,,
+1,2003,,,,active
+1,2003,,,missing-or-null,
+1,2003,,,missing-or-null,active
+1,2003,,Non Hispanic or Latino,,
+1,2003,,Non Hispanic or Latino,,active
+1,2003,,Non Hispanic or Latino,missing-or-null,
+1,2003,,Non Hispanic or Latino,missing-or-null,active
+1,2003,other,,,
+1,2003,other,,,active
+1,2003,other,,missing-or-null,
+1,2003,other,,missing-or-null,active
+1,2003,other,Non Hispanic or Latino,,
+1,2003,other,Non Hispanic or Latino,,active
+1,2003,other,Non Hispanic or Latino,missing-or-null,
+1,2003,other,Non Hispanic or Latino,missing-or-null,active
+1,2001,,,race from weird-system,
+1,2001,,,race from weird-system,active
+1,2001,,,Unknown,
+1,2001,,,Unknown,active
+1,2001,,,Asked but no answer,
+1,2001,,,Asked but no answer,active
+1,2001,,missing-or-null,race from weird-system,
+1,2001,,missing-or-null,race from weird-system,active
+1,2001,,missing-or-null,missing-or-null,
+1,2001,,missing-or-null,missing-or-null,active
+1,2001,,missing-or-null,Unknown,
+1,2001,,missing-or-null,Unknown,active
+1,2001,,missing-or-null,Asked but no answer,
+1,2001,,missing-or-null,Asked but no answer,active
+1,2001,,eth from weird-system,,
+1,2001,,eth from weird-system,,active
+1,2001,,eth from weird-system,missing-or-null,
+1,2001,,eth from weird-system,missing-or-null,active
+1,2001,other,,race from weird-system,
+1,2001,other,,race from weird-system,active
+1,2001,other,,Unknown,
+1,2001,other,,Unknown,active
+1,2001,other,,Asked but no answer,
+1,2001,other,,Asked but no answer,active
+1,2001,other,missing-or-null,race from weird-system,
+1,2001,other,missing-or-null,race from weird-system,active
+1,2001,other,missing-or-null,missing-or-null,
+1,2001,other,missing-or-null,missing-or-null,active
+1,2001,other,missing-or-null,Unknown,
+1,2001,other,missing-or-null,Unknown,active
+1,2001,other,missing-or-null,Asked but no answer,
+1,2001,other,missing-or-null,Asked but no answer,active
+1,2001,other,eth from weird-system,,
+1,2001,other,eth from weird-system,,active
+1,2001,other,eth from weird-system,missing-or-null,
+1,2001,other,eth from weird-system,missing-or-null,active
+1,2000,,,,
+1,2000,,,,active
+1,2000,,,American Indian or Alaska Native; Asian; Black or African American; Native Hawaiian or Other Pacific Islander; White,
+1,2000,,,American Indian or Alaska Native; Asian; Black or African American; Native Hawaiian or Other Pacific Islander; White,active
+1,2000,,Hispanic or Latino,,
+1,2000,,Hispanic or Latino,,active
+1,2000,,Hispanic or Latino,American Indian or Alaska Native; Asian; Black or African American; Native Hawaiian or Other Pacific Islander; White,
+1,2000,,Hispanic or Latino,American Indian or Alaska Native; Asian; Black or African American; Native Hawaiian or Other Pacific Islander; White,active
+1,2000,female,,,
+1,2000,female,,,active
+1,2000,female,,American Indian or Alaska Native; Asian; Black or African American; Native Hawaiian or Other Pacific Islander; White,
+1,2000,female,,American Indian or Alaska Native; Asian; Black or African American; Native Hawaiian or Other Pacific Islander; White,active
+1,2000,female,Hispanic or Latino,,
+1,2000,female,Hispanic or Latino,,active
+1,2000,female,Hispanic or Latino,American Indian or Alaska Native; Asian; Black or African American; Native Hawaiian or Other Pacific Islander; White,
+1,2000,female,Hispanic or Latino,American Indian or Alaska Native; Asian; Black or African American; Native Hawaiian or Other Pacific Islander; White,active
+1,1990,,,,
+1,1990,,,,active
+1,1990,,,missing-or-null,
+1,1990,,,missing-or-null,active
+1,1990,,Hispanic or Latino,,
+1,1990,,Hispanic or Latino,,active
+1,1990,,Hispanic or Latino,missing-or-null,
+1,1990,,Hispanic or Latino,missing-or-null,active
+1,1990,missing-or-null,,,
+1,1990,missing-or-null,,,active
+1,1990,missing-or-null,,missing-or-null,
+1,1990,missing-or-null,,missing-or-null,active
+1,1990,missing-or-null,Hispanic or Latino,,
+1,1990,missing-or-null,Hispanic or Latino,,active
+1,1990,missing-or-null,Hispanic or Latino,missing-or-null,
+1,1990,missing-or-null,Hispanic or Latino,missing-or-null,active
