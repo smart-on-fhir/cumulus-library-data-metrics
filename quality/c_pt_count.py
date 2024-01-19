@@ -14,10 +14,10 @@ class PatientCountBuilder(MetricMixin, BaseTableBuilder):
     def extension_args(cursor: DatabaseCursor, schema: str) -> dict:
         # Check if we have all the pieces of the extension we need
         query = templates.get_column_datatype_query(
-            schema, "patient", "extension",
+            schema, "patient", ["extension"],
         )
         cursor.execute(query)
-        result = cursor.fetchone()[0]
+        result = cursor.fetchone()[1]
         # TODO: be way more fancy with this, with cumulus-library 2.0 and its schema stuff
         return {
             "has_extension_codes": "code" in result and "system" in result,

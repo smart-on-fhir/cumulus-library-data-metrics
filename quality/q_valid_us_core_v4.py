@@ -54,10 +54,10 @@ class ValidUsCoreV4Builder(MetricMixin, BaseTableBuilder):
         # because our SQL wants to reference it, but it's deeper than Cumulus's default
         # schema depth of one, so it may not be in the schema.
         query = templates.get_column_datatype_query(
-            schema, 'documentreference', 'content',
+            schema, 'documentreference', ['content'],
         )
         cursor.execute(query)
-        result = cursor.fetchone()[0]
+        result = cursor.fetchone()[1]
         return {
             'has_attachment': "attachment" in result,
         }
@@ -66,17 +66,17 @@ class ValidUsCoreV4Builder(MetricMixin, BaseTableBuilder):
     def obs_args(cursor: DatabaseCursor, schema: str) -> dict:
         # Check referenceRange.* fields
         query = templates.get_column_datatype_query(
-            schema, 'observation', 'referencerange',
+            schema, 'observation', ['referencerange'],
         )
         cursor.execute(query)
-        ref_range_result = cursor.fetchone()[0]
+        ref_range_result = cursor.fetchone()[1]
 
         # Check component.* fields
         query = templates.get_column_datatype_query(
-            schema, 'observation', 'component',
+            schema, 'observation', ['component'],
         )
         cursor.execute(query)
-        comp_result = cursor.fetchone()[0]
+        comp_result = cursor.fetchone()[1]
 
         return {
             "has_ref_range_high": "high" in ref_range_result,

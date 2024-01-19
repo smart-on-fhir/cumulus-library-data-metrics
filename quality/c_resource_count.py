@@ -21,6 +21,7 @@ class ResourceCountBuilder(MetricMixin, BaseTableBuilder):
             # no date fields, so don't do separate periods
             self.queries.append(self.render_sql(self.name, period="all", **kwargs))
 
+    # TODO: how to handle months for just-year dates
     def prepare_queries(self, *args, **kwargs) -> None:
         # https://github.com/sync-for-science/qualifier/blob/master/metrics.md#c_resource_count-volume-count-of-unique-resources-by-resource-type-by-category-by-year-by-month
         self.make_tables(
