@@ -7,14 +7,14 @@ file_names = [
 
 [table_builder_config]
 file_names = [
-    "c_pt_count.py",
-    "c_pt_deceased_count.py",
-    "c_resource_count.py",
-    "c_term_coverage.py",
-    "q_ref_target_pop.py",
-    "q_ref_target_valid.py",
-    "q_term_use.py",
-    "q_valid_us_core_v4.py",
+    "c_pt_count/c_pt_count.py",
+    "c_pt_deceased_count/c_pt_deceased_count.py",
+    "c_resource_count/c_resource_count.py",
+    "c_term_coverage/c_term_coverage.py",
+    "q_ref_target_pop/q_ref_target_pop.py",
+    "q_ref_target_valid/q_ref_target_valid.py",
+    "q_term_use/q_term_use.py",
+    "q_valid_us_core_v4/q_valid_us_core_v4.py",
 ]
 
 [export_config]

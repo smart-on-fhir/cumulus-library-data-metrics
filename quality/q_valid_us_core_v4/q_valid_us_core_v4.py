@@ -40,7 +40,7 @@ class ValidUsCoreV4Builder(MetricMixin, BaseTableBuilder):
         summary_key = kwargs["src"].lower()
         summary_denominator = kwargs["src"]
         if "category" in kwargs:
-            self.queries.append(self.render_sql(f"{self.name}/{summary_key}_denominator", **kwargs))
+            self.queries.append(self.render_sql(f"{summary_key}_denominator", **kwargs))
             summary_key += f"_{kwargs['category'].replace('-', '_')}"
             # Setting None will tell the summary generator code to look at our pre-defined table
             summary_denominator = None

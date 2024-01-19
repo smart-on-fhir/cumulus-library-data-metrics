@@ -81,14 +81,14 @@ class MetricsTestCase(unittest.TestCase):
                     file_config = f"""
 [table_builder_config]
 file_names = [
-    "{metric}.py",
+    "{metric}/{metric}.py",
 ]
 """
                 else:
                     file_config = f"""
 [sql_config]
 file_names = [
-    "{metric}.sql",
+    "{metric}/{metric}.sql",
 ]
 """
                 f.write(

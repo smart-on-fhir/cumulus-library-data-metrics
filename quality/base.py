@@ -18,7 +18,7 @@ class MetricMixin:
 
     def make_summary(self) -> str:
         """Makes a summary table, from all the individual metric tables"""
-        return self.render_sql("base.summary", entries=self.summary_entries, metric=self.name)
+        return self.render_sql("../base.summary", entries=self.summary_entries, metric=self.name)
 
     @staticmethod
     def get_dates(resource: str) -> Optional[list[str]]:
@@ -48,7 +48,7 @@ class MetricMixin:
         if self.uses_dates:
             kwargs["dates"] = self.get_dates(kwargs["src"])
 
-        with open(f"{path}/{template}.jinja") as file:
+        with open(f"{path}/{self.name}/{template}.jinja") as file:
             template = file.read()
             loader = jinja2.FileSystemLoader(path)
             env = jinja2.Environment(loader=loader).from_string(template)
