@@ -6,6 +6,8 @@ import shutil
 import tempfile
 import unittest
 
+import duckdb
+
 from cumulus_library import cli
 
 
@@ -114,25 +116,18 @@ export_list = [
                     f"--load-ndjson-dir={data_dir}",
                 ]
             )
-            cli.main(
-                [
-                    "export",
-                    "--target=quality",
-                    f"--study-dir={tmpdir}/quality",
-                    "--db-type=duckdb",
-                    f"--database={tmpdir}/duck.db",
-                    f"{tmpdir}/counts",
-                ]
-            )
+            db = duckdb.connect(f"{tmpdir}/duck.db")
 
             # Uncomment this for extra debugging
-            # import duckdb
-            # df = duckdb.connect(f"{tmpdir}/duck.db").execute("select * from quality__count_c_resource_count_allergyintolerance_year").df()
+            # df = db.execute("select * from quality__count_c_resource_count_allergyintolerance_year").df()
             # print(df.to_string())
 
             # Check each output with the saved & expected version
             for short_name, full_name in expected_tables.items():
-                csv_path = f"{tmpdir}/counts/quality/{full_name}.csv"
+                csv_path = f"{tmpdir}/{full_name}.csv"
+                db_table = db.table(full_name)
+                sorted_table = db_table.order(f"ALL DESC NULLS FIRST")
+                sorted_table.to_csv(csv_path)
                 with open(csv_path, "r", encoding="utf8") as f:
                     csv = f.read()
 

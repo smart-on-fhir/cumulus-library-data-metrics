@@ -3,10 +3,10 @@ cnt,category,systems,status,year,has_text
 6,,,,missing-or-null,
 6,,,missing-or-null,,
 6,,,missing-or-null,missing-or-null,
-5,,,,,No Text
-5,,,,missing-or-null,No Text
-5,,,missing-or-null,,No Text
-5,,,missing-or-null,missing-or-null,No Text
+4,,,,,No Text
+4,,,,missing-or-null,No Text
+4,,,missing-or-null,,No Text
+4,,,missing-or-null,missing-or-null,No Text
 3,,system1,,,
 3,,system1,,missing-or-null,
 3,,system1,missing-or-null,,
@@ -39,9 +39,13 @@ cnt,category,systems,status,year,has_text
 2,encounter-diagnosis; problem-list-item,,missing-or-null,,No Text
 2,encounter-diagnosis; problem-list-item,,missing-or-null,missing-or-null,
 2,encounter-diagnosis; problem-list-item,,missing-or-null,missing-or-null,No Text
+1,,,,,missing-or-null
 1,,,,,Has Text
+1,,,,missing-or-null,missing-or-null
 1,,,,missing-or-null,Has Text
+1,,,missing-or-null,,missing-or-null
 1,,,missing-or-null,,Has Text
+1,,,missing-or-null,missing-or-null,missing-or-null
 1,,,missing-or-null,missing-or-null,Has Text
 1,,system2,,,
 1,,system2,,,No Text
@@ -64,29 +68,29 @@ cnt,category,systems,status,year,has_text
 1,,system1,missing-or-null,,Has Text
 1,,system1,missing-or-null,missing-or-null,Has Text
 1,,missing-or-null,,,
-1,,missing-or-null,,,No Text
+1,,missing-or-null,,,missing-or-null
 1,,missing-or-null,,missing-or-null,
-1,,missing-or-null,,missing-or-null,No Text
+1,,missing-or-null,,missing-or-null,missing-or-null
 1,,missing-or-null,missing-or-null,,
-1,,missing-or-null,missing-or-null,,No Text
+1,,missing-or-null,missing-or-null,,missing-or-null
 1,,missing-or-null,missing-or-null,missing-or-null,
-1,,missing-or-null,missing-or-null,missing-or-null,No Text
+1,,missing-or-null,missing-or-null,missing-or-null,missing-or-null
 1,missing-or-null,,,,
-1,missing-or-null,,,,No Text
+1,missing-or-null,,,,missing-or-null
 1,missing-or-null,,,missing-or-null,
-1,missing-or-null,,,missing-or-null,No Text
+1,missing-or-null,,,missing-or-null,missing-or-null
 1,missing-or-null,,missing-or-null,,
-1,missing-or-null,,missing-or-null,,No Text
+1,missing-or-null,,missing-or-null,,missing-or-null
 1,missing-or-null,,missing-or-null,missing-or-null,
-1,missing-or-null,,missing-or-null,missing-or-null,No Text
+1,missing-or-null,,missing-or-null,missing-or-null,missing-or-null
 1,missing-or-null,missing-or-null,,,
-1,missing-or-null,missing-or-null,,,No Text
+1,missing-or-null,missing-or-null,,,missing-or-null
 1,missing-or-null,missing-or-null,,missing-or-null,
-1,missing-or-null,missing-or-null,,missing-or-null,No Text
+1,missing-or-null,missing-or-null,,missing-or-null,missing-or-null
 1,missing-or-null,missing-or-null,missing-or-null,,
-1,missing-or-null,missing-or-null,missing-or-null,,No Text
+1,missing-or-null,missing-or-null,missing-or-null,,missing-or-null
 1,missing-or-null,missing-or-null,missing-or-null,missing-or-null,
-1,missing-or-null,missing-or-null,missing-or-null,missing-or-null,No Text
+1,missing-or-null,missing-or-null,missing-or-null,missing-or-null,missing-or-null
 1,encounter-diagnosis; problem-list-item,system2,,,
 1,encounter-diagnosis; problem-list-item,system2,,,No Text
 1,encounter-diagnosis; problem-list-item,system2,,missing-or-null,

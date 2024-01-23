@@ -2,25 +2,25 @@ cnt,systems,status,year,has_text
 10,,,,
 9,,,missing-or-null,
 9,,missing-or-null,,
-8,,,,No Text
 8,,missing-or-null,missing-or-null,
-7,,,missing-or-null,No Text
-7,,missing-or-null,,No Text
-6,,missing-or-null,missing-or-null,No Text
+7,,,,No Text
+6,,,missing-or-null,No Text
+6,,missing-or-null,,No Text
+5,,missing-or-null,missing-or-null,No Text
 4,missing-or-null,,,
 4,missing-or-null,,missing-or-null,
 4,missing-or-null,missing-or-null,,
 4,missing-or-null,missing-or-null,missing-or-null,
-3,missing-or-null,,,No Text
-3,missing-or-null,,missing-or-null,No Text
-3,missing-or-null,missing-or-null,,No Text
-3,missing-or-null,missing-or-null,missing-or-null,No Text
 2,,,,Has Text
 2,,,missing-or-null,Has Text
 2,,missing-or-null,,Has Text
 2,,missing-or-null,missing-or-null,Has Text
 2,other,,,
 2,other,,,No Text
+2,missing-or-null,,,No Text
+2,missing-or-null,,missing-or-null,No Text
+2,missing-or-null,missing-or-null,,No Text
+2,missing-or-null,missing-or-null,missing-or-null,No Text
 2,http://snomed.info/sct; other,,,
 2,http://snomed.info/sct; other,,,No Text
 2,http://snomed.info/sct; other,,missing-or-null,
@@ -33,8 +33,12 @@ cnt,systems,status,year,has_text
 2,http://snomed.info/sct,,missing-or-null,
 2,http://snomed.info/sct,missing-or-null,,
 2,http://snomed.info/sct,missing-or-null,missing-or-null,
+1,,,,missing-or-null
+1,,,missing-or-null,missing-or-null
 1,,,2018,
 1,,,2018,No Text
+1,,missing-or-null,,missing-or-null
+1,,missing-or-null,missing-or-null,missing-or-null
 1,,missing-or-null,2018,
 1,,missing-or-null,2018,No Text
 1,,confirmed,,
@@ -53,9 +57,13 @@ cnt,systems,status,year,has_text
 1,other,confirmed,,No Text
 1,other,confirmed,missing-or-null,
 1,other,confirmed,missing-or-null,No Text
+1,missing-or-null,,,missing-or-null
 1,missing-or-null,,,Has Text
+1,missing-or-null,,missing-or-null,missing-or-null
 1,missing-or-null,,missing-or-null,Has Text
+1,missing-or-null,missing-or-null,,missing-or-null
 1,missing-or-null,missing-or-null,,Has Text
+1,missing-or-null,missing-or-null,missing-or-null,missing-or-null
 1,missing-or-null,missing-or-null,missing-or-null,Has Text
 1,http://snomed.info/sct,,,No Text
 1,http://snomed.info/sct,,,Has Text

@@ -16,9 +16,10 @@ class MetricMixin:
         self.display_text = f"Creating {self.name} tables…"
         self.summary_entries = {}
 
-    def make_summary(self) -> str:
+    def make_summary(self) -> None:
         """Makes a summary table, from all the individual metric tables"""
-        return self.render_sql("../base.summary", entries=self.summary_entries, metric=self.name)
+        sql = self.render_sql("../base.summary", entries=self.summary_entries, metric=self.name)
+        self.queries.append(sql)
 
     @staticmethod
     def get_dates(resource: str) -> Optional[list[str]]:

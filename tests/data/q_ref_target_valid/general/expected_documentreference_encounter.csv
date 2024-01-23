@@ -1,0 +1,3 @@
+id,status,target
+bad-second-encounter-in-list,,{'reference': Encounter/Nope}
+bad-encounter,,{'reference': Encounter/Nope}

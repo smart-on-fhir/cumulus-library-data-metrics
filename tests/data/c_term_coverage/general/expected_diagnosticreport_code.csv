@@ -3,13 +3,13 @@ cnt,systems,status,year,has_text
 2,,,missing-or-null,
 2,,missing-or-null,,
 2,,missing-or-null,missing-or-null,
-1,,,,No Text
+1,,,,missing-or-null
 1,,,,Has Text
-1,,,missing-or-null,No Text
+1,,,missing-or-null,missing-or-null
 1,,,missing-or-null,Has Text
-1,,missing-or-null,,No Text
+1,,missing-or-null,,missing-or-null
 1,,missing-or-null,,Has Text
-1,,missing-or-null,missing-or-null,No Text
+1,,missing-or-null,missing-or-null,missing-or-null
 1,,missing-or-null,missing-or-null,Has Text
 1,system1,,,
 1,system1,,,Has Text
@@ -20,10 +20,10 @@ cnt,systems,status,year,has_text
 1,system1,missing-or-null,missing-or-null,
 1,system1,missing-or-null,missing-or-null,Has Text
 1,missing-or-null,,,
-1,missing-or-null,,,No Text
+1,missing-or-null,,,missing-or-null
 1,missing-or-null,,missing-or-null,
-1,missing-or-null,,missing-or-null,No Text
+1,missing-or-null,,missing-or-null,missing-or-null
 1,missing-or-null,missing-or-null,,
-1,missing-or-null,missing-or-null,,No Text
+1,missing-or-null,missing-or-null,,missing-or-null
 1,missing-or-null,missing-or-null,missing-or-null,
-1,missing-or-null,missing-or-null,missing-or-null,No Text
+1,missing-or-null,missing-or-null,missing-or-null,missing-or-null

@@ -2,13 +2,13 @@ id,numerator,denominator,percentage
 # Various edge cases here in procedure
 procedure_code,5,7,0.7143
 # Rest are just short happy-path checks to confirm that we look at the right json field
-observation_valuecodeableconcept,1,2,0.5
-observation_code,1,2,0.5
-medicationrequest_medicationcodeableconcept,0,1,0.0
-medication_code,0,1,0.0
-immunization_vaccinecode,0,1,0.0
-documentreference_type,0,1,0.0
-diagnosticreport_code,0,1,0.0
-device_type,0,1,0.0
-condition_code,0,1,0.0
-allergyintolerance_code,0,1,0.0
+observation_valuecodeableconcept,1,2,0.5000
+observation_code,1,2,0.5000
+medicationrequest_medicationcodeableconcept,0,1,0.0000
+medication_code,0,1,0.0000
+immunization_vaccinecode,0,1,0.0000
+documentreference_type,0,1,0.0000
+diagnosticreport_code,0,1,0.0000
+device_type,0,1,0.0000
+condition_code,0,1,0.0000
+allergyintolerance_code,0,1,0.0000

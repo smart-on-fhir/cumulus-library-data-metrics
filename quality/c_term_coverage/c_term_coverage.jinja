@@ -48,6 +48,7 @@ src_text_array AS (
     {% else %}
         ARRAY_AGG({{ field }}.text) AS texts
     FROM {{ src }}
+    WHERE {{ field }} IS NOT NULL
     {% endif %}
 
     GROUP BY id
@@ -81,16 +82,17 @@ simplified AS (
         {% endif %}
 
         {% if uses_text %}
-        CASE WHEN
-            src_text_counts.total_count IS NULL
-            OR src_text_counts.empty_count = src_text_counts.total_count
+        {% call utils.coalesce_missing() %}
+        CASE
+        WHEN src_text_counts.total_count IS NULL
+        THEN NULL
+        WHEN src_text_counts.empty_count = src_text_counts.total_count
         THEN 'No Text'
-        ELSE
-            CASE WHEN src_text_counts.empty_count > 0
-            THEN 'Partial Text'
-            ELSE 'Has Text'
-            END
-        END AS has_text,
+        WHEN src_text_counts.empty_count > 0
+        THEN 'Partial Text'
+        ELSE 'Has Text'
+        END
+        {% endcall %} AS has_text,
         {% endif %}
 
         {{ utils.array_to_string('src_systems.systems') }} AS systems,

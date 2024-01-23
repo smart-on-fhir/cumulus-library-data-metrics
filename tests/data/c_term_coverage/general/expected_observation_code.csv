@@ -3,42 +3,46 @@ cnt,category,systems,status,year,has_text
 7,,,,missing-or-null,
 7,,,missing-or-null,,
 7,,,missing-or-null,missing-or-null,
-6,,,,,No Text
-6,,,,missing-or-null,No Text
-6,,,missing-or-null,,No Text
-6,,,missing-or-null,missing-or-null,No Text
+4,,,,,No Text
+4,,,,missing-or-null,No Text
+4,,,missing-or-null,,No Text
+4,,,missing-or-null,missing-or-null,No Text
 3,,code1,,,
 3,,code1,,missing-or-null,
 3,,code1,missing-or-null,,
 3,,code1,missing-or-null,missing-or-null,
+2,,,,,missing-or-null
+2,,,,missing-or-null,missing-or-null
+2,,,missing-or-null,,missing-or-null
+2,,,missing-or-null,missing-or-null,missing-or-null
 2,,missing-or-null,,,
-2,,missing-or-null,,,No Text
+2,,missing-or-null,,,missing-or-null
 2,,missing-or-null,,missing-or-null,
-2,,missing-or-null,,missing-or-null,No Text
+2,,missing-or-null,,missing-or-null,missing-or-null
 2,,missing-or-null,missing-or-null,,
-2,,missing-or-null,missing-or-null,,No Text
+2,,missing-or-null,missing-or-null,,missing-or-null
 2,,missing-or-null,missing-or-null,missing-or-null,
-2,,missing-or-null,missing-or-null,missing-or-null,No Text
+2,,missing-or-null,missing-or-null,missing-or-null,missing-or-null
 2,,code1,,,No Text
 2,,code1,,missing-or-null,No Text
 2,,code1,missing-or-null,,No Text
 2,,code1,missing-or-null,missing-or-null,No Text
 2,missing-or-null,,,,
-2,missing-or-null,,,,No Text
+2,missing-or-null,,,,missing-or-null
 2,missing-or-null,,,missing-or-null,
-2,missing-or-null,,,missing-or-null,No Text
+2,missing-or-null,,,missing-or-null,missing-or-null
 2,missing-or-null,,missing-or-null,,
-2,missing-or-null,,missing-or-null,,No Text
+2,missing-or-null,,missing-or-null,,missing-or-null
 2,missing-or-null,,missing-or-null,missing-or-null,
-2,missing-or-null,,missing-or-null,missing-or-null,No Text
+2,missing-or-null,,missing-or-null,missing-or-null,missing-or-null
 2,missing-or-null,missing-or-null,,,
-2,missing-or-null,missing-or-null,,,No Text
+2,missing-or-null,missing-or-null,,,missing-or-null
 2,missing-or-null,missing-or-null,,missing-or-null,
-2,missing-or-null,missing-or-null,,missing-or-null,No Text
+2,missing-or-null,missing-or-null,,missing-or-null,missing-or-null
 2,missing-or-null,missing-or-null,missing-or-null,,
-2,missing-or-null,missing-or-null,missing-or-null,,No Text
+2,missing-or-null,missing-or-null,missing-or-null,,missing-or-null
 2,missing-or-null,missing-or-null,missing-or-null,missing-or-null,
-2,missing-or-null,missing-or-null,missing-or-null,missing-or-null,No Text
+2,missing-or-null,missing-or-null,missing-or-null,missing-or-null,missing-or-null
 2,exam; vital-signs,,,,
 2,exam; vital-signs,,,,No Text
 2,exam; vital-signs,,,missing-or-null,
