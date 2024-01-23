@@ -40,6 +40,13 @@ All possible rows for the resource in question.
 In the case of Observation profiles,
 it's just the count of rows with the category in question.
 
+### A note on the DocumentReference profile
+
+The DocumentReference profile requires one or both of `content.attachment.data`
+and `content.attachment.url`.
+
+But since Cumulus ETL strips these fields, this metric does not require them.
+
 ### A note on Observation profiles
 
 Unlike the other resources, which check all rows, Observations are kind of a wild
@@ -58,6 +65,12 @@ We only check the categories for which profiles cover the whole category.
 For example, `social-history` only has the smoking-status profile, so we don't bother
 testing social-history. And `exam` has no profiles. Again, a characterization metric
 can handle looking at those numbers better, whereas this metrics warns of non-compliance.
+
+### A note on the Patient profile
+
+The Patient profile requires both `identifier` and `name`.
+
+But since Cumulus ETL strips these fields, this metric does not require them.
 
 ### Debugging
 

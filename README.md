@@ -18,6 +18,7 @@ Across the board, we have some minor differences from the
 [upstream metric definitions](https://github.com/sync-for-science/qualifier/blob/master/metrics.md):
 - We usually stratify a metric by status as well as other fields
 - We drop MedicationAdministration from our metrics - it's not really supported in Cumulus
+- We add support for DiagnosticReport where sensible
 - We consider Observation.effectivePeriod.start and Observation.effectiveInstant in addition
   to Observation.effectiveDateTime
 
