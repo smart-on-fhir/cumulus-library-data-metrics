@@ -16,7 +16,7 @@
 --
 -- But in general, this check does try to follow both profiles' constraints.
 
-{% import 'q_valid_us_core_v4/observation_utils.jinja' as obs_utils %}
+{% import 'us_core_v4/observation_utils.jinja' as obs_utils %}
 
 WITH
 tmp_slice AS {{ obs_utils.extract_category_slice(src, category) }},
@@ -32,7 +32,7 @@ tmp_grouped_checks AS (
                 OR {{ utils.is_concept_valid('c.component.dataAbsentReason') }}
             {% endif %}
             OR {{ obs_utils.is_value_valid('c.component.value') }}
-        ) AS vs3_valid,
+        ) AS valid_vs_3,
 
         -- obs-3: referenceRange must have at least a low or a high or text
         -- (This is a basic FHIR constraint, but the profile re-iterates it, so let's check it)
@@ -45,49 +45,68 @@ tmp_grouped_checks AS (
                 OR r.referenceRange.high IS NOT NULL
             {% endif %}
             OR {{ utils.is_string_valid('r.referenceRange.text') }}
-        ) AS obs3_valid
+        ) AS valid_obs_3
 
     FROM tmp_slice AS src,
         UNNEST(component) AS c (component),
         UNNEST(referenceRange) AS r (referenceRange)
     GROUP BY src.id
-)
+),
 
-SELECT
-    src.id,
-    (
-        status IS NOT NULL
-        AND {{ utils.is_concept_valid('code') }}
-        AND {{ utils.is_reference_of_type('subject', 'Patient') }}
-        AND (
+tmp_simplified AS (
+    SELECT
+        src.id,
+        status IS NOT NULL AS valid_status,
+        {{ utils.is_concept_valid('code') }} AS valid_code,
+        {{ utils.is_reference_of_type('subject', 'Patient') }} AS valid_subject,
+        (
             effectiveDateTime IS NOT NULL
             OR {{ utils.is_period_valid('effectivePeriod') }}
-        )
+        ) AS valid_effective,
         -- vs-1: DateTime must be at least to day (ed: no mention of effectivePeriod...)
-        AND (
+        (
             effectiveDateTime IS NULL
             OR LENGTH(effectiveDateTime) >= 10  -- YYYY-MM-DD
-        )
+        ) AS valid_vs_1,
         -- vs-2: If there is no component or hasMember element then
         -- either a value[x] or a data absent reason must be present
-        AND (
+        (
             component IS NOT NULL
             OR hasMember IS NOT NULL
             OR {{ utils.is_concept_valid('dataAbsentReason') }}
             OR {{ obs_utils.is_value_valid('value') }}
-        )
+        ) AS valid_vs_2,
         -- vs-3: each component must have value or a dataAbsentReason
-        AND (
-            tmp_grouped_checks.vs3_valid IS NULL
-            OR tmp_grouped_checks.vs3_valid
-        )
+        (
+            tmp_grouped_checks.valid_vs_3 IS NULL
+            OR tmp_grouped_checks.valid_vs_3
+        ) AS valid_vs_3,
         -- obs-3: referenceRange must have at least a low or a high or text
         -- (This is a basic FHIR constraint, but the profile re-iterates it, so let's check it)
-        AND (
-            tmp_grouped_checks.obs3_valid IS NULL
-            OR tmp_grouped_checks.obs3_valid
-        )
-    ) AS valid
-FROM tmp_slice AS src
-LEFT JOIN tmp_grouped_checks
-ON tmp_grouped_checks.id = src.id
+        (
+            tmp_grouped_checks.valid_obs_3 IS NULL
+            OR tmp_grouped_checks.valid_obs_3
+        ) AS valid_obs_3
+    FROM tmp_slice AS src
+    LEFT JOIN tmp_grouped_checks
+    ON tmp_grouped_checks.id = src.id
+)
+
+{%
+set fields = [
+    'valid_status',
+    'valid_code',
+    'valid_subject',
+    'valid_effective',
+    'valid_vs_1',
+    'valid_vs_2',
+    'valid_vs_3',
+    'valid_obs_3',
+]
+%}
+
+SELECT
+    id,
+    {{ fields|join(", ") }},
+    {{ fields|join(" AND ") }} AS valid
+FROM tmp_simplified

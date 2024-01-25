@@ -1,7 +1,7 @@
-id,status
-nothing,
-no-subject,completed
-no-status,
-no-performed-time,completed
-no-code,completed
-group-subject,completed
+id,valid_status,valid_code,valid_subject,valid_performed,valid,status
+nothing,false,false,false,false,false,
+no-subject,true,true,false,true,false,completed
+no-status,false,true,true,true,false,
+no-performed-time,true,true,true,false,false,completed
+no-code,true,false,true,true,false,completed
+group-subject,true,true,false,true,false,completed

@@ -1,7 +1,7 @@
-id,status
-nothing,
-no-status,
-no-patient,completed
-no-occurrence,completed
-no-code,completed
-empty-code,completed
+id,valid_status,valid_vaccine_code,valid_occurrence,valid_patient,valid,status
+nothing,false,false,false,false,false,
+no-status,false,true,true,true,false,
+no-patient,true,true,true,false,false,completed
+no-occurrence,true,true,false,true,false,completed
+no-code,true,false,true,true,false,completed
+empty-code,true,false,true,true,false,completed

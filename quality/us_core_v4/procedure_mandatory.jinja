@@ -1,0 +1,33 @@
+-- http://hl7.org/fhir/us/core/STU4/StructureDefinition-us-core-procedure.html
+
+WITH
+tmp_simplified AS (
+    SELECT
+        id,
+        status IS NOT NULL AS valid_status,
+        {{ utils.is_concept_valid('code') }} AS valid_code,
+        {{ utils.is_reference_of_type('subject', 'Patient') }} AS valid_subject,
+        (
+            performedDateTime IS NOT NULL
+            OR {{ utils.is_period_valid('performedPeriod') }}
+            OR {{ utils.is_string_valid('performedString') }}
+            OR {{ utils.is_quantity_valid('performedAge') }}
+            OR performedRange IS NOT NULL
+        ) AS valid_performed
+    FROM {{ src }}
+)
+
+{%
+set fields = [
+    'valid_status',
+    'valid_code',
+    'valid_subject',
+    'valid_performed',
+]
+%}
+
+SELECT
+    id,
+    {{ fields|join(", ") }},
+    {{ fields|join(" AND ") }} AS valid
+FROM tmp_simplified

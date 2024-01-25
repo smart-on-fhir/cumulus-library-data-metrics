@@ -1,0 +1,30 @@
+-- http://hl7.org/fhir/us/core/STU4/StructureDefinition-us-core-immunization.html
+-- Honestly, these are all just basic FHIR requirements.
+-- But in keeping with other resources for this metric,
+-- let's at least check everything in the "Each Immunization must have:" section.
+
+WITH
+tmp_simplified AS (
+    SELECT
+        id,
+        status IS NOT NULL AS valid_status,
+        {{ utils.is_concept_valid('vaccineCode') }} AS valid_vaccine_code,
+        (occurrenceDateTime IS NOT NULL OR occurrenceString IS NOT NULL) AS valid_occurrence,
+        {{ utils.is_reference_of_type('patient', 'Patient') }} AS valid_patient
+    FROM {{ src }}
+)
+
+{%
+set fields = [
+    'valid_status',
+    'valid_vaccine_code',
+    'valid_occurrence',
+    'valid_patient',
+]
+%}
+
+SELECT
+    id,
+    {{ fields|join(", ") }},
+    {{ fields|join(" AND ") }} AS valid
+FROM tmp_simplified

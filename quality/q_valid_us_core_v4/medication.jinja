@@ -1,8 +1,0 @@
--- http://hl7.org/fhir/us/core/STU4/StructureDefinition-us-core-medication.html
-
-SELECT
-    id,
-    (
-        {{ utils.is_concept_valid('code') }}
-    ) AS valid
-FROM {{ src }}

@@ -10,19 +10,19 @@ WITH
 src_status AS {{ utils.extract_status(src) }},
 
 -- These separated files are responsible for providing a single table that looks like:
--- (id: str, valid: bool|null)
+-- (id: str, valid: bool, valid_*: bool)
 --
 -- This table should hold every row from src inside it (i.e. not be a partial join table).
 --
 -- You may make additional helper tables, but please prefix with 'tmp_'
 -- to avoid any future conflicts with this template here.
-src_valid AS ({% include 'q_valid_us_core_v4/' + table_name + '.jinja' %})
+src_valid AS ({% include 'us_core_v4/' + table_name + '_mandatory.jinja' %})
 
 SELECT
-    src_valid.id,
+    src_valid.*,
     src_status.status
 FROM src_valid
 LEFT JOIN src_status
 ON src_valid.id = src_status.id
-WHERE src_valid.valid IS NULL OR NOT src_valid.valid
+WHERE NOT src_valid.valid
 );

@@ -1,0 +1,35 @@
+-- http://hl7.org/fhir/us/core/STU4/StructureDefinition-us-core-diagnosticreport-note.html
+-- There is another lab-report-specific profile,
+-- but this looks to be the "base DiagnosticReport" profile that covers the bare minimum.
+
+WITH
+
+tmp_simplified AS (
+    SELECT
+        id,
+        status IS NOT NULL AS valid_status,
+        category IS NOT NULL AS valid_category,
+        {{ utils.is_concept_valid('code') }} AS valid_code,
+        {{ utils.is_reference_of_type('subject', 'Patient') }} AS valid_subject,
+        (
+            effectiveDateTime IS NOT NULL
+            OR {{ utils.is_period_valid('effectivePeriod') }}
+        ) AS valid_effective
+    FROM {{ src }}
+)
+
+{%
+set fields = [
+    'valid_status',
+    'valid_category',
+    'valid_code',
+    'valid_subject',
+    'valid_effective',
+]
+%}
+
+SELECT
+    id,
+    {{ fields|join(", ") }},
+    {{ fields|join(" AND ") }} AS valid
+FROM tmp_simplified

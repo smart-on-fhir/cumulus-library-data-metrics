@@ -1,2 +1,2 @@
-id,status
-"nothing, just to confirm that our SQL handles it",
+id,valid_status,valid_type,valid_category,valid_subject,valid_content_type,valid,status
+"nothing, just to confirm that our SQL handles it",false,false,false,false,false,false,

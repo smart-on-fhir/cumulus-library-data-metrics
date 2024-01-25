@@ -10,7 +10,7 @@ tmp_verification AS {{
     )
 }},
 
-tmp_simplified AS (
+tmp_grouped AS (
     SELECT
         src.id,
         ARBITRARY(src.code) AS code,
@@ -33,13 +33,27 @@ tmp_simplified AS (
     LEFT JOIN tmp_verification
     ON tmp_verification.id = src.id
     GROUP BY src.id
+),
+
+tmp_simplified AS (
+    SELECT
+        id,
+        valid_status,
+        {{ utils.is_concept_valid('code') }} AS valid_code,
+        {{ utils.is_reference_of_type('patient', 'Patient') }} AS valid_patient
+    FROM tmp_grouped
 )
+
+{%
+set fields = [
+    'valid_status',
+    'valid_code',
+    'valid_patient',
+]
+%}
 
 SELECT
     id,
-    (
-        valid_status
-        AND {{ utils.is_concept_valid('code') }}
-        AND {{ utils.is_reference_of_type('patient', 'Patient') }}
-    ) AS valid
+    {{ fields|join(", ") }},
+    {{ fields|join(" AND ") }} AS valid
 FROM tmp_simplified

@@ -1,0 +1,21 @@
+-- http://hl7.org/fhir/us/core/STU4/StructureDefinition-us-core-medication.html
+
+WITH
+tmp_simplified AS (
+    SELECT
+        id,
+        {{ utils.is_concept_valid('code') }} AS valid_code
+    FROM {{ src }}
+)
+
+{%
+set fields = [
+    'valid_code',
+]
+%}
+
+SELECT
+    id,
+    {{ fields|join(", ") }},
+    {{ fields|join(" AND ") }} AS valid
+FROM tmp_simplified

@@ -1,0 +1,64 @@
+-- http://hl7.org/fhir/us/core/STU4/StructureDefinition-us-core-documentreference.html
+
+-- CUMULUS-QUIRK
+-- Doesn't look at attachment data/url check, because Cumulus strips these fields anyway.
+
+WITH
+tmp_attachment_flat AS (
+    SELECT
+        id,
+
+        {% if has_attachment %}
+        u.content.attachment.contenttype
+        {% else %}
+        NULL AS contenttype
+        {% endif %}
+
+    FROM {{ src }},
+        UNNEST(content) AS u (content)
+),
+
+tmp_grouped AS (
+    SELECT
+        src.id AS id,
+        ARBITRARY(src.status) AS status,
+        ARBITRARY(src.type) AS type,
+        ARBITRARY(src.category) AS category,
+        ARBITRARY(src.subject) AS subject,
+
+        BOOL_AND(
+            tmp_attachment_flat.contenttype IS NOT NULL
+        ) AS valid_content_type
+
+    FROM {{ src }} AS src
+    LEFT JOIN tmp_attachment_flat
+    ON tmp_attachment_flat.id = src.id
+    GROUP BY src.id
+),
+
+tmp_simplified AS (
+    SELECT
+        id,
+        status IS NOT NULL AS valid_status,
+        {{ utils.is_concept_valid('type') }} AS valid_type,
+        category IS NOT NULL AS valid_category,
+        {{ utils.is_reference_of_type('subject', 'Patient') }} AS valid_subject,
+        valid_content_type
+    FROM tmp_grouped
+)
+
+{%
+set fields = [
+    'valid_status',
+    'valid_type',
+    'valid_category',
+    'valid_subject',
+    'valid_content_type',
+]
+%}
+
+SELECT
+    id,
+    {{ fields|join(", ") }},
+    {{ fields|join(" AND ") }} AS valid
+FROM tmp_simplified

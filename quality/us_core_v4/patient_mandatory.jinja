@@ -1,0 +1,25 @@
+-- http://hl7.org/fhir/us/core/STU4/StructureDefinition-us-core-patient.html
+
+-- CUMULUS-QUIRK
+-- This profile also requires a patient identifier and name, both of which Cumulus ETL strips out
+-- early. So we don't bother checking that here.
+
+WITH
+tmp_simplified AS (
+    SELECT
+        id,
+        gender IS NOT NULL AS valid_administrative_gender
+    FROM {{ src }}
+)
+
+{%
+set fields = [
+    'valid_administrative_gender',
+]
+%}
+
+SELECT
+    id,
+    {{ fields|join(", ") }},
+    {{ fields|join(" AND ") }} AS valid
+FROM tmp_simplified
