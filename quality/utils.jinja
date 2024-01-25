@@ -121,7 +121,7 @@
 
     COALESCE(
         {{ arg }},
-        'missing-or-null'
+        'cumulus__missing-or-null'
     )
 {%- endmacro %}
 
@@ -150,7 +150,7 @@
 {%- endmacro %}
 
 
--- Converts an array to a semicolon-delineated list, or missing-or-null
+-- Converts an array to a semicolon-delineated list, or cumulus__missing-or-null
 -- Can be called with the name of the array to check ('list_field')
 -- or wrapped in a call block
 {% macro array_to_string() -%}
