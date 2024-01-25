@@ -1,0 +1,63 @@
+{% import 'utils.jinja' as utils %}
+
+{% set profile_name = src.lower() %}
+{% if category %}
+    {% set profile_name = profile_name + '_' + category.replace('-', '_') %}
+{% endif %}
+
+CREATE TABLE quality__count_c_us_core_v4_count_{{ profile_name }} AS (
+WITH
+src_status AS {{ utils.extract_status(src) }},
+
+-- These separated files are responsible for providing a single table that looks like:
+-- (id: str, valid: bool, valid_*: bool)
+--
+-- This table should hold every row from src inside it (i.e. not be a partial join table).
+--
+-- You may make additional helper tables, but please prefix with 'tmp_'
+-- to avoid any future conflicts with this template here.
+src_mandatory AS ({% include 'us_core_v4/' + profile_name + '_mandatory.jinja' %}),
+src_must_support AS ({% include 'us_core_v4/' + profile_name + '_must_support.jinja' %}),
+
+simplified AS (
+    SELECT
+        src.id,
+        src_status.status,
+
+        {% if dates %}
+        {{ utils.get_date(dates, 'year') }} AS "year",
+        {% endif %}
+
+        CASE
+            WHEN src_mandatory.valid AND src_must_support.valid
+            THEN 'Full'
+            WHEN src_mandatory.valid
+            THEN 'Mandatory Only'
+            ELSE 'None'
+        END AS profile_support
+
+    FROM {{ src }} AS src
+    INNER JOIN src_mandatory
+    ON src_mandatory.id = src.id
+    INNER JOIN src_must_support
+    ON src_must_support.id = src.id
+    LEFT JOIN src_status
+    ON src_status.id = src.id
+)
+
+SELECT
+    COUNT(DISTINCT id) AS cnt,
+    profile_support,
+    {% if dates %}
+    "year",
+    {% endif %}
+    status
+FROM simplified
+GROUP BY CUBE(
+    profile_support,
+    {% if dates %}
+    "year",
+    {% endif %}
+    status
+)
+);

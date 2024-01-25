@@ -1,0 +1,25 @@
+cnt,profile_support,year,status
+4,,,
+2,,,
+2,,,unconfirmed
+2,,missing-or-null,
+2,None,,
+2,None,missing-or-null,
+1,,missing-or-null,
+1,,missing-or-null,unconfirmed
+1,,2015,
+1,,2015,unconfirmed
+1,,2014,
+1,,2014,
+1,None,,
+1,None,,unconfirmed
+1,None,missing-or-null,
+1,None,missing-or-null,unconfirmed
+1,Mandatory Only,,
+1,Mandatory Only,,
+1,Mandatory Only,2014,
+1,Mandatory Only,2014,
+1,Full,,
+1,Full,,unconfirmed
+1,Full,2015,
+1,Full,2015,unconfirmed

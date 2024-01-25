@@ -29,6 +29,9 @@ class MetricsTestCase(unittest.TestCase):
     def test_c_term_coverage(self):
         self.run_study("c_term_coverage")
 
+    def test_c_us_core_v4_count(self):
+        self.run_study("c_us_core_v4_count")
+
     def test_q_ref_target_pop(self):
         self.run_study("q_ref_target_pop")
 

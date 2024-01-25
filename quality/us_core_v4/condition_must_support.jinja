@@ -1,0 +1,22 @@
+-- http://hl7.org/fhir/us/core/STU4/StructureDefinition-us-core-condition.html
+
+WITH
+
+tmp_simplified AS (
+    SELECT
+        id,
+        {{ utils.is_concept_valid('verificationStatus') }} AS valid_verification_status
+    FROM {{ src }}
+)
+
+{%
+set fields = [
+    'valid_verification_status',
+]
+%}
+
+SELECT
+    id,
+    {{ fields|join(", ") }},
+    {{ fields|join(" AND ") }} AS valid
+FROM tmp_simplified

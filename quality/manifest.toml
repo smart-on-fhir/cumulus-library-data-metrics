@@ -11,6 +11,7 @@ file_names = [
     "c_pt_deceased_count/c_pt_deceased_count.py",
     "c_resource_count/c_resource_count.py",
     "c_term_coverage/c_term_coverage.py",
+    "c_us_core_v4_count/c_us_core_v4_count.py",
     "q_ref_target_pop/q_ref_target_pop.py",
     "q_ref_target_valid/q_ref_target_valid.py",
     "q_term_use/q_term_use.py",
@@ -54,4 +55,5 @@ export_list = [
     "quality__count_c_term_coverage_observation_code",
     "quality__count_c_term_coverage_observation_valuecodeableconcept",
     "quality__count_c_term_coverage_procedure_code",
+    "quality__count_c_us_core_v4_count_condition",
 ]

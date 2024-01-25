@@ -1,4 +1,4 @@
-"""Module for generating q_valid_us_core_v4 tables"""
+"""Module for generating c_us_core_v4_count tables"""
 
 from cumulus_library.base_table_builder import BaseTableBuilder
 from cumulus_library.databases import DatabaseCursor
@@ -7,20 +7,12 @@ from cumulus_library.template_sql import templates
 from quality.base import MetricMixin
 
 
-class ValidUsCoreV4Builder(MetricMixin, BaseTableBuilder):
-    name = "q_valid_us_core_v4"
+class UsCoreV4CountBuilder(MetricMixin, BaseTableBuilder):
+    name = "c_us_core_v4_count"
+    uses_dates = True
 
     def make_table(self, **kwargs) -> None:
         """Make a single metric table"""
-        summary_key = kwargs["src"].lower()
-        summary_denominator = kwargs["src"]
-        if "category" in kwargs:
-            self.queries.append(self.render_sql(f"{summary_key}_denominator", **kwargs))
-            summary_key += f"_{kwargs['category'].replace('-', '_')}"
-            # Setting None will tell the summary generator code to look at our pre-defined table
-            summary_denominator = None
-
-        self.summary_entries[summary_key] = summary_denominator
         self.queries.append(self.render_sql(self.name, **kwargs))
 
     @staticmethod
@@ -65,22 +57,6 @@ class ValidUsCoreV4Builder(MetricMixin, BaseTableBuilder):
             "has_comp_period": "valueperiod" in comp_result,
         }
 
+    # TODO: expand to more profiles
     def prepare_queries(self, cursor: DatabaseCursor, schema: str, *args, **kwargs) -> None:
-        self.make_table(src="AllergyIntolerance")
         self.make_table(src="Condition")
-        self.make_table(src="DiagnosticReport")
-        self.make_table(src="DocumentReference", **self.docref_args(cursor, schema))
-        self.make_table(src="Encounter")
-        self.make_table(src="Immunization")
-        self.make_table(src="Medication")
-        self.make_table(src="MedicationRequest")
-
-        # FIXME: add tests for vital-signs and/or confirm with Jamie the best way to slice this up.
-        #  He was recommending a code-based approach instead of category-based.
-        # FIXME: add more tests for low-schema versions of Observations
-        self.make_table(src="Observation", category="laboratory", **self.obs_args(cursor, schema))
-        self.make_table(src="Observation", category="vital-signs", **self.obs_args(cursor, schema))
-
-        self.make_table(src="Patient")
-        self.make_table(src="Procedure")
-        self.make_summary()
