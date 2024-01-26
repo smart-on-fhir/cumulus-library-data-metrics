@@ -1,5 +1,7 @@
 """Module for generating q_valid_us_core_v4 tables"""
 
+import os
+
 from cumulus_library.base_table_builder import BaseTableBuilder
 from cumulus_library.databases import DatabaseCursor
 from cumulus_library.template_sql import templates
@@ -13,14 +15,11 @@ class ValidUsCoreV4Builder(MetricMixin, BaseTableBuilder):
     def make_table(self, **kwargs) -> None:
         """Make a single metric table"""
         summary_key = kwargs["src"].lower()
-        summary_denominator = kwargs["src"]
-        if "category" in kwargs:
-            self.queries.append(self.render_sql(f"{summary_key}_denominator", **kwargs))
-            summary_key += f"_{kwargs['category'].replace('-', '_')}"
-            # Setting None will tell the summary generator code to look at our pre-defined table
-            summary_denominator = None
+        if "name" in kwargs:
+            summary_key += f"_{kwargs['name'].replace('-', '_')}"
 
-        self.summary_entries[summary_key] = summary_denominator
+        self.summary_entries[summary_key] = self.render_sql("../us_core_v4/slice", **kwargs)
+
         self.queries.append(self.render_sql(self.name, **kwargs))
 
     @staticmethod
@@ -53,6 +52,7 @@ class ValidUsCoreV4Builder(MetricMixin, BaseTableBuilder):
         cursor.execute(query)
         comp_result = cursor.fetchone()[1]
 
+        # TODO: add more tests for low-schema versions of Observation profiles
         return {
             "has_ref_range_high": "high" in ref_range_result,
             "has_ref_range_low": "low" in ref_range_result,
@@ -74,13 +74,9 @@ class ValidUsCoreV4Builder(MetricMixin, BaseTableBuilder):
         self.make_table(src="Immunization")
         self.make_table(src="Medication")
         self.make_table(src="MedicationRequest")
-
-        # FIXME: add tests for vital-signs and/or confirm with Jamie the best way to slice this up.
-        #  He was recommending a code-based approach instead of category-based.
-        # FIXME: add more tests for low-schema versions of Observations
-        self.make_table(src="Observation", category="laboratory", **self.obs_args(cursor, schema))
-        self.make_table(src="Observation", category="vital-signs", **self.obs_args(cursor, schema))
-
+        self.make_table(src="Observation", name="laboratory", category="laboratory", **self.obs_args(cursor, schema))
+        self.make_table(src="Observation", name="smoking-status", loinc="72166-2", **self.obs_args(cursor, schema))
+        self.make_table(src="Observation", name="vital-signs", category="vital-signs", **self.obs_args(cursor, schema))
         self.make_table(src="Patient")
         self.make_table(src="Procedure")
         self.make_summary()

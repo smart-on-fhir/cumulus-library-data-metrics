@@ -2,26 +2,17 @@
 
 {% import 'us_core_v4/observation_utils.jinja' as obs_utils %}
 
+
 WITH
-tmp_slice AS {{ obs_utils.extract_category_slice(src, category) }},
+tmp_slice AS {% include 'us_core_v4/slice.jinja' %},
 
 tmp_grouped_checks AS (
     SELECT
         src.id,
-
         -- obs-3: referenceRange must have at least a low or a high or text
-        -- (This is a basic FHIR constraint, but the profile re-iterates it, so let's check it)
         BOOL_AND(
-            r.referenceRange IS NULL
-            {% if has_ref_range_low %}
-                OR r.referenceRange.low IS NOT NULL
-            {% endif %}
-            {% if has_ref_range_high %}
-                OR r.referenceRange.high IS NOT NULL
-            {% endif %}
-            OR {{ utils.is_string_valid('r.referenceRange.text') }}
+            {{ obs_utils.is_obs_3_valid('r', has_ref_range_low, has_ref_range_high) }}
         ) AS valid_obs_3
-
     FROM tmp_slice AS src,
         UNNEST(referenceRange) AS r (referenceRange)
     GROUP BY src.id

@@ -1,21 +1,44 @@
 {% import 'utils.jinja' as utils %}
 
+{% macro extract_category(src) -%}
+    {{ utils.extract_codes_flat(
+        src,
+        'category',
+        system='http://terminology.hl7.org/CodeSystem/observation-category',
+        is_array=true,
+    ) }}
+{%- endmacro %}
+
 {% macro extract_category_slice(src, category) -%}
 (
     WITH
-    tmp_categories AS {{
+    tmp_categories AS {{ extract_category(src) }},
+    tmp_ids AS (
+        SELECT DISTINCT id
+        FROM tmp_categories
+        WHERE tmp_categories.code = '{{ category }}'
+    )
+    SELECT src.*
+    FROM {{ src }} AS src
+    INNER JOIN tmp_ids
+    ON tmp_ids.id = src.id
+)
+{%- endmacro %}
+
+{% macro extract_loinc_slice(src, code) -%}
+(
+    WITH
+    tmp_codes AS {{
         utils.extract_codes_flat(
             src,
-            'category',
-            system='http://terminology.hl7.org/CodeSystem/observation-category',
-            is_array=true,
+            'code',
+            system='http://loinc.org',
         )
     }},
     tmp_ids AS (
-        SELECT
-            DISTINCT id
-        FROM tmp_categories
-        WHERE tmp_categories.code = '{{ category }}'
+        SELECT DISTINCT id
+        FROM tmp_codes
+        WHERE tmp_codes.code = '{{ code }}'
     )
     SELECT src.*
     FROM {{ src }} AS src
@@ -58,5 +81,21 @@
     {% if 'component.value' not in prefix or has_comp_period %}
         OR {{ utils.is_period_valid(prefix + 'Period') }}
     {% endif %}
+)
+{%- endmacro %}
+
+-- obs-3: referenceRange must have at least a low or a high or text
+-- (This is a basic FHIR constraint, but profiles often re-iterate it,
+-- so here is a convenience macro check for it.)
+{% macro is_obs_3_valid(parent, has_ref_range_low, has_ref_range_high) -%}
+(
+    {{ parent }}.referenceRange IS NULL
+    {% if has_ref_range_low %}
+        OR {{ parent }}.referenceRange.low IS NOT NULL
+    {% endif %}
+    {% if has_ref_range_high %}
+        OR {{ parent }}.referenceRange.high IS NOT NULL
+    {% endif %}
+    OR {{ utils.is_string_valid(parent + '.referenceRange.text') }}
 )
 {%- endmacro %}

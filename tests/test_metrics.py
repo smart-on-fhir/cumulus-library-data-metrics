@@ -112,6 +112,7 @@ export_list = [
             cli.main(
                 [
                     "build",
+                    # "--verbose",
                     "--target=quality",
                     f"--study-dir={tmpdir}/quality",
                     "--db-type=duckdb",

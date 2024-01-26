@@ -1,0 +1,68 @@
+-- http://hl7.org/fhir/us/core/STU4/StructureDefinition-us-core-observation-lab.html
+
+{% import 'us_core_v4/observation_utils.jinja' as obs_utils %}
+
+WITH
+tmp_slice AS {% include 'us_core_v4/slice.jinja' %},
+tmp_categories AS ({{ obs_utils.extract_category('tmp_slice') }}),
+
+tmp_grouped_categories AS (
+    SELECT
+        src.id,
+        BOOL_OR(tmp_categories.code = 'social-history') AS valid_category
+    FROM tmp_slice AS src
+    INNER JOIN tmp_categories
+    ON tmp_categories.id = src.id
+    GROUP BY src.id
+),
+
+tmp_grouped_obs_3 AS (
+    SELECT
+        src.id,
+        -- obs-3: referenceRange must have at least a low or a high or text
+        BOOL_AND(
+            {{ obs_utils.is_obs_3_valid('r', has_ref_range_low, has_ref_range_high) }}
+        ) AS valid_obs_3
+    FROM tmp_slice AS src,
+        UNNEST(referenceRange) AS r (referenceRange)
+    GROUP BY src.id
+),
+
+tmp_simplified AS (
+    SELECT DISTINCT
+        src.id,
+        status IS NOT NULL AS valid_status,
+        (
+            tmp_grouped_categories.valid_category IS NOT NULL
+            AND tmp_grouped_categories.valid_category
+        ) as valid_category,
+        {{ utils.is_reference_of_type('subject', 'Patient') }} AS valid_subject,
+        effectiveDateTime IS NOT NULL AS valid_effective_date_time,
+        {{ utils.is_concept_valid('valueCodeableConcept') }} AS valid_value_codeable_concept,
+        (
+            tmp_grouped_obs_3.valid_obs_3 IS NULL
+            OR tmp_grouped_obs_3.valid_obs_3
+        ) AS valid_obs_3
+    FROM tmp_slice AS src
+    LEFT JOIN tmp_grouped_categories
+    ON tmp_grouped_categories.id = src.id
+    LEFT JOIN tmp_grouped_obs_3
+    ON tmp_grouped_obs_3.id = src.id
+)
+
+{%
+set fields = [
+    'valid_status',
+    'valid_category',
+    'valid_subject',
+    'valid_effective_date_time',
+    'valid_value_codeable_concept',
+    'valid_obs_3',
+]
+%}
+
+SELECT
+    id,
+    {{ fields|join(", ") }},
+    {{ fields|join(" AND ") }} AS valid
+FROM tmp_simplified

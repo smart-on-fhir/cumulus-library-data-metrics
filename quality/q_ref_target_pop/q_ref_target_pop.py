@@ -14,7 +14,7 @@ class TargetPopBuilder(MetricMixin, BaseTableBuilder):
     def make_table(self, **kwargs) -> str:
         """Make a single metric table"""
         summary_key = f"{kwargs['src'].lower()}_{kwargs['dest'].lower()}"
-        self.summary_entries[summary_key] = kwargs['src']
+        self.summary_entries[summary_key] = None
 
         self.queries.append(self.render_sql(self.name, **kwargs))
 

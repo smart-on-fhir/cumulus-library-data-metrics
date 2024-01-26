@@ -42,7 +42,7 @@ tmp_simplified AS (
         valid_status,
         category IS NOT NULL AS valid_category,
         {{ utils.is_concept_valid('code') }} AS valid_code,
-        {{ utils.is_reference_of_type('subject', 'Patient') }} AS valid_subject,
+        {{ utils.is_reference_of_type('subject', 'Patient') }} AS valid_subject
     FROM tmp_grouped
 )
 
