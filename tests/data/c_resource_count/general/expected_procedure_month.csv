@@ -1,6 +1,6 @@
 cnt,month,status
-5,,
-3,,cumulus__missing-or-null
+6,,
+4,,cumulus__missing-or-null
 3,cumulus__missing-or-null,
 1,,entered-in-error
 1,,completed
@@ -11,3 +11,5 @@ cnt,month,status
 1,2023-10,cumulus__missing-or-null
 1,2023-02,
 1,2023-02,cumulus__missing-or-null
+1,2022-01,
+1,2022-01,cumulus__missing-or-null

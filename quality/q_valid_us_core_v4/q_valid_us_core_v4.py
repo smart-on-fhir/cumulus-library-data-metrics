@@ -16,7 +16,7 @@ class ValidUsCoreV4Builder(MetricMixin, BaseTableBuilder):
         """Make a single metric table"""
         summary_key = kwargs["src"].lower()
         if "name" in kwargs:
-            summary_key += f"_{kwargs['name'].replace('-', '_')}"
+            summary_key += f"_{kwargs['name']}"
 
         self.summary_entries[summary_key] = self.render_sql("../us_core_v4/slice", **kwargs)
 
@@ -50,7 +50,7 @@ class ValidUsCoreV4Builder(MetricMixin, BaseTableBuilder):
             schema, 'observation', ['component'],
         )
         cursor.execute(query)
-        comp_result = cursor.fetchone()[1]
+        comp_result = cursor.fetchone()[1].lower()
 
         # TODO: add more tests for low-schema versions of Observation profiles
         return {
@@ -74,9 +74,10 @@ class ValidUsCoreV4Builder(MetricMixin, BaseTableBuilder):
         self.make_table(src="Immunization")
         self.make_table(src="Medication")
         self.make_table(src="MedicationRequest")
+        # self.make_table(src="Observation", name="blood_pressure", loinc="85354-9", **self.obs_args(cursor, schema))
         self.make_table(src="Observation", name="laboratory", category="laboratory", **self.obs_args(cursor, schema))
-        self.make_table(src="Observation", name="smoking-status", loinc="72166-2", **self.obs_args(cursor, schema))
-        self.make_table(src="Observation", name="vital-signs", category="vital-signs", **self.obs_args(cursor, schema))
+        self.make_table(src="Observation", name="smoking_status", loinc="72166-2", **self.obs_args(cursor, schema))
+        self.make_table(src="Observation", name="vital_signs", category="vital-signs", **self.obs_args(cursor, schema))
         self.make_table(src="Patient")
         self.make_table(src="Procedure")
         self.make_summary()

@@ -1,6 +1,6 @@
 cnt,year,status
-5,,
-3,,cumulus__missing-or-null
+6,,
+4,,cumulus__missing-or-null
 3,cumulus__missing-or-null,
 2,2023,
 2,2023,cumulus__missing-or-null
@@ -9,3 +9,5 @@ cnt,year,status
 1,cumulus__missing-or-null,entered-in-error
 1,cumulus__missing-or-null,cumulus__missing-or-null
 1,cumulus__missing-or-null,completed
+1,2022,
+1,2022,cumulus__missing-or-null

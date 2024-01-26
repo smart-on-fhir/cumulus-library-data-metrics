@@ -1,0 +1,11 @@
+-- http://hl7.org/fhir/us/core/STU4/StructureDefinition-us-core-blood-pressure.html
+
+{% import 'us_core_v4/observation_utils.jinja' as obs_utils %}
+
+WITH
+-- Based off vital signs profile too
+tmp_valid_vitals AS ({% include 'us_core_v4/observation_vital_signs_mandatory.jinja' %})
+
+SELECT
+    *
+FROM tmp_valid_vitals

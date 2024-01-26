@@ -18,10 +18,39 @@
 
 {% import 'us_core_v4/observation_utils.jinja' as obs_utils %}
 
+-- We may be slicing on category or code - make sure to check non-sliced attributes
+{% set check_category = not category %}
+{% set check_code = not loinc %}
+
 WITH
 tmp_slice AS {% include 'us_core_v4/slice.jinja' %},
 
-tmp_grouped_checks AS (
+{% if check_category %}
+tmp_categories AS ({{ obs_utils.extract_category('tmp_slice') }}),
+tmp_grouped_categories AS (
+    SELECT
+        id,
+        BOOL_OR(code = 'vital-signs') AS valid_category
+    FROM tmp_categories
+    GROUP BY id
+),
+{% endif %}
+
+tmp_obs3 AS (
+    SELECT
+        src.id,
+
+        -- obs-3: referenceRange must have at least a low or a high or text
+        BOOL_AND(
+            {{ obs_utils.is_obs_3_valid('r', has_ref_range_low, has_ref_range_high) }}
+        ) AS valid_obs_3
+
+    FROM tmp_slice AS src,
+        UNNEST(referenceRange) AS r (referenceRange)
+    GROUP BY src.id
+),
+
+tmp_vs3 AS (
     SELECT
         src.id,
 
@@ -34,14 +63,8 @@ tmp_grouped_checks AS (
             OR {{ obs_utils.is_value_valid('c.component.value') }}
         ) AS valid_vs_3,
 
-        -- obs-3: referenceRange must have at least a low or a high or text
-        BOOL_AND(
-            {{ obs_utils.is_obs_3_valid('r', has_ref_range_low, has_ref_range_high) }}
-        ) AS valid_obs_3
-
     FROM tmp_slice AS src,
-        UNNEST(component) AS c (component),
-        UNNEST(referenceRange) AS r (referenceRange)
+        UNNEST(component) AS c (component)
     GROUP BY src.id
 ),
 
@@ -49,7 +72,15 @@ tmp_simplified AS (
     SELECT
         src.id,
         status IS NOT NULL AS valid_status,
+        {% if check_category %}
+        (
+            tmp_grouped_categories.valid_category IS NOT NULL
+            AND tmp_grouped_categories.valid_category
+        ) AS valid_category
+        {% endif %}
+        {% if check_code %}
         {{ utils.is_concept_valid('code') }} AS valid_code,
+        {% endif %}
         {{ utils.is_reference_of_type('subject', 'Patient') }} AS valid_subject,
         (
             effectiveDateTime IS NOT NULL
@@ -69,25 +100,24 @@ tmp_simplified AS (
             OR {{ obs_utils.is_value_valid('value') }}
         ) AS valid_vs_2,
         -- vs-3: each component must have value or a dataAbsentReason
-        (
-            tmp_grouped_checks.valid_vs_3 IS NULL
-            OR tmp_grouped_checks.valid_vs_3
-        ) AS valid_vs_3,
+        (tmp_vs3.valid_vs_3 IS NULL OR tmp_vs3.valid_vs_3) AS valid_vs_3,
         -- obs-3: referenceRange must have at least a low or a high or text
         -- (This is a basic FHIR constraint, but the profile re-iterates it, so let's check it)
-        (
-            tmp_grouped_checks.valid_obs_3 IS NULL
-            OR tmp_grouped_checks.valid_obs_3
-        ) AS valid_obs_3
+        (tmp_obs3.valid_obs_3 IS NULL OR tmp_obs3.valid_obs_3) AS valid_obs_3
     FROM tmp_slice AS src
-    LEFT JOIN tmp_grouped_checks
-    ON tmp_grouped_checks.id = src.id
+    LEFT JOIN tmp_obs3
+    ON tmp_obs3.id = src.id
+    LEFT JOIN tmp_vs3
+    ON tmp_vs3.id = src.id
+    {% if check_category %}
+    LEFT JOIN tmp_grouped_categories
+    ON tmp_grouped_categories.id = src.id
+    {% endif %}
 )
 
 {%
 set fields = [
     'valid_status',
-    'valid_code',
     'valid_subject',
     'valid_effective',
     'valid_vs_1',
@@ -96,6 +126,12 @@ set fields = [
     'valid_obs_3',
 ]
 %}
+{% if check_category %}
+    {% set fields = fields + ['valid_category'] %}
+{% endif %}
+{% if check_code %}
+    {% set fields = fields + ['valid_code'] %}
+{% endif %}
 
 SELECT
     id,

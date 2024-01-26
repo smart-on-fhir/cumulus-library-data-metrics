@@ -1,8 +1,8 @@
 id,numerator,denominator,percentage
 procedure,6,11,0.5455
 patient,3,4,0.7500
-observation_vital_signs,0,0,0.0000
-observation_smoking_status,0,0,0.0000
+observation_vital_signs,14,16,0.8750
+observation_smoking_status,6,7,0.8571
 observation_laboratory,9,26,0.3462
 medicationrequest,7,10,0.7000
 medication,2,3,0.6667
