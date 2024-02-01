@@ -57,8 +57,10 @@ tmp_simplified AS (
         ) AS valid_format,
 
         (
+            -- Base spec allows many encounters and they can be Encounters or Episodes Of Care.
+            -- But the US Core profile only allows exactly one Encounter.
             tmp_encounters.encounter_count IS NOT NULL
-            AND tmp_encounters.encounter_count = 1 -- Base spec allows many, US Core only allows 1
+            AND tmp_encounters.encounter_count = 1
             AND tmp_encounters.valid_encounter
         ) AS valid_encounter,
 
