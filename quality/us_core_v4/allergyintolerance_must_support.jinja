@@ -1,0 +1,49 @@
+-- http://hl7.org/fhir/us/core/STU4/StructureDefinition-us-core-allergyintolerance.html
+
+WITH
+
+tmp_reaction AS (
+    SELECT
+        id,
+
+        {% if has_manifestation %}
+        BOOL_AND(
+            {{ utils.is_concept_valid('r.manifestation') }}
+        ) AS valid_manifestation
+        {% else %}
+        FALSE AS valid_manifestation
+        {% endif %}
+
+    FROM {{ src }}
+        {% if has_manifestation %}
+        , UNNEST(reaction) AS u (reaction)
+        , UNNEST(u.reaction.manifestation) AS r (manifestation)
+        {% endif %}
+    GROUP BY id
+),
+
+tmp_simplified AS (
+    SELECT
+        src.id,
+        {{ utils.is_concept_valid('src.verificationStatus') }} AS valid_verification_status,
+        (
+            tmp_reaction.valid_manifestation IS NOT NULL
+            AND tmp_reaction.valid_manifestation
+        ) AS valid_reaction_manifestation
+    FROM {{ src }} AS src
+    LEFT JOIN tmp_reaction
+    ON tmp_reaction.id = src.id
+)
+
+{%
+set fields = [
+    'valid_verification_status',
+    'valid_reaction_manifestation',
+]
+%}
+
+SELECT
+    id,
+    {{ fields|join(", ") }},
+    {{ fields|join(" AND ") }} AS valid
+FROM tmp_simplified

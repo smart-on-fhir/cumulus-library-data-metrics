@@ -22,7 +22,7 @@ src_must_support AS ({% include 'us_core_v4/' + profile_name + '_must_support.ji
 simplified AS (
     SELECT
         src.id,
-        src_status.status,
+        {{ utils.coalesce_missing('src_status.status') }} AS status,
 
         {% if dates %}
         {{ utils.get_date(dates, 'year') }} AS "year",
@@ -30,7 +30,7 @@ simplified AS (
 
         CASE
             WHEN src_mandatory.valid AND src_must_support.valid
-            THEN 'Full'
+            THEN 'Mandatory & Must Support'
             WHEN src_mandatory.valid
             THEN 'Mandatory Only'
             ELSE 'None'
