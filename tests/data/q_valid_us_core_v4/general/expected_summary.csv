@@ -9,6 +9,6 @@ medication,2,3,0.6667
 immunization,6,8,0.7500
 encounter,8,9,0.8889
 documentreference,11,14,0.7857
-diagnosticreport,9,12,0.7500
+diagnosticreport_note,9,12,0.7500
 condition,11,14,0.7857
 allergyintolerance,9,12,0.7500

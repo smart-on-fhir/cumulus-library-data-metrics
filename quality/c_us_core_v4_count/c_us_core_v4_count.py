@@ -13,9 +13,15 @@ class UsCoreV4CountBuilder(UsCoreV4Mixin, MetricMixin, BaseTableBuilder):
 
     def make_table(self, **kwargs) -> None:
         """Make a single metric table"""
+        summary_key = kwargs["src"].lower()
+        if "name" in kwargs:
+            summary_key += f"_{kwargs['name']}"
+
         self.queries.append(self.render_sql(self.name, **kwargs))
 
     # TODO: expand to more profiles
     def prepare_queries(self, cursor: DatabaseCursor, schema: str, *args, **kwargs) -> None:
         self.make_table(src="AllergyIntolerance", **self.allergy_args(cursor, schema))
         self.make_table(src="Condition")
+        self.make_table(src="DiagnosticReport", name="note")
+        self.make_table(src="DocumentReference", **self.docref_args(cursor, schema))

@@ -1,8 +1,8 @@
 {% import 'utils.jinja' as utils %}
 
 {% set profile_name = src.lower() %}
-{% if category %}
-    {% set profile_name = profile_name + '_' + category.replace('-', '_') %}
+{% if name %}
+    {% set profile_name = profile_name + '_' + name %}
 {% endif %}
 
 CREATE TABLE quality__count_c_us_core_v4_count_{{ profile_name }} AS (

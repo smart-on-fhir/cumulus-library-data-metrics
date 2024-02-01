@@ -1,0 +1,30 @@
+-- http://hl7.org/fhir/us/core/STU4/StructureDefinition-us-core-diagnosticreport-note.html
+-- There is another lab-report-specific profile,
+-- but this is the "base DiagnosticReport" profile that covers the bare minimum.
+
+WITH
+
+tmp_simplified AS (
+    SELECT
+        id,
+        {{ utils.is_reference_of_type('encounter', 'Encounter') }} AS valid_encounter,
+        issued IS NOT NULL AS valid_issued,
+        performer IS NOT NULL AS valid_performer,
+        presentedForm IS NOT NULL as valid_presented_form
+    FROM {{ src }}
+)
+
+{%
+set fields = [
+    'valid_encounter',
+    'valid_issued',
+    'valid_performer',
+    'valid_presented_form',
+]
+%}
+
+SELECT
+    id,
+    {{ fields|join(", ") }},
+    {{ fields|join(" AND ") }} AS valid
+FROM tmp_simplified

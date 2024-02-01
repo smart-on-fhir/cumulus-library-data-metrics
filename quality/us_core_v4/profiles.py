@@ -6,56 +6,50 @@ from cumulus_library.template_sql import templates
 
 class UsCoreV4Mixin:
 
+    # These methods largely deal with inspecting the schema before we fully query the table.
+    # Complex column values deeper than the toplevel are not guaranteed to be present in the schema.
+    # So we check if they are here.
+
     @staticmethod
-    def allergy_args(cursor: DatabaseCursor, schema: str) -> dict:
+    def _get_datatype(cursor: DatabaseCursor, schema: str, resource: str, column: str) -> str:
         query = templates.get_column_datatype_query(
-            schema, "allergyintolerance", ["reaction"],
+            schema, resource.lower(), [column.lower()],
         )
         cursor.execute(query)
-        result = cursor.fetchone()[1]
+        return cursor.fetchone()[1].lower()
+
+    @staticmethod
+    def allergy_args(cursor: DatabaseCursor, schema: str) -> dict:
+        reaction = UsCoreV4Mixin._get_datatype(cursor, schema, "AllergyIntolerance", "reaction")
         return {
-            "has_manifestation": "manifestation" in result,
+            "has_manifestation": "manifestation" in reaction,
         }
 
     @staticmethod
     def docref_args(cursor: DatabaseCursor, schema: str) -> dict:
-        # We need to see if the content.attachment structure exists in the source
-        # because our SQL wants to reference it, but it's deeper than Cumulus's default
-        # schema depth of one, so it may not be in the schema.
-        query = templates.get_column_datatype_query(
-            schema, "documentreference", ["content"],
-        )
-        cursor.execute(query)
-        result = cursor.fetchone()[1]
+        content = UsCoreV4Mixin._get_datatype(cursor, schema, "DocumentReference", "content")
+        context = UsCoreV4Mixin._get_datatype(cursor, schema, "DocumentReference", "context")
         return {
-            "has_attachment": "attachment" in result,
+            "has_attachment": "attachment" in content,
+            "has_format": "format" in content,
+            "has_encounter": "encounter" in context,
+            "has_period": "period" in context,
         }
 
     @staticmethod
     def obs_args(cursor: DatabaseCursor, schema: str) -> dict:
-        # Check referenceRange.* fields
-        query = templates.get_column_datatype_query(
-            schema, 'observation', ['referencerange'],
-        )
-        cursor.execute(query)
-        ref_range_result = cursor.fetchone()[1]
-
-        # Check component.* fields
-        query = templates.get_column_datatype_query(
-            schema, 'observation', ['component'],
-        )
-        cursor.execute(query)
-        comp_result = cursor.fetchone()[1].lower()
+        ref_range = UsCoreV4Mixin._get_datatype(cursor, schema, "Observation", "referenceRange")
+        component = UsCoreV4Mixin._get_datatype(cursor, schema, "Observation", "component")
 
         # TODO: add more tests for low-schema versions of Observation profiles
         return {
-            "has_ref_range_high": "high" in ref_range_result,
-            "has_ref_range_low": "low" in ref_range_result,
-            "has_comp_data_absent": "dataabsentreason" in comp_result,
-            "has_comp_quantity": "valuequantity" in comp_result,
-            "has_comp_concept": "valuecodeableconcept" in comp_result,
-            "has_comp_range": "valuerange" in comp_result,
-            "has_comp_ratio": "valueratio" in comp_result,
-            "has_comp_sample": "valuesampleddata" in comp_result,
-            "has_comp_period": "valueperiod" in comp_result,
+            "has_ref_range_high": "high" in ref_range,
+            "has_ref_range_low": "low" in ref_range,
+            "has_comp_data_absent": "dataabsentreason" in component,
+            "has_comp_quantity": "valuequantity" in component,
+            "has_comp_concept": "valuecodeableconcept" in component,
+            "has_comp_range": "valuerange" in component,
+            "has_comp_ratio": "valueratio" in component,
+            "has_comp_sample": "valuesampleddata" in component,
+            "has_comp_period": "valueperiod" in component,
         }

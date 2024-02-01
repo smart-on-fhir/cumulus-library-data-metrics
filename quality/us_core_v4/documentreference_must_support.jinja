@@ -1,0 +1,94 @@
+-- http://hl7.org/fhir/us/core/STU4/StructureDefinition-us-core-documentreference.html
+
+-- CUMULUS-QUIRK
+-- Doesn't look at support for `identifier`, because Cumulus strips that field.
+
+WITH
+
+tmp_content_flat AS (
+    SELECT
+        id,
+
+        {% if has_format %}
+        u.content.format
+        {% else %}
+        NULL AS format
+        {% endif %}
+
+    FROM {{ src }},
+        UNNEST(content) AS u (content)
+),
+tmp_content_grouped AS (
+    SELECT
+        id,
+        BOOL_AND({{ utils.is_coding_valid('format') }}) AS valid_format
+    FROM tmp_content_flat
+    GROUP BY id
+),
+
+tmp_encounters AS (
+    SELECT
+        id,
+
+    {% if has_encounter %}
+        BOOL_AND({{ utils.is_reference_of_type('u.encounter', 'Encounter') }}) as valid_encounter,
+        COUNT(u.encounter) AS encounter_count
+
+    FROM {{ src }},
+        UNNEST(context.encounter) AS u (encounter)
+    GROUP BY id
+
+    {% else %}
+        FALSE AS valid_encounter,
+        0 AS encounter_count
+    FROM {{ src }}
+    {% endif %}
+),
+
+
+tmp_simplified AS (
+    SELECT
+        src.id,
+        "date" IS NOT NULL AS valid_date,
+        author IS NOT NULL AS valid_author,
+        (
+            tmp_content_grouped.valid_format IS NULL
+            OR tmp_content_grouped.valid_format
+        ) AS valid_format,
+
+        (
+            tmp_encounters.encounter_count IS NOT NULL
+            AND tmp_encounters.encounter_count = 1 -- Base spec allows many, US Core only allows 1
+            AND tmp_encounters.valid_encounter
+        ) AS valid_encounter,
+
+        (
+            {% if has_period %}
+            {{ utils.is_period_valid('context.period') }}
+            {% else %}
+            FALSE
+            {% endif %}
+        ) AS valid_period
+
+    FROM {{ src }} AS src
+    LEFT JOIN tmp_content_grouped
+    ON tmp_content_grouped.id = src.id
+    LEFT JOIN tmp_encounters
+    ON tmp_encounters.id = src.id
+)
+
+{%
+set fields = [
+    'valid_date',
+    'valid_author',
+    'valid_format',
+    'valid_encounter',
+    'valid_period',
+]
+%}
+
+SELECT
+    id,
+    {{ fields|join(", ") }},
+    {{ fields|join(" AND ") }} AS valid
+FROM tmp_simplified

@@ -23,7 +23,7 @@ class ValidUsCoreV4Builder(UsCoreV4Mixin, MetricMixin, BaseTableBuilder):
     def prepare_queries(self, cursor: DatabaseCursor, schema: str, *args, **kwargs) -> None:
         self.make_table(src="AllergyIntolerance", **self.allergy_args(cursor, schema))
         self.make_table(src="Condition")
-        self.make_table(src="DiagnosticReport")
+        self.make_table(src="DiagnosticReport", name="note")
         self.make_table(src="DocumentReference", **self.docref_args(cursor, schema))
         self.make_table(src="Encounter")
         self.make_table(src="Immunization")

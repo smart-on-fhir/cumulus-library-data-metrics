@@ -21,9 +21,7 @@ simplified AS (
     SELECT
         id,
 
-        {% call utils.coalesce_missing() %}
-            gender
-        {% endcall %} AS administrative_gender,
+        {{ utils.coalesce_missing('gender') }} AS administrative_gender,
 
         {% call utils.coalesce_missing() %}
             {{ utils.patient_active_status() }}
