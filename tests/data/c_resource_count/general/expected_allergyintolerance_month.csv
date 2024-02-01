@@ -1,45 +1,45 @@
 cnt,category,month,status
 11,,,
-8,,,cumulus__missing-or-null
-6,,cumulus__missing-or-null,
-6,cumulus__missing-or-null,,
-5,cumulus__missing-or-null,cumulus__missing-or-null,
-3,,cumulus__missing-or-null,cumulus__missing-or-null
+8,,,cumulus__none
+6,,cumulus__none,
+6,cumulus__none,,
+5,cumulus__none,cumulus__none,
+3,,cumulus__none,cumulus__none
 3,,2023-10,
-3,,2023-10,cumulus__missing-or-null
+3,,2023-10,cumulus__none
 3,food,,
-3,food,,cumulus__missing-or-null
-3,cumulus__missing-or-null,,cumulus__missing-or-null
-2,cumulus__missing-or-null,cumulus__missing-or-null,cumulus__missing-or-null
+3,food,,cumulus__none
+3,cumulus__none,,cumulus__none
+2,cumulus__none,cumulus__none,cumulus__none
 1,,,entered-in-error
 1,,,confirmed; unconfirmed
 1,,,confirmed
-1,,cumulus__missing-or-null,entered-in-error
-1,,cumulus__missing-or-null,confirmed; unconfirmed
-1,,cumulus__missing-or-null,confirmed
+1,,cumulus__none,entered-in-error
+1,,cumulus__none,confirmed; unconfirmed
+1,,cumulus__none,confirmed
 1,,2023-11,
-1,,2023-11,cumulus__missing-or-null
+1,,2023-11,cumulus__none
 1,,2022-11,
-1,,2022-11,cumulus__missing-or-null
+1,,2022-11,cumulus__none
 1,medication,,
-1,medication,,cumulus__missing-or-null
+1,medication,,cumulus__none
 1,medication,2023-10,
-1,medication,2023-10,cumulus__missing-or-null
+1,medication,2023-10,cumulus__none
 1,food; medication,,
-1,food; medication,,cumulus__missing-or-null
+1,food; medication,,cumulus__none
 1,food; medication,2022-11,
-1,food; medication,2022-11,cumulus__missing-or-null
-1,food,cumulus__missing-or-null,
-1,food,cumulus__missing-or-null,cumulus__missing-or-null
+1,food; medication,2022-11,cumulus__none
+1,food,cumulus__none,
+1,food,cumulus__none,cumulus__none
 1,food,2023-11,
-1,food,2023-11,cumulus__missing-or-null
+1,food,2023-11,cumulus__none
 1,food,2023-10,
-1,food,2023-10,cumulus__missing-or-null
-1,cumulus__missing-or-null,,entered-in-error
-1,cumulus__missing-or-null,,confirmed; unconfirmed
-1,cumulus__missing-or-null,,confirmed
-1,cumulus__missing-or-null,cumulus__missing-or-null,entered-in-error
-1,cumulus__missing-or-null,cumulus__missing-or-null,confirmed; unconfirmed
-1,cumulus__missing-or-null,cumulus__missing-or-null,confirmed
-1,cumulus__missing-or-null,2023-10,
-1,cumulus__missing-or-null,2023-10,cumulus__missing-or-null
+1,food,2023-10,cumulus__none
+1,cumulus__none,,entered-in-error
+1,cumulus__none,,confirmed; unconfirmed
+1,cumulus__none,,confirmed
+1,cumulus__none,cumulus__none,entered-in-error
+1,cumulus__none,cumulus__none,confirmed; unconfirmed
+1,cumulus__none,cumulus__none,confirmed
+1,cumulus__none,2023-10,
+1,cumulus__none,2023-10,cumulus__none

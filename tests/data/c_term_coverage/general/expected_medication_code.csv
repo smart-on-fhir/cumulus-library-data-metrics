@@ -1,15 +1,15 @@
 cnt,systems,status,has_text
 2,,,
-2,,cumulus__missing-or-null,
-1,,,cumulus__missing-or-null
+2,,cumulus__none,
+1,,,cumulus__none
 1,,,Has Text
-1,,cumulus__missing-or-null,cumulus__missing-or-null
-1,,cumulus__missing-or-null,Has Text
+1,,cumulus__none,cumulus__none
+1,,cumulus__none,Has Text
 1,system1,,
 1,system1,,Has Text
-1,system1,cumulus__missing-or-null,
-1,system1,cumulus__missing-or-null,Has Text
-1,cumulus__missing-or-null,,
-1,cumulus__missing-or-null,,cumulus__missing-or-null
-1,cumulus__missing-or-null,cumulus__missing-or-null,
-1,cumulus__missing-or-null,cumulus__missing-or-null,cumulus__missing-or-null
+1,system1,cumulus__none,
+1,system1,cumulus__none,Has Text
+1,cumulus__none,,
+1,cumulus__none,,cumulus__none
+1,cumulus__none,cumulus__none,
+1,cumulus__none,cumulus__none,cumulus__none

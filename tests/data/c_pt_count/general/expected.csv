@@ -1,51 +1,51 @@
 cnt,birth_year,administrative_gender,ethnicity,race,status
 11,,,,,
 9,,,,,active
-7,,,,cumulus__missing-or-null,
+7,,,,cumulus__none,
 7,,other,,,
 7,,other,,,active
-6,,,cumulus__missing-or-null,,
-5,,,,cumulus__missing-or-null,active
+6,,,cumulus__none,,
+5,,,,cumulus__none,active
 5,2001,,,,
 5,2001,,,,active
 5,2001,other,,,
 5,2001,other,,,active
-4,,,cumulus__missing-or-null,,active
-4,,other,,cumulus__missing-or-null,
-4,,other,,cumulus__missing-or-null,active
-4,,other,cumulus__missing-or-null,,
-4,,other,cumulus__missing-or-null,,active
-4,2001,,cumulus__missing-or-null,,
-4,2001,,cumulus__missing-or-null,,active
-4,2001,other,cumulus__missing-or-null,,
-4,2001,other,cumulus__missing-or-null,,active
-3,,,cumulus__missing-or-null,cumulus__missing-or-null,
+4,,,cumulus__none,,active
+4,,other,,cumulus__none,
+4,,other,,cumulus__none,active
+4,,other,cumulus__none,,
+4,,other,cumulus__none,,active
+4,2001,,cumulus__none,,
+4,2001,,cumulus__none,,active
+4,2001,other,cumulus__none,,
+4,2001,other,cumulus__none,,active
+3,,,cumulus__none,cumulus__none,
 3,,,Hispanic or Latino,,
 3,,,Hispanic or Latino,,active
-3,,cumulus__missing-or-null,,,
-3,,cumulus__missing-or-null,,cumulus__missing-or-null,
-3,cumulus__missing-or-null,,,,
-3,cumulus__missing-or-null,,,cumulus__missing-or-null,
-2,,,Hispanic or Latino,cumulus__missing-or-null,
-2,,,Hispanic or Latino,cumulus__missing-or-null,active
-2,,cumulus__missing-or-null,cumulus__missing-or-null,,
-2,,cumulus__missing-or-null,cumulus__missing-or-null,cumulus__missing-or-null,
-2,cumulus__missing-or-null,,cumulus__missing-or-null,,
-2,cumulus__missing-or-null,,cumulus__missing-or-null,cumulus__missing-or-null,
-2,cumulus__missing-or-null,cumulus__missing-or-null,,,
-2,cumulus__missing-or-null,cumulus__missing-or-null,,cumulus__missing-or-null,
-2,cumulus__missing-or-null,cumulus__missing-or-null,cumulus__missing-or-null,,
-2,cumulus__missing-or-null,cumulus__missing-or-null,cumulus__missing-or-null,cumulus__missing-or-null,
-2,2001,,,cumulus__missing-or-null,
-2,2001,,,cumulus__missing-or-null,active
-2,2001,other,,cumulus__missing-or-null,
-2,2001,other,,cumulus__missing-or-null,active
+3,,cumulus__none,,,
+3,,cumulus__none,,cumulus__none,
+3,cumulus__none,,,,
+3,cumulus__none,,,cumulus__none,
+2,,,Hispanic or Latino,cumulus__none,
+2,,,Hispanic or Latino,cumulus__none,active
+2,,cumulus__none,cumulus__none,,
+2,,cumulus__none,cumulus__none,cumulus__none,
+2,cumulus__none,,cumulus__none,,
+2,cumulus__none,,cumulus__none,cumulus__none,
+2,cumulus__none,cumulus__none,,,
+2,cumulus__none,cumulus__none,,cumulus__none,
+2,cumulus__none,cumulus__none,cumulus__none,,
+2,cumulus__none,cumulus__none,cumulus__none,cumulus__none,
+2,2001,,,cumulus__none,
+2,2001,,,cumulus__none,active
+2,2001,other,,cumulus__none,
+2,2001,other,,cumulus__none,active
 1,,,,,inactive
-1,,,,,cumulus__missing-or-null
+1,,,,,cumulus__none
 1,,,,race from weird-system,
 1,,,,race from weird-system,active
-1,,,,cumulus__missing-or-null,inactive
-1,,,,cumulus__missing-or-null,cumulus__missing-or-null
+1,,,,cumulus__none,inactive
+1,,,,cumulus__none,cumulus__none
 1,,,,Unknown,
 1,,,,Unknown,active
 1,,,,Asked but no answer,
@@ -54,23 +54,23 @@ cnt,birth_year,administrative_gender,ethnicity,race,status
 1,,,,American Indian or Alaska Native; Asian; Black or African American; Native Hawaiian or Other Pacific Islander; White,active
 1,,,eth from weird-system,,
 1,,,eth from weird-system,,active
-1,,,eth from weird-system,cumulus__missing-or-null,
-1,,,eth from weird-system,cumulus__missing-or-null,active
-1,,,cumulus__missing-or-null,,inactive
-1,,,cumulus__missing-or-null,,cumulus__missing-or-null
-1,,,cumulus__missing-or-null,race from weird-system,
-1,,,cumulus__missing-or-null,race from weird-system,active
-1,,,cumulus__missing-or-null,cumulus__missing-or-null,inactive
-1,,,cumulus__missing-or-null,cumulus__missing-or-null,cumulus__missing-or-null
-1,,,cumulus__missing-or-null,cumulus__missing-or-null,active
-1,,,cumulus__missing-or-null,Unknown,
-1,,,cumulus__missing-or-null,Unknown,active
-1,,,cumulus__missing-or-null,Asked but no answer,
-1,,,cumulus__missing-or-null,Asked but no answer,active
+1,,,eth from weird-system,cumulus__none,
+1,,,eth from weird-system,cumulus__none,active
+1,,,cumulus__none,,inactive
+1,,,cumulus__none,,cumulus__none
+1,,,cumulus__none,race from weird-system,
+1,,,cumulus__none,race from weird-system,active
+1,,,cumulus__none,cumulus__none,inactive
+1,,,cumulus__none,cumulus__none,cumulus__none
+1,,,cumulus__none,cumulus__none,active
+1,,,cumulus__none,Unknown,
+1,,,cumulus__none,Unknown,active
+1,,,cumulus__none,Asked but no answer,
+1,,,cumulus__none,Asked but no answer,active
 1,,,Non Hispanic or Latino,,
 1,,,Non Hispanic or Latino,,active
-1,,,Non Hispanic or Latino,cumulus__missing-or-null,
-1,,,Non Hispanic or Latino,cumulus__missing-or-null,active
+1,,,Non Hispanic or Latino,cumulus__none,
+1,,,Non Hispanic or Latino,cumulus__none,active
 1,,,Hispanic or Latino,American Indian or Alaska Native; Asian; Black or African American; Native Hawaiian or Other Pacific Islander; White,
 1,,,Hispanic or Latino,American Indian or Alaska Native; Asian; Black or African American; Native Hawaiian or Other Pacific Islander; White,active
 1,,other,,race from weird-system,
@@ -81,24 +81,24 @@ cnt,birth_year,administrative_gender,ethnicity,race,status
 1,,other,,Asked but no answer,active
 1,,other,eth from weird-system,,
 1,,other,eth from weird-system,,active
-1,,other,eth from weird-system,cumulus__missing-or-null,
-1,,other,eth from weird-system,cumulus__missing-or-null,active
-1,,other,cumulus__missing-or-null,race from weird-system,
-1,,other,cumulus__missing-or-null,race from weird-system,active
-1,,other,cumulus__missing-or-null,cumulus__missing-or-null,
-1,,other,cumulus__missing-or-null,cumulus__missing-or-null,active
-1,,other,cumulus__missing-or-null,Unknown,
-1,,other,cumulus__missing-or-null,Unknown,active
-1,,other,cumulus__missing-or-null,Asked but no answer,
-1,,other,cumulus__missing-or-null,Asked but no answer,active
+1,,other,eth from weird-system,cumulus__none,
+1,,other,eth from weird-system,cumulus__none,active
+1,,other,cumulus__none,race from weird-system,
+1,,other,cumulus__none,race from weird-system,active
+1,,other,cumulus__none,cumulus__none,
+1,,other,cumulus__none,cumulus__none,active
+1,,other,cumulus__none,Unknown,
+1,,other,cumulus__none,Unknown,active
+1,,other,cumulus__none,Asked but no answer,
+1,,other,cumulus__none,Asked but no answer,active
 1,,other,Non Hispanic or Latino,,
 1,,other,Non Hispanic or Latino,,active
-1,,other,Non Hispanic or Latino,cumulus__missing-or-null,
-1,,other,Non Hispanic or Latino,cumulus__missing-or-null,active
+1,,other,Non Hispanic or Latino,cumulus__none,
+1,,other,Non Hispanic or Latino,cumulus__none,active
 1,,other,Hispanic or Latino,,
 1,,other,Hispanic or Latino,,active
-1,,other,Hispanic or Latino,cumulus__missing-or-null,
-1,,other,Hispanic or Latino,cumulus__missing-or-null,active
+1,,other,Hispanic or Latino,cumulus__none,
+1,,other,Hispanic or Latino,cumulus__none,active
 1,,female,,,
 1,,female,,,active
 1,,female,,American Indian or Alaska Native; Asian; Black or African American; Native Hawaiian or Other Pacific Islander; White,
@@ -107,66 +107,66 @@ cnt,birth_year,administrative_gender,ethnicity,race,status
 1,,female,Hispanic or Latino,,active
 1,,female,Hispanic or Latino,American Indian or Alaska Native; Asian; Black or African American; Native Hawaiian or Other Pacific Islander; White,
 1,,female,Hispanic or Latino,American Indian or Alaska Native; Asian; Black or African American; Native Hawaiian or Other Pacific Islander; White,active
-1,,cumulus__missing-or-null,,,inactive
-1,,cumulus__missing-or-null,,,cumulus__missing-or-null
-1,,cumulus__missing-or-null,,,active
-1,,cumulus__missing-or-null,,cumulus__missing-or-null,inactive
-1,,cumulus__missing-or-null,,cumulus__missing-or-null,cumulus__missing-or-null
-1,,cumulus__missing-or-null,,cumulus__missing-or-null,active
-1,,cumulus__missing-or-null,cumulus__missing-or-null,,inactive
-1,,cumulus__missing-or-null,cumulus__missing-or-null,,cumulus__missing-or-null
-1,,cumulus__missing-or-null,cumulus__missing-or-null,cumulus__missing-or-null,inactive
-1,,cumulus__missing-or-null,cumulus__missing-or-null,cumulus__missing-or-null,cumulus__missing-or-null
-1,,cumulus__missing-or-null,Hispanic or Latino,,
-1,,cumulus__missing-or-null,Hispanic or Latino,,active
-1,,cumulus__missing-or-null,Hispanic or Latino,cumulus__missing-or-null,
-1,,cumulus__missing-or-null,Hispanic or Latino,cumulus__missing-or-null,active
-1,cumulus__missing-or-null,,,,inactive
-1,cumulus__missing-or-null,,,,cumulus__missing-or-null
-1,cumulus__missing-or-null,,,,active
-1,cumulus__missing-or-null,,,cumulus__missing-or-null,inactive
-1,cumulus__missing-or-null,,,cumulus__missing-or-null,cumulus__missing-or-null
-1,cumulus__missing-or-null,,,cumulus__missing-or-null,active
-1,cumulus__missing-or-null,,cumulus__missing-or-null,,inactive
-1,cumulus__missing-or-null,,cumulus__missing-or-null,,cumulus__missing-or-null
-1,cumulus__missing-or-null,,cumulus__missing-or-null,cumulus__missing-or-null,inactive
-1,cumulus__missing-or-null,,cumulus__missing-or-null,cumulus__missing-or-null,cumulus__missing-or-null
-1,cumulus__missing-or-null,,Hispanic or Latino,,
-1,cumulus__missing-or-null,,Hispanic or Latino,,active
-1,cumulus__missing-or-null,,Hispanic or Latino,cumulus__missing-or-null,
-1,cumulus__missing-or-null,,Hispanic or Latino,cumulus__missing-or-null,active
-1,cumulus__missing-or-null,other,,,
-1,cumulus__missing-or-null,other,,,active
-1,cumulus__missing-or-null,other,,cumulus__missing-or-null,
-1,cumulus__missing-or-null,other,,cumulus__missing-or-null,active
-1,cumulus__missing-or-null,other,Hispanic or Latino,,
-1,cumulus__missing-or-null,other,Hispanic or Latino,,active
-1,cumulus__missing-or-null,other,Hispanic or Latino,cumulus__missing-or-null,
-1,cumulus__missing-or-null,other,Hispanic or Latino,cumulus__missing-or-null,active
-1,cumulus__missing-or-null,cumulus__missing-or-null,,,inactive
-1,cumulus__missing-or-null,cumulus__missing-or-null,,,cumulus__missing-or-null
-1,cumulus__missing-or-null,cumulus__missing-or-null,,cumulus__missing-or-null,inactive
-1,cumulus__missing-or-null,cumulus__missing-or-null,,cumulus__missing-or-null,cumulus__missing-or-null
-1,cumulus__missing-or-null,cumulus__missing-or-null,cumulus__missing-or-null,,inactive
-1,cumulus__missing-or-null,cumulus__missing-or-null,cumulus__missing-or-null,,cumulus__missing-or-null
-1,cumulus__missing-or-null,cumulus__missing-or-null,cumulus__missing-or-null,cumulus__missing-or-null,inactive
-1,cumulus__missing-or-null,cumulus__missing-or-null,cumulus__missing-or-null,cumulus__missing-or-null,cumulus__missing-or-null
+1,,cumulus__none,,,inactive
+1,,cumulus__none,,,cumulus__none
+1,,cumulus__none,,,active
+1,,cumulus__none,,cumulus__none,inactive
+1,,cumulus__none,,cumulus__none,cumulus__none
+1,,cumulus__none,,cumulus__none,active
+1,,cumulus__none,cumulus__none,,inactive
+1,,cumulus__none,cumulus__none,,cumulus__none
+1,,cumulus__none,cumulus__none,cumulus__none,inactive
+1,,cumulus__none,cumulus__none,cumulus__none,cumulus__none
+1,,cumulus__none,Hispanic or Latino,,
+1,,cumulus__none,Hispanic or Latino,,active
+1,,cumulus__none,Hispanic or Latino,cumulus__none,
+1,,cumulus__none,Hispanic or Latino,cumulus__none,active
+1,cumulus__none,,,,inactive
+1,cumulus__none,,,,cumulus__none
+1,cumulus__none,,,,active
+1,cumulus__none,,,cumulus__none,inactive
+1,cumulus__none,,,cumulus__none,cumulus__none
+1,cumulus__none,,,cumulus__none,active
+1,cumulus__none,,cumulus__none,,inactive
+1,cumulus__none,,cumulus__none,,cumulus__none
+1,cumulus__none,,cumulus__none,cumulus__none,inactive
+1,cumulus__none,,cumulus__none,cumulus__none,cumulus__none
+1,cumulus__none,,Hispanic or Latino,,
+1,cumulus__none,,Hispanic or Latino,,active
+1,cumulus__none,,Hispanic or Latino,cumulus__none,
+1,cumulus__none,,Hispanic or Latino,cumulus__none,active
+1,cumulus__none,other,,,
+1,cumulus__none,other,,,active
+1,cumulus__none,other,,cumulus__none,
+1,cumulus__none,other,,cumulus__none,active
+1,cumulus__none,other,Hispanic or Latino,,
+1,cumulus__none,other,Hispanic or Latino,,active
+1,cumulus__none,other,Hispanic or Latino,cumulus__none,
+1,cumulus__none,other,Hispanic or Latino,cumulus__none,active
+1,cumulus__none,cumulus__none,,,inactive
+1,cumulus__none,cumulus__none,,,cumulus__none
+1,cumulus__none,cumulus__none,,cumulus__none,inactive
+1,cumulus__none,cumulus__none,,cumulus__none,cumulus__none
+1,cumulus__none,cumulus__none,cumulus__none,,inactive
+1,cumulus__none,cumulus__none,cumulus__none,,cumulus__none
+1,cumulus__none,cumulus__none,cumulus__none,cumulus__none,inactive
+1,cumulus__none,cumulus__none,cumulus__none,cumulus__none,cumulus__none
 1,2003,,,,
 1,2003,,,,active
-1,2003,,,cumulus__missing-or-null,
-1,2003,,,cumulus__missing-or-null,active
+1,2003,,,cumulus__none,
+1,2003,,,cumulus__none,active
 1,2003,,Non Hispanic or Latino,,
 1,2003,,Non Hispanic or Latino,,active
-1,2003,,Non Hispanic or Latino,cumulus__missing-or-null,
-1,2003,,Non Hispanic or Latino,cumulus__missing-or-null,active
+1,2003,,Non Hispanic or Latino,cumulus__none,
+1,2003,,Non Hispanic or Latino,cumulus__none,active
 1,2003,other,,,
 1,2003,other,,,active
-1,2003,other,,cumulus__missing-or-null,
-1,2003,other,,cumulus__missing-or-null,active
+1,2003,other,,cumulus__none,
+1,2003,other,,cumulus__none,active
 1,2003,other,Non Hispanic or Latino,,
 1,2003,other,Non Hispanic or Latino,,active
-1,2003,other,Non Hispanic or Latino,cumulus__missing-or-null,
-1,2003,other,Non Hispanic or Latino,cumulus__missing-or-null,active
+1,2003,other,Non Hispanic or Latino,cumulus__none,
+1,2003,other,Non Hispanic or Latino,cumulus__none,active
 1,2001,,,race from weird-system,
 1,2001,,,race from weird-system,active
 1,2001,,,Unknown,
@@ -175,16 +175,16 @@ cnt,birth_year,administrative_gender,ethnicity,race,status
 1,2001,,,Asked but no answer,active
 1,2001,,eth from weird-system,,
 1,2001,,eth from weird-system,,active
-1,2001,,eth from weird-system,cumulus__missing-or-null,
-1,2001,,eth from weird-system,cumulus__missing-or-null,active
-1,2001,,cumulus__missing-or-null,race from weird-system,
-1,2001,,cumulus__missing-or-null,race from weird-system,active
-1,2001,,cumulus__missing-or-null,cumulus__missing-or-null,
-1,2001,,cumulus__missing-or-null,cumulus__missing-or-null,active
-1,2001,,cumulus__missing-or-null,Unknown,
-1,2001,,cumulus__missing-or-null,Unknown,active
-1,2001,,cumulus__missing-or-null,Asked but no answer,
-1,2001,,cumulus__missing-or-null,Asked but no answer,active
+1,2001,,eth from weird-system,cumulus__none,
+1,2001,,eth from weird-system,cumulus__none,active
+1,2001,,cumulus__none,race from weird-system,
+1,2001,,cumulus__none,race from weird-system,active
+1,2001,,cumulus__none,cumulus__none,
+1,2001,,cumulus__none,cumulus__none,active
+1,2001,,cumulus__none,Unknown,
+1,2001,,cumulus__none,Unknown,active
+1,2001,,cumulus__none,Asked but no answer,
+1,2001,,cumulus__none,Asked but no answer,active
 1,2001,other,,race from weird-system,
 1,2001,other,,race from weird-system,active
 1,2001,other,,Unknown,
@@ -193,16 +193,16 @@ cnt,birth_year,administrative_gender,ethnicity,race,status
 1,2001,other,,Asked but no answer,active
 1,2001,other,eth from weird-system,,
 1,2001,other,eth from weird-system,,active
-1,2001,other,eth from weird-system,cumulus__missing-or-null,
-1,2001,other,eth from weird-system,cumulus__missing-or-null,active
-1,2001,other,cumulus__missing-or-null,race from weird-system,
-1,2001,other,cumulus__missing-or-null,race from weird-system,active
-1,2001,other,cumulus__missing-or-null,cumulus__missing-or-null,
-1,2001,other,cumulus__missing-or-null,cumulus__missing-or-null,active
-1,2001,other,cumulus__missing-or-null,Unknown,
-1,2001,other,cumulus__missing-or-null,Unknown,active
-1,2001,other,cumulus__missing-or-null,Asked but no answer,
-1,2001,other,cumulus__missing-or-null,Asked but no answer,active
+1,2001,other,eth from weird-system,cumulus__none,
+1,2001,other,eth from weird-system,cumulus__none,active
+1,2001,other,cumulus__none,race from weird-system,
+1,2001,other,cumulus__none,race from weird-system,active
+1,2001,other,cumulus__none,cumulus__none,
+1,2001,other,cumulus__none,cumulus__none,active
+1,2001,other,cumulus__none,Unknown,
+1,2001,other,cumulus__none,Unknown,active
+1,2001,other,cumulus__none,Asked but no answer,
+1,2001,other,cumulus__none,Asked but no answer,active
 1,2000,,,,
 1,2000,,,,active
 1,2000,,,American Indian or Alaska Native; Asian; Black or African American; Native Hawaiian or Other Pacific Islander; White,
@@ -221,17 +221,17 @@ cnt,birth_year,administrative_gender,ethnicity,race,status
 1,2000,female,Hispanic or Latino,American Indian or Alaska Native; Asian; Black or African American; Native Hawaiian or Other Pacific Islander; White,active
 1,1990,,,,
 1,1990,,,,active
-1,1990,,,cumulus__missing-or-null,
-1,1990,,,cumulus__missing-or-null,active
+1,1990,,,cumulus__none,
+1,1990,,,cumulus__none,active
 1,1990,,Hispanic or Latino,,
 1,1990,,Hispanic or Latino,,active
-1,1990,,Hispanic or Latino,cumulus__missing-or-null,
-1,1990,,Hispanic or Latino,cumulus__missing-or-null,active
-1,1990,cumulus__missing-or-null,,,
-1,1990,cumulus__missing-or-null,,,active
-1,1990,cumulus__missing-or-null,,cumulus__missing-or-null,
-1,1990,cumulus__missing-or-null,,cumulus__missing-or-null,active
-1,1990,cumulus__missing-or-null,Hispanic or Latino,,
-1,1990,cumulus__missing-or-null,Hispanic or Latino,,active
-1,1990,cumulus__missing-or-null,Hispanic or Latino,cumulus__missing-or-null,
-1,1990,cumulus__missing-or-null,Hispanic or Latino,cumulus__missing-or-null,active
+1,1990,,Hispanic or Latino,cumulus__none,
+1,1990,,Hispanic or Latino,cumulus__none,active
+1,1990,cumulus__none,,,
+1,1990,cumulus__none,,,active
+1,1990,cumulus__none,,cumulus__none,
+1,1990,cumulus__none,,cumulus__none,active
+1,1990,cumulus__none,Hispanic or Latino,,
+1,1990,cumulus__none,Hispanic or Latino,,active
+1,1990,cumulus__none,Hispanic or Latino,cumulus__none,
+1,1990,cumulus__none,Hispanic or Latino,cumulus__none,active

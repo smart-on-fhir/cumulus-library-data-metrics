@@ -1,105 +1,105 @@
 cnt,category,systems,status,year,has_text
 7,,,,,
-7,,,,cumulus__missing-or-null,
-7,,,cumulus__missing-or-null,,
-7,,,cumulus__missing-or-null,cumulus__missing-or-null,
-6,,,,,cumulus__missing-or-null
-6,,,,cumulus__missing-or-null,cumulus__missing-or-null
-6,,,cumulus__missing-or-null,,cumulus__missing-or-null
-6,,,cumulus__missing-or-null,cumulus__missing-or-null,cumulus__missing-or-null
-6,,cumulus__missing-or-null,,,
-6,,cumulus__missing-or-null,,,cumulus__missing-or-null
-6,,cumulus__missing-or-null,,cumulus__missing-or-null,
-6,,cumulus__missing-or-null,,cumulus__missing-or-null,cumulus__missing-or-null
-6,,cumulus__missing-or-null,cumulus__missing-or-null,,
-6,,cumulus__missing-or-null,cumulus__missing-or-null,,cumulus__missing-or-null
-6,,cumulus__missing-or-null,cumulus__missing-or-null,cumulus__missing-or-null,
-6,,cumulus__missing-or-null,cumulus__missing-or-null,cumulus__missing-or-null,cumulus__missing-or-null
+7,,,,cumulus__none,
+7,,,cumulus__none,,
+7,,,cumulus__none,cumulus__none,
+6,,,,,cumulus__none
+6,,,,cumulus__none,cumulus__none
+6,,,cumulus__none,,cumulus__none
+6,,,cumulus__none,cumulus__none,cumulus__none
+6,,cumulus__none,,,
+6,,cumulus__none,,,cumulus__none
+6,,cumulus__none,,cumulus__none,
+6,,cumulus__none,,cumulus__none,cumulus__none
+6,,cumulus__none,cumulus__none,,
+6,,cumulus__none,cumulus__none,,cumulus__none
+6,,cumulus__none,cumulus__none,cumulus__none,
+6,,cumulus__none,cumulus__none,cumulus__none,cumulus__none
 2,exam; vital-signs,,,,
-2,exam; vital-signs,,,,cumulus__missing-or-null
-2,exam; vital-signs,,,cumulus__missing-or-null,
-2,exam; vital-signs,,,cumulus__missing-or-null,cumulus__missing-or-null
-2,exam; vital-signs,,cumulus__missing-or-null,,
-2,exam; vital-signs,,cumulus__missing-or-null,,cumulus__missing-or-null
-2,exam; vital-signs,,cumulus__missing-or-null,cumulus__missing-or-null,
-2,exam; vital-signs,,cumulus__missing-or-null,cumulus__missing-or-null,cumulus__missing-or-null
-2,exam; vital-signs,cumulus__missing-or-null,,,
-2,exam; vital-signs,cumulus__missing-or-null,,,cumulus__missing-or-null
-2,exam; vital-signs,cumulus__missing-or-null,,cumulus__missing-or-null,
-2,exam; vital-signs,cumulus__missing-or-null,,cumulus__missing-or-null,cumulus__missing-or-null
-2,exam; vital-signs,cumulus__missing-or-null,cumulus__missing-or-null,,
-2,exam; vital-signs,cumulus__missing-or-null,cumulus__missing-or-null,,cumulus__missing-or-null
-2,exam; vital-signs,cumulus__missing-or-null,cumulus__missing-or-null,cumulus__missing-or-null,
-2,exam; vital-signs,cumulus__missing-or-null,cumulus__missing-or-null,cumulus__missing-or-null,cumulus__missing-or-null
+2,exam; vital-signs,,,,cumulus__none
+2,exam; vital-signs,,,cumulus__none,
+2,exam; vital-signs,,,cumulus__none,cumulus__none
+2,exam; vital-signs,,cumulus__none,,
+2,exam; vital-signs,,cumulus__none,,cumulus__none
+2,exam; vital-signs,,cumulus__none,cumulus__none,
+2,exam; vital-signs,,cumulus__none,cumulus__none,cumulus__none
+2,exam; vital-signs,cumulus__none,,,
+2,exam; vital-signs,cumulus__none,,,cumulus__none
+2,exam; vital-signs,cumulus__none,,cumulus__none,
+2,exam; vital-signs,cumulus__none,,cumulus__none,cumulus__none
+2,exam; vital-signs,cumulus__none,cumulus__none,,
+2,exam; vital-signs,cumulus__none,cumulus__none,,cumulus__none
+2,exam; vital-signs,cumulus__none,cumulus__none,cumulus__none,
+2,exam; vital-signs,cumulus__none,cumulus__none,cumulus__none,cumulus__none
 2,exam,,,,
-2,exam,,,,cumulus__missing-or-null
-2,exam,,,cumulus__missing-or-null,
-2,exam,,,cumulus__missing-or-null,cumulus__missing-or-null
-2,exam,,cumulus__missing-or-null,,
-2,exam,,cumulus__missing-or-null,,cumulus__missing-or-null
-2,exam,,cumulus__missing-or-null,cumulus__missing-or-null,
-2,exam,,cumulus__missing-or-null,cumulus__missing-or-null,cumulus__missing-or-null
-2,exam,cumulus__missing-or-null,,,
-2,exam,cumulus__missing-or-null,,,cumulus__missing-or-null
-2,exam,cumulus__missing-or-null,,cumulus__missing-or-null,
-2,exam,cumulus__missing-or-null,,cumulus__missing-or-null,cumulus__missing-or-null
-2,exam,cumulus__missing-or-null,cumulus__missing-or-null,,
-2,exam,cumulus__missing-or-null,cumulus__missing-or-null,,cumulus__missing-or-null
-2,exam,cumulus__missing-or-null,cumulus__missing-or-null,cumulus__missing-or-null,
-2,exam,cumulus__missing-or-null,cumulus__missing-or-null,cumulus__missing-or-null,cumulus__missing-or-null
-2,cumulus__missing-or-null,,,,
-2,cumulus__missing-or-null,,,cumulus__missing-or-null,
-2,cumulus__missing-or-null,,cumulus__missing-or-null,,
-2,cumulus__missing-or-null,,cumulus__missing-or-null,cumulus__missing-or-null,
+2,exam,,,,cumulus__none
+2,exam,,,cumulus__none,
+2,exam,,,cumulus__none,cumulus__none
+2,exam,,cumulus__none,,
+2,exam,,cumulus__none,,cumulus__none
+2,exam,,cumulus__none,cumulus__none,
+2,exam,,cumulus__none,cumulus__none,cumulus__none
+2,exam,cumulus__none,,,
+2,exam,cumulus__none,,,cumulus__none
+2,exam,cumulus__none,,cumulus__none,
+2,exam,cumulus__none,,cumulus__none,cumulus__none
+2,exam,cumulus__none,cumulus__none,,
+2,exam,cumulus__none,cumulus__none,,cumulus__none
+2,exam,cumulus__none,cumulus__none,cumulus__none,
+2,exam,cumulus__none,cumulus__none,cumulus__none,cumulus__none
+2,cumulus__none,,,,
+2,cumulus__none,,,cumulus__none,
+2,cumulus__none,,cumulus__none,,
+2,cumulus__none,,cumulus__none,cumulus__none,
 1,,,,,Has Text
-1,,,,cumulus__missing-or-null,Has Text
-1,,,cumulus__missing-or-null,,Has Text
-1,,,cumulus__missing-or-null,cumulus__missing-or-null,Has Text
+1,,,,cumulus__none,Has Text
+1,,,cumulus__none,,Has Text
+1,,,cumulus__none,cumulus__none,Has Text
 1,,value1,,,
 1,,value1,,,Has Text
-1,,value1,,cumulus__missing-or-null,
-1,,value1,,cumulus__missing-or-null,Has Text
-1,,value1,cumulus__missing-or-null,,
-1,,value1,cumulus__missing-or-null,,Has Text
-1,,value1,cumulus__missing-or-null,cumulus__missing-or-null,
-1,,value1,cumulus__missing-or-null,cumulus__missing-or-null,Has Text
+1,,value1,,cumulus__none,
+1,,value1,,cumulus__none,Has Text
+1,,value1,cumulus__none,,
+1,,value1,cumulus__none,,Has Text
+1,,value1,cumulus__none,cumulus__none,
+1,,value1,cumulus__none,cumulus__none,Has Text
 1,vital-signs,,,,
-1,vital-signs,,,,cumulus__missing-or-null
-1,vital-signs,,,cumulus__missing-or-null,
-1,vital-signs,,,cumulus__missing-or-null,cumulus__missing-or-null
-1,vital-signs,,cumulus__missing-or-null,,
-1,vital-signs,,cumulus__missing-or-null,,cumulus__missing-or-null
-1,vital-signs,,cumulus__missing-or-null,cumulus__missing-or-null,
-1,vital-signs,,cumulus__missing-or-null,cumulus__missing-or-null,cumulus__missing-or-null
-1,vital-signs,cumulus__missing-or-null,,,
-1,vital-signs,cumulus__missing-or-null,,,cumulus__missing-or-null
-1,vital-signs,cumulus__missing-or-null,,cumulus__missing-or-null,
-1,vital-signs,cumulus__missing-or-null,,cumulus__missing-or-null,cumulus__missing-or-null
-1,vital-signs,cumulus__missing-or-null,cumulus__missing-or-null,,
-1,vital-signs,cumulus__missing-or-null,cumulus__missing-or-null,,cumulus__missing-or-null
-1,vital-signs,cumulus__missing-or-null,cumulus__missing-or-null,cumulus__missing-or-null,
-1,vital-signs,cumulus__missing-or-null,cumulus__missing-or-null,cumulus__missing-or-null,cumulus__missing-or-null
-1,cumulus__missing-or-null,,,,cumulus__missing-or-null
-1,cumulus__missing-or-null,,,,Has Text
-1,cumulus__missing-or-null,,,cumulus__missing-or-null,cumulus__missing-or-null
-1,cumulus__missing-or-null,,,cumulus__missing-or-null,Has Text
-1,cumulus__missing-or-null,,cumulus__missing-or-null,,cumulus__missing-or-null
-1,cumulus__missing-or-null,,cumulus__missing-or-null,,Has Text
-1,cumulus__missing-or-null,,cumulus__missing-or-null,cumulus__missing-or-null,cumulus__missing-or-null
-1,cumulus__missing-or-null,,cumulus__missing-or-null,cumulus__missing-or-null,Has Text
-1,cumulus__missing-or-null,value1,,,
-1,cumulus__missing-or-null,value1,,,Has Text
-1,cumulus__missing-or-null,value1,,cumulus__missing-or-null,
-1,cumulus__missing-or-null,value1,,cumulus__missing-or-null,Has Text
-1,cumulus__missing-or-null,value1,cumulus__missing-or-null,,
-1,cumulus__missing-or-null,value1,cumulus__missing-or-null,,Has Text
-1,cumulus__missing-or-null,value1,cumulus__missing-or-null,cumulus__missing-or-null,
-1,cumulus__missing-or-null,value1,cumulus__missing-or-null,cumulus__missing-or-null,Has Text
-1,cumulus__missing-or-null,cumulus__missing-or-null,,,
-1,cumulus__missing-or-null,cumulus__missing-or-null,,,cumulus__missing-or-null
-1,cumulus__missing-or-null,cumulus__missing-or-null,,cumulus__missing-or-null,
-1,cumulus__missing-or-null,cumulus__missing-or-null,,cumulus__missing-or-null,cumulus__missing-or-null
-1,cumulus__missing-or-null,cumulus__missing-or-null,cumulus__missing-or-null,,
-1,cumulus__missing-or-null,cumulus__missing-or-null,cumulus__missing-or-null,,cumulus__missing-or-null
-1,cumulus__missing-or-null,cumulus__missing-or-null,cumulus__missing-or-null,cumulus__missing-or-null,
-1,cumulus__missing-or-null,cumulus__missing-or-null,cumulus__missing-or-null,cumulus__missing-or-null,cumulus__missing-or-null
+1,vital-signs,,,,cumulus__none
+1,vital-signs,,,cumulus__none,
+1,vital-signs,,,cumulus__none,cumulus__none
+1,vital-signs,,cumulus__none,,
+1,vital-signs,,cumulus__none,,cumulus__none
+1,vital-signs,,cumulus__none,cumulus__none,
+1,vital-signs,,cumulus__none,cumulus__none,cumulus__none
+1,vital-signs,cumulus__none,,,
+1,vital-signs,cumulus__none,,,cumulus__none
+1,vital-signs,cumulus__none,,cumulus__none,
+1,vital-signs,cumulus__none,,cumulus__none,cumulus__none
+1,vital-signs,cumulus__none,cumulus__none,,
+1,vital-signs,cumulus__none,cumulus__none,,cumulus__none
+1,vital-signs,cumulus__none,cumulus__none,cumulus__none,
+1,vital-signs,cumulus__none,cumulus__none,cumulus__none,cumulus__none
+1,cumulus__none,,,,cumulus__none
+1,cumulus__none,,,,Has Text
+1,cumulus__none,,,cumulus__none,cumulus__none
+1,cumulus__none,,,cumulus__none,Has Text
+1,cumulus__none,,cumulus__none,,cumulus__none
+1,cumulus__none,,cumulus__none,,Has Text
+1,cumulus__none,,cumulus__none,cumulus__none,cumulus__none
+1,cumulus__none,,cumulus__none,cumulus__none,Has Text
+1,cumulus__none,value1,,,
+1,cumulus__none,value1,,,Has Text
+1,cumulus__none,value1,,cumulus__none,
+1,cumulus__none,value1,,cumulus__none,Has Text
+1,cumulus__none,value1,cumulus__none,,
+1,cumulus__none,value1,cumulus__none,,Has Text
+1,cumulus__none,value1,cumulus__none,cumulus__none,
+1,cumulus__none,value1,cumulus__none,cumulus__none,Has Text
+1,cumulus__none,cumulus__none,,,
+1,cumulus__none,cumulus__none,,,cumulus__none
+1,cumulus__none,cumulus__none,,cumulus__none,
+1,cumulus__none,cumulus__none,,cumulus__none,cumulus__none
+1,cumulus__none,cumulus__none,cumulus__none,,
+1,cumulus__none,cumulus__none,cumulus__none,,cumulus__none
+1,cumulus__none,cumulus__none,cumulus__none,cumulus__none,
+1,cumulus__none,cumulus__none,cumulus__none,cumulus__none,cumulus__none
