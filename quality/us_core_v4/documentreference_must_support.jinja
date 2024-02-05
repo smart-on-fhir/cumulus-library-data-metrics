@@ -51,6 +51,7 @@ tmp_simplified AS (
         src.id,
         "date" IS NOT NULL AS valid_date,
         author IS NOT NULL AS valid_author,
+
         (
             tmp_content_grouped.valid_format IS NULL
             OR tmp_content_grouped.valid_format
@@ -66,7 +67,8 @@ tmp_simplified AS (
 
         (
             {% if has_period %}
-            {{ utils.is_period_valid('context.period') }}
+            -- could call is_period_valid(), but would need to confirm each subfield exists
+            context.period IS NOT NULL
             {% else %}
             FALSE
             {% endif %}

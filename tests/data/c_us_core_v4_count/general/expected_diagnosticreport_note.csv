@@ -1,0 +1,20 @@
+cnt,profile_support,year,status
+3,,,
+2,,,final
+2,,2000,
+2,,2000,final
+1,,,cumulus__none
+1,,cumulus__none,
+1,,cumulus__none,cumulus__none
+1,None,,
+1,None,,cumulus__none
+1,None,cumulus__none,
+1,None,cumulus__none,cumulus__none
+1,Mandatory Only,,
+1,Mandatory Only,,final
+1,Mandatory Only,2000,
+1,Mandatory Only,2000,final
+1,Mandatory & Must Support,,
+1,Mandatory & Must Support,,final
+1,Mandatory & Must Support,2000,
+1,Mandatory & Must Support,2000,final

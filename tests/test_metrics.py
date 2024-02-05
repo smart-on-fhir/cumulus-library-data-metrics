@@ -35,6 +35,9 @@ class MetricsTestCase(unittest.TestCase):
     def test_c_us_core_v4_count_allergy_low_schema(self):
         self.run_study("c_us_core_v4_count", test="allergy-low-schema")
 
+    def test_c_us_core_v4_count_docref_low_schema(self):
+        self.run_study("c_us_core_v4_count", test="docref-low-schema")
+
     def test_q_ref_target_pop(self):
         self.run_study("q_ref_target_pop")
 
