@@ -1,0 +1,8 @@
+id,valid_date,valid_author,valid_format,valid_encounter,valid_period,valid
+valid,true,true,true,true,true,true
+nothing,false,false,false,false,false,false
+format-multiple-good,false,false,true,false,false,false
+format-multiple-bad,false,false,false,false,false,false
+encounter-wrong-type,false,false,false,false,false,false
+encounter-none-in-context,false,false,false,false,false,false
+encounter-multiple,false,false,false,false,false,false

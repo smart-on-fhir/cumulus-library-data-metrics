@@ -15,6 +15,7 @@ class MetricMixin:
         super().__init__()
         self.display_text = f"Creating {self.name} tables…"
         self.summary_entries = {}
+        self.queries = []
 
     def make_summary(self) -> None:
         """Makes a summary table, from all the individual metric tables"""

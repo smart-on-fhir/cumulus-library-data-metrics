@@ -1,0 +1,13 @@
+id,valid_status,valid_category,valid_code,valid_subject,valid_effective,valid
+valid-period-start,true,true,true,true,true,true
+valid-period-end,true,true,true,true,true,true
+valid-datetime,true,true,true,true,true,true
+nothing,false,false,false,false,false,false
+no-subject,true,true,true,false,true,false
+no-status,false,true,true,true,true,false
+no-datetime,true,true,true,true,false,false
+no-code,true,true,false,true,true,false
+no-category,true,false,true,true,true,false
+group-subject,true,true,true,false,true,false
+empty-period,true,true,true,true,false,false
+empty-code,true,true,false,true,true,false

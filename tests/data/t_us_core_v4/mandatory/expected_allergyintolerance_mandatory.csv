@@ -1,0 +1,13 @@
+id,valid_status,valid_code,valid_patient,valid
+valid-with-verification,true,true,true,true
+valid-with-status,true,true,true,true
+valid-entered-in-error,true,true,true,true
+status-without-coding,false,true,true,false
+status-and-entered-in-error,false,true,true,false
+nothing,false,false,false,false
+no-status-other-verification,false,true,true,false
+no-status,false,true,true,false
+no-patient,true,true,false,false
+no-code,true,false,true,false
+empty-patient,true,true,false,false
+empty-code,true,false,true,false

@@ -1,8 +1,0 @@
-id,valid_status,valid_intent,valid_medication,valid_subject,valid_requester,valid,status
-nothing,false,false,false,false,false,false,
-no-subject,true,true,true,false,true,false,active
-no-status,false,true,true,true,true,false,
-no-requester,true,true,true,true,false,false,active
-no-medication,true,true,false,true,true,false,active
-no-intent,true,false,true,true,true,false,active
-group-subject,true,true,true,false,true,false,active

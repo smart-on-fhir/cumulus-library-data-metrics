@@ -53,8 +53,8 @@ tmp_simplified AS (
         author IS NOT NULL AS valid_author,
 
         (
-            tmp_content_grouped.valid_format IS NULL
-            OR tmp_content_grouped.valid_format
+            tmp_content_grouped.valid_format IS NOT NULL
+            AND tmp_content_grouped.valid_format
         ) AS valid_format,
 
         (

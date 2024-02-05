@@ -1,10 +1,5 @@
 {% import 'utils.jinja' as utils %}
 
-{% set profile_name = src.lower() %}
-{% if name %}
-    {% set profile_name = profile_name + '_' + name %}
-{% endif %}
-
 CREATE TABLE quality__q_valid_us_core_v4_{{ profile_name }} AS (
 WITH
 src_status AS {{ utils.extract_status(src) }},

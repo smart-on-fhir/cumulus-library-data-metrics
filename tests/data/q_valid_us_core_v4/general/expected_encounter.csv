@@ -1,9 +1,3 @@
 id,valid_status,valid_class,valid_type,valid_subject,valid,status
+other-status,true,false,false,false,false,other
 nothing,false,false,false,false,false,
-no-type,true,true,false,true,false,finished
-no-subject,true,true,true,false,false,finished
-no-status,false,true,true,true,false,
-no-class,true,false,true,true,false,finished
-group-subject,true,true,true,false,false,finished
-empty-subject,true,true,true,false,false,finished
-empty-class,true,false,true,true,false,finished

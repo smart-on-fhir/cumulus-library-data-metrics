@@ -6,11 +6,13 @@ import shutil
 import tempfile
 import unittest
 
+import ddt
 import duckdb
 
 from cumulus_library import cli
 
 
+@ddt.ddt
 class MetricsTestCase(unittest.TestCase):
     """Test case for quality metrics"""
 
@@ -30,13 +32,8 @@ class MetricsTestCase(unittest.TestCase):
         self.run_study("c_term_coverage")
 
     def test_c_us_core_v4_count(self):
+        # Just spot checks one resource - the main logic is tested in t_us_core_v4
         self.run_study("c_us_core_v4_count")
-
-    def test_c_us_core_v4_count_allergy_low_schema(self):
-        self.run_study("c_us_core_v4_count", test="allergy-low-schema")
-
-    def test_c_us_core_v4_count_docref_low_schema(self):
-        self.run_study("c_us_core_v4_count", test="docref-low-schema")
 
     def test_q_ref_target_pop(self):
         self.run_study("q_ref_target_pop")
@@ -48,10 +45,18 @@ class MetricsTestCase(unittest.TestCase):
         self.run_study("q_term_use")
 
     def test_q_valid_us_core_v4(self):
+        # Just spot checks one resource & the summary - the main logic is tested in t_us_core_v4
         self.run_study("q_valid_us_core_v4")
 
-    def test_q_valid_us_core_v4_docref_low_schema(self):
-        self.run_study("q_valid_us_core_v4", test="docref-low-schema")
+    @ddt.data(
+        "mandatory",
+        "must-support",
+        "allergy-low-schema",
+        "docref-low-schema"
+    )
+    def test_t_us_core_v4(self, test_name):
+        """This is a fake metric, designed just to test profile validity detection"""
+        self.run_study("t_us_core_v4", test=test_name)
 
 
     # **********************************
@@ -63,7 +68,7 @@ class MetricsTestCase(unittest.TestCase):
         super().setUp()
         self.maxDiff = None
 
-    def run_study(self, metric: str, test: str = "general", builder: bool = True) -> None:
+    def run_study(self, metric: str, test: str = "general") -> None:
         """Runs a single test case"""
         test_dir = os.path.dirname(__file__)
         root_dir = os.path.dirname(test_dir)
@@ -75,10 +80,10 @@ class MetricsTestCase(unittest.TestCase):
             path.removeprefix(f"{data_dir}/expected").removesuffix(".csv")
             for path in expected_result_paths
         ]
-        if metric.startswith("q_"):
-            expected_tables = {name: f"quality__{metric}{name}" for name in expected_names}
-        else:
+        if metric.startswith("c_"):
             expected_tables = {name: f"quality__count_{metric}{name}" for name in expected_names}
+        else:
+            expected_tables = {name: f"quality__{metric}{name}" for name in expected_names}
         export_tables = '","'.join(expected_tables.values())
 
         # Set up and run the study!
@@ -88,18 +93,10 @@ class MetricsTestCase(unittest.TestCase):
 
             # But change the manifest to only run one test metric, for speed reasons
             with open(f"{tmpdir}/quality/manifest.toml", "w", encoding="utf8") as f:
-                if builder:
-                    file_config = f"""
+                file_config = f"""
 [table_builder_config]
 file_names = [
     "{metric}/{metric}.py",
-]
-"""
-                else:
-                    file_config = f"""
-[sql_config]
-file_names = [
-    "{metric}/{metric}.sql",
 ]
 """
                 f.write(

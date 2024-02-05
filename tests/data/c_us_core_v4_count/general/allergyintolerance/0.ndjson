@@ -1,3 +1,0 @@
-{"id": "mandatory-plus-support", "clinicalStatus": {"text": "X"}, "code": {"text": "X"}, "patient": {"reference": "Patient/X"}, "verificationStatus": {"coding": [{"code": "confirmed", "system": "http://terminology.hl7.org/CodeSystem/allergyintolerance-verification"}]}, "reaction": [{"manifestation": [{"text": "X"}]}]}
-{"id": "mandatory-only", "clinicalStatus": {"text": "X"}, "code": {"text": "X"}, "patient": {"reference": "Patient/X"}}
-{"id": "support-only", "verificationStatus": {"coding": [{"code": "confirmed", "system": "http://terminology.hl7.org/CodeSystem/allergyintolerance-verification"}]}, "reaction": [{"manifestation": [{"text": "X"}]}]}

@@ -1,0 +1,9 @@
+id,valid_status,valid_vaccine_code,valid_occurrence,valid_patient,valid
+valid-string,true,true,true,true,true
+valid-datetime,true,true,true,true,true
+nothing,false,false,false,false,false
+no-status,false,true,true,true,false
+no-patient,true,true,true,false,false
+no-occurrence,true,true,false,true,false
+no-code,true,false,true,true,false
+empty-code,true,false,true,true,false

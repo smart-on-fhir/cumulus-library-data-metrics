@@ -1,0 +1,4 @@
+{% import 'utils.jinja' as utils %}
+CREATE TABLE quality__t_us_core_v4_{{ profile_name }}_must_support AS (
+{% include 'us_core_v4/' + profile_name + '_must_support.jinja' %}
+);

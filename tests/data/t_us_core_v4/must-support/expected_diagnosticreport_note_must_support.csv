@@ -1,0 +1,4 @@
+id,valid_encounter,valid_issued,valid_performer,valid_presented_form,valid
+wrong-encounter-type,false,false,false,false,false
+valid,true,true,true,true,true
+nothing,false,false,false,false,false

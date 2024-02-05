@@ -1,0 +1,7 @@
+{"id": "valid", "date": "2012-10-12", "author": [], "content": [{"format": {"display": "X"}}], "context": {"encounter": [{"reference": "Encounter/X"}], "period": {"start": "2014"}}}
+{"id": "format-multiple-good", "content": [{"format": {"display": "X"}}, {"format": {"display": "Y"}}]}
+{"id": "format-multiple-bad", "content": [{"format": {"display": "X"}}, {"attachment": {"contentType": "text/plain"}}]}
+{"id": "encounter-multiple", "context": {"encounter": [{"reference": "Encounter/X"}, {"reference": "Encounter/Y"}]}}
+{"id": "encounter-none-in-context", "context": {"related": [{"display": "X"}]}}
+{"id": "encounter-wrong-type", "context": {"encounter": [{"reference": "EpisodeOfCare/X"}]}}
+{"id": "nothing"}

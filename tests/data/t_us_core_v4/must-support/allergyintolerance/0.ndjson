@@ -1,0 +1,8 @@
+{"id": "valid", "verificationStatus": {"coding": [{"code": "confirmed", "system": "http://terminology.hl7.org/CodeSystem/allergyintolerance-verification"}]}, "reaction": [{"manifestation": [{"text": "X"}]}]}
+{"id": "verification-just-text", "verificationStatus": {"text": "X"}}
+{"id": "reaction-without-manifestation", "reaction": [{"description": "X"}]}
+{"id": "reaction-multiple-good", "reaction": [{"manifestation": [{"text": "X"}]}, {"manifestation": [{"text": "Y"}]}]}
+{"id": "reaction-multiple-bad", "reaction": [{"manifestation": [{"text": "X"}]}, {"description": "Y"}]}
+{"id": "manifestation-multiple-good", "reaction": [{"manifestation": [{"text": "X"}, {"text": "Y"}]}]}
+{"id": "manifestation-multiple-bad", "reaction": [{"manifestation": [{"text": "X"}, {"id": "Y"}]}]}
+{"id": "nothing"}

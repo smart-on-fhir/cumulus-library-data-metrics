@@ -1,0 +1,8 @@
+id,valid_status,valid_category,valid_subject,valid_effective_date_time,valid_value_codeable_concept,valid_obs_3,valid
+smoking-wrong-category,false,false,false,false,false,true,false
+smoking-valid,true,true,true,true,true,true,true
+smoking-ref-range-low,false,false,false,false,false,true,false
+smoking-ref-range-bare,false,false,false,false,false,false,false
+smoking-nothing,false,false,false,false,false,true,false
+smoking-multiple-codes,true,false,false,false,false,true,false
+smoking-group-subject,false,false,false,false,false,true,false

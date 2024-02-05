@@ -2,11 +2,31 @@
 
 WITH
 
-tmp_simplified AS (
+tmp_verification_flat AS {{
+    utils.extract_codes_flat(
+        src,
+        'verificationstatus',
+        system='http://terminology.hl7.org/CodeSystem/condition-ver-status',
+    )
+}},
+tmp_verification AS (
     SELECT
         id,
-        {{ utils.is_concept_valid('verificationStatus') }} AS valid_verification_status
-    FROM {{ src }}
+        BOOL_AND(tmp_verification_flat.code IS NOT NULL) AS valid_verification_status
+    FROM tmp_verification_flat
+    GROUP BY id
+),
+
+tmp_simplified AS (
+    SELECT
+        src.id,
+        (
+            tmp_verification.valid_verification_status IS NOT NULL
+            AND tmp_verification.valid_verification_status
+        ) AS valid_verification_status,
+    FROM {{ src }} AS src
+    LEFT JOIN tmp_verification
+    ON tmp_verification.id = src.id
 )
 
 {%

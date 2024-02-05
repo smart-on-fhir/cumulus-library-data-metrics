@@ -1,0 +1,10 @@
+id,valid_status,valid_class,valid_type,valid_subject,valid
+valid,true,true,true,true,true
+nothing,false,false,false,false,false
+no-type,true,true,false,true,false
+no-subject,true,true,true,false,false
+no-status,false,true,true,true,false
+no-class,true,false,true,true,false
+group-subject,true,true,true,false,false
+empty-subject,true,true,true,false,false
+empty-class,true,false,true,true,false

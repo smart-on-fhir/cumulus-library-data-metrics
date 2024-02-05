@@ -7,6 +7,21 @@ tmp_reaction AS (
         id,
 
         {% if has_manifestation %}
+        BOOL_AND(u.reaction.manifestation IS NOT NULL) AS valid_reaction
+        {% else %}
+        FALSE AS valid_reaction
+        {% endif %}
+
+    FROM {{ src }},
+        UNNEST(reaction) AS u (reaction)
+    GROUP BY id
+),
+
+tmp_manifestation AS (
+    SELECT
+        id,
+
+        {% if has_manifestation %}
         BOOL_AND(
             {{ utils.is_concept_valid('r.manifestation') }}
         ) AS valid_manifestation
@@ -22,17 +37,41 @@ tmp_reaction AS (
     GROUP BY id
 ),
 
+tmp_verification_flat AS {{
+    utils.extract_codes_flat(
+        src,
+        'verificationstatus',
+        system='http://terminology.hl7.org/CodeSystem/allergyintolerance-verification',
+    )
+}},
+tmp_verification AS (
+    SELECT
+        id,
+        BOOL_AND(tmp_verification_flat.code IS NOT NULL) AS valid_verification_status
+    FROM tmp_verification_flat
+    GROUP BY id
+),
+
 tmp_simplified AS (
     SELECT
         src.id,
-        {{ utils.is_concept_valid('src.verificationStatus') }} AS valid_verification_status,
         (
-            tmp_reaction.valid_manifestation IS NOT NULL
-            AND tmp_reaction.valid_manifestation
+            tmp_verification.valid_verification_status IS NOT NULL
+            AND tmp_verification.valid_verification_status
+        ) AS valid_verification_status,
+        (
+            tmp_reaction.valid_reaction IS NOT NULL
+            AND tmp_reaction.valid_reaction
+            AND tmp_manifestation.valid_manifestation IS NOT NULL
+            AND tmp_manifestation.valid_manifestation
         ) AS valid_reaction_manifestation
     FROM {{ src }} AS src
+    LEFT JOIN tmp_verification
+    ON tmp_verification.id = src.id
     LEFT JOIN tmp_reaction
     ON tmp_reaction.id = src.id
+    LEFT JOIN tmp_manifestation
+    ON tmp_manifestation.id = src.id
 )
 
 {%

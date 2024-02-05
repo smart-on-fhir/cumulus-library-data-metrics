@@ -1,0 +1,3 @@
+{"id": "valid", "encounter": {"reference": "Encounter/A"}, "issued": "2022", "performer": [], "presentedForm": []}
+{"id": "wrong-encounter-type", "encounter": {"reference": "EpisodeOfCare/A"}}
+{"id": "nothing"}

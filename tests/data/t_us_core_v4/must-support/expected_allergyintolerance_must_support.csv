@@ -1,0 +1,9 @@
+id,valid_verification_status,valid_reaction_manifestation,valid
+verification-just-text,false,false,false
+valid,true,true,true
+reaction-without-manifestation,false,false,false
+reaction-multiple-good,false,true,false
+reaction-multiple-bad,false,false,false
+nothing,false,false,false
+manifestation-multiple-good,false,true,false
+manifestation-multiple-bad,false,false,false

@@ -1,3 +1,0 @@
-{"id": "mandatory-plus-support", "status": "final", "category": [], "code": {"text": "X"}, "subject": {"reference": "Patient/A"}, "effectiveDateTime": "2000", "encounter": {"reference": "Encounter/A"}, "issued": "2022", "performer": [], "presentedForm": []}
-{"id": "mandatory-only", "status": "final", "category": [], "code": {"text": "X"}, "subject": {"reference": "Patient/A"}, "effectiveDateTime": "2000-10-10"}
-{"id": "support-only", "encounter": {"reference": "Encounter/A"}, "issued": "2022", "performer": [], "presentedForm": []}

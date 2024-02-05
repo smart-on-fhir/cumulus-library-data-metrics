@@ -1,9 +1,3 @@
 {"id": "valid", "status": "finished", "class": {"display": "X"}, "type": [], "subject": {"reference": "Patient/A"}}
-{"id": "no-status", "class": {"display": "X"}, "type": [], "subject": {"reference": "Patient/A"}}
-{"id": "no-class", "status": "finished", "type": [], "subject": {"reference": "Patient/A"}}
-{"id": "empty-class", "status": "finished", "class": {}, "type": [], "subject": {"reference": "Patient/A"}}
-{"id": "no-type", "status": "finished", "class": {"display": "X"}, "subject": {"reference": "Patient/A"}}
-{"id": "no-subject", "status": "finished", "class": {"display": "X"}, "type": []}
-{"id": "empty-subject", "status": "finished", "class": {"display": "X"}, "type": []}
-{"id": "group-subject", "status": "finished", "class": {"display": "X"}, "type": [], "subject": {"reference": "Group/A"}}
+{"id": "other-status", "status": "other"}
 {"id": "nothing"}
