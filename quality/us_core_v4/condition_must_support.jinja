@@ -23,20 +23,20 @@ tmp_simplified AS (
         (
             tmp_verification.valid_verification_status IS NOT NULL
             AND tmp_verification.valid_verification_status
-        ) AS valid_verification_status,
+        ) AS valid_verification_status
     FROM {{ src }} AS src
     LEFT JOIN tmp_verification
     ON tmp_verification.id = src.id
 )
 
 {%
-set fields = [
+set ns.fields = [
     'valid_verification_status',
 ]
 %}
 
 SELECT
     id,
-    {{ fields|join(", ") }},
-    {{ fields|join(" AND ") }} AS valid
+    {{ ns.fields|join(", ") }},
+    {{ ns.fields|join(" AND ") }} AS valid
 FROM tmp_simplified

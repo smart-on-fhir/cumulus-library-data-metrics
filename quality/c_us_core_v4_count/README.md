@@ -41,3 +41,9 @@ apply here too for the mandatory checks.
 The DocumentReference profile requires support for `identifier`.
 
 But since Cumulus ETL strips that field, this metric does not examine it.
+
+### A note on the Encounter profile and "Must Support" fields
+
+The Encounter profile requires support for `identifier`.
+
+But since Cumulus ETL strips that field, this metric does not examine it.

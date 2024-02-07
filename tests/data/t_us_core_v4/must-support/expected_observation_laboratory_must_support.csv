@@ -1,0 +1,6 @@
+id,valid_effective,valid
+labs-timing,true,true
+labs-period,true,true
+labs-nothing,false,false
+labs-instant,true,true
+labs-datetime,true,true

@@ -1,0 +1,30 @@
+-- http://hl7.org/fhir/us/core/STU4/StructureDefinition-us-core-encounter.html
+
+-- CUMULUS-QUIRK
+-- Doesn't look for "identifier", because Cumulus strips that field.
+
+WITH
+tmp_simplified AS (
+    SELECT
+        id,
+        participant IS NOT NULL AS valid_participant, -- array
+        {{ utils.is_period_valid('period') }} AS valid_period,
+        reasonCode IS NOT NULL AS valid_reason_code -- array
+        -- todo: hospitalization.dischargeDisposition
+        -- todo: location.location
+    FROM {{ src }}
+)
+
+{%
+set ns.fields = [
+    'valid_participant',
+    'valid_period',
+    'valid_reason_code',
+]
+%}
+
+SELECT
+    id,
+    {{ ns.fields|join(", ") }},
+    {{ ns.fields|join(" AND ") }} AS valid
+FROM tmp_simplified

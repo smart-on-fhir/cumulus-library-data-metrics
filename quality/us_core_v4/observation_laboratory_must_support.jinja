@@ -1,0 +1,36 @@
+-- http://hl7.org/fhir/us/core/STU4/StructureDefinition-us-core-observation-lab.html
+
+WITH
+tmp_slice AS {% include 'us_core_v4/slice.jinja' %},
+
+tmp_simplified AS (
+    SELECT
+        id,
+        (
+            effectiveDateTime IS NOT NULL
+            OR {{ utils.is_period_valid('effectivePeriod') }}
+            OR {{ utils.is_timing_valid('effectiveTiming') }}
+            OR effectiveInstant IS NOT NULL
+        ) AS valid_effective
+
+        -- the other "must support" requirements are:
+        -- * A result value or a reason why the data is absent.
+        -- * If the result value is a numeric quantity, a standard UCUM unit.
+        --
+        -- But those are already specified elsewhere in the profile as constraint requirements.
+        -- (us-core-2 and us-core-3). So... we'll just leave those in the mandatory checks.
+
+    FROM tmp_slice
+)
+
+{%
+set ns.fields = [
+    'valid_effective',
+]
+%}
+
+SELECT
+    id,
+    {{ ns.fields|join(", ") }},
+    {{ ns.fields|join(" AND ") }} AS valid
+FROM tmp_simplified

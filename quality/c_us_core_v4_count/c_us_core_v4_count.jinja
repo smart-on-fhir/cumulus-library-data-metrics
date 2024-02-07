@@ -1,5 +1,7 @@
 {% import 'utils.jinja' as utils %}
 
+{% set ns = namespace(fields=[]) %}
+
 CREATE TABLE quality__count_c_us_core_v4_count_{{ profile_name }} AS (
 WITH
 src_status AS {{ utils.extract_status(src) }},
@@ -23,13 +25,8 @@ simplified AS (
         {{ utils.get_date(dates, 'year') }} AS "year",
         {% endif %}
 
-        CASE
-            WHEN src_mandatory.valid AND src_must_support.valid
-            THEN 'Mandatory & Must Support'
-            WHEN src_mandatory.valid
-            THEN 'Mandatory Only'
-            ELSE 'None'
-        END AS profile_support
+        src_mandatory.valid AS valid_mandatory,
+        src_must_support.{{ ns.fields|join(", src_must_support.") }}
 
     FROM {{ src }} AS src
     INNER JOIN src_mandatory
@@ -42,17 +39,19 @@ simplified AS (
 
 SELECT
     COUNT(DISTINCT id) AS cnt,
-    profile_support,
+    valid_mandatory,
     {% if dates %}
     "year",
     {% endif %}
-    status
+    status,
+    {{ ns.fields|join(", ") }}
 FROM simplified
 GROUP BY CUBE(
-    profile_support,
+    valid_mandatory,
     {% if dates %}
     "year",
     {% endif %}
-    status
+    status,
+    {{ ns.fields|join(", ") }}
 )
 );

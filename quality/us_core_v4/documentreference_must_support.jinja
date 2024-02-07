@@ -82,7 +82,7 @@ tmp_simplified AS (
 )
 
 {%
-set fields = [
+set ns.fields = [
     'valid_date',
     'valid_author',
     'valid_format',
@@ -93,6 +93,6 @@ set fields = [
 
 SELECT
     id,
-    {{ fields|join(", ") }},
-    {{ fields|join(" AND ") }} AS valid
+    {{ ns.fields|join(", ") }},
+    {{ ns.fields|join(" AND ") }} AS valid
 FROM tmp_simplified

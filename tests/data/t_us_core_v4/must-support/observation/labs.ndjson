@@ -1,0 +1,5 @@
+{"id": "labs-datetime", "effectiveDateTime": "2020-11-11", "category": [{"coding": [{"code": "laboratory", "system": "http://terminology.hl7.org/CodeSystem/observation-category"}]}]}
+{"id": "labs-period", "effectivePeriod": {"start": "2022-10-10"}, "category": [{"coding": [{"code": "laboratory", "system": "http://terminology.hl7.org/CodeSystem/observation-category"}]}]}
+{"id": "labs-timing", "effectiveTiming": {"event": ["2022-10-10"]}, "category": [{"coding": [{"code": "laboratory", "system": "http://terminology.hl7.org/CodeSystem/observation-category"}]}]}
+{"id": "labs-instant", "effectiveInstant": "2017-01-01T00:00:00Z", "category": [{"coding": [{"code": "laboratory", "system": "http://terminology.hl7.org/CodeSystem/observation-category"}]}]}
+{"id": "labs-nothing", "category": [{"coding": [{"code": "laboratory", "system": "http://terminology.hl7.org/CodeSystem/observation-category"}]}]}
