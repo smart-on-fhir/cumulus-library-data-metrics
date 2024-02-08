@@ -9,7 +9,7 @@ tmp_content_flat AS (
     SELECT
         id,
 
-        {% if has_format %}
+        {% if schema["content"]["format"] %}
         u.content.format
         {% else %}
         NULL AS format
@@ -30,7 +30,7 @@ tmp_encounters AS (
     SELECT
         id,
 
-    {% if has_encounter %}
+    {% if schema["context"]["encounter"] %}
         BOOL_AND({{ utils.is_reference_of_type('u.encounter', 'Encounter') }}) as valid_encounter,
         COUNT(u.encounter) AS encounter_count
 
@@ -66,7 +66,7 @@ tmp_simplified AS (
         ) AS valid_encounter,
 
         (
-            {% if has_period %}
+            {% if schema["context"]["period"] %}
             -- could call is_period_valid(), but would need to confirm each subfield exists
             context.period IS NOT NULL
             {% else %}

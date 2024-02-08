@@ -8,7 +8,7 @@ tmp_attachment_flat AS (
     SELECT
         id,
 
-        {% if has_attachment %}
+        {% if schema["content"]["attachment"] %}
         u.content.attachment.contenttype
         {% else %}
         NULL AS contenttype

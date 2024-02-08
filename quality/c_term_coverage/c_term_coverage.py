@@ -7,7 +7,6 @@ from quality.base import MetricMixin
 # TODO: make this faster! It takes like 30min right now
 class TermCoverageBuilder(MetricMixin, BaseTableBuilder):
     name = "c_term_coverage"
-    uses_dates = True
 
     def make_table(self, **kwargs) -> str:
         """Make a single metric table"""

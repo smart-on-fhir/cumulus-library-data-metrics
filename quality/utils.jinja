@@ -191,7 +191,7 @@
     )
 )
 {%- endmacro %}
-{% macro is_period_valid(field) -%}
+{% macro is_period_valid(field, schema) -%}
 (
     {{ field }} IS NOT NULL
     AND (
@@ -230,14 +230,21 @@
     AND {{ field }} <> CHR(0)
 )
 {%- endmacro %}
-{% macro is_timing_valid(field) -%}
+{% macro is_timing_valid(field, schema) -%}
 (
     {{ field }} IS NOT NULL
     AND (
+        {% if schema[field]["event"] %}
         {{ field }}.event IS NOT NULL -- array
-        {# Skip these for now until we add schema-checking for it #}
-        {# OR {{ field }}.repeat IS NOT NULL #}
-        {# OR {{ is_concept_valid(field + '.code') }} #}
+        {% else %} FALSE {% endif %}
+
+        {% if schema[field]["repeat"] %}
+        OR {{ field }}.repeat IS NOT NULL
+        {% endif %}
+
+        {% if schema[field]["code"] %}
+        OR {{ is_concept_valid(field + '.code') }}
+        {% endif %}
     )
 )
 {%- endmacro %}

@@ -11,7 +11,7 @@ tmp_grouped_checks AS (
         src.id,
         -- obs-3: referenceRange must have at least a low or a high or text
         BOOL_AND(
-            {{ obs_utils.is_obs_3_valid('r', has_ref_range_low, has_ref_range_high) }}
+            {{ obs_utils.is_obs_3_valid('r', schema) }}
         ) AS valid_obs_3
     FROM tmp_slice AS src,
         UNNEST(referenceRange) AS r (referenceRange)
@@ -35,7 +35,7 @@ tmp_simplified AS (
             component IS NOT NULL
             OR hasMember IS NOT NULL
             OR {{ utils.is_concept_valid('dataAbsentReason') }}
-            OR {{ obs_utils.is_value_valid('value') }}
+            OR {{ obs_utils.is_value_valid('value', schema) }}
         ) AS valid_us_core_2,
         -- us-core-3: SHALL use UCUM for coded quantity units
         (

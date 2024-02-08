@@ -6,7 +6,7 @@ tmp_reaction AS (
     SELECT
         id,
 
-        {% if has_manifestation %}
+        {% if schema["reaction"]["manifestation"] %}
         BOOL_AND(u.reaction.manifestation IS NOT NULL) AS valid_reaction
         {% else %}
         FALSE AS valid_reaction
@@ -21,7 +21,7 @@ tmp_manifestation AS (
     SELECT
         id,
 
-        {% if has_manifestation %}
+        {% if schema["reaction"]["manifestation"] %}
         BOOL_AND(
             {{ utils.is_concept_valid('r.manifestation') }}
         ) AS valid_manifestation
@@ -30,7 +30,7 @@ tmp_manifestation AS (
         {% endif %}
 
     FROM {{ src }}
-        {% if has_manifestation %}
+        {% if schema["reaction"]["manifestation"] %}
         , UNNEST(reaction) AS u (reaction)
         , UNNEST(u.reaction.manifestation) AS r (manifestation)
         {% endif %}

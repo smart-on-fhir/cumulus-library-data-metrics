@@ -2,7 +2,7 @@
 
 from cumulus_library.base_table_builder import BaseTableBuilder
 from cumulus_library.databases import DatabaseCursor
-from cumulus_library.template_sql import templates
+from cumulus_library.template_sql import base_templates
 
 from quality.base import MetricMixin
 
@@ -13,7 +13,7 @@ class PatientCountBuilder(MetricMixin, BaseTableBuilder):
     @staticmethod
     def extension_args(cursor: DatabaseCursor, schema: str) -> dict:
         # Check if we have all the pieces of the extension we need
-        query = templates.get_column_datatype_query(
+        query = base_templates.get_column_datatype_query(
             schema, "patient", ["extension"],
         )
         cursor.execute(query)

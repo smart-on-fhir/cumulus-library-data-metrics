@@ -10,7 +10,6 @@ from quality.base import MetricMixin
 
 class ResourceCountBuilder(MetricMixin, BaseTableBuilder):
     name = "c_resource_count"
-    uses_dates = True
 
     def make_tables(self, **kwargs) -> None:
         """Make metric tables"""

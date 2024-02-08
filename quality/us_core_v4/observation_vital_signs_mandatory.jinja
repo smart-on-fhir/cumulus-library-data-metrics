@@ -42,7 +42,7 @@ tmp_obs3 AS (
 
         -- obs-3: referenceRange must have at least a low or a high or text
         BOOL_AND(
-            {{ obs_utils.is_obs_3_valid('r', has_ref_range_low, has_ref_range_high) }}
+            {{ obs_utils.is_obs_3_valid('r', schema) }}
         ) AS valid_obs_3
 
     FROM tmp_slice AS src,
@@ -57,10 +57,10 @@ tmp_vs3 AS (
         -- vs-3: each component must have value or a dataAbsentReason
         BOOL_AND(
             c.component IS NULL
-            {% if has_comp_data_absent %}
+            {% if schema["component"]["dataAbsentReason"] %}
                 OR {{ utils.is_concept_valid('c.component.dataAbsentReason') }}
             {% endif %}
-            OR {{ obs_utils.is_value_valid('c.component.value') }}
+            OR {{ obs_utils.is_value_valid('c.component.value', schema) }}
         ) AS valid_vs_3,
 
     FROM tmp_slice AS src,
@@ -97,7 +97,7 @@ tmp_simplified AS (
             component IS NOT NULL
             OR hasMember IS NOT NULL
             OR {{ utils.is_concept_valid('dataAbsentReason') }}
-            OR {{ obs_utils.is_value_valid('value') }}
+            OR {{ obs_utils.is_value_valid('value', schema) }}
         ) AS valid_vs_2,
         -- vs-3: each component must have value or a dataAbsentReason
         (tmp_vs3.valid_vs_3 IS NULL OR tmp_vs3.valid_vs_3) AS valid_vs_3,

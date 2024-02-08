@@ -9,7 +9,7 @@ tmp_simplified AS (
         (
             effectiveDateTime IS NOT NULL
             OR {{ utils.is_period_valid('effectivePeriod') }}
-            OR {{ utils.is_timing_valid('effectiveTiming') }}
+            OR {{ utils.is_timing_valid('effectiveTiming', schema) }}
             OR effectiveInstant IS NOT NULL
         ) AS valid_effective
 

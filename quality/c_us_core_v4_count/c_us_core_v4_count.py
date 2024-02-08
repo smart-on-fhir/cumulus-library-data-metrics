@@ -8,7 +8,6 @@ from quality.us_core_v4 import UsCoreV4Mixin
 
 class UsCoreV4CountBuilder(UsCoreV4Mixin, BaseTableBuilder):
     name = "c_us_core_v4_count"
-    uses_dates = True
 
     def make_table(self, **kwargs) -> None:
         """Make a single metric table"""
