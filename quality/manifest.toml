@@ -55,5 +55,10 @@ export_list = [
     "quality__count_c_term_coverage_observation_code",
     "quality__count_c_term_coverage_observation_valuecodeableconcept",
     "quality__count_c_term_coverage_procedure_code",
+    "quality__count_c_us_core_v4_count_allergyintolerance",
     "quality__count_c_us_core_v4_count_condition",
+    "quality__count_c_us_core_v4_count_diagnosticreport_note",
+    "quality__count_c_us_core_v4_count_documentreference",
+    "quality__count_c_us_core_v4_count_observation_laboratory",
+    "quality__count_c_us_core_v4_count_patient",
 ]

@@ -52,7 +52,9 @@ class MetricsTestCase(unittest.TestCase):
         "mandatory",
         "must-support",
         "allergy-low-schema",
-        "docref-low-schema"
+        "docref-low-schema",
+        "obs-low-schema",
+        "patient-low-schema",
     )
     def test_t_us_core_v4(self, test_name):
         """This is a fake metric, designed just to test profile validity detection"""

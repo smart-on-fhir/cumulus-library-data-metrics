@@ -1,0 +1,90 @@
+-- http://hl7.org/fhir/us/core/STU4/StructureDefinition-us-core-patient.html
+-- This looks at USCDI v1 must-support elements too, where Cumulus doesn't strip them.
+
+-- CUMULUS-QUIRK
+-- This profile mentions supporting an address, name, and other contact info,
+-- but Cumulus strips those bits so we ignore them.
+
+{% import 'us_core_v4/patient_utils.jinja' as patient_utils %}
+
+WITH
+
+tmp_ethnicity AS ({{ patient_utils.extract_ethnicity(schema) }}),
+tmp_race AS ({{ patient_utils.extract_race(schema) }}),
+tmp_birth_sex AS ({{ patient_utils.extract_birth_sex() }}),
+
+tmp_address AS (
+    SELECT
+        id,
+        BOOL_AND(u.address.postalCode IS NOT NULL) AS valid_postal_code
+    FROM {{ src }},
+        UNNEST(address) AS u (address)
+    GROUP BY id
+),
+
+tmp_communication AS (
+    SELECT
+        id,
+        {% if schema["communication"]["language"] %}
+        BOOL_AND({{ utils.is_concept_valid('u.communication.language') }}) AS valid_language
+        {% else %}
+        FALSE AS valid_language
+        {% endif %}
+    FROM {{ src }},
+        UNNEST(communication) AS u (communication)
+    GROUP BY id
+),
+
+tmp_simplified AS (
+    SELECT
+        src.id,
+        birthDate IS NOT NULL AS valid_birth_date,
+        (
+            tmp_address.valid_postal_code IS NOT NULL
+            AND tmp_address.valid_postal_code
+        ) AS valid_postal_code,
+        (
+            tmp_communication.valid_language IS NOT NULL
+            AND tmp_communication.valid_language
+        ) AS valid_language,
+        (
+            tmp_race.display IS NOT NULL
+            AND tmp_race.display <> 'cumulus__none'
+        ) AS valid_race,
+        (
+            tmp_ethnicity.display IS NOT NULL
+            AND tmp_ethnicity.display <> 'cumulus__none'
+        ) AS valid_ethnicity,
+        (
+            tmp_birth_sex.display IS NOT NULL
+            AND tmp_birth_sex.display <> 'cumulus__none'
+        ) AS valid_birth_sex
+    FROM {{ src }} AS src
+    LEFT JOIN tmp_address
+    ON tmp_address.id = src.id
+    LEFT JOIN tmp_race
+    ON tmp_race.id = src.id
+    LEFT JOIN tmp_ethnicity
+    ON tmp_ethnicity.id = src.id
+    LEFT JOIN tmp_birth_sex
+    ON tmp_birth_sex.id = src.id
+    LEFT JOIN tmp_communication
+    ON tmp_communication.id = src.id
+)
+
+{%
+set ns.fields = [
+    'valid_birth_date',
+    'valid_postal_code',
+    'valid_language',
+    'valid_race',
+    'valid_ethnicity',
+    'valid_birth_sex',
+]
+%}
+
+SELECT
+    id,
+    {{ ns.fields|join(", ") }},
+    {{ ns.fields|join(" AND ") }} AS valid
+FROM tmp_simplified

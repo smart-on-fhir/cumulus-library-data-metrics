@@ -1,0 +1,2 @@
+id,valid_birth_date,valid_postal_code,valid_language,valid_race,valid_ethnicity,valid_birth_sex,valid
+nothing,false,false,false,false,false,false,false

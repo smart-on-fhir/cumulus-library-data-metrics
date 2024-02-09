@@ -54,11 +54,15 @@ class MetricMixin:
             table_schema = cursor.fetchall()
             self.schemas[table] = parser.validate_table_schema(cols, table_schema)
 
+    def extra_schema_checks(self, cursor: databases.DatabaseCursor, schema: str) -> None:
+        pass
+
     def add_metric_queries(self) -> None:
         pass
 
     def prepare_queries(self, cursor: databases.DatabaseCursor, schema: str, *args, parser: databases.DatabaseParser, **kwargs) -> None:
         self._query_schema(cursor, schema, parser)
+        self.extra_schema_checks(cursor, schema)
         self.add_metric_queries()
 
     def render_sql(self, template: str, **kwargs) -> str:

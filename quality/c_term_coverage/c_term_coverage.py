@@ -18,6 +18,16 @@ class TermCoverageBuilder(MetricMixin, BaseTableBuilder):
         # - Also stratify by year
         # - added Encounter.class
         # - added Medication.code
+        self.make_table(
+            src="Observation",
+            field="code",
+            category_system="http://terminology.hl7.org/CodeSystem/observation-category",
+        ),
+        self.make_table(
+            src="Observation",
+            field="valueCodeableConcept",
+            category_system="http://terminology.hl7.org/CodeSystem/observation-category",
+        ),
         self.make_table(src="AllergyIntolerance", field="code"),
         self.make_table(
             src="Condition",
@@ -32,14 +42,4 @@ class TermCoverageBuilder(MetricMixin, BaseTableBuilder):
         self.make_table(src="Immunization", field="vaccineCode"),
         self.make_table(src="Medication", field="code"),
         self.make_table(src="MedicationRequest", field="medicationCodeableConcept"),
-        self.make_table(
-            src="Observation",
-            field="code",
-            category_system="http://terminology.hl7.org/CodeSystem/observation-category",
-        ),
-        self.make_table(
-            src="Observation",
-            field="valueCodeableConcept",
-            category_system="http://terminology.hl7.org/CodeSystem/observation-category",
-        ),
         self.make_table(src="Procedure", field="code"),

@@ -1,0 +1,10 @@
+id,valid_birth_date,valid_postal_code,valid_language,valid_race,valid_ethnicity,valid_birth_sex,valid
+valid,true,true,true,true,true,true,true
+race-unregistered,false,false,false,false,false,false,false
+nothing,false,false,false,false,false,false,false
+language-multiple-good,false,false,true,false,false,false,false
+language-multiple-bad,false,false,false,false,false,false,false
+ethnicity-unregistered,false,false,false,false,false,false,false
+birth-sex-unregistered,false,false,false,false,false,false,false
+address-multiple-good,false,true,false,false,false,false,false
+address-multiple-bad,false,false,false,false,false,false,false

@@ -191,7 +191,7 @@
     )
 )
 {%- endmacro %}
-{% macro is_period_valid(field, schema) -%}
+{% macro is_period_valid(field) -%}
 (
     {{ field }} IS NOT NULL
     AND (

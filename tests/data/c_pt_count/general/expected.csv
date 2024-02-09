@@ -1,31 +1,42 @@
 cnt,birth_year,administrative_gender,ethnicity,race,status
 11,,,,,
 9,,,,,active
-7,,,,cumulus__none,
+8,,,,cumulus__none,
+7,,,cumulus__none,,
 7,,other,,,
 7,,other,,,active
-6,,,cumulus__none,,
-5,,,,cumulus__none,active
+6,,,,cumulus__none,active
+5,,,cumulus__none,,active
+5,,,cumulus__none,cumulus__none,
+5,,other,,cumulus__none,
+5,,other,,cumulus__none,active
+5,,other,cumulus__none,,
+5,,other,cumulus__none,,active
 5,2001,,,,
 5,2001,,,,active
+5,2001,,cumulus__none,,
+5,2001,,cumulus__none,,active
 5,2001,other,,,
 5,2001,other,,,active
-4,,,cumulus__none,,active
-4,,other,,cumulus__none,
-4,,other,,cumulus__none,active
-4,,other,cumulus__none,,
-4,,other,cumulus__none,,active
-4,2001,,cumulus__none,,
-4,2001,,cumulus__none,,active
-4,2001,other,cumulus__none,,
-4,2001,other,cumulus__none,,active
-3,,,cumulus__none,cumulus__none,
+5,2001,other,cumulus__none,,
+5,2001,other,cumulus__none,,active
+3,,,cumulus__none,cumulus__none,active
 3,,,Hispanic or Latino,,
 3,,,Hispanic or Latino,,active
+3,,other,cumulus__none,cumulus__none,
+3,,other,cumulus__none,cumulus__none,active
 3,,cumulus__none,,,
 3,,cumulus__none,,cumulus__none,
 3,cumulus__none,,,,
 3,cumulus__none,,,cumulus__none,
+3,2001,,,cumulus__none,
+3,2001,,,cumulus__none,active
+3,2001,,cumulus__none,cumulus__none,
+3,2001,,cumulus__none,cumulus__none,active
+3,2001,other,,cumulus__none,
+3,2001,other,,cumulus__none,active
+3,2001,other,cumulus__none,cumulus__none,
+3,2001,other,cumulus__none,cumulus__none,active
 2,,,Hispanic or Latino,cumulus__none,
 2,,,Hispanic or Latino,cumulus__none,active
 2,,cumulus__none,cumulus__none,,
@@ -36,14 +47,8 @@ cnt,birth_year,administrative_gender,ethnicity,race,status
 2,cumulus__none,cumulus__none,,cumulus__none,
 2,cumulus__none,cumulus__none,cumulus__none,,
 2,cumulus__none,cumulus__none,cumulus__none,cumulus__none,
-2,2001,,,cumulus__none,
-2,2001,,,cumulus__none,active
-2,2001,other,,cumulus__none,
-2,2001,other,,cumulus__none,active
 1,,,,,inactive
 1,,,,,cumulus__none
-1,,,,race from weird-system,
-1,,,,race from weird-system,active
 1,,,,cumulus__none,inactive
 1,,,,cumulus__none,cumulus__none
 1,,,,Unknown,
@@ -52,17 +57,10 @@ cnt,birth_year,administrative_gender,ethnicity,race,status
 1,,,,Asked but no answer,active
 1,,,,American Indian or Alaska Native; Asian; Black or African American; Native Hawaiian or Other Pacific Islander; White,
 1,,,,American Indian or Alaska Native; Asian; Black or African American; Native Hawaiian or Other Pacific Islander; White,active
-1,,,eth from weird-system,,
-1,,,eth from weird-system,,active
-1,,,eth from weird-system,cumulus__none,
-1,,,eth from weird-system,cumulus__none,active
 1,,,cumulus__none,,inactive
 1,,,cumulus__none,,cumulus__none
-1,,,cumulus__none,race from weird-system,
-1,,,cumulus__none,race from weird-system,active
 1,,,cumulus__none,cumulus__none,inactive
 1,,,cumulus__none,cumulus__none,cumulus__none
-1,,,cumulus__none,cumulus__none,active
 1,,,cumulus__none,Unknown,
 1,,,cumulus__none,Unknown,active
 1,,,cumulus__none,Asked but no answer,
@@ -73,20 +71,10 @@ cnt,birth_year,administrative_gender,ethnicity,race,status
 1,,,Non Hispanic or Latino,cumulus__none,active
 1,,,Hispanic or Latino,American Indian or Alaska Native; Asian; Black or African American; Native Hawaiian or Other Pacific Islander; White,
 1,,,Hispanic or Latino,American Indian or Alaska Native; Asian; Black or African American; Native Hawaiian or Other Pacific Islander; White,active
-1,,other,,race from weird-system,
-1,,other,,race from weird-system,active
 1,,other,,Unknown,
 1,,other,,Unknown,active
 1,,other,,Asked but no answer,
 1,,other,,Asked but no answer,active
-1,,other,eth from weird-system,,
-1,,other,eth from weird-system,,active
-1,,other,eth from weird-system,cumulus__none,
-1,,other,eth from weird-system,cumulus__none,active
-1,,other,cumulus__none,race from weird-system,
-1,,other,cumulus__none,race from weird-system,active
-1,,other,cumulus__none,cumulus__none,
-1,,other,cumulus__none,cumulus__none,active
 1,,other,cumulus__none,Unknown,
 1,,other,cumulus__none,Unknown,active
 1,,other,cumulus__none,Asked but no answer,
@@ -167,38 +155,18 @@ cnt,birth_year,administrative_gender,ethnicity,race,status
 1,2003,other,Non Hispanic or Latino,,active
 1,2003,other,Non Hispanic or Latino,cumulus__none,
 1,2003,other,Non Hispanic or Latino,cumulus__none,active
-1,2001,,,race from weird-system,
-1,2001,,,race from weird-system,active
 1,2001,,,Unknown,
 1,2001,,,Unknown,active
 1,2001,,,Asked but no answer,
 1,2001,,,Asked but no answer,active
-1,2001,,eth from weird-system,,
-1,2001,,eth from weird-system,,active
-1,2001,,eth from weird-system,cumulus__none,
-1,2001,,eth from weird-system,cumulus__none,active
-1,2001,,cumulus__none,race from weird-system,
-1,2001,,cumulus__none,race from weird-system,active
-1,2001,,cumulus__none,cumulus__none,
-1,2001,,cumulus__none,cumulus__none,active
 1,2001,,cumulus__none,Unknown,
 1,2001,,cumulus__none,Unknown,active
 1,2001,,cumulus__none,Asked but no answer,
 1,2001,,cumulus__none,Asked but no answer,active
-1,2001,other,,race from weird-system,
-1,2001,other,,race from weird-system,active
 1,2001,other,,Unknown,
 1,2001,other,,Unknown,active
 1,2001,other,,Asked but no answer,
 1,2001,other,,Asked but no answer,active
-1,2001,other,eth from weird-system,,
-1,2001,other,eth from weird-system,,active
-1,2001,other,eth from weird-system,cumulus__none,
-1,2001,other,eth from weird-system,cumulus__none,active
-1,2001,other,cumulus__none,race from weird-system,
-1,2001,other,cumulus__none,race from weird-system,active
-1,2001,other,cumulus__none,cumulus__none,
-1,2001,other,cumulus__none,cumulus__none,active
 1,2001,other,cumulus__none,Unknown,
 1,2001,other,cumulus__none,Unknown,active
 1,2001,other,cumulus__none,Asked but no answer,

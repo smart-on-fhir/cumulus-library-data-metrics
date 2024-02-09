@@ -20,7 +20,9 @@ class PatientCountBuilder(MetricMixin, BaseTableBuilder):
         result = cursor.fetchone()[1]
         # TODO: be way more fancy with this, with cumulus-library 2.0 and its schema stuff
         return {
-            "has_extension_codes": "code" in result and "system" in result,
+            "schema": {
+                "has_extension_codes": "code" in result and "system" in result,
+            },
         }
 
     def prepare_queries(self, cursor: DatabaseCursor, schema: str, *args, **kwargs) -> None:
