@@ -7,7 +7,7 @@ CREATE TABLE quality__{{ metric }}_summary AS (
     ),
     {{ entry_key }}_denominator AS (
         {% if denominator_sql and denominator_sql.strip() %}
-        WITH denominator_slice AS ({{ denominator_sql }})
+        WITH denominator_slice AS {{ denominator_sql }}
         {% else %}
         WITH denominator_slice AS (SELECT id from {{ entry_key.split("_")[0] }})
         {% endif %}

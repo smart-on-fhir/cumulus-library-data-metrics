@@ -3,7 +3,7 @@
 {% import 'us_core_v4/observation_utils.jinja' as obs_utils %}
 
 WITH
-tmp_slice AS ({% include 'us_core_v4/slice.jinja' %}),
+tmp_slice AS {% include 'us_core_v4/slice.jinja' %},
 
 tmp_categories AS ({{ obs_utils.extract_category('tmp_slice') }}),
 tmp_grouped_categories AS (

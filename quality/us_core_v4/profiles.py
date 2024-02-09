@@ -33,7 +33,7 @@ class UsCoreV4Mixin(MetricMixin):
                 "dataAbsentReason",
                 "valueCodeableConcept",
                 "valuePeriod",
-                "valueQuantity",
+                "valueQuantity",  # TODO: need to expand this deeper
                 "valueRange",
                 "valueRatio",
                 "valueSampledData",

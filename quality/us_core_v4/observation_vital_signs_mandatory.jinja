@@ -61,7 +61,7 @@ tmp_vs3 AS (
                 OR {{ utils.is_concept_valid('c.component.dataAbsentReason') }}
             {% endif %}
             OR {{ obs_utils.is_value_valid('c.component.value', schema) }}
-        ) AS valid_vs_3,
+        ) AS valid_vs_3
 
     FROM tmp_slice AS src,
         UNNEST(component) AS c (component)
