@@ -4,16 +4,10 @@
 
 ### Fields
 
-- profile_support
 - year (depending on resource)
 - status
-
-### Notes on `profile_support`
-
-There are three values:
-- `Mandatory & Must Support` (all mandatory checks passed and all "must support" elements were present)
-- `Mandatory Only` (all mandatory checks passed but some "must support" elements were not present)
-- `None` (not all mandatory checks passed)
+- valid_mandatory (for whether all Mandatory fields are present)
+- valid_* (one for each "Must Support" field)
 
 ### Notes on "Must Support" fields
 
@@ -47,3 +41,15 @@ But since Cumulus ETL strips that field, this metric does not examine it.
 The Encounter profile requires support for `identifier`.
 
 But since Cumulus ETL strips that field, this metric does not examine it.
+
+### A note on the MedicationRequest profile and "Must Support" fields
+
+The MedicationRequest profile requires support for `dosageInstruction.text`.
+
+But since Cumulus ETL strips that field, this metric does not examine it.
+
+### A note on the Patient profile and "Must Support" fields
+
+The Patient profile requires support for addresses, names, and other contact info.
+
+But since Cumulus ETL strips those fields, this metric does not examine them.

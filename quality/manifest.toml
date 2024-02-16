@@ -59,6 +59,13 @@ export_list = [
     "quality__count_c_us_core_v4_count_condition",
     "quality__count_c_us_core_v4_count_diagnosticreport_note",
     "quality__count_c_us_core_v4_count_documentreference",
+    "quality__count_c_us_core_v4_count_encounter",
+    "quality__count_c_us_core_v4_count_immunization",
+    "quality__count_c_us_core_v4_count_medication",
+    "quality__count_c_us_core_v4_count_medicationrequest",
     "quality__count_c_us_core_v4_count_observation_laboratory",
+    "quality__count_c_us_core_v4_count_observation_smoking_status",
+    "quality__count_c_us_core_v4_count_observation_vital_signs",
     "quality__count_c_us_core_v4_count_patient",
+    "quality__count_c_us_core_v4_count_procedure",
 ]

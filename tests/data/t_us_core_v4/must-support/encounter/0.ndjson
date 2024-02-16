@@ -1,0 +1,5 @@
+{"id": "valid", "participant": [{"individual": {"display": "X"}}], "period": {"start": "2013"}, "reasonCode": [{"text": "X"}], "hospitalization": {"dischargeDisposition": {"text": "X"}}, "location": [{"location": {"reference": "Location/A"}}]}
+{"id": "hospitalization-no-disposition", "hospitalization": {"reAdmission": {"text": "X"}}}
+{"id": "location-multiple-good", "location": [{"location": {"reference": "Location/A"}}, {"location": {"reference": "Location/B"}}]}
+{"id": "location-multiple-bad", "location": [{"location": {"reference": "Location/A"}}, {"status": "active"}]}
+{"id": "nothing"}

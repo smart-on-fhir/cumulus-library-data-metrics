@@ -1,0 +1,3 @@
+{"id": "valid", "category": [{"text": "X"}], "reportedBoolean": true, "encounter": {"reference": "Encounter/A"}, "authoredOn": "2013"}
+{"id": "reported-ref", "reportedReference": {"display": "X"}}
+{"id": "nothing"}

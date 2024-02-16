@@ -53,18 +53,13 @@ Unlike the other resources, which check all rows, Observations are kind of a wil
 west where each row does not declare which profile it is _trying_ to be, and categories
 aren't required. So it's really hard to ding any specific row for non-compliance.
 
-Instead, we take the approach of fixing the category, then treating all rows of that
-category as self-reported US Core rows, and check for compliance within the category.
-This misses some "bad behavior" like smoking statuses without a category.
-But is that non-compliant? Not technically?
-It's just not a Smoking Profile row in the first place,
-rather than being a non-compliant Smoking Profile row.
-That kind of stuff can be left to a characterization metric.
+Instead, for each Observation-based profile, we choose one defining trait, fix that,
+and then only look at rows with that trait, assuming they should be for that profile.
 
-We only check the categories for which profiles cover the whole category.
-For example, `social-history` only has the smoking-status profile, so we don't bother
-testing social-history. And `exam` has no profiles. Again, a characterization metric
-can handle looking at those numbers better, whereas this metrics warns of non-compliance.
+For example for the base Laboratory profile,
+we look at all rows with the `laboratory` category.
+For the Smoking Status profile,
+we look at all rows with a `72166-2` LOINC code.
 
 ### A note on the Patient profile
 

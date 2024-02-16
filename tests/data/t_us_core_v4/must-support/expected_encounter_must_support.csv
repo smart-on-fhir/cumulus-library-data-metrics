@@ -1,0 +1,6 @@
+id,valid_participant,valid_period,valid_reason_code,valid_discharge_disposition,valid_location,valid
+valid,true,true,true,true,true,true
+nothing,false,false,false,false,false,false
+location-multiple-good,false,false,false,false,true,false
+location-multiple-bad,false,false,false,false,false,false
+hospitalization-no-disposition,false,false,false,false,false,false

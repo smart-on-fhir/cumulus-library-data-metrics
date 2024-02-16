@@ -31,8 +31,6 @@ Other specific deltas will be noted in the code for the given metric.
 - `q_ref_target_pop` complies with US Core v1 (can be run on partial extracts)
 - `q_ref_target_valid` complies with US Core v1 (only on full extracts or data lake)
 - `q_valid_us_core_v4`
-  - Only for resources where the US Core profiles cover 100% of rows/use-cases
-  - And for each Observation + US-Core-Category slice as their own little resource fiefdoms
   - numerator: resources that don't have all mandatory bits of any profile
 
 ### Table stakes characterization:
@@ -42,14 +40,8 @@ Other specific deltas will be noted in the code for the given metric.
 - `c_term_coverage` (by resource type, by category)
 - `c_resources_per_pt` (include combinations?)
 - `c_us_core_v4_count`
-  - Table per US Core profile
-  - Tag each resource row with a field like
-    us_core_support = ("not-matching", "mandatory", "mandatory-and-must-support")
-    But better names...
-  - Stratify counts by us_core_support, by year, by status, and by each field
-    in the profile ideally - like has_subject and has_effectivedatetime etc
-  - Circle back on if that is suitable for splitting out in a powerset way or if
-    we should deliver that per-field info a different way
+  - Tells how many rows match mandatory US Core support
+  - And for each separate must-support requirement, tells which rows have the value
 
 ### High value quality:
 - `q_date_sequence`

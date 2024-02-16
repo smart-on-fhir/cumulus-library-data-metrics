@@ -1,75 +1,32 @@
-cnt,systems,status,year,has_text
-10,,,,
-9,,,cumulus__none,
-9,,cumulus__none,,
-8,,cumulus__none,cumulus__none,
-7,,,,No Text
-6,,,cumulus__none,No Text
-6,,cumulus__none,,No Text
-5,,cumulus__none,cumulus__none,No Text
-4,cumulus__none,,,
-4,cumulus__none,,cumulus__none,
-4,cumulus__none,cumulus__none,,
-4,cumulus__none,cumulus__none,cumulus__none,
-2,,,,Has Text
-2,,,cumulus__none,Has Text
-2,,cumulus__none,,Has Text
-2,,cumulus__none,cumulus__none,Has Text
-2,other,,,
-2,other,,,No Text
-2,http://snomed.info/sct; other,,,
-2,http://snomed.info/sct; other,,,No Text
-2,http://snomed.info/sct; other,,cumulus__none,
-2,http://snomed.info/sct; other,,cumulus__none,No Text
-2,http://snomed.info/sct; other,cumulus__none,,
-2,http://snomed.info/sct; other,cumulus__none,,No Text
-2,http://snomed.info/sct; other,cumulus__none,cumulus__none,
-2,http://snomed.info/sct; other,cumulus__none,cumulus__none,No Text
-2,http://snomed.info/sct,,,
-2,http://snomed.info/sct,,cumulus__none,
-2,http://snomed.info/sct,cumulus__none,,
-2,http://snomed.info/sct,cumulus__none,cumulus__none,
-2,cumulus__none,,,No Text
-2,cumulus__none,,cumulus__none,No Text
-2,cumulus__none,cumulus__none,,No Text
-2,cumulus__none,cumulus__none,cumulus__none,No Text
-1,,,,cumulus__none
-1,,,cumulus__none,cumulus__none
-1,,,2018,
-1,,,2018,No Text
-1,,cumulus__none,,cumulus__none
-1,,cumulus__none,cumulus__none,cumulus__none
-1,,cumulus__none,2018,
-1,,cumulus__none,2018,No Text
-1,,confirmed,,
-1,,confirmed,,No Text
-1,,confirmed,cumulus__none,
-1,,confirmed,cumulus__none,No Text
-1,other,,cumulus__none,
-1,other,,cumulus__none,No Text
-1,other,,2018,
-1,other,,2018,No Text
-1,other,cumulus__none,,
-1,other,cumulus__none,,No Text
-1,other,cumulus__none,2018,
-1,other,cumulus__none,2018,No Text
-1,other,confirmed,,
-1,other,confirmed,,No Text
-1,other,confirmed,cumulus__none,
-1,other,confirmed,cumulus__none,No Text
-1,http://snomed.info/sct,,,No Text
-1,http://snomed.info/sct,,,Has Text
-1,http://snomed.info/sct,,cumulus__none,No Text
-1,http://snomed.info/sct,,cumulus__none,Has Text
-1,http://snomed.info/sct,cumulus__none,,No Text
-1,http://snomed.info/sct,cumulus__none,,Has Text
-1,http://snomed.info/sct,cumulus__none,cumulus__none,No Text
-1,http://snomed.info/sct,cumulus__none,cumulus__none,Has Text
-1,cumulus__none,,,cumulus__none
-1,cumulus__none,,,Has Text
-1,cumulus__none,,cumulus__none,cumulus__none
-1,cumulus__none,,cumulus__none,Has Text
-1,cumulus__none,cumulus__none,,cumulus__none
-1,cumulus__none,cumulus__none,,Has Text
-1,cumulus__none,cumulus__none,cumulus__none,cumulus__none
-1,cumulus__none,cumulus__none,cumulus__none,Has Text
+cnt,systems,status,year
+10,,,
+9,,,cumulus__none
+9,,cumulus__none,
+8,,cumulus__none,cumulus__none
+4,cumulus__none,,
+4,cumulus__none,,cumulus__none
+4,cumulus__none,cumulus__none,
+4,cumulus__none,cumulus__none,cumulus__none
+2,other,,
+2,SNOMED,,
+2,SNOMED,,cumulus__none
+2,SNOMED,cumulus__none,
+2,SNOMED,cumulus__none,cumulus__none
+1,,,2018
+1,,cumulus__none,2018
+1,,confirmed,
+1,,confirmed,cumulus__none
+1,other,,cumulus__none
+1,other,,2018
+1,other,cumulus__none,
+1,other,cumulus__none,2018
+1,other,confirmed,
+1,other,confirmed,cumulus__none
+1,RxNorm; http://other,,
+1,RxNorm; http://other,,cumulus__none
+1,RxNorm; http://other,cumulus__none,
+1,RxNorm; http://other,cumulus__none,cumulus__none
+1,LOINC; http://other,,
+1,LOINC; http://other,,cumulus__none
+1,LOINC; http://other,cumulus__none,
+1,LOINC; http://other,cumulus__none,cumulus__none

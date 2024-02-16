@@ -1,8 +1,10 @@
 {% if src == "Observation" %}
     {% import 'us_core_v4/observation_utils.jinja' as obs_utils %}
-    {% if category %}
-        {{ obs_utils.extract_category_slice(src, category) }}
-    {% elif loinc %}
+    {% if loinc %}
         {{ obs_utils.extract_loinc_slice(src, loinc) }}
+    {% elif category %}
+        {{ obs_utils.extract_category_slice(src, category) }}
+    {% elif ignore_categories %}
+        {{ obs_utils.extract_other_categories_slice(src, ignore_categories) }}
     {% endif %}
 {% endif %}

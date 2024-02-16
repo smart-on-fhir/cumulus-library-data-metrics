@@ -1,0 +1,5 @@
+id,valid_quantity_unit,valid_component,valid
+vitals-valid,true,true,true
+vitals-ucum-good,true,false,false
+vitals-ucum-bad,false,false,false
+vitals-nothing,true,false,false

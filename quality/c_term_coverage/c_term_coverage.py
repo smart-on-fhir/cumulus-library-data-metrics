@@ -3,12 +3,14 @@
 from cumulus_library.base_table_builder import BaseTableBuilder
 from quality.base import MetricMixin
 
+# Note that this CUBE is already very large / slow.
+# Please do not add new columns to it.
+# We already had to drop one planned column (has_text) from it due to performance.
 
-# TODO: make this faster! It takes like 30min right now
 class TermCoverageBuilder(MetricMixin, BaseTableBuilder):
     name = "c_term_coverage"
 
-    def make_table(self, **kwargs) -> str:
+    def make_table(self, **kwargs) -> None:
         """Make a single metric table"""
         self.queries.append(self.render_sql(self.name, **kwargs))
 
@@ -16,6 +18,7 @@ class TermCoverageBuilder(MetricMixin, BaseTableBuilder):
         # https://github.com/sync-for-science/qualifier/blob/master/metrics.md#c_term_coverage-terminology-count-of-resources-by-terminology-system-by-resource-type-by-category
         # With some tweaks:
         # - Also stratify by year
+        # - Don't stratify by has_text -- CUBE was too big, had to drop something
         # - added Encounter.class
         # - added Medication.code
         self.make_table(

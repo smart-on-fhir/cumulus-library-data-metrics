@@ -1,29 +1,13 @@
-cnt,systems,status,year,has_text
-2,,,,
-2,,,cumulus__none,
-2,,cumulus__none,,
-2,,cumulus__none,cumulus__none,
-1,,,,cumulus__none
-1,,,,Has Text
-1,,,cumulus__none,cumulus__none
-1,,,cumulus__none,Has Text
-1,,cumulus__none,,cumulus__none
-1,,cumulus__none,,Has Text
-1,,cumulus__none,cumulus__none,cumulus__none
-1,,cumulus__none,cumulus__none,Has Text
-1,system1,,,
-1,system1,,,Has Text
-1,system1,,cumulus__none,
-1,system1,,cumulus__none,Has Text
-1,system1,cumulus__none,,
-1,system1,cumulus__none,,Has Text
-1,system1,cumulus__none,cumulus__none,
-1,system1,cumulus__none,cumulus__none,Has Text
-1,cumulus__none,,,
-1,cumulus__none,,,cumulus__none
-1,cumulus__none,,cumulus__none,
-1,cumulus__none,,cumulus__none,cumulus__none
-1,cumulus__none,cumulus__none,,
-1,cumulus__none,cumulus__none,,cumulus__none
-1,cumulus__none,cumulus__none,cumulus__none,
-1,cumulus__none,cumulus__none,cumulus__none,cumulus__none
+cnt,systems,status,year
+2,,,
+2,,,cumulus__none
+2,,cumulus__none,
+2,,cumulus__none,cumulus__none
+1,system1,,
+1,system1,,cumulus__none
+1,system1,cumulus__none,
+1,system1,cumulus__none,cumulus__none
+1,cumulus__none,,
+1,cumulus__none,,cumulus__none
+1,cumulus__none,cumulus__none,
+1,cumulus__none,cumulus__none,cumulus__none

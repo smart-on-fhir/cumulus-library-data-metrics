@@ -1,0 +1,4 @@
+{"id": "vitals-valid", "component": [{"valueBoolean": true}], "category": [{"coding": [{"code": "vital-signs", "system": "http://terminology.hl7.org/CodeSystem/observation-category"}]}]}
+{"id": "vitals-ucum-good", "valueQuantity": {"code": "bit", "system": "http://unitsofmeasure.org"}, "category": [{"coding": [{"code": "vital-signs", "system": "http://terminology.hl7.org/CodeSystem/observation-category"}]}]}
+{"id": "vitals-ucum-bad", "valueQuantity": {"code": "bit", "system": "trust-me-bro"}, "category": [{"coding": [{"code": "vital-signs", "system": "http://terminology.hl7.org/CodeSystem/observation-category"}]}]}
+{"id": "vitals-nothing", "category": [{"coding": [{"code": "vital-signs", "system": "http://terminology.hl7.org/CodeSystem/observation-category"}]}]}

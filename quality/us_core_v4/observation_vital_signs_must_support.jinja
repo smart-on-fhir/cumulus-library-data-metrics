@@ -1,0 +1,38 @@
+-- http://hl7.org/fhir/us/core/STU4/StructureDefinition-us-core-vital-signs.html
+-- and also http://hl7.org/fhir/R4/vitalsigns.html?
+--
+-- See notes in the mandatory checks file for extra details on approach here.
+
+WITH
+tmp_slice AS {% include 'us_core_v4/slice.jinja' %},
+
+tmp_simplified AS (
+    SELECT
+        id,
+        (
+            valueQuantity.code IS NULL
+            OR valueQuantity.system = 'http://unitsofmeasure.org'
+        ) AS valid_quantity_unit,
+        component IS NOT NULL AS valid_component
+
+        -- the other "must support" requirements are:
+        -- * A result value or a reason why the data is absent.
+        --
+        -- But that are already specified elsewhere in the profile as constraint requirements.
+        -- (vs-2 and vs-3). So... we'll just leave those in the mandatory checks.
+
+    FROM tmp_slice
+)
+
+{%
+set ns.fields = [
+    'valid_quantity_unit',
+    'valid_component',
+]
+%}
+
+SELECT
+    id,
+    {{ ns.fields|join(", ") }},
+    {{ ns.fields|join(" AND ") }} AS valid
+FROM tmp_simplified

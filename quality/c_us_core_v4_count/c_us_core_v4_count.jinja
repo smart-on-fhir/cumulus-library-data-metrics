@@ -25,14 +25,18 @@ simplified AS (
         {{ utils.get_date(dates, 'year') }} AS "year",
         {% endif %}
 
-        src_mandatory.valid AS valid_mandatory,
-        src_must_support.{{ ns.fields|join(", src_must_support.") }}
+        src_mandatory.valid AS valid_mandatory
+        {% if ns.fields %}
+        , src_must_support.{{ ns.fields|join(", src_must_support.") }}
+        {% endif %}
 
     FROM {{ src }} AS src
     INNER JOIN src_mandatory
     ON src_mandatory.id = src.id
+    {% if ns.fields %}
     INNER JOIN src_must_support
     ON src_must_support.id = src.id
+    {% endif %}
     LEFT JOIN src_status
     ON src_status.id = src.id
 )
@@ -43,15 +47,19 @@ SELECT
     {% if dates %}
     "year",
     {% endif %}
-    status,
-    {{ ns.fields|join(", ") }}
+    status
+    {% if ns.fields %}
+    , {{ ns.fields|join(", ") }}
+    {% endif %}
 FROM simplified
 GROUP BY CUBE(
     valid_mandatory,
     {% if dates %}
     "year",
     {% endif %}
-    status,
-    {{ ns.fields|join(", ") }}
+    status
+    {% if ns.fields %}
+    , {{ ns.fields|join(", ") }}
+    {% endif %}
 )
 );

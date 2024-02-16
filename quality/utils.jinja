@@ -19,9 +19,10 @@
         {%- else %}
         UNNEST({{ src_field }}.coding) AS c (coding)
         {%- endif %}
-    {% if system_list %}
     WHERE
-        c.coding.system in {{ system_list }}
+        c.coding.code IS NOT NULL
+    {% if system_list %}
+        AND c.coding.system in {{ system_list }}
     {% endif %}
     GROUP BY id
 )
@@ -49,9 +50,10 @@
         {%- else %}
         UNNEST({{ src_field }}.coding) AS c (coding)
         {%- endif %}
-    {% if system_list %}
     WHERE
-        c.coding.system in {{ system_list }}
+        c.coding.code IS NOT NULL
+    {% if system_list %}
+        AND c.coding.system in {{ system_list }}
     {% endif %}
 )
 {%- endmacro %}
@@ -161,8 +163,8 @@
     {% endif %}
 
     {% call coalesce_missing() %}
-        -- Use nullif to catch empty arrays being joined into the empty string
-        NULLIF(ARRAY_JOIN(ARRAY_SORT({{ arg }}), '; '), '')
+        -- Use nullif to convert empty arrays (which get joined into the empty string) into nulls
+        NULLIF(ARRAY_JOIN(ARRAY_SORT(ARRAY_DISTINCT({{ arg }})), '; '), '')
     {% endcall %}
 {%- endmacro %}
 

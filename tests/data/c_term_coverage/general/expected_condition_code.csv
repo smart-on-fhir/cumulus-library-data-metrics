@@ -1,125 +1,57 @@
-cnt,category,systems,status,year,has_text
-6,,,,,
-6,,,,cumulus__none,
-6,,,cumulus__none,,
-6,,,cumulus__none,cumulus__none,
-4,,,,,No Text
-4,,,,cumulus__none,No Text
-4,,,cumulus__none,,No Text
-4,,,cumulus__none,cumulus__none,No Text
-3,,system1,,,
-3,,system1,,cumulus__none,
-3,,system1,cumulus__none,,
-3,,system1,cumulus__none,cumulus__none,
-2,,system1,,,No Text
-2,,system1,,cumulus__none,No Text
-2,,system1,cumulus__none,,No Text
-2,,system1,cumulus__none,cumulus__none,No Text
-2,problem-list-item,,,,
-2,problem-list-item,,,,No Text
-2,problem-list-item,,,cumulus__none,
-2,problem-list-item,,,cumulus__none,No Text
-2,problem-list-item,,cumulus__none,,
-2,problem-list-item,,cumulus__none,,No Text
-2,problem-list-item,,cumulus__none,cumulus__none,
-2,problem-list-item,,cumulus__none,cumulus__none,No Text
-2,problem-list-item,system1,,,
-2,problem-list-item,system1,,,No Text
-2,problem-list-item,system1,,cumulus__none,
-2,problem-list-item,system1,,cumulus__none,No Text
-2,problem-list-item,system1,cumulus__none,,
-2,problem-list-item,system1,cumulus__none,,No Text
-2,problem-list-item,system1,cumulus__none,cumulus__none,
-2,problem-list-item,system1,cumulus__none,cumulus__none,No Text
-2,encounter-diagnosis; problem-list-item,,,,
-2,encounter-diagnosis; problem-list-item,,,,No Text
-2,encounter-diagnosis; problem-list-item,,,cumulus__none,
-2,encounter-diagnosis; problem-list-item,,,cumulus__none,No Text
-2,encounter-diagnosis; problem-list-item,,cumulus__none,,
-2,encounter-diagnosis; problem-list-item,,cumulus__none,,No Text
-2,encounter-diagnosis; problem-list-item,,cumulus__none,cumulus__none,
-2,encounter-diagnosis; problem-list-item,,cumulus__none,cumulus__none,No Text
-1,,,,,cumulus__none
-1,,,,,Has Text
-1,,,,cumulus__none,cumulus__none
-1,,,,cumulus__none,Has Text
-1,,,cumulus__none,,cumulus__none
-1,,,cumulus__none,,Has Text
-1,,,cumulus__none,cumulus__none,cumulus__none
-1,,,cumulus__none,cumulus__none,Has Text
-1,,system2,,,
-1,,system2,,,No Text
-1,,system2,,cumulus__none,
-1,,system2,,cumulus__none,No Text
-1,,system2,cumulus__none,,
-1,,system2,cumulus__none,,No Text
-1,,system2,cumulus__none,cumulus__none,
-1,,system2,cumulus__none,cumulus__none,No Text
-1,,system1; system2,,,
-1,,system1; system2,,,No Text
-1,,system1; system2,,cumulus__none,
-1,,system1; system2,,cumulus__none,No Text
-1,,system1; system2,cumulus__none,,
-1,,system1; system2,cumulus__none,,No Text
-1,,system1; system2,cumulus__none,cumulus__none,
-1,,system1; system2,cumulus__none,cumulus__none,No Text
-1,,system1,,,Has Text
-1,,system1,,cumulus__none,Has Text
-1,,system1,cumulus__none,,Has Text
-1,,system1,cumulus__none,cumulus__none,Has Text
-1,,cumulus__none,,,
-1,,cumulus__none,,,cumulus__none
-1,,cumulus__none,,cumulus__none,
-1,,cumulus__none,,cumulus__none,cumulus__none
-1,,cumulus__none,cumulus__none,,
-1,,cumulus__none,cumulus__none,,cumulus__none
-1,,cumulus__none,cumulus__none,cumulus__none,
-1,,cumulus__none,cumulus__none,cumulus__none,cumulus__none
-1,encounter-diagnosis; problem-list-item,system2,,,
-1,encounter-diagnosis; problem-list-item,system2,,,No Text
-1,encounter-diagnosis; problem-list-item,system2,,cumulus__none,
-1,encounter-diagnosis; problem-list-item,system2,,cumulus__none,No Text
-1,encounter-diagnosis; problem-list-item,system2,cumulus__none,,
-1,encounter-diagnosis; problem-list-item,system2,cumulus__none,,No Text
-1,encounter-diagnosis; problem-list-item,system2,cumulus__none,cumulus__none,
-1,encounter-diagnosis; problem-list-item,system2,cumulus__none,cumulus__none,No Text
-1,encounter-diagnosis; problem-list-item,system1; system2,,,
-1,encounter-diagnosis; problem-list-item,system1; system2,,,No Text
-1,encounter-diagnosis; problem-list-item,system1; system2,,cumulus__none,
-1,encounter-diagnosis; problem-list-item,system1; system2,,cumulus__none,No Text
-1,encounter-diagnosis; problem-list-item,system1; system2,cumulus__none,,
-1,encounter-diagnosis; problem-list-item,system1; system2,cumulus__none,,No Text
-1,encounter-diagnosis; problem-list-item,system1; system2,cumulus__none,cumulus__none,
-1,encounter-diagnosis; problem-list-item,system1; system2,cumulus__none,cumulus__none,No Text
-1,encounter-diagnosis,,,,
-1,encounter-diagnosis,,,,Has Text
-1,encounter-diagnosis,,,cumulus__none,
-1,encounter-diagnosis,,,cumulus__none,Has Text
-1,encounter-diagnosis,,cumulus__none,,
-1,encounter-diagnosis,,cumulus__none,,Has Text
-1,encounter-diagnosis,,cumulus__none,cumulus__none,
-1,encounter-diagnosis,,cumulus__none,cumulus__none,Has Text
-1,encounter-diagnosis,system1,,,
-1,encounter-diagnosis,system1,,,Has Text
-1,encounter-diagnosis,system1,,cumulus__none,
-1,encounter-diagnosis,system1,,cumulus__none,Has Text
-1,encounter-diagnosis,system1,cumulus__none,,
-1,encounter-diagnosis,system1,cumulus__none,,Has Text
-1,encounter-diagnosis,system1,cumulus__none,cumulus__none,
-1,encounter-diagnosis,system1,cumulus__none,cumulus__none,Has Text
-1,cumulus__none,,,,
-1,cumulus__none,,,,cumulus__none
-1,cumulus__none,,,cumulus__none,
-1,cumulus__none,,,cumulus__none,cumulus__none
-1,cumulus__none,,cumulus__none,,
-1,cumulus__none,,cumulus__none,,cumulus__none
-1,cumulus__none,,cumulus__none,cumulus__none,
-1,cumulus__none,,cumulus__none,cumulus__none,cumulus__none
-1,cumulus__none,cumulus__none,,,
-1,cumulus__none,cumulus__none,,,cumulus__none
-1,cumulus__none,cumulus__none,,cumulus__none,
-1,cumulus__none,cumulus__none,,cumulus__none,cumulus__none
-1,cumulus__none,cumulus__none,cumulus__none,,
-1,cumulus__none,cumulus__none,cumulus__none,,cumulus__none
-1,cumulus__none,cumulus__none,cumulus__none,cumulus__none,
-1,cumulus__none,cumulus__none,cumulus__none,cumulus__none,cumulus__none
+cnt,category,systems,status,year
+6,,,,
+6,,,,cumulus__none
+6,,,cumulus__none,
+6,,,cumulus__none,cumulus__none
+3,,system1,,
+3,,system1,,cumulus__none
+3,,system1,cumulus__none,
+3,,system1,cumulus__none,cumulus__none
+2,problem-list-item,,,
+2,problem-list-item,,,cumulus__none
+2,problem-list-item,,cumulus__none,
+2,problem-list-item,,cumulus__none,cumulus__none
+2,problem-list-item,system1,,
+2,problem-list-item,system1,,cumulus__none
+2,problem-list-item,system1,cumulus__none,
+2,problem-list-item,system1,cumulus__none,cumulus__none
+2,encounter-diagnosis; problem-list-item,,,
+2,encounter-diagnosis; problem-list-item,,,cumulus__none
+2,encounter-diagnosis; problem-list-item,,cumulus__none,
+2,encounter-diagnosis; problem-list-item,,cumulus__none,cumulus__none
+1,,system2,,
+1,,system2,,cumulus__none
+1,,system2,cumulus__none,
+1,,system2,cumulus__none,cumulus__none
+1,,system1; system2,,
+1,,system1; system2,,cumulus__none
+1,,system1; system2,cumulus__none,
+1,,system1; system2,cumulus__none,cumulus__none
+1,,cumulus__none,,
+1,,cumulus__none,,cumulus__none
+1,,cumulus__none,cumulus__none,
+1,,cumulus__none,cumulus__none,cumulus__none
+1,encounter-diagnosis; problem-list-item,system2,,
+1,encounter-diagnosis; problem-list-item,system2,,cumulus__none
+1,encounter-diagnosis; problem-list-item,system2,cumulus__none,
+1,encounter-diagnosis; problem-list-item,system2,cumulus__none,cumulus__none
+1,encounter-diagnosis; problem-list-item,system1; system2,,
+1,encounter-diagnosis; problem-list-item,system1; system2,,cumulus__none
+1,encounter-diagnosis; problem-list-item,system1; system2,cumulus__none,
+1,encounter-diagnosis; problem-list-item,system1; system2,cumulus__none,cumulus__none
+1,encounter-diagnosis,,,
+1,encounter-diagnosis,,,cumulus__none
+1,encounter-diagnosis,,cumulus__none,
+1,encounter-diagnosis,,cumulus__none,cumulus__none
+1,encounter-diagnosis,system1,,
+1,encounter-diagnosis,system1,,cumulus__none
+1,encounter-diagnosis,system1,cumulus__none,
+1,encounter-diagnosis,system1,cumulus__none,cumulus__none
+1,cumulus__none,,,
+1,cumulus__none,,,cumulus__none
+1,cumulus__none,,cumulus__none,
+1,cumulus__none,,cumulus__none,cumulus__none
+1,cumulus__none,cumulus__none,,
+1,cumulus__none,cumulus__none,,cumulus__none
+1,cumulus__none,cumulus__none,cumulus__none,
+1,cumulus__none,cumulus__none,cumulus__none,cumulus__none

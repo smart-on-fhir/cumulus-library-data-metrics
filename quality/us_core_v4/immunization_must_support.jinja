@@ -1,0 +1,27 @@
+-- http://hl7.org/fhir/us/core/STU4/StructureDefinition-us-core-immunization.html
+
+WITH
+tmp_simplified AS (
+    SELECT
+        id,
+        (
+            status IS NULL
+            OR status <> 'not-done'
+            OR {{ utils.is_concept_valid('statusReason') }}
+        ) AS valid_status_reason,
+        primarySource IS NOT NULL AS valid_primary_source
+    FROM {{ src }}
+)
+
+{%
+set ns.fields = [
+    'valid_status_reason',
+    'valid_primary_source',
+]
+%}
+
+SELECT
+    id,
+    {{ ns.fields|join(", ") }},
+    {{ ns.fields|join(" AND ") }} AS valid
+FROM tmp_simplified

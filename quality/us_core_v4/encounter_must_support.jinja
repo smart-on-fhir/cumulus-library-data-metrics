@@ -4,15 +4,42 @@
 -- Doesn't look for "identifier", because Cumulus strips that field.
 
 WITH
-tmp_simplified AS (
+
+tmp_locations AS (
     SELECT
         id,
+
+    {% if schema["location"]["location"] %}
+        BOOL_AND({{ utils.is_reference_of_type('u.location.location', 'Location') }}) AS valid_location
+    {% else %}
+        FALSE AS valid_location
+    {% endif %}
+
+    FROM {{ src }},
+        UNNEST(location) AS u (location)
+    GROUP BY id
+),
+
+tmp_simplified AS (
+    SELECT
+        src.id,
         participant IS NOT NULL AS valid_participant, -- array
         {{ utils.is_period_valid('period') }} AS valid_period,
-        reasonCode IS NOT NULL AS valid_reason_code -- array
-        -- todo: hospitalization.dischargeDisposition
-        -- todo: location.location
-    FROM {{ src }}
+        reasonCode IS NOT NULL AS valid_reason_code, -- array
+        (
+            {% if schema["hospitalization"]["dischargeDisposition"] %}
+            {{ utils.is_concept_valid('hospitalization.dischargeDisposition') }}
+            {% else %}
+            FALSE
+            {% endif %}
+        ) AS valid_discharge_disposition,
+        (
+            tmp_locations.valid_location IS NOT NULL
+            AND tmp_locations.valid_location
+        ) AS valid_location
+    FROM {{ src }} AS src
+    LEFT JOIN tmp_locations
+    ON src.id = tmp_locations.id
 )
 
 {%
@@ -20,6 +47,8 @@ set ns.fields = [
     'valid_participant',
     'valid_period',
     'valid_reason_code',
+    'valid_discharge_disposition',
+    'valid_location',
 ]
 %}
 

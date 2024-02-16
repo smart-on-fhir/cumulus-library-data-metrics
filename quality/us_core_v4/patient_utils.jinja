@@ -30,7 +30,7 @@
     SELECT
         id,
         {% call utils.array_to_string() %}
-          ARRAY_DISTINCT(ARRAY_AGG(display))
+          ARRAY_AGG(display)
         {% endcall %} AS display
     FROM flattened_ethnicity
     GROUP BY id
@@ -81,7 +81,7 @@
     SELECT
         id,
         {% call utils.array_to_string() %}
-          ARRAY_DISTINCT(ARRAY_AGG(display))
+          ARRAY_AGG(display)
         {% endcall %} AS display
     FROM flattened_race
     GROUP BY id
@@ -118,7 +118,7 @@
     SELECT
         id,
         {% call utils.array_to_string() %}
-          ARRAY_DISTINCT(ARRAY_AGG(display))
+          ARRAY_AGG(display)
         {% endcall %} AS display
     FROM flattened_birth_sex
     GROUP BY id

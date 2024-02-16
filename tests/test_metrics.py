@@ -53,6 +53,7 @@ class MetricsTestCase(unittest.TestCase):
         "must-support",
         "allergy-low-schema",
         "docref-low-schema",
+        "encounter-low-schema",
         "obs-low-schema",
         "patient-low-schema",
     )
@@ -128,7 +129,7 @@ export_list = [
             db = duckdb.connect(f"{tmpdir}/duck.db")
 
             # Uncomment this for extra debugging
-            # df = db.execute("select * from quality__count_c_resource_count_allergyintolerance_year").df()
+            # df = db.execute("select * from quality__count_c_term_coverage_allergyintolerance_code_text_counts").df()
             # print(df.to_string())
 
             # Check each output with the saved & expected version

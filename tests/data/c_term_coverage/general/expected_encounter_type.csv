@@ -1,49 +1,17 @@
-cnt,systems,status,year,has_text
-5,,,,
-5,,,cumulus__none,
-5,,cumulus__none,,
-5,,cumulus__none,cumulus__none,
-2,,,,cumulus__none
-2,,,cumulus__none,cumulus__none
-2,,cumulus__none,,cumulus__none
-2,,cumulus__none,cumulus__none,cumulus__none
-2,type1; type2,,,
-2,type1; type2,,cumulus__none,
-2,type1; type2,cumulus__none,,
-2,type1; type2,cumulus__none,cumulus__none,
-2,cumulus__none,,,
-2,cumulus__none,,,cumulus__none
-2,cumulus__none,,cumulus__none,
-2,cumulus__none,,cumulus__none,cumulus__none
-2,cumulus__none,cumulus__none,,
-2,cumulus__none,cumulus__none,,cumulus__none
-2,cumulus__none,cumulus__none,cumulus__none,
-2,cumulus__none,cumulus__none,cumulus__none,cumulus__none
-1,,,,Partial Text
-1,,,,No Text
-1,,,,Has Text
-1,,,cumulus__none,Partial Text
-1,,,cumulus__none,No Text
-1,,,cumulus__none,Has Text
-1,,cumulus__none,,Partial Text
-1,,cumulus__none,,No Text
-1,,cumulus__none,,Has Text
-1,,cumulus__none,cumulus__none,Partial Text
-1,,cumulus__none,cumulus__none,No Text
-1,,cumulus__none,cumulus__none,Has Text
-1,type1; type2,,,Partial Text
-1,type1; type2,,,No Text
-1,type1; type2,,cumulus__none,Partial Text
-1,type1; type2,,cumulus__none,No Text
-1,type1; type2,cumulus__none,,Partial Text
-1,type1; type2,cumulus__none,,No Text
-1,type1; type2,cumulus__none,cumulus__none,Partial Text
-1,type1; type2,cumulus__none,cumulus__none,No Text
-1,type1,,,
-1,type1,,,Has Text
-1,type1,,cumulus__none,
-1,type1,,cumulus__none,Has Text
-1,type1,cumulus__none,,
-1,type1,cumulus__none,,Has Text
-1,type1,cumulus__none,cumulus__none,
-1,type1,cumulus__none,cumulus__none,Has Text
+cnt,systems,status,year
+5,,,
+5,,,cumulus__none
+5,,cumulus__none,
+5,,cumulus__none,cumulus__none
+2,type1; type2,,
+2,type1; type2,,cumulus__none
+2,type1; type2,cumulus__none,
+2,type1; type2,cumulus__none,cumulus__none
+2,cumulus__none,,
+2,cumulus__none,,cumulus__none
+2,cumulus__none,cumulus__none,
+2,cumulus__none,cumulus__none,cumulus__none
+1,type1,,
+1,type1,,cumulus__none
+1,type1,cumulus__none,
+1,type1,cumulus__none,cumulus__none

@@ -1,10 +1,7 @@
 {% import 'utils.jinja' as utils %}
 
--- CodeableConcepts have a text field, but not Codings.
--- We are currently ignoring display values of Codings entirely.
-{% set uses_text = not is_coding %}
-
 CREATE TABLE quality__count_c_term_coverage_{{ src|lower }}_{{ field|lower }} AS (
+
 WITH
 src_status AS {{ utils.extract_status(src) }},
 
@@ -12,62 +9,49 @@ src_status AS {{ utils.extract_status(src) }},
 src_categories AS {{ utils.extract_codes(src, 'category', system=category_system, is_array=true) }},
 {% endif %}
 
-src_systems AS (
+src_systems_flat AS (
     SELECT
         id,
 
     {% if is_coding %} -- a single Coding field
-        ARRAY_AGG({{ field }}.system) AS systems
+        {{ field }}.system
     FROM {{ src }}
 
     {% elif is_array %} -- array of CodeableConcepts
-        ARRAY_DISTINCT(ARRAY_AGG(c.coding.system)) AS systems
+        c.coding.system
     FROM {{ src }},
         UNNEST({{ field }}) AS cc (cc_row),
         UNNEST(cc.cc_row.coding) AS c (coding)
 
     {% else %} -- default is a single CodeableConcept
-        ARRAY_DISTINCT(ARRAY_AGG(c.coding.system)) AS systems
+        c.coding.system
     FROM {{ src }},
         UNNEST({{ field }}.coding) AS c (coding)
     {% endif %}
-
-    GROUP BY id
 ),
-
-{% if uses_text %}
-src_text_array AS (
+src_systems_readable AS (
     SELECT
         id,
-
-    {% if is_array %}
-        ARRAY_AGG(cc.cc_row.text) AS texts
-    FROM {{ src }},
-        UNNEST({{ field }}) AS cc (cc_row)
-
-    {% else %}
-        ARRAY_AGG({{ field }}.text) AS texts
-    FROM {{ src }}
-    WHERE {{ field }} IS NOT NULL
-    {% endif %}
-
-    GROUP BY id
-),
-src_text_counts AS (
-    SELECT
-        id,
-        SUM(
-            CASE WHEN {{ utils.is_string_valid('u.text') }}
-            THEN 0
-            ELSE 1
+        (
+            CASE
+            WHEN system = 'http://loinc.org'
+            THEN 'LOINC'
+            WHEN system = 'http://snomed.info/sct'
+            THEN 'SNOMED'
+            WHEN system = 'http://www.nlm.nih.gov/research/umls/rxnorm'
+            THEN 'RxNorm'
+            ELSE system
             END
-        ) AS empty_count,
-        COUNT(texts) AS total_count
-    FROM src_text_array,
-        UNNEST(texts) AS u (text)
+        ) AS system
+    FROM src_systems_flat
+),
+src_systems AS (
+    SELECT
+        id,
+        ARRAY_AGG(system) AS systems
+    FROM src_systems_readable
     GROUP BY id
 ),
-{% endif %}
 
 simplified AS (
     SELECT
@@ -81,39 +65,23 @@ simplified AS (
         {{ utils.array_to_string('src_categories.codes') }} AS category,
         {% endif %}
 
-        {% if uses_text %}
-        {% call utils.coalesce_missing() %}
-        CASE
-        WHEN src_text_counts.total_count IS NULL
-        THEN NULL
-        WHEN src_text_counts.empty_count = src_text_counts.total_count
-        THEN 'No Text'
-        WHEN src_text_counts.empty_count > 0
-        THEN 'Partial Text'
-        ELSE 'Has Text'
-        END
-        {% endcall %} AS has_text,
-        {% endif %}
-
         {{ utils.array_to_string('src_systems.systems') }} AS systems,
         {{ utils.coalesce_missing('src_status.status') }} AS status
 
     FROM {{ src }} AS src
-    LEFT JOIN src_systems
-    ON src.id = src_systems.id
+
     LEFT JOIN src_status
     ON src.id = src_status.id
-
-    {% if uses_text %}
-    LEFT JOIN src_text_counts
-    ON src.id = src_text_counts.id
-    {% endif %}
 
     {% if category_system %}
     LEFT JOIN src_categories
     ON src.id = src_categories.id
     {% endif %}
+
+    LEFT JOIN src_systems
+    ON src.id = src_systems.id
 )
+
 
 SELECT
     COUNT(DISTINCT id) AS cnt,
@@ -129,10 +97,6 @@ SELECT
     , "year"
     {% endif %}
 
-    {% if uses_text %}
-    , has_text
-    {% endif %}
-
 FROM simplified
 GROUP BY CUBE(
     {% if category_system %}
@@ -144,10 +108,6 @@ GROUP BY CUBE(
 
     {% if dates %}
     , "year"
-    {% endif %}
-
-    {% if uses_text %}
-    , has_text
     {% endif %}
 )
 );

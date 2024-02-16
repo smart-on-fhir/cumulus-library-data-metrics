@@ -25,6 +25,26 @@
 )
 {%- endmacro %}
 
+{% macro extract_other_categories_slice(src, ignore_categories) -%}
+(
+    WITH
+    tmp_categories AS {{ extract_category(src) }},
+    tmp_ids AS (
+        SELECT DISTINCT src.id
+        FROM {{ src }} AS src
+        LEFT JOIN tmp_categories
+        ON src.id = tmp_categories.id
+        WHERE
+            tmp_categories.code IS NULL
+            OR tmp_categories.code NOT IN ('{{ ignore_categories|join("', '") }}')
+    )
+    SELECT src.*
+    FROM {{ src }} AS src
+    INNER JOIN tmp_ids
+    ON tmp_ids.id = src.id
+)
+{%- endmacro %}
+
 {% macro extract_loinc_slice(src, code) -%}
 (
     WITH

@@ -1,0 +1,6 @@
+id,valid_status_reason,valid_primary_source,valid
+valid-with-status,true,true,true
+valid-with-reason,true,true,true
+valid-null-status,true,true,true
+nothing,true,false,false
+missing-reason,false,false,false

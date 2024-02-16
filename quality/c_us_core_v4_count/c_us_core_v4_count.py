@@ -11,8 +11,4 @@ class UsCoreV4CountBuilder(UsCoreV4Mixin, BaseTableBuilder):
 
     def make_table(self, **kwargs) -> None:
         """Make a single metric table"""
-        try:
-            self.queries.append(self.render_sql(self.name, **kwargs))
-        except jinja2.exceptions.TemplateNotFound:
-            # TODO: expand to all profiles and remove this try/except
-            pass
+        self.queries.append(self.render_sql(self.name, **kwargs))

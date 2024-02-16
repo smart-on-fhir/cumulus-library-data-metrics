@@ -28,6 +28,14 @@ class UsCoreV4Mixin(MetricMixin):
                 "period",
             ],
         },
+        "Encounter": {
+            "hospitalization": [
+                "dischargeDisposition",
+            ],
+            "location": [
+                "location",
+            ],
+        },
         "Observation": {
             "component": [
                 "dataAbsentReason",
