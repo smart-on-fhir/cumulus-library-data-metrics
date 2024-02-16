@@ -9,9 +9,9 @@
 
 WITH
 
-tmp_ethnicity AS ({{ patient_utils.extract_ethnicity(schema) }}),
-tmp_race AS ({{ patient_utils.extract_race(schema) }}),
-tmp_birth_sex AS ({{ patient_utils.extract_birth_sex() }}),
+tmp_ethnicity AS {{ patient_utils.extract_ethnicity(schema) }},
+tmp_race AS {{ patient_utils.extract_race(schema) }},
+tmp_birth_sex AS {{ patient_utils.extract_birth_sex() }},
 
 tmp_address AS (
     SELECT
