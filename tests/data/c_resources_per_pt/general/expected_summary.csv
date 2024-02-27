@@ -1,0 +1,13 @@
+id,average_per_patient
+ServiceRequest,0.00
+Procedure,0.00
+Observation,0.00
+MedicationRequest,1.33
+Immunization,0.00
+Encounter,0.00
+DocumentReference,0.00
+DiagnosticReport,0.00
+Device,0.00
+Condition,1.00
+AllergyIntolerance,0.00
+All,2.33

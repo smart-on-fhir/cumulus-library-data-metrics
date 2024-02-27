@@ -10,6 +10,7 @@ file_names = [
     "c_pt_count/c_pt_count.py",
     "c_pt_deceased_count/c_pt_deceased_count.py",
     "c_resource_count/c_resource_count.py",
+    "c_resources_per_pt/c_resources_per_pt.py",
     "c_term_coverage/c_term_coverage.py",
     "c_us_core_v4_count/c_us_core_v4_count.py",
     "q_ref_target_pop/q_ref_target_pop.py",

@@ -1,0 +1,51 @@
+{% import 'utils.jinja' as utils %}
+
+CREATE TABLE quality__c_resources_per_pt_summary AS (
+
+WITH
+patient_refs AS (
+    SELECT
+      concat('Patient/', id) AS ref
+    FROM patient
+),
+
+grouped_counts AS (
+    {%- for resource, params in resources.items() %}
+    SELECT
+        patient_refs.ref AS patient,
+        '{{ resource }}' AS resource,
+        COUNT(src.id) AS num_resources
+    FROM patient_refs
+    LEFT JOIN {{ resource }} AS src
+    ON patient_refs.ref = src.{{ params['field'] }}.reference
+    GROUP BY patient_refs.ref
+    {%- if not loop.last %}
+    UNION
+    {%- endif -%}
+    {%- endfor %}
+),
+
+summed_counts AS (
+    SELECT
+        patient,
+        SUM(num_resources) AS num_resources
+    FROM grouped_counts
+    GROUP BY patient
+)
+
+SELECT
+    'All' AS id,
+    CAST(AVG(num_resources) AS DECIMAL(10, 2)) AS average_per_patient
+FROM summed_counts
+UNION
+{%- for resource in resources %}
+SELECT
+    '{{ resource }}' AS id,
+    CAST(AVG(num_resources) AS DECIMAL(10, 2)) AS average_per_patient
+FROM grouped_counts
+WHERE resource = '{{ resource }}'
+{%- if not loop.last %}
+UNION
+{%- endif -%}
+{%- endfor %}
+);

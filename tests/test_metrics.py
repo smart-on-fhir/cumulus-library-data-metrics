@@ -17,23 +17,26 @@ class MetricsTestCase(unittest.TestCase):
     """Test case for quality metrics"""
 
     def test_c_pt_count(self):
-        self.run_study("c_pt_count")
+        self.run_study("c_pt_count", prefix="count_")
 
     def test_c_pt_count_no_ext(self):
-        self.run_study("c_pt_count", test="no-ext")
+        self.run_study("c_pt_count", test="no-ext", prefix="count_")
 
     def test_c_pt_deceased_count(self):
-        self.run_study("c_pt_deceased_count")
+        self.run_study("c_pt_deceased_count", prefix="count_")
 
     def test_c_resource_count(self):
-        self.run_study("c_resource_count")
+        self.run_study("c_resource_count", prefix="count_")
+
+    def test_c_resources_per_pt(self):
+        self.run_study("c_resources_per_pt")
 
     def test_c_term_coverage(self):
-        self.run_study("c_term_coverage")
+        self.run_study("c_term_coverage", prefix="count_")
 
     def test_c_us_core_v4_count(self):
         # Just spot checks one resource - the main logic is tested in t_us_core_v4
-        self.run_study("c_us_core_v4_count")
+        self.run_study("c_us_core_v4_count", prefix="count_")
 
     def test_q_ref_target_pop(self):
         self.run_study("q_ref_target_pop")
@@ -71,7 +74,7 @@ class MetricsTestCase(unittest.TestCase):
         super().setUp()
         self.maxDiff = None
 
-    def run_study(self, metric: str, test: str = "general") -> None:
+    def run_study(self, metric: str, test: str = "general", prefix: str = "") -> None:
         """Runs a single test case"""
         test_dir = os.path.dirname(__file__)
         root_dir = os.path.dirname(test_dir)
@@ -83,10 +86,7 @@ class MetricsTestCase(unittest.TestCase):
             path.removeprefix(f"{data_dir}/expected").removesuffix(".csv")
             for path in expected_result_paths
         ]
-        if metric.startswith("c_"):
-            expected_tables = {name: f"quality__count_{metric}{name}" for name in expected_names}
-        else:
-            expected_tables = {name: f"quality__{metric}{name}" for name in expected_names}
+        expected_tables = {name: f"quality__{prefix}{metric}{name}" for name in expected_names}
         export_tables = '","'.join(expected_tables.values())
 
         # Set up and run the study!
