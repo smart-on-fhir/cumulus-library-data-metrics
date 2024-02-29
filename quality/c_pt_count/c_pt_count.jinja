@@ -5,8 +5,8 @@ CREATE TABLE quality__count_c_pt_count AS (
 WITH
 src_status AS {{ utils.extract_status('Patient') }},
 
-grouped_ethnicity AS ({{ patient_utils.extract_ethnicity(schema) }}),
-grouped_race AS ({{ patient_utils.extract_race(schema) }}),
+grouped_ethnicity AS {{ patient_utils.extract_ethnicity(schema) }},
+grouped_race AS {{ patient_utils.extract_race(schema) }},
 
 simplified AS (
     SELECT

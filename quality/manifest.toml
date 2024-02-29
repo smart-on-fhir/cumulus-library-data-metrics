@@ -45,6 +45,7 @@ export_list = [
     "quality__count_c_resource_count_procedure_month",
     "quality__count_c_resource_count_procedure_year",
     "quality__count_c_term_coverage_allergyintolerance_code",
+    "quality__count_c_term_coverage_condition_code",
     "quality__count_c_term_coverage_device_type",
     "quality__count_c_term_coverage_diagnosticreport_code",
     "quality__count_c_term_coverage_documentreference_type",

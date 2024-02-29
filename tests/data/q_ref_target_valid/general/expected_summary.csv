@@ -1,21 +1,21 @@
 id,numerator,denominator,percentage
 # Various edge cases here in procedure
-procedure_patient,1,6,0.1667
-procedure_encounter,1,6,0.1667
+procedure_patient,1,6,16.67%
+procedure_encounter,1,6,16.67%
 # Rest are just short happy-path checks to confirm that we look at the right json field
-observation_patient,0,1,0.0000
-observation_encounter,0,1,0.0000
-medicationrequest_patient,0,1,0.0000
-medicationrequest_encounter,0,1,0.0000
-immunization_patient,0,1,0.0000
-immunization_encounter,0,1,0.0000
+observation_patient,0,1,0%
+observation_encounter,0,1,0%
+medicationrequest_patient,0,1,0%
+medicationrequest_encounter,0,1,0%
+immunization_patient,0,1,0%
+immunization_encounter,0,1,0%
 # Except DocRefs also have some extra cases around encounter array support
-documentreference_patient,0,5,0.0000
-documentreference_encounter,2,4,0.5000
-diagnosticreport_patient,0,1,0.0000
-diagnosticreport_encounter,0,1,0.0000
-device_patient,0,1,0.0000
-condition_patient,0,1,0.0000
-condition_encounter,0,1,0.0000
-allergyintolerance_patient,0,1,0.0000
-allergyintolerance_encounter,0,1,0.0000
+documentreference_patient,0,5,0%
+documentreference_encounter,2,4,50.00%
+diagnosticreport_patient,0,1,0%
+diagnosticreport_encounter,0,1,0%
+device_patient,0,1,0%
+condition_patient,0,1,0%
+condition_encounter,0,1,0%
+allergyintolerance_patient,0,1,0%
+allergyintolerance_encounter,0,1,0%

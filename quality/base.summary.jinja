@@ -23,9 +23,9 @@ CREATE TABLE quality__{{ metric }}_summary AS (
             numerator,
             denominator,
             CASE
-                WHEN denominator = 0
-                THEN 0.0
-                ELSE CAST(CAST(numerator AS real) / denominator AS DECIMAL(5, 4))
+                WHEN denominator = 0 OR numerator = 0
+                THEN '0%'
+                ELSE CONCAT(CAST(CAST(CAST(numerator AS real) / denominator * 100 AS DECIMAL(5, 2)) AS varchar(10)), '%')
             END AS percentage
         FROM {{ entry_key }}_numerator AS numerator_table
         INNER JOIN {{ entry_key }}_denominator AS denominator_table
