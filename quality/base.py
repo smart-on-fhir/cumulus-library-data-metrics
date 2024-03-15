@@ -13,6 +13,18 @@ class MetricMixin:
     name = "base"
     uses_fields = {}
 
+    DATE_FIELDS = {
+        "AllergyIntolerance": ["recordedDate", "onsetDateTime", "onsetPeriod.start"],
+        "Condition": ["recordedDate", "onsetDateTime", "onsetPeriod.start"],
+        "DocumentReference": ["date"],  # TODO: add context.period.start?
+        "DiagnosticReport": ["effectiveDateTime", "effectivePeriod.start"],
+        "Encounter": ["period.start"],
+        "Immunization": ["occurrenceDateTime"],
+        "MedicationRequest": ["authoredOn"],
+        "Observation": ["effectiveDateTime", "effectivePeriod.start", "effectiveInstant"],
+        "Procedure": ["performedDateTime", "performedPeriod.start"],
+    }
+
     def __init__(self):
         super().__init__()
         self.display_text = f"Creating {self.name} tables…"
@@ -24,28 +36,6 @@ class MetricMixin:
         """Makes a summary table, from all the individual metric tables"""
         sql = self.render_sql("../base.summary", entries=self.summary_entries, metric=self.name)
         self.queries.append(sql)
-
-    @staticmethod
-    def get_dates(resource: str) -> Optional[list[str]]:
-        if resource == "AllergyIntolerance":
-            return ["recordedDate", "onsetDateTime", "onsetPeriod.start"]
-        elif resource == "Condition":
-            return ["recordedDate", "onsetDateTime", "onsetPeriod.start"]
-        elif resource == "DocumentReference":
-            return ["date"]
-        elif resource == "DiagnosticReport":
-            return ["effectiveDateTime", "effectivePeriod.start"]
-        elif resource == "Encounter":
-            return ["period.start"]
-        elif resource == "Immunization":
-            return ["occurrenceDateTime"]
-        elif resource == "MedicationRequest":
-            return ["authoredOn"]
-        elif resource == "Observation":
-            return ["effectiveDateTime", "effectivePeriod.start", "effectiveInstant"]
-        elif resource == "Procedure":
-            return ["performedDateTime", "performedPeriod.start"]
-        return None
 
     def _query_schema(self, cursor: databases.DatabaseCursor, schema: str, parser: databases.DatabaseParser) -> None:
         for table, cols in self.uses_fields.items():
@@ -69,7 +59,7 @@ class MetricMixin:
         path = os.path.dirname(__file__)
 
         if src := kwargs.get("src"):
-            kwargs["dates"] = self.get_dates(src)
+            kwargs["dates"] = self.DATE_FIELDS.get(src)
             kwargs["schema"] = self.schemas.get(src)
 
         with open(f"{path}/{self.name}/{template}.jinja") as file:

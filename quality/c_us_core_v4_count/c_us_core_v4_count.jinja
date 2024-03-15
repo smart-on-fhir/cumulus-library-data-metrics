@@ -22,7 +22,7 @@ simplified AS (
         {{ utils.coalesce_missing('src_status.status') }} AS status,
 
         {% if dates %}
-        {{ utils.get_date(dates, 'year') }} AS "year",
+        {{ utils.get_date_string(dates, 'year') }} AS "year",
         {% endif %}
 
         src_mandatory.valid AS valid_mandatory

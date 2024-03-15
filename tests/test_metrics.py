@@ -16,6 +16,9 @@ from cumulus_library import cli
 class MetricsTestCase(unittest.TestCase):
     """Test case for quality metrics"""
 
+    def test_meta(self):
+        self.run_study("meta")
+
     def test_c_pt_count(self):
         self.run_study("c_pt_count", prefix="count_")
 
@@ -87,7 +90,6 @@ class MetricsTestCase(unittest.TestCase):
             for path in expected_result_paths
         ]
         expected_tables = {name: f"quality__{prefix}{metric}{name}" for name in expected_names}
-        export_tables = '","'.join(expected_tables.values())
 
         # Set up and run the study!
         with tempfile.TemporaryDirectory() as tmpdir:
@@ -96,21 +98,12 @@ class MetricsTestCase(unittest.TestCase):
 
             # But change the manifest to only run one test metric, for speed reasons
             with open(f"{tmpdir}/quality/manifest.toml", "w", encoding="utf8") as f:
-                file_config = f"""
-[table_builder_config]
-file_names = [
-    "{metric}/{metric}.py",
-]
-"""
                 f.write(
                     f"""
 study_prefix = "quality"
-
-{file_config}
-
-[export_config]
-export_list = [
-    "{export_tables}",
+[table_builder_config]
+file_names = [
+    "{metric}/{metric}.py",
 ]
                     """
                 )

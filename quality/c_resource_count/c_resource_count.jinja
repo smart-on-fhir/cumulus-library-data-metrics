@@ -31,7 +31,7 @@ simplified AS (
 
         -- Parse string datetime into a single period string
         {% if dates %}
-        {{ utils.get_date(dates, period) }} AS {{ period }},
+        {{ utils.get_date_string(dates, period) }} AS {{ period }},
         {% endif %}
 
         {% call utils.coalesce_missing() %}

@@ -98,15 +98,20 @@
 {%- endmacro %}
 
 
+-- Extracts a date field from a list of choices and returns a date.
+{% macro get_date(fields) -%}
+    date(from_iso8601_timestamp(
+        COALESCE(
+            {{ fields|join(', ') }}
+        )
+    ))
+{%- endmacro %}
+
 -- Extracts a date field from a list of choices, chops it to the period, and returns a string.
-{% macro get_date(dates, period) -%}
+{% macro get_date_string(fields, period) -%}
     {% call coalesce_missing() %}
         SUBSTR(
-            CAST(date_trunc('{{ period }}', date(from_iso8601_timestamp(
-                COALESCE(
-                    {{ dates|join(', ') }}
-                )
-            ))) AS VARCHAR),
+            CAST(date_trunc('{{ period }}', {{ get_date(fields) }}) AS VARCHAR),
             1,
             {% if period == 'year' %} 4 {% else %} 7 {% endif %}
         )

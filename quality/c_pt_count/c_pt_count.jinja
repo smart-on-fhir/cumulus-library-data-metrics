@@ -11,7 +11,7 @@ grouped_race AS {{ patient_utils.extract_race(schema) }},
 simplified AS (
     SELECT
         src.id,
-        {{ utils.get_date(['src.birthDate'], 'year') }} AS birth_year,
+        {{ utils.get_date_string(['src.birthDate'], 'year') }} AS birth_year,
         {{ utils.coalesce_missing('src.gender') }} AS administrative_gender,
         {{ utils.coalesce_missing('src_status.status') }} AS status,
         {{ utils.coalesce_missing('grouped_ethnicity.display') }} AS ethnicity,

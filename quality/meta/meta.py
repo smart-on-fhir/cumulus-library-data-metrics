@@ -1,0 +1,20 @@
+"""Sets study metadata"""
+
+from cumulus_library.base_table_builder import BaseTableBuilder
+from quality.base import MetricMixin
+
+
+class MetadataBuilder(MetricMixin, BaseTableBuilder):
+    name = "meta"
+
+    def add_date_query(self) -> None:
+        # This is just a mapping of *START* dates - no mechanism for looking up end dates in
+        # periods. But that's ... fine. Across the whole dataset, that's a small difference.
+        self.queries.append(self.render_sql("dates", src_dates=self.DATE_FIELDS))
+
+    def add_version_query(self) -> None:
+        self.queries.append(self.render_sql("version"))
+
+    def add_metric_queries(self) -> None:
+        self.add_date_query()
+        self.add_version_query()

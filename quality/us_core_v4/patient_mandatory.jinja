@@ -8,7 +8,10 @@ WITH
 tmp_simplified AS (
     SELECT
         id,
-        gender IS NOT NULL AS valid_administrative_gender
+        (
+            gender IS NOT NULL
+            AND gender IN ('male', 'female', 'other', 'unknown')
+        ) AS valid_administrative_gender
     FROM {{ src }}
 )
 
