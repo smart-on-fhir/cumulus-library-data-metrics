@@ -1,0 +1,4 @@
+{"id": "valid", "period": {"start": "2000", "end": "9999"}}
+{"id": "future", "status": "finished", "period": {"start": "9999"}}
+{"id": "future-planned", "status": "planned", "period": {"start": "9999"}}
+{"id": "nothing"}

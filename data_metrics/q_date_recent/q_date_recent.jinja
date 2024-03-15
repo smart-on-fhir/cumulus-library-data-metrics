@@ -1,0 +1,41 @@
+{% import 'utils.jinja' as utils %}
+
+CREATE TABLE data_metrics__q_date_recent_{{ src|lower }} AS (
+WITH
+src_status AS {{ utils.extract_status(src) }}
+
+SELECT
+    src.id,
+
+    {% for field in fields %}
+    src.{{ field }} AS {{ field|replace('.', '_')|lower }},
+    {% endfor %}
+
+    src_status.status
+FROM {{ src }} AS src
+LEFT JOIN src_status
+ON src_status.id = src.id
+WHERE
+    (
+        -- Check status, because it's not fair to ding error rows (or planned encounters)
+        -- If you change this logic, consider if meta/dates.jinja needs the same change.
+        src_status.status IS NULL
+        OR (
+            src_status.status <> 'entered-in-error'
+            {% if src == 'Encounter' %}
+            AND src_status.status <> 'planned'
+            {% endif %}
+        )
+    ) AND (
+        -- Check date range. 1900 is arbitrary and maybe should be customizable per-site.
+        -- BCH was seeing valid dates as far back as 1915 (allergy onset at age 3 for a 1912
+        -- birthDate).
+        FALSE
+        {% for field in fields %}
+        OR (
+            {{ field }} IS NOT NULL
+            AND {{ utils.get_date([field]) }} NOT BETWEEN DATE('1900-01-01') AND CURRENT_DATE
+        )
+        {% endfor %}
+    )
+);

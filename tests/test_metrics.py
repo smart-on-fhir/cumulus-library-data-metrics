@@ -41,6 +41,9 @@ class MetricsTestCase(unittest.TestCase):
         # Just spot checks one resource - the main logic is tested in t_us_core_v4
         self.run_study("c_us_core_v4_count", prefix="count_")
 
+    def test_q_date_recent(self):
+        self.run_study("q_date_recent")
+
     def test_q_ref_target_pop(self):
         self.run_study("q_ref_target_pop")
 

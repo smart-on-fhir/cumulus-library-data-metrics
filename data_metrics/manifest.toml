@@ -9,6 +9,7 @@ file_names = [
     "c_resources_per_pt/c_resources_per_pt.py",
     "c_term_coverage/c_term_coverage.py",
     "c_us_core_v4_count/c_us_core_v4_count.py",
+    "q_date_recent/q_date_recent.py",
     "q_ref_target_pop/q_ref_target_pop.py",
     "q_ref_target_valid/q_ref_target_valid.py",
     "q_term_use/q_term_use.py",
