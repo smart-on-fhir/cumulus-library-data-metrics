@@ -1,0 +1,41 @@
+{% import 'utils.jinja' as utils %}
+
+{%- set system_list = "('" + systems|join("', '") + "')" %}
+
+CREATE TABLE data_metrics__q_term_use_{{ src|lower }}_{{ field|lower }} AS (
+WITH
+src_status AS {{ utils.extract_status(src) }},
+
+-- Look for target systems
+src_has_system AS (
+    SELECT
+        id,
+        BOOL_OR(c.coding.system IN {{ system_list }}) AS has_target_system
+    FROM {{ src }},
+        UNNEST({{ field }}.coding) AS c (coding)
+    GROUP BY id
+),
+
+-- Left join back to src to catch all rows, not just those with codings
+rejoined_src AS (
+    SELECT
+        src.id,
+        src_status.status,
+        src.{{ field }},
+        src_has_system.has_target_system
+    FROM {{ src }} AS src
+    LEFT JOIN src_status
+    ON src.id = src_status.id
+    LEFT JOIN src_has_system
+    ON src.id = src_has_system.id
+)
+
+SELECT
+    id,
+    status,
+    {{ field }}
+FROM rejoined_src
+WHERE
+    has_target_system IS NULL
+    OR NOT has_target_system
+);
