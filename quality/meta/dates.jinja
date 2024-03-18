@@ -9,7 +9,7 @@ status_{{ resource }} AS {{ utils.extract_status(resource) }},
 
 dates_{{ resource }} AS (
   SELECT
-      {{ utils.get_date(dates) }} AS "date"
+      {{ utils.coalesce_date(dates) }} AS "date"
   FROM {{ resource }} AS src
   LEFT JOIN status_{{ resource }} AS status
   ON status.id = src.id

@@ -1,6 +1,6 @@
 (
 {% if field == 'context.encounter' and not schema['context']['encounter'] %}
-    SELECT id FROM {{ src }} WHERE 1=0
+    SELECT id FROM {{ src }} WHERE 1=0  -- return an empty table
 {% else %}
 
 {%- if is_array %}
