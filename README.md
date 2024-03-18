@@ -1,4 +1,4 @@
-# Quality Metrics
+# Data Metrics
 
 See [qualifier repo](https://github.com/sync-for-science/qualifier/blob/master/metrics.md)
 for some metric definitions.

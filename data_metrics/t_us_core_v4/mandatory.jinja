@@ -1,0 +1,5 @@
+{% import 'utils.jinja' as utils %}
+
+CREATE TABLE data_metrics__t_us_core_v4_{{ profile_name }}_mandatory AS (
+    {% include 'us_core_v4/' + profile_name + '_mandatory.jinja' %}
+);

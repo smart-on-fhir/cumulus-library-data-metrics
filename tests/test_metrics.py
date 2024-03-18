@@ -14,7 +14,7 @@ from cumulus_library import cli
 
 @ddt.ddt
 class MetricsTestCase(unittest.TestCase):
-    """Test case for quality metrics"""
+    """Test case for data metrics"""
 
     def test_meta(self):
         self.run_study("meta")
@@ -89,18 +89,18 @@ class MetricsTestCase(unittest.TestCase):
             path.removeprefix(f"{data_dir}/expected").removesuffix(".csv")
             for path in expected_result_paths
         ]
-        expected_tables = {name: f"quality__{prefix}{metric}{name}" for name in expected_names}
+        expected_tables = {name: f"data_metrics__{prefix}{metric}{name}" for name in expected_names}
 
         # Set up and run the study!
         with tempfile.TemporaryDirectory() as tmpdir:
             # Copy all our study code to this tmpdir
-            shutil.copytree(f"{root_dir}/quality", f"{tmpdir}/quality")
+            shutil.copytree(f"{root_dir}/data_metrics", f"{tmpdir}/data_metrics")
 
             # But change the manifest to only run one test metric, for speed reasons
-            with open(f"{tmpdir}/quality/manifest.toml", "w", encoding="utf8") as f:
+            with open(f"{tmpdir}/data_metrics/manifest.toml", "w", encoding="utf8") as f:
                 f.write(
                     f"""
-study_prefix = "quality"
+study_prefix = "data_metrics"
 [table_builder_config]
 file_names = [
     "{metric}/{metric}.py",
@@ -112,8 +112,8 @@ file_names = [
                 [
                     "build",
                     # "--verbose",
-                    "--target=quality",
-                    f"--study-dir={tmpdir}/quality",
+                    "--target=data_metrics",
+                    f"--study-dir={tmpdir}/data_metrics",
                     "--db-type=duckdb",
                     f"--database={tmpdir}/duck.db",
                     f"--load-ndjson-dir={data_dir}",
@@ -122,7 +122,7 @@ file_names = [
             db = duckdb.connect(f"{tmpdir}/duck.db")
 
             # Uncomment this for extra debugging
-            # df = db.execute("select * from quality__count_c_term_coverage_allergyintolerance_code_text_counts").df()
+            # df = db.execute("select * from data_metrics__count_c_term_coverage_allergyintolerance_code_text_counts").df()
             # print(df.to_string())
 
             # Check each output with the saved & expected version
