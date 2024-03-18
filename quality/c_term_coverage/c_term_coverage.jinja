@@ -34,6 +34,10 @@ src_systems_readable AS (
         id,
         (
             CASE
+            WHEN system = 'http://hl7.org/fhir/sid/cvx'
+            THEN 'CVX'
+            WHEN system = 'http://hl7.org/fhir/sid/ndc'
+            THEN 'NDC'
             WHEN system = 'http://loinc.org'
             THEN 'LOINC'
             WHEN system = 'http://snomed.info/sct'
@@ -58,7 +62,7 @@ simplified AS (
         src.id,
 
         {% if dates %}
-        {{ utils.get_date(dates, 'year') }} AS "year",
+        {{ utils.get_date_string(dates, 'year') }} AS "year",
         {% endif %}
 
         {% if category_system %}

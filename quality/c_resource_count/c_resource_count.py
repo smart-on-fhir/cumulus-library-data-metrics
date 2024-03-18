@@ -13,7 +13,7 @@ class ResourceCountBuilder(MetricMixin, BaseTableBuilder):
 
     def make_tables(self, **kwargs) -> None:
         """Make metric tables"""
-        if self.get_dates(kwargs["src"]):
+        if kwargs["src"] in self.DATE_FIELDS:
             self.queries.append(self.render_sql(self.name, period="month", **kwargs))
             self.queries.append(self.render_sql(self.name, period="year", **kwargs))
         else:

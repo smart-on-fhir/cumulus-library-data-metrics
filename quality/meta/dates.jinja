@@ -1,0 +1,48 @@
+{% import 'utils.jinja' as utils %}
+
+CREATE TABLE quality__meta_date AS (
+
+WITH
+
+{% for resource, dates in src_dates.items() %}
+status_{{ resource }} AS {{ utils.extract_status(resource) }},
+
+dates_{{ resource }} AS (
+  SELECT
+      {{ utils.coalesce_date(dates) }} AS "date"
+  FROM {{ resource }} AS src
+  LEFT JOIN status_{{ resource }} AS status
+  ON status.id = src.id
+  WHERE
+      status.status IS NULL
+      OR (
+          status.status <> 'entered-in-error'
+          {% if resource == 'Encounter' %}
+          AND status.status <> 'planned'
+          {% endif %}
+      )
+),
+
+ranges_{{ resource }} AS (
+    SELECT
+        MIN("date") AS min_date,
+        MAX("date") AS max_date
+    FROM dates_{{ resource }}
+),
+{% endfor %}
+
+unified AS (
+    {% for resource in src_dates %}
+    SELECT * FROM ranges_{{ resource }}
+    {% if not loop.last %}
+    UNION
+    {% endif -%}
+    {% endfor %}
+)
+
+SELECT
+    MIN(min_date) AS min_date,
+    MAX(max_date) AS max_date
+FROM unified
+
+);

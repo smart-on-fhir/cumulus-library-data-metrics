@@ -1,6 +1,11 @@
 {% import 'utils.jinja' as utils %}
 
 CREATE TABLE quality__q_ref_target_valid_{{ src|lower }}_{{ dest|lower }} AS (
+
+{% if field == 'context.encounter' and not schema['context']['encounter'] %}
+    SELECT id FROM {{ src }} WHERE 1=0  -- return an empty table
+{% else %}
+
 WITH
 src_status AS {{ utils.extract_status(src) }}
 
@@ -26,4 +31,7 @@ ON SUBSTRING(src.{{ field }}.reference, LENGTH('{{ dest }}/') + 1) = dest.id
 WHERE
     src.{{ field }}.reference LIKE '{{ dest }}/%' -- keep in sync with denominator query
     AND dest.id IS NULL
+
+{% endif %} -- closing initial "return empty table" check
+
 );

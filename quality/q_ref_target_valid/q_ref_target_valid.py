@@ -1,15 +1,19 @@
 """Module for generating q_ref_target_valid tables"""
 
-import os.path
-
-import jinja2
-
 from cumulus_library.base_table_builder import BaseTableBuilder
 from quality.base import MetricMixin
 
 
 class TargetValidBuilder(MetricMixin, BaseTableBuilder):
     name = "q_ref_target_valid"
+
+    uses_fields = {
+        "DocumentReference": {
+            "context": [
+                "encounter",
+            ],
+        },
+    }
 
     def make_table(self, **kwargs) -> str:
         """Make a single metric table"""
@@ -20,7 +24,7 @@ class TargetValidBuilder(MetricMixin, BaseTableBuilder):
 
         self.queries.append(self.render_sql(self.name, **kwargs))
 
-    def prepare_queries(self, *args, **kwargs) -> None:
+    def add_metric_queries(self) -> None:
         # https://github.com/sync-for-science/qualifier/blob/master/metrics.md#q_ref_target_valid-completeness-expect-reference-target-to-be-resolvable-when-populated
         self.make_table(src="AllergyIntolerance", dest="Patient", field="patient"),
         self.make_table(src="AllergyIntolerance", dest="Encounter", field="encounter"),
