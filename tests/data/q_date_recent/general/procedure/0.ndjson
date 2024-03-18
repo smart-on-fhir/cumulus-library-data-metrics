@@ -1,0 +1,5 @@
+{"id": "valid", "performedDateTime": "1900-01-01T00:00:00Z"}
+{"id": "past", "performedPeriod": {"start": "1899"}}
+{"id": "future", "performedDateTime": "9999"}
+{"id": "error", "performedPeriod": {"start": "1899"}, "status": "entered-in-error"}
+{"id": "nothing"}

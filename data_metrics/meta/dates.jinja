@@ -14,6 +14,7 @@ dates_{{ resource }} AS (
   LEFT JOIN status_{{ resource }} AS status
   ON status.id = src.id
   WHERE
+      -- If you change this status logic, consider if q_date_recent needs the same change.
       status.status IS NULL
       OR (
           status.status <> 'entered-in-error'
