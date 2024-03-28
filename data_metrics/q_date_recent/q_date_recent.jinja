@@ -34,7 +34,7 @@ WHERE
         {% for field in fields %}
         OR (
             {{ field }} IS NOT NULL
-            AND {{ utils.get_date([field]) }} NOT BETWEEN DATE('1900-01-01') AND CURRENT_DATE
+            AND {{ utils.coalesce_date([field]) }} NOT BETWEEN DATE('1900-01-01') AND CURRENT_DATE
         )
         {% endfor %}
     )
