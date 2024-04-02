@@ -18,14 +18,14 @@ tmp_grouped AS (
         ARBITRARY(src.subject) AS subject,
 
         BOOL_AND(
-            src.clinicalstatus.coding IS NOT NULL
+            {{ utils.is_concept_valid('src.clinicalstatus') }}
             AND (
                 tmp_verification.code IS NULL
                 OR tmp_verification.code != 'entered-in-error'
             )
         ) OR
         BOOL_OR (
-            src.clinicalstatus.coding IS NULL
+            (NOT {{ utils.is_concept_valid('src.clinicalstatus') }})
             AND tmp_verification.code IS NOT NULL
             AND tmp_verification.code = 'entered-in-error'
         ) AS valid_status

@@ -1,14 +1,13 @@
-{"id": "valid-datetime", "status": "final", "category": [], "type": {"text": "X"}, "subject": {"reference": "Patient/A"}, "content": [{"attachment": {"contentType": "text/plain"}}]}
-{"id": "valid-period", "status": "final", "category": [], "type": {"text": "X"}, "subject": {"reference": "Patient/A"}, "content": [{"attachment": {"contentType": "text/plain"}}]}
-{"id": "valid-multiple-attachments", "status": "final", "category": [], "type": {"text": "X"}, "subject": {"reference": "Patient/A"}, "content": [{"attachment": {"contentType": "text/plain"}}, {"attachment": {"contentType": "text/html"}}]}
-{"id": "no-status", "category": [], "type": {"text": "X"}, "subject": {"reference": "Patient/A"}, "content": [{"attachment": {"contentType": "text/plain"}}]}
-{"id": "no-category", "status": "final", "type": {"text": "X"}, "subject": {"reference": "Patient/A"}, "content": [{"attachment": {"contentType": "text/plain"}}]}
-{"id": "no-type", "status": "final", "category": [], "subject": {"reference": "Patient/A"}, "content": [{"attachment": {"contentType": "text/plain"}}]}
-{"id": "empty-type", "status": "final", "category": [], "type": {}, "subject": {"reference": "Patient/A"}, "content": [{"attachment": {"contentType": "text/plain"}}]}
-{"id": "no-subject", "status": "final", "category": [], "type": {"text": "X"}, "content": [{"attachment": {"contentType": "text/plain"}}]}
-{"id": "group-subject", "status": "final", "category": [], "type": {"text": "X"}, "subject": {"reference": "Group/A"}, "content": [{"attachment": {"contentType": "text/plain"}}]}
-{"id": "mixed-attachments", "status": "final", "category": [], "type": {"text": "X"}, "subject": {"reference": "Patient/A"}, "content": [{"attachment": {"contentType": "text/plain"}}, {}]}
-{"id": "no-contenttype", "status": "final", "category": [], "type": {"text": "X"}, "subject": {"reference": "Patient/A"}, "content": [{"attachment": {"url": "hello"}}]}
-{"id": "no-attachment", "status": "final", "category": [], "type": {"text": "X"}, "subject": {"reference": "Patient/A"}, "content": [{"format": {}}]}
-{"id": "no-content", "status": "final", "category": [], "type": {"text": "X"}, "subject": {"reference": "Patient/A"}}
+{"id": "valid", "status": "final", "category": [{"text": "X"}], "type": {"coding": [{"system": "http://loinc.org", "code": "11534-5"}]}, "subject": {"reference": "Patient/A"}, "content": [{"attachment": {"contentType": "text/plain"}}]}
+{"id": "type-empty", "type": {}}
+{"id": "type-bad-system", "type": {"coding": [{"system": "nope", "code": "11534-5"}]}}
+{"id": "type-null-flavor-good", "type": {"coding": [{"system": "http://terminology.hl7.org/CodeSystem/v3-NullFlavor", "code": "UNK"}]}}
+{"id": "type-null-flavor-bad", "type": {"coding": [{"system": "http://terminology.hl7.org/CodeSystem/v3-NullFlavor", "code": "INV"}]}}
+{"id": "type-multiple-good", "type": {"coding": [{"system": "nope", "code": "11534-5"}, {"system": "http://loinc.org", "code": "11534-5"}]}}
+{"id": "type-multiple-bad", "type": {"coding": [{"system": "nope", "code": "11534-5"}, {"system": "http://terminology.hl7.org/CodeSystem/v3-NullFlavor", "code": "nope"}]}}
+{"id": "subject-group", "subject": {"reference": "Group/A"}}
+{"id": "content-multiple-good", "content": [{"attachment": {"contentType": "text/plain"}}, {"attachment": {"contentType": "text/html"}}]}
+{"id": "content-multiple-bad", "content": [{"attachment": {"contentType": "text/plain"}}, {"format": {}}]}
+{"id": "content-no-contenttype", "content": [{"attachment": {"url": "hello"}}]}
+{"id": "content-no-attachment", "content": [{"format": {}}]}
 {"id": "nothing"}
