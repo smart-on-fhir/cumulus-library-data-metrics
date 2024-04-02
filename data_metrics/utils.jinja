@@ -42,7 +42,8 @@
     -- Flatten codings of the provided system and recombine the codes as a list
     SELECT
         id,
-        c.coding.code AS code
+        c.coding.system,
+        c.coding.code
     FROM {{ src }},
         {%- if is_array %}
         UNNEST({{ src_field }}) AS cc (cc_row),
