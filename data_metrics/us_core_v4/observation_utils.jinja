@@ -34,9 +34,7 @@
         FROM {{ src }} AS src
         LEFT JOIN tmp_categories
         ON src.id = tmp_categories.id
-        WHERE
-            tmp_categories.code IS NULL
-            OR tmp_categories.code NOT IN ('{{ ignore_categories|join("', '") }}')
+        WHERE NOT {{ utils.is_code_valid('tmp_categories.code', ignore_categories) }}
     )
     SELECT src.*
     FROM {{ src }} AS src
@@ -65,6 +63,19 @@
     INNER JOIN tmp_ids
     ON tmp_ids.id = src.id
 )
+{%- endmacro %}
+
+{% macro is_obs_status_valid() -%}
+    {{ utils.is_code_valid('status', [
+        'registered',
+        'preliminary',
+        'final',
+        'amended',
+        'corrected',
+        'cancelled',
+        'entered-in-error',
+        'unknown',
+    ])}}
 {%- endmacro %}
 
 {% macro is_value_valid(prefix, schema) -%}

@@ -4,14 +4,27 @@ WITH
 tmp_simplified AS (
     SELECT
         id,
-        status IS NOT NULL AS valid_status,
-        intent IS NOT NULL AS valid_intent,
+        {{ utils.is_code_valid(
+            'status',
+            'active | on-hold | cancelled | completed | entered-in-error | stopped | draft | unknown'
+        ) }} AS valid_status,
+        {{ utils.is_code_valid(
+            'intent',
+            'proposal | plan | order | original-order | reflex-order | filler-order | instance-order | option'
+        ) }} AS valid_intent,
         (
             {{ utils.is_concept_valid('medicationCodeableConcept') }}
-            OR {{ utils.is_reference_valid('medicationReference') }}
+            OR {{ utils.is_reference_of_type('medicationReference', 'Medication', allow_contained=true) }}
         ) AS valid_medication,
         {{ utils.is_reference_of_type('subject', 'Patient') }} AS valid_subject,
-        {{ utils.is_reference_valid('requester') }} AS valid_requester
+        {{ utils.is_reference_of_type('requester', [
+            'Practitioner',
+            'Patient',
+            'Organization',
+            'PractitionerRole',
+            'RelatedPerson',
+            'Device',
+        ]) }} AS valid_requester
     FROM {{ src }}
 )
 

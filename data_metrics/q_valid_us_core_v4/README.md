@@ -31,6 +31,21 @@ We just aren't promising that.
 A future improvement: a separate metric that checks for basic FHIR validity,
 and we can then join against those tables here to unify both checks.
 
+To repeat:
+1. This metric validates all mandatory behavior that is unique to a profile.
+2. This metric reserves the right to validates any mandatory behavior for
+profile-required fields, even if it's in the base FHIR spec.
+In an ideal world with infinite development resources,
+we'd do a full FHIR validation for every mandatory profile field.
+But instead, we check base FHIR rules on a best-effort basis.
+3. This metric will never attempt to check any field or rule that isn't
+required by a US Core profile.
+
+#### Current base FHIR rules that we validate
+
+- Codes with required bindings (like status fields) stay within them
+- References should point to the correct resources
+
 ### Denominator
 
 All possible rows for the resource in question.

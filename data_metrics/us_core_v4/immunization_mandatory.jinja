@@ -7,7 +7,10 @@ WITH
 tmp_simplified AS (
     SELECT
         id,
-        status IS NOT NULL AS valid_status,
+        {{ utils.is_code_valid(
+            'status',
+            'completed | entered-in-error | not-done'
+        ) }} AS valid_status,
         {{ utils.is_concept_valid('vaccineCode') }} AS valid_vaccine_code,
         (occurrenceDateTime IS NOT NULL OR occurrenceString IS NOT NULL) AS valid_occurrence,
         {{ utils.is_reference_of_type('patient', 'Patient') }} AS valid_patient

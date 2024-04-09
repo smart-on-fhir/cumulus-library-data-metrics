@@ -2,10 +2,18 @@
 
 WITH
 
-tmp_verification AS {{
+tmp_clinical_status AS {{
     utils.extract_codes_flat(
         src,
-        'verificationstatus',
+        'clinicalStatus',
+        system='http://terminology.hl7.org/CodeSystem/allergyintolerance-clinical',
+    )
+}},
+
+tmp_verification_status AS {{
+    utils.extract_codes_flat(
+        src,
+        'verificationStatus',
         system='http://terminology.hl7.org/CodeSystem/allergyintolerance-verification',
     )
 }},
@@ -16,29 +24,47 @@ tmp_grouped AS (
         ARBITRARY(src.code) AS code,
         ARBITRARY(src.patient) AS patient,
 
+        ARBITRARY(NOT {{ utils.is_concept_valid('src.clinicalStatus') }})
+        OR BOOL_AND(
+            {{ utils.is_code_valid(
+                'tmp_clinical_status.code',
+                'active | inactive | resolved'
+            ) }}
+        ) AS valid_clinical_status,
+
+        ARBITRARY(NOT {{ utils.is_concept_valid('src.verificationStatus') }})
+        OR BOOL_AND(
+            {{ utils.is_code_valid(
+                'tmp_verification_status.code',
+                'unconfirmed | confirmed | refuted | entered-in-error'
+            ) }}
+        ) AS valid_verification_status,
+
         BOOL_AND(
-            {{ utils.is_concept_valid('src.clinicalstatus') }}
+            {{ utils.is_concept_valid('src.clinicalStatus') }}
             AND (
-                tmp_verification.code IS NULL
-                OR tmp_verification.code != 'entered-in-error'
+                tmp_verification_status.code IS NULL
+                OR tmp_verification_status.code != 'entered-in-error'
             )
         ) OR
         BOOL_OR (
-            (NOT {{ utils.is_concept_valid('src.clinicalstatus') }})
-            AND tmp_verification.code IS NOT NULL
-            AND tmp_verification.code = 'entered-in-error'
-        ) AS valid_status
+            (NOT {{ utils.is_concept_valid('src.clinicalStatus') }})
+            AND tmp_verification_status.code IS NOT NULL
+            AND tmp_verification_status.code = 'entered-in-error'
+        ) AS valid_status_presence
 
     FROM {{ src }} AS src
-    LEFT JOIN tmp_verification
-    ON tmp_verification.id = src.id
+    LEFT JOIN tmp_clinical_status ON tmp_clinical_status.id = src.id
+    LEFT JOIN tmp_verification_status ON tmp_verification_status.id = src.id
     GROUP BY src.id
 ),
 
 tmp_simplified AS (
     SELECT
         id,
-        valid_status,
+        valid_clinical_status,
+        valid_verification_status,
+        valid_status_presence,
         {{ utils.is_concept_valid('code') }} AS valid_code,
         {{ utils.is_reference_of_type('patient', 'Patient') }} AS valid_patient
     FROM tmp_grouped
@@ -46,7 +72,9 @@ tmp_simplified AS (
 
 {%
 set fields = [
-    'valid_status',
+    'valid_clinical_status',
+    'valid_verification_status',
+    'valid_status_presence',
     'valid_code',
     'valid_patient',
 ]

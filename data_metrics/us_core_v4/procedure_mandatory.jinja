@@ -4,7 +4,10 @@ WITH
 tmp_simplified AS (
     SELECT
         id,
-        status IS NOT NULL AS valid_status,
+        {{ utils.is_code_valid(
+            'status',
+            'preparation | in-progress | not-done | on-hold | stopped | completed | entered-in-error | unknown'
+        )}} AS valid_status,
         {{ utils.is_concept_valid('code') }} AS valid_code,
         {{ utils.is_reference_of_type('subject', 'Patient') }} AS valid_subject,
         (

@@ -146,11 +146,25 @@
 {%- endmacro %}
 
 
-{% macro is_reference_of_type(field, type) -%}
+{% macro is_reference_of_type(field, types, allow_contained=false) -%}
 (
+    {% if types is string %}
+        {% set types = [types] %}
+    {% endif %}
     {{ field }} IS NOT NULL
     AND (
-        ({{ field }}.reference IS NOT NULL AND {{ field }}.reference LIKE '{{ type }}/%')
+        {{ field }}.reference IS NOT NULL AND (
+            {% for type in types %}
+            {{ field }}.reference LIKE '{{ type }}/%'
+            {%- if not loop.last %}OR{%- endif -%}
+            {%- endfor %}
+
+            {% if allow_contained %}
+            {# Validating the type further would be very hard (unnesting), so we don't here.
+               This is only used rarely (MedRequest, where the target must be Medication). #}
+            OR {{ field }}.reference LIKE '#%'
+            {% endif %}
+        )
         -- TODO: Should we allow this form? FHIR spec says yes... but not sure our SQL allows it
         -- OR ({{ field }}.type IS NOT NULL AND {{ field }}.type = {{ type }})
     )
@@ -181,6 +195,16 @@
 -- {id=null, coding=null, text=null} in Athena instead of NULL.
 -- I'm not 100% on when that happens vs NULL - is there a difference for older data before
 -- we had a broader schema? It doesn't seem to happen for lists of concepts, at least.
+{% macro is_code_valid(field, allowed_values) -%}
+(
+    {# support a string like "active | inactive" copied straight from the FHIR spec #}
+    {% if allowed_values is string %}
+        {% set allowed_values = allowed_values.split(" | ") %}
+    {% endif %}
+    {{ field }} IS NOT NULL
+    AND {{ field }} IN ('{{ allowed_values|join("', '") }}')
+)
+{%- endmacro %}
 {% macro is_coding_valid(field) -%}
 (
     {{ field }} IS NOT NULL

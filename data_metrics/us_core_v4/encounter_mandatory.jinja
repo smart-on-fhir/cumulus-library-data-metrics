@@ -4,7 +4,17 @@ WITH
 tmp_simplified AS (
     SELECT
         id,
-        status IS NOT NULL AS valid_status,
+        {{ utils.is_code_valid('status', [
+            'planned',
+            'arrived',
+            'triaged',
+            'in-progress',
+            'onleave',
+            'finished',
+            'cancelled',
+            'entered-in-error',
+            'unknown',
+        ]) }} AS valid_status,
         {{ utils.is_coding_valid('class') }} AS valid_class,
         type IS NOT NULL AS valid_type,
         {{ utils.is_reference_of_type('subject', 'Patient') }} AS valid_subject

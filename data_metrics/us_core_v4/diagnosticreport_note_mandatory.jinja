@@ -7,7 +7,18 @@ WITH
 tmp_simplified AS (
     SELECT
         id,
-        status IS NOT NULL AS valid_status,
+        {{ utils.is_code_valid('status', [
+            'registered',
+            'partial',
+            'preliminary',
+            'final',
+            'amended',
+            'corrected',
+            'appended',
+            'cancelled',
+            'entered-in-error',
+            'unknown',
+        ]) }} AS valid_status,
         category IS NOT NULL AS valid_category,
         {{ utils.is_concept_valid('code') }} AS valid_code,
         {{ utils.is_reference_of_type('subject', 'Patient') }} AS valid_subject,

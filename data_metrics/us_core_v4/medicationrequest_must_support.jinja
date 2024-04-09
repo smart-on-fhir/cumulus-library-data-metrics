@@ -10,7 +10,13 @@ tmp_simplified AS (
         category IS NOT NULL AS valid_category, -- array of concepts
         (
             reportedBoolean IS NOT NULL
-            OR {{ utils.is_reference_valid('reportedReference') }}
+            OR {{ utils.is_reference_of_type('reportedReference', [
+                'Practitioner',
+                'Organization',
+                'Patient',
+                'PractitionerRole',
+                'RelatedPerson',
+            ])}}
         ) AS valid_reported,
         {{ utils.is_reference_of_type('encounter', 'Encounter') }} AS valid_encounter,
         authoredOn IS NOT NULL AS valid_authored_on

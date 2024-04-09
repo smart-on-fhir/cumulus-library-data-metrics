@@ -71,7 +71,7 @@ tmp_vs3 AS (
 tmp_simplified AS (
     SELECT
         src.id,
-        status IS NOT NULL AS valid_status,
+        {{ obs_utils.is_obs_status_valid() }} AS valid_status,
         {% if check_category %}
         (
             tmp_grouped_categories.valid_category IS NOT NULL

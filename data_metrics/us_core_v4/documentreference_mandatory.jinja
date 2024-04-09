@@ -46,15 +46,18 @@ tmp_grouped AS (
         ) AS valid_content_type
 
     FROM {{ src }} AS src
-    LEFT JOIN tmp_attachment_flat AS att USING(id)
-    LEFT JOIN tmp_type_codes_flat AS tc USING(id)
+    LEFT JOIN tmp_attachment_flat AS att ON att.id = src.id
+    LEFT JOIN tmp_type_codes_flat AS tc ON tc.id = src.id
     GROUP BY src.id
 ),
 
 tmp_simplified AS (
     SELECT
         id,
-        status IS NOT NULL AS valid_status,
+        {{ utils.is_code_valid(
+            'status',
+            'current | superseded | entered-in-error'
+        ) }} AS valid_status,
         valid_type,
         category IS NOT NULL AS valid_category,
         {{ utils.is_reference_of_type('subject', 'Patient') }} AS valid_subject,
