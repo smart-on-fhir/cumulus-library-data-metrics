@@ -1,3 +1,4 @@
 {"id": "valid", "category": [{"text": "X"}], "reportedBoolean": true, "encounter": {"reference": "Encounter/A"}, "authoredOn": "2013"}
-{"id": "reported-ref", "reportedReference": {"display": "X"}}
+{"id": "reported-ref-good", "reportedReference": {"reference": "Practitioner/X"}}
+{"id": "reported-ref-bad", "reportedReference": {"reference": "Condition/X"}}
 {"id": "nothing"}

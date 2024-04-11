@@ -1,4 +1,5 @@
 id,valid_category,valid_reported,valid_encounter,valid_authored_on,valid
 valid,true,true,true,true,true
-reported-ref,false,true,false,false,false
+reported-ref-good,false,true,false,false,false
+reported-ref-bad,false,false,false,false,false
 nothing,false,false,false,false,false

@@ -8,10 +8,10 @@ WITH
 tmp_simplified AS (
     SELECT
         id,
-        (
-            gender IS NOT NULL
-            AND gender IN ('male', 'female', 'other', 'unknown')
-        ) AS valid_administrative_gender
+        {{ utils.is_code_valid(
+            'gender',
+            'male | female | other | unknown'
+        )}} AS valid_administrative_gender
     FROM {{ src }}
 )
 

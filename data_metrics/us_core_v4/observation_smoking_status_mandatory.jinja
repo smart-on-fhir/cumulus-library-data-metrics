@@ -29,7 +29,8 @@ tmp_grouped_obs_3 AS (
 tmp_simplified AS (
     SELECT DISTINCT
         src.id,
-        status IS NOT NULL AS valid_status,
+        -- Smoking Status restricts the set of statuses further than base Observation
+        {{ utils.is_code_valid('status', ['final', 'entered-in-error'])}} AS valid_status,
         (
             tmp_grouped_categories.valid_category IS NOT NULL
             AND tmp_grouped_categories.valid_category
