@@ -3,6 +3,68 @@
 See [qualifier repo](https://github.com/sync-for-science/qualifier/blob/master/metrics.md)
 for some metric definitions.
 
+## Running the Metrics
+
+These metrics are designed as a
+[Cumulus Library](https://docs.smarthealthit.org/cumulus/library/)
+study and are run using the `cumulus-library` command.
+
+### Local Ndjson
+First, you'll want to organize your ndjson into the following file tree format:
+```
+root/
+  condition/
+    my-conditions.ndjson
+  medicationrequest/
+    1.ndjson
+    2.ndjson
+  patient/
+    Patient.ndjson
+```
+(This is the same format that Cumulus ETL writes out when using `--output-format=ndjson`.)
+
+Here's a sample command to run against that pile of ndjson data:
+```sh
+PYTHONPATH=. cumulus-library build \
+  --db-type duckdb \
+  --database output-tables.db \
+  --load-ndjson-dir path/to/ndjson/root \
+  --target data_metrics \
+  --study-dir .
+```
+
+And then you can load `output-tables.db` in a DuckDB session and see the results.
+Or read below to export the counts tables.
+
+### Athena
+Here's a sample command to run against your Cumulus data in Athena:
+```sh
+PYTHONPATH=. cumulus-library build \
+  --database your-glue-database \
+  --workgroup your-athena-workgroup \
+  --profile your-aws-credentials-profile \
+  --target data_metrics \
+  --study-dir .
+```
+
+And then you can see the resulting tables in Athena.
+Or read below to export the counts tables.
+
+### Exporting Counts
+
+For the metrics that have exportable counts (the characterization metrics mostly),
+you can easily export those using Cumulus Library,
+by replacing `build` in the above commands with `export ./output-folder`.
+Like so:
+
+```sh
+cumulus-library export \
+  ./output-folder \
+  --db-type duckdb \
+  --database output-tables.db \
+  --target data_metrics \
+  --study-dir .
+```
 
 ## SQL Writing Guidelines
 - Don't depend on `core__` tables.
