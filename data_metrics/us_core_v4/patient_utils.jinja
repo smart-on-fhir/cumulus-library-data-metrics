@@ -5,7 +5,13 @@
 -- http://hl7.org/fhir/us/core/STU4/StructureDefinition-us-core-ethnicity.html
 {% macro extract_ethnicity(schema) -%}
 (
-{% if schema["has_extension_codes"] %}
+{% set has_extension_codes = (
+    schema["extension"]["url"]
+    and schema["extension"]["extension"]["url"]
+    and schema["extension"]["extension"]["valueCoding"]["code"]
+    and schema["extension"]["extension"]["valueCoding"]["system"]
+) %}
+{% if has_extension_codes %}
     WITH flattened_ethnicity AS (
         SELECT
             src.id,
@@ -46,7 +52,13 @@
 -- http://hl7.org/fhir/us/core/STU4/StructureDefinition-us-core-race.html
 {% macro extract_race(schema) -%}
 (
-{% if schema["has_extension_codes"] %}
+{% set has_extension_codes = (
+    schema["extension"]["url"]
+    and schema["extension"]["extension"]["url"]
+    and schema["extension"]["extension"]["valueCoding"]["code"]
+    and schema["extension"]["extension"]["valueCoding"]["system"]
+) %}
+{% if has_extension_codes %}
     WITH flattened_race AS (
         SELECT
             src.id,

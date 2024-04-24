@@ -1,8 +1,5 @@
 """Module for generating tables based on US Core v4 profile features"""
 
-from cumulus_library import databases
-from cumulus_library.template_sql import base_templates
-
 from data_metrics.base import MetricMixin
 
 
@@ -60,11 +57,16 @@ class UsCoreV4Mixin(MetricMixin):
             "communication": [
                 "language",
             ],
-            "extension": [
-                # ideally would be able to go deeper for valueCoding.code/system, used by
-                # race & ethnicity extensions. But just check a nested extension for now.
-                "extension",
-            ],
+            "extension": {
+                "extension": {
+                    "url": {},
+                    "valueCoding": [
+                        "code",
+                        "system",
+                    ],
+                },
+                "url": {},
+            },
         },
     }
 
@@ -82,20 +84,6 @@ class UsCoreV4Mixin(MetricMixin):
 
     def make_table(self, **kwargs) -> None:
         pass  # to be overridden
-
-    def extra_schema_checks(self, cursor: databases.DatabaseCursor, schema: str) -> None:
-        # Check if we have all the pieces of the extension we need
-        query = base_templates.get_column_datatype_query(
-            schema, "Patient", ["extension"],
-        )
-        cursor.execute(query)
-        result = cursor.fetchone()[1]
-        # TODO: use proper schema checking like other profiles, once we can go deeper down tree
-        self.schemas["Patient"]["has_extension_codes"] = (
-            self.schemas["Patient"]["extension"]["extension"]
-            and "code" in result
-            and "system" in result
-        )
 
     def add_metric_queries(self) -> None:
         # Observation is so big, that if it falls over in Athena, let's know early.
