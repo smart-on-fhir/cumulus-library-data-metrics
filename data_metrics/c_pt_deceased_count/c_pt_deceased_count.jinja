@@ -13,7 +13,7 @@ parsed AS (
         from_iso8601_timestamp(deceasedDateTime) AS deceasedDateTime
     FROM patient
     WHERE
-        deceasedBoolean = TRUE
+        (deceasedBoolean IS NOT NULL AND deceasedBoolean)
         OR deceasedDateTime IS NOT NULL
 ),
 
