@@ -1,15 +1,7 @@
 cnt,month,status
-6,,
-4,,cumulus__none
-3,cumulus__none,
-1,,entered-in-error
-1,,completed
 1,cumulus__none,entered-in-error
 1,cumulus__none,cumulus__none
 1,cumulus__none,completed
-1,2023-10,
 1,2023-10,cumulus__none
-1,2023-02,
 1,2023-02,cumulus__none
-1,2022-01,
 1,2022-01,cumulus__none

@@ -1,57 +1,6 @@
 cnt,category,systems,status,year
-7,,,,
-7,,,,cumulus__none
-7,,,cumulus__none,
-7,,,cumulus__none,cumulus__none
-3,,code1,,
-3,,code1,,cumulus__none
-3,,code1,cumulus__none,
-3,,code1,cumulus__none,cumulus__none
-3,exam,,,
-3,exam,,,cumulus__none
-3,exam,,cumulus__none,
-3,exam,,cumulus__none,cumulus__none
-2,,cumulus__none,,
-2,,cumulus__none,,cumulus__none
-2,,cumulus__none,cumulus__none,
-2,,cumulus__none,cumulus__none,cumulus__none
-2,exam,code1,,
-2,exam,code1,,cumulus__none
-2,exam,code1,cumulus__none,
 2,exam,code1,cumulus__none,cumulus__none
-2,cumulus__none,,,
-2,cumulus__none,,,cumulus__none
-2,cumulus__none,,cumulus__none,
-2,cumulus__none,,cumulus__none,cumulus__none
-2,cumulus__none,cumulus__none,,
-2,cumulus__none,cumulus__none,,cumulus__none
-2,cumulus__none,cumulus__none,cumulus__none,
 2,cumulus__none,cumulus__none,cumulus__none,cumulus__none
-1,,code2,,
-1,,code2,,cumulus__none
-1,,code2,cumulus__none,
-1,,code2,cumulus__none,cumulus__none
-1,,code1; code2,,
-1,,code1; code2,,cumulus__none
-1,,code1; code2,cumulus__none,
-1,,code1; code2,cumulus__none,cumulus__none
-1,vital-signs,,,
-1,vital-signs,,,cumulus__none
-1,vital-signs,,cumulus__none,
-1,vital-signs,,cumulus__none,cumulus__none
-1,vital-signs,code1,,
-1,vital-signs,code1,,cumulus__none
-1,vital-signs,code1,cumulus__none,
 1,vital-signs,code1,cumulus__none,cumulus__none
-1,exam; laboratory,,,
-1,exam; laboratory,,,cumulus__none
-1,exam; laboratory,,cumulus__none,
-1,exam; laboratory,,cumulus__none,cumulus__none
-1,exam; laboratory,code2,,
-1,exam; laboratory,code2,,cumulus__none
-1,exam; laboratory,code2,cumulus__none,
 1,exam; laboratory,code2,cumulus__none,cumulus__none
-1,exam,code1; code2,,
-1,exam,code1; code2,,cumulus__none
-1,exam,code1; code2,cumulus__none,
 1,exam,code1; code2,cumulus__none,cumulus__none

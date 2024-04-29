@@ -172,6 +172,24 @@
 {%- endmacro %}
 
 
+-- Abstracts whether we're doing a CUBE call or a simple GROUP BY.
+-- Designed to be used as a call block.
+{% macro make_counts(src_table, mode) -%}
+{% set cols = caller() %}
+SELECT
+    COUNT(DISTINCT id) AS cnt,
+    {{ cols }}
+FROM {{ src_table }}
+{% if mode == "cube" %}
+GROUP BY CUBE(
+{% else %}
+GROUP BY (
+{% endif %}
+    {{ cols }}
+)
+{%- endmacro %}
+
+
 -- Converts an array to a semicolon-delineated list, or cumulus__none
 -- Can be called with the name of the array to check ('list_field')
 -- or wrapped in a call block

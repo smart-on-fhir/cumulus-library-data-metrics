@@ -1,13 +1,3 @@
 cnt,systems,status,year
-2,,,
-2,,,cumulus__none
-2,,cumulus__none,
-2,,cumulus__none,cumulus__none
-1,system1,,
-1,system1,,cumulus__none
-1,system1,cumulus__none,
 1,system1,cumulus__none,cumulus__none
-1,cumulus__none,,
-1,cumulus__none,,cumulus__none
-1,cumulus__none,cumulus__none,
 1,cumulus__none,cumulus__none,cumulus__none

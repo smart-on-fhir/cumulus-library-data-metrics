@@ -42,9 +42,7 @@ simplified AS (
     ON src.id = src_status.id
 )
 
-SELECT
-    COUNT(DISTINCT id) AS cnt,
-
+{% call utils.make_counts('simplified', output_mode) %}
     {%- if category %}
     {{ category }},
     {%- endif %}
@@ -54,16 +52,5 @@ SELECT
     {%- endif %}
 
     status
-FROM simplified
-GROUP BY CUBE(
-    {%- if category %}
-    {{ category }},
-    {%- endif %}
-
-    {%- if dates %}
-    {{ period }},
-    {%- endif %}
-
-    status
-)
+{% endcall %}
 );

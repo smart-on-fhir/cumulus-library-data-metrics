@@ -1,32 +1,7 @@
 cnt,systems,status,year
-10,,,
-9,,,cumulus__none
-9,,cumulus__none,
-8,,cumulus__none,cumulus__none
-4,cumulus__none,,
-4,cumulus__none,,cumulus__none
-4,cumulus__none,cumulus__none,
 4,cumulus__none,cumulus__none,cumulus__none
-2,other,,
-2,SNOMED,,
-2,SNOMED,,cumulus__none
-2,SNOMED,cumulus__none,
 2,SNOMED,cumulus__none,cumulus__none
-1,,,2018
-1,,cumulus__none,2018
-1,,confirmed,
-1,,confirmed,cumulus__none
-1,other,,cumulus__none
-1,other,,2018
-1,other,cumulus__none,
 1,other,cumulus__none,2018
-1,other,confirmed,
 1,other,confirmed,cumulus__none
-1,RxNorm; http://other,,
-1,RxNorm; http://other,,cumulus__none
-1,RxNorm; http://other,cumulus__none,
 1,RxNorm; http://other,cumulus__none,cumulus__none
-1,LOINC; http://other,,
-1,LOINC; http://other,,cumulus__none
-1,LOINC; http://other,cumulus__none,
 1,LOINC; http://other,cumulus__none,cumulus__none

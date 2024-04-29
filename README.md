@@ -66,6 +66,21 @@ cumulus-library export \
   --study-dir .
 ```
 
+#### Aggregate counts
+
+This study generates `CUBE` output by default.
+If it's easier to work with simple aggregate counts of every value combination
+(that is, without the partial value combinations that `CUBE()` generates),
+run the build step with `DATA_METRICS_OUTPUT_MODE=aggregate` in your environment.
+
+That is, run it like:
+```sh
+env \
+  DATA_METRICS_OUTPUT_MODE=aggregate \
+  PYTHONPATH=. \
+  cumulus-library build ...
+```
+
 ## SQL Writing Guidelines
 - Don't depend on `core__` tables.
   - Allows folks to build this study even if they can't or haven't built `core`
