@@ -53,15 +53,9 @@ simplified AS (
     FROM parsed
 )
 
-SELECT
-    COUNT(DISTINCT id) AS cnt,
+{% call utils.make_counts('simplified', output_mode) %}
     administrative_gender,
     status,
     age
-FROM simplified
-GROUP BY CUBE(
-    administrative_gender,
-    status,
-    age
-)
+{% endcall %}
 );

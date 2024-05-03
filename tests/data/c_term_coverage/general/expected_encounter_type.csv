@@ -1,17 +1,4 @@
 cnt,systems,status,year
-5,,,
-5,,,cumulus__none
-5,,cumulus__none,
-5,,cumulus__none,cumulus__none
-2,type1; type2,,
-2,type1; type2,,cumulus__none
-2,type1; type2,cumulus__none,
 2,type1; type2,cumulus__none,cumulus__none
-2,cumulus__none,,
-2,cumulus__none,,cumulus__none
-2,cumulus__none,cumulus__none,
 2,cumulus__none,cumulus__none,cumulus__none
-1,type1,,
-1,type1,,cumulus__none
-1,type1,cumulus__none,
 1,type1,cumulus__none,cumulus__none

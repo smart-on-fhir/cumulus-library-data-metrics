@@ -1,31 +1,8 @@
 cnt,category,year,status
-10,,,
-10,,,cumulus__none
-7,,2023,
-7,,2023,cumulus__none
-4,encounter-diagnosis,,
-4,encounter-diagnosis,,cumulus__none
-3,encounter-diagnosis,2023,
 3,encounter-diagnosis,2023,cumulus__none
-2,,cumulus__none,
-2,,cumulus__none,cumulus__none
-2,problem-list-item,,
-2,problem-list-item,,cumulus__none
-2,problem-list-item,2023,
 2,problem-list-item,2023,cumulus__none
-2,encounter-diagnosis; problem-list-item,,
-2,encounter-diagnosis; problem-list-item,,cumulus__none
-2,cumulus__none,,
-2,cumulus__none,,cumulus__none
-1,,2022,
-1,,2022,cumulus__none
-1,encounter-diagnosis; problem-list-item,2023,
 1,encounter-diagnosis; problem-list-item,2023,cumulus__none
-1,encounter-diagnosis; problem-list-item,2022,
 1,encounter-diagnosis; problem-list-item,2022,cumulus__none
-1,encounter-diagnosis,cumulus__none,
 1,encounter-diagnosis,cumulus__none,cumulus__none
-1,cumulus__none,cumulus__none,
 1,cumulus__none,cumulus__none,cumulus__none
-1,cumulus__none,2023,
 1,cumulus__none,2023,cumulus__none

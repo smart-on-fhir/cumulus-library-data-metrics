@@ -5,6 +5,7 @@ import os
 import shutil
 import tempfile
 import unittest
+from unittest import mock
 
 import ddt
 import duckdb
@@ -12,6 +13,8 @@ import duckdb
 from cumulus_library import cli
 
 
+# Use aggregate mode by default because it produces less noisy CSVs
+@mock.patch.dict(os.environ, {"DATA_METRICS_OUTPUT_MODE": "aggregate"})
 @ddt.ddt
 class MetricsTestCase(unittest.TestCase):
     """Test case for data metrics"""
@@ -24,6 +27,17 @@ class MetricsTestCase(unittest.TestCase):
 
     def test_c_pt_count_no_ext(self):
         self.run_study("c_pt_count", test="no-ext", prefix="count_")
+
+    def test_c_pt_count_cubed(self):
+        # Test directly asking for cube mode
+        with mock.patch.dict(os.environ, {"DATA_METRICS_OUTPUT_MODE": "cube"}):
+            self.run_study("c_pt_count", test="cubed", prefix="count_")
+
+        # Now do the same test but without any env var, to confirm the default is cube
+        env = dict(os.environ)
+        del env["DATA_METRICS_OUTPUT_MODE"]
+        with mock.patch.dict(os.environ, env, clear=True):
+            self.run_study("c_pt_count", test="cubed", prefix="count_")
 
     def test_c_pt_deceased_count(self):
         self.run_study("c_pt_deceased_count", prefix="count_")

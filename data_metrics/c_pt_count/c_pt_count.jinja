@@ -26,19 +26,11 @@ simplified AS (
     ON src.id = grouped_race.id
 )
 
-SELECT
-    COUNT(DISTINCT id) AS cnt,
+{% call utils.make_counts('simplified', output_mode) %}
     birth_year,
     administrative_gender,
     ethnicity,
     race,
     status
-FROM simplified
-GROUP BY CUBE(
-    birth_year,
-    administrative_gender,
-    ethnicity,
-    race,
-    status
-)
+{% endcall %}
 );

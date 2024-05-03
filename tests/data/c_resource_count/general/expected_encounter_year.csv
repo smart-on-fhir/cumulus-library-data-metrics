@@ -1,27 +1,6 @@
 cnt,type,year,status
-6,,,
-6,,,cumulus__none
-3,,cumulus__none,
-3,,cumulus__none,cumulus__none
-3,cumulus__none,,
-3,cumulus__none,,cumulus__none
-2,,2023,
-2,,2023,cumulus__none
-2,cumulus__none,cumulus__none,
 2,cumulus__none,cumulus__none,cumulus__none
-1,,2022,
-1,,2022,cumulus__none
-1,cumulus__none,2022,
 1,cumulus__none,2022,cumulus__none
-1,abcd,,
-1,abcd,,cumulus__none
-1,abcd,2023,
 1,abcd,2023,cumulus__none
-1,1234; abcd,,
-1,1234; abcd,,cumulus__none
-1,1234; abcd,2023,
 1,1234; abcd,2023,cumulus__none
-1,1234,,
-1,1234,,cumulus__none
-1,1234,cumulus__none,
 1,1234,cumulus__none,cumulus__none

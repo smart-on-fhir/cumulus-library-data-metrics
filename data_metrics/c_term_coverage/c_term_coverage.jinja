@@ -87,9 +87,7 @@ simplified AS (
 )
 
 
-SELECT
-    COUNT(DISTINCT id) AS cnt,
-
+{% call utils.make_counts('simplified', output_mode) %}
     {% if category_system %}
     category,
     {% endif %}
@@ -100,18 +98,5 @@ SELECT
     {% if dates %}
     , "year"
     {% endif %}
-
-FROM simplified
-GROUP BY CUBE(
-    {% if category_system %}
-    category,
-    {% endif %}
-
-    systems,
-    status
-
-    {% if dates %}
-    , "year"
-    {% endif %}
-)
+{% endcall %}
 );

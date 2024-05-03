@@ -41,8 +41,7 @@ simplified AS (
     ON src_status.id = src.id
 )
 
-SELECT
-    COUNT(DISTINCT id) AS cnt,
+{% call utils.make_counts('simplified', output_mode) %}
     valid_mandatory,
     {% if dates %}
     "year",
@@ -51,15 +50,5 @@ SELECT
     {% if ns.fields %}
     , {{ ns.fields|join(", ") }}
     {% endif %}
-FROM simplified
-GROUP BY CUBE(
-    valid_mandatory,
-    {% if dates %}
-    "year",
-    {% endif %}
-    status
-    {% if ns.fields %}
-    , {{ ns.fields|join(", ") }}
-    {% endif %}
-)
+{% endcall %}
 );

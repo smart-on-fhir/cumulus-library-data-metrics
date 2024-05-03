@@ -62,6 +62,14 @@ class MetricMixin:
             kwargs["dates"] = self.DATE_FIELDS.get(src)
             kwargs["schema"] = self.schemas.get(src)
 
+        # See how we should combine counts.
+        # TODO: add the ability for cumulus-library to take study args like
+        #  --study-option=output-mode:cube (or whatever)
+        output_mode = os.environ.get("DATA_METRICS_OUTPUT_MODE")
+        if output_mode not in {"grouped", "cube"}:
+            output_mode = "cube"
+        kwargs["output_mode"] = output_mode
+
         with open(f"{path}/{self.name}/{template}.jinja") as file:
             template = file.read()
             loader = jinja2.FileSystemLoader(path)

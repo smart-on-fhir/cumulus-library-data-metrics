@@ -1,41 +1,10 @@
 cnt,category,year,status
-11,,,
-8,,,cumulus__none
-6,,cumulus__none,
-6,cumulus__none,,
-5,cumulus__none,cumulus__none,
-4,,2023,
-4,,2023,cumulus__none
-3,,cumulus__none,cumulus__none
-3,food,,
-3,food,,cumulus__none
-3,cumulus__none,,cumulus__none
-2,food,2023,
 2,food,2023,cumulus__none
 2,cumulus__none,cumulus__none,cumulus__none
-1,,,entered-in-error
-1,,,confirmed; unconfirmed
-1,,,confirmed
-1,,cumulus__none,entered-in-error
-1,,cumulus__none,confirmed; unconfirmed
-1,,cumulus__none,confirmed
-1,,2022,
-1,,2022,cumulus__none
-1,medication,,
-1,medication,,cumulus__none
-1,medication,2023,
 1,medication,2023,cumulus__none
-1,food; medication,,
-1,food; medication,,cumulus__none
-1,food; medication,2022,
 1,food; medication,2022,cumulus__none
-1,food,cumulus__none,
 1,food,cumulus__none,cumulus__none
-1,cumulus__none,,entered-in-error
-1,cumulus__none,,confirmed; unconfirmed
-1,cumulus__none,,confirmed
 1,cumulus__none,cumulus__none,entered-in-error
 1,cumulus__none,cumulus__none,confirmed; unconfirmed
 1,cumulus__none,cumulus__none,confirmed
-1,cumulus__none,2023,
 1,cumulus__none,2023,cumulus__none
