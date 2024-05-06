@@ -14,6 +14,6 @@ class ValidUsCoreV4Builder(UsCoreV4Mixin, BaseTableBuilder):
         self.summary_entries[profile_name] = self.render_sql("../us_core_v4/slice", **kwargs)
         self.queries.append(self.render_sql(self.name, **kwargs))
 
-    def prepare_queries(self, *args, **kwargs) -> None:
-        super().prepare_queries(*args, **kwargs)
+    def add_metric_queries(self) -> None:
+        super().add_metric_queries()
         self.make_summary()

@@ -1,7 +1,7 @@
 """Module for generating q_ref_target_pop tables"""
 
+import copy
 import os.path
-from typing import Optional
 
 import jinja2
 from cumulus_library import databases
@@ -13,18 +13,6 @@ class MetricMixin:
     name = "base"
     uses_fields = {}
 
-    DATE_FIELDS = {
-        "AllergyIntolerance": ["recordedDate", "onsetDateTime", "onsetPeriod.start"],
-        "Condition": ["recordedDate", "onsetDateTime", "onsetPeriod.start"],
-        "DocumentReference": ["date"],  # TODO: add context.period.start?
-        "DiagnosticReport": ["effectiveDateTime", "effectivePeriod.start"],
-        "Encounter": ["period.start"],
-        "Immunization": ["occurrenceDateTime"],
-        "MedicationRequest": ["authoredOn"],
-        "Observation": ["effectiveDateTime", "effectivePeriod.start", "effectiveInstant"],
-        "Procedure": ["performedDateTime", "performedPeriod.start"],
-    }
-
     def __init__(self):
         super().__init__()
         self.display_text = f"Creating {self.name} tables…"
@@ -32,17 +20,47 @@ class MetricMixin:
         self.queries = []
         self.schemas = {}
 
+        # This collection of date fields prefers "interaction with health system" dates,
+        # then administrative dates like "issued", then best effort start dates like onsetDateTime.
+        # See https://github.com/smart-on-fhir/cumulus-library-data-metrics/issues/16 for more.
+        # These lists are mostly static, but may be modified when checking the schema if some of
+        # them are not present (notably DocRef.context.period.start).
+        self.date_fields = {
+            "AllergyIntolerance": ["recordedDate", "onsetDateTime", "onsetPeriod.start"],
+            "Condition": ["recordedDate", "onsetDateTime", "onsetPeriod.start"],
+            "DocumentReference": ["context.period.start", "date"],
+            "DiagnosticReport": ["effectiveDateTime", "effectivePeriod.start", "issued"],
+            "Encounter": ["period.start"],
+            "Immunization": ["occurrenceDateTime", "recorded"],
+            "MedicationRequest": ["authoredOn"],
+            "Observation": ["effectiveDateTime", "effectivePeriod.start", "effectiveInstant", "issued"],
+            "Procedure": ["performedDateTime", "performedPeriod.start"],
+        }
+
     def make_summary(self) -> None:
         """Makes a summary table, from all the individual metric tables"""
         sql = self.render_sql("../base.summary", entries=self.summary_entries, metric=self.name)
         self.queries.append(sql)
 
     def _query_schema(self, cursor: databases.DatabaseCursor, schema: str, parser: databases.DatabaseParser) -> None:
-        for table, cols in self.uses_fields.items():
+        fields_to_check = copy.deepcopy(self.uses_fields)
+
+        # Since so many metrics use date data, add a standard date field into the mix
+        check_docref_period = "context.period.start" in self.date_fields["DocumentReference"]
+        if check_docref_period:
+            docref = fields_to_check.setdefault("DocumentReference", {})
+            context = docref.setdefault("context", {})
+            period = context.setdefault("period", {})
+            period["start"] = {}
+
+        for table, cols in fields_to_check.items():
             query = base_templates.get_column_datatype_query(schema, table.lower(), cols.keys())
             cursor.execute(query)
             table_schema = cursor.fetchall()
             self.schemas[table] = parser.validate_table_schema(cols, table_schema)
+
+        if check_docref_period and not self.schemas["DocumentReference"]["context"]["period"]["start"]:
+            self.date_fields["DocumentReference"].remove("context.period.start")
 
     def extra_schema_checks(self, cursor: databases.DatabaseCursor, schema: str) -> None:
         pass
@@ -59,14 +77,14 @@ class MetricMixin:
         path = os.path.dirname(__file__)
 
         if src := kwargs.get("src"):
-            kwargs["dates"] = self.DATE_FIELDS.get(src)
+            kwargs["dates"] = self.date_fields.get(src)
             kwargs["schema"] = self.schemas.get(src)
 
         # See how we should combine counts.
         # TODO: add the ability for cumulus-library to take study args like
         #  --study-option=output-mode:cube (or whatever)
         output_mode = os.environ.get("DATA_METRICS_OUTPUT_MODE")
-        if output_mode not in {"grouped", "cube"}:
+        if output_mode not in {"aggregate", "cube"}:
             output_mode = "cube"
         kwargs["output_mode"] = output_mode
 

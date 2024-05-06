@@ -18,7 +18,7 @@ class TermUseBuilder(MetricMixin, BaseTableBuilder):
 
         self.queries.append(self.render_sql(self.name, **kwargs))
 
-    def prepare_queries(self, *args, **kwargs) -> None:
+    def add_metric_queries(self) -> None:
         # https://github.com/sync-for-science/qualifier/blob/master/metrics.md#q_term_use-conformance-expect-common-terminology-systems-to-be-populated
         # With some differences:
         # - Allow multiple systems (pulled from US Core v4 profile recommendations)

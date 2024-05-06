@@ -20,10 +20,13 @@ class UsCoreV4Mixin(MetricMixin):
                 "attachment",
                 "format",
             ],
-            "context": [
-                "encounter",
-                "period",
-            ],
+            "context": {
+                "encounter": {},
+                "period": {
+                    "start": {},
+                    "end": {},
+                },
+            },
         },
         "Encounter": {
             "hospitalization": [

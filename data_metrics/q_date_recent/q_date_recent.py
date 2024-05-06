@@ -18,7 +18,7 @@ class DateRecentBuilder(MetricMixin, BaseTableBuilder):
 
         self.queries.append(self.render_sql(self.name, **kwargs))
 
-    def prepare_queries(self, *args, **kwargs) -> None:
-        for src, fields in self.DATE_FIELDS.items():
+    def add_metric_queries(self) -> None:
+        for src, fields in self.date_fields.items():
             self.make_table(src=src, fields=fields)
         self.make_summary()

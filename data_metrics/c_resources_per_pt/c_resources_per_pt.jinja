@@ -4,7 +4,7 @@ CREATE TABLE data_metrics__c_resources_per_pt_summary AS (
 
 WITH
 patient_refs AS (
-    SELECT
+    SELECT DISTINCT
       concat('Patient/', id) AS ref
     FROM patient
 ),
@@ -14,7 +14,7 @@ grouped_counts AS (
     SELECT
         patient_refs.ref AS patient,
         '{{ resource }}' AS resource,
-        COUNT(src.id) AS num_resources
+        COUNT(DISTINCT src.id) AS num_resources
     FROM patient_refs
     LEFT JOIN {{ resource }} AS src
     ON patient_refs.ref = src.{{ params['field'] }}.reference

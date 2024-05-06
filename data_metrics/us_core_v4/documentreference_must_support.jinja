@@ -66,9 +66,22 @@ tmp_simplified AS (
         ) AS valid_encounter,
 
         (
-            {% if schema["context"]["period"] %}
-            -- could call is_period_valid(), but would need to confirm each subfield exists
+            {# This is basically is_period_valid() with schema-checking, since unlike most,
+               this one period is a deeply nested field that our schema does not guarantee #}
+            {% set period_schema = schema["context"]["period"] %}
+            {% if period_schema["start"] or period_schema["end"] %}
             context.period IS NOT NULL
+            AND (
+                {% if period_schema["start"] %}
+                context.period.start IS NOT NULL
+                {% endif %}
+                {% if period_schema["start"] and period_schema["end"] %}
+                OR
+                {% endif %}
+                {% if period_schema["end"] %}
+                context.period."end" IS NOT NULL
+                {% endif %}
+            )
             {% else %}
             FALSE
             {% endif %}
