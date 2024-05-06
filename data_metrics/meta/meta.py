@@ -10,7 +10,7 @@ class MetadataBuilder(MetricMixin, BaseTableBuilder):
     def add_date_query(self) -> None:
         # This is just a mapping of *START* dates - no mechanism for looking up end dates in
         # periods. But that's ... fine. Across the whole dataset, that's a small difference.
-        self.queries.append(self.render_sql("dates", src_dates=self.DATE_FIELDS))
+        self.queries.append(self.render_sql("dates", src_dates=self.date_fields))
 
     def add_version_query(self) -> None:
         self.queries.append(self.render_sql("version"))

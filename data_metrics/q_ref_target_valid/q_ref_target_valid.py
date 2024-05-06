@@ -9,9 +9,9 @@ class TargetValidBuilder(MetricMixin, BaseTableBuilder):
 
     uses_fields = {
         "DocumentReference": {
-            "context": [
-                "encounter",
-            ],
+            "context": {
+                "encounter": {},
+            },
         },
     }
 
