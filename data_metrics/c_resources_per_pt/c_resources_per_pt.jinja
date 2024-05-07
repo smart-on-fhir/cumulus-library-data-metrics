@@ -10,14 +10,14 @@ patient_refs AS (
 ),
 
 grouped_counts AS (
-    {%- for resource, params in resources.items() %}
+    {%- for resource, field_name in resources.items() %}
     SELECT
         patient_refs.ref AS patient,
         '{{ resource }}' AS resource,
         COUNT(DISTINCT src.id) AS num_resources
     FROM patient_refs
     LEFT JOIN {{ resource }} AS src
-    ON patient_refs.ref = src.{{ params['field'] }}.reference
+    ON patient_refs.ref = src.{{ field_name }}.reference
     GROUP BY patient_refs.ref
     {%- if not loop.last %}
     UNION

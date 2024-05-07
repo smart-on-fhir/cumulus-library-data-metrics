@@ -1,9 +1,5 @@
 """Module for generating q_ref_target_pop tables"""
 
-import os.path
-
-import jinja2
-
 from cumulus_library.base_table_builder import BaseTableBuilder
 from data_metrics.base import MetricMixin
 
@@ -25,6 +21,7 @@ class TargetPopBuilder(MetricMixin, BaseTableBuilder):
         self.make_table(src="Device", dest="Patient", field="patient"),
         self.make_table(src="DiagnosticReport", dest="Patient", field="subject"),
         self.make_table(src="DocumentReference", dest="Patient", field="subject"),
+        self.make_table(src="Encounter", dest="Patient", field="subject")
         self.make_table(src="Immunization", dest="Patient", field="patient"),
         self.make_table(src="MedicationRequest", dest="Patient", field="subject"),
         self.make_table(src="Observation", dest="Patient", field="subject"),

@@ -5,6 +5,7 @@ procedure_patient,1,4,25.00%
 observation_patient,0,1,0%
 medicationrequest_patient,0,1,0%
 immunization_patient,0,1,0%
+encounter_patient,0,1,0%
 documentreference_patient,0,1,0%
 diagnosticreport_patient,0,1,0%
 device_patient,0,1,0%

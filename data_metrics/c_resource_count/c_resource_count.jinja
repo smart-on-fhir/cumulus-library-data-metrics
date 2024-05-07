@@ -1,13 +1,13 @@
 {% import 'utils.jinja' as utils %}
 
 CREATE TABLE data_metrics__count_c_resource_count_{{ src|lower }}_{{ period|lower }} AS (
-{%- set cat_field = category %}
+{%- set orig_cat_field = cat_field %}
 WITH
 src_status AS {{ utils.extract_status(src) }},
 
-{%- if systems %}
+{%- if cat_systems %}
 -- Flatten categories of the provided system and recombine the codes as a list
-extracted_codes AS {{ utils.extract_codes(src, cat_field, system=systems, is_array=true) }},
+extracted_codes AS {{ utils.extract_codes(src, cat_field, system=cat_systems, is_array=true) }},
 
 -- Left join back to src to catch rows without a proper system category
 grouped_category_src AS (
@@ -25,8 +25,8 @@ simplified AS (
         src.id,
 
         -- Convert array of categories into one string, separated by semicolon
-        {%- if category %}
-        {{ utils.array_to_string(cat_field) }} AS {{ category }},
+        {%- if orig_cat_field %}
+        {{ utils.array_to_string(cat_field) }} AS {{ orig_cat_field }},
         {%- endif %}
 
         -- Parse string datetime into a single period string
@@ -43,8 +43,8 @@ simplified AS (
 )
 
 {% call utils.make_counts('simplified', output_mode) %}
-    {%- if category %}
-    {{ category }},
+    {%- if orig_cat_field %}
+    {{ orig_cat_field }},
     {%- endif %}
 
     {%- if dates %}

@@ -9,6 +9,7 @@ medicationrequest_patient,0,1,0%
 medicationrequest_encounter,0,1,0%
 immunization_patient,0,1,0%
 immunization_encounter,0,1,0%
+encounter_patient,0,1,0%
 # Except DocRefs also have some extra cases around encounter array support
 documentreference_patient,0,5,0%
 documentreference_encounter,2,4,50.00%
