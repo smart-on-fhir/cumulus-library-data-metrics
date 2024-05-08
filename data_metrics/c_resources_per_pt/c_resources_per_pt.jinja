@@ -9,41 +9,94 @@ patient_refs AS (
     FROM patient
 ),
 
-grouped_counts AS (
-    {%- for resource, field_name in resources.items() %}
+{% for resource, field_name in patient_fields.items() %}
+cat_slice_{{ resource|lower }}_codes AS
+{{ utils.extract_category_codes(
+    resource,
+    categories.get(resource, {}).get("cat_field"),
+    categories.get(resource, {}).get("cat_systems"),
+) }},
+{% endfor %}
+
+counts_by_pt AS (
+{% for resource, field_name in patient_fields.items() %}
     SELECT
         patient_refs.ref AS patient,
         '{{ resource }}' AS resource,
+        cat_codes.category,
         COUNT(DISTINCT src.id) AS num_resources
     FROM patient_refs
     LEFT JOIN {{ resource }} AS src
     ON patient_refs.ref = src.{{ field_name }}.reference
-    GROUP BY patient_refs.ref
+    LEFT JOIN cat_slice_{{ resource|lower }}_codes AS cat_codes
+    ON src.id = cat_codes.id
+    GROUP BY patient_refs.ref, cat_codes.category
     {%- if not loop.last %}
     UNION
     {%- endif -%}
-    {%- endfor %}
+{% endfor %}
+),
+
+{% for resource, field_name in patient_fields.items() %}
+summed_{{ resource|lower }}_counts AS (
+    SELECT
+        patient,
+        resource,
+        SUM(num_resources) AS num_resources
+    FROM counts_by_pt
+    GROUP BY patient, resource
+),
+{% endfor %}
+
+total_patients AS (
+    SELECT
+        COUNT(ref) AS total
+    FROM patient_refs
 ),
 
 summed_counts AS (
     SELECT
         patient,
         SUM(num_resources) AS num_resources
-    FROM grouped_counts
+    FROM counts_by_pt
     GROUP BY patient
 )
 
 SELECT
-    'All' AS id,
-    CAST(AVG(num_resources) AS DECIMAL(10, 2)) AS average_per_patient
+    '* All' AS id,
+    '* All' AS category,
+    CAST(AVG(num_resources) AS DECIMAL(18, 2)) AS average,
+    MAX(num_resources) AS "max"
 FROM summed_counts
 UNION
-{%- for resource in resources %}
+{%- for resource in patient_fields %}
 SELECT
     '{{ resource }}' AS id,
-    CAST(AVG(num_resources) AS DECIMAL(10, 2)) AS average_per_patient
-FROM grouped_counts
+    '* All' AS category,
+    CAST(AVG(num_resources) AS DECIMAL(18, 2)) AS average,
+    MAX(num_resources) AS "max"
+FROM summed_{{ resource|lower }}_counts
 WHERE resource = '{{ resource }}'
+{% if resource in categories %}
+UNION
+SELECT
+    resource AS id,
+    COALESCE(category, '* No recognized category') AS category,
+    CASE
+        WHEN ARBITRARY(tp.total) = 0
+        THEN 0
+        ELSE CAST(
+            CAST(SUM(num_resources) AS DECIMAL(18, 2)) / ARBITRARY(tp.total)
+            AS DECIMAL(18, 2)
+        )
+    END AS average,
+    MAX(num_resources) AS "max"
+FROM counts_by_pt AS counts
+CROSS JOIN total_patients AS tp
+WHERE resource = '{{ resource }}'
+GROUP BY resource, category
+HAVING MAX(num_resources) > 0
+{% endif %}
 {%- if not loop.last %}
 UNION
 {%- endif -%}

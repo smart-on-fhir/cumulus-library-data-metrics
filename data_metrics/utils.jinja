@@ -99,6 +99,25 @@
 {%- endmacro %}
 
 
+-- Extracts the category codes and returns a select with (id (string), category (string)).
+{% macro extract_category_codes(src, cat_field, cat_systems) -%}
+(
+{% if cat_systems %}
+    WITH
+    array_codes AS {{ extract_codes(src, cat_field, system=cat_systems, is_array=true) }}
+    SELECT id, {{ array_to_string('codes') }} AS category
+    FROM array_codes
+{% elif cat_field %}
+    SELECT id, {{ array_to_string(cat_field) }} AS category
+    FROM {{ src }}
+    WHERE {{ cat_field }} IS NOT NULL
+{% else %}
+    SELECT id, '' AS category FROM {{ src }} WHERE 1=0 -- empty table
+{% endif %}
+)
+{%- endmacro %}
+
+
 -- Extracts a date field from a list of choices and returns a DATE.
 {% macro coalesce_date(fields) -%}
     date(from_iso8601_timestamp(

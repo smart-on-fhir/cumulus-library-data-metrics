@@ -1,13 +1,18 @@
-id,average_per_patient
-ServiceRequest,0.00
-Procedure,0.00
-Observation,0.00
-MedicationRequest,1.33
-Immunization,0.00
-Encounter,0.00
-DocumentReference,0.00
-DiagnosticReport,0.00
-Device,0.00
-Condition,1.00
-AllergyIntolerance,0.00
-All,2.33
+id,category,average,max
+ServiceRequest,* All,0.00,0
+Procedure,* All,0.00,0
+Observation,* All,0.00,0
+MedicationRequest,outpatient,1.33,2
+MedicationRequest,inpatient,0.33,1
+MedicationRequest,discharge; inpatient,0.33,1
+MedicationRequest,* No recognized category,0.33,1
+MedicationRequest,* All,2.33,4
+Immunization,* All,0.00,0
+Encounter,* All,0.00,0
+DocumentReference,* All,0.00,0
+DiagnosticReport,* All,0.00,0
+Device,* All,0.00,0
+Condition,* No recognized category,0.67,1
+Condition,* All,0.67,1
+AllergyIntolerance,* All,0.00,0
+* All,* All,3.00,4
