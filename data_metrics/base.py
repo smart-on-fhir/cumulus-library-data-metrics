@@ -7,6 +7,8 @@ import jinja2
 from cumulus_library import databases
 from cumulus_library.template_sql import base_templates
 
+from data_metrics import resource_info
+
 
 class MetricMixin:
 
@@ -20,22 +22,9 @@ class MetricMixin:
         self.queries = []
         self.schemas = {}
 
-        # This collection of date fields prefers "interaction with health system" dates,
-        # then administrative dates like "issued", then best effort start dates like onsetDateTime.
-        # See https://github.com/smart-on-fhir/cumulus-library-data-metrics/issues/16 for more.
-        # These lists are mostly static, but may be modified when checking the schema if some of
-        # them are not present (notably DocRef.context.period.start).
-        self.date_fields = {
-            "AllergyIntolerance": ["recordedDate", "onsetDateTime", "onsetPeriod.start"],
-            "Condition": ["recordedDate", "onsetDateTime", "onsetPeriod.start"],
-            "DocumentReference": ["context.period.start", "date"],
-            "DiagnosticReport": ["effectiveDateTime", "effectivePeriod.start", "issued"],
-            "Encounter": ["period.start"],
-            "Immunization": ["occurrenceDateTime", "recorded"],
-            "MedicationRequest": ["authoredOn"],
-            "Observation": ["effectiveDateTime", "effectivePeriod.start", "effectiveInstant", "issued"],
-            "Procedure": ["performedDateTime", "performedPeriod.start"],
-        }
+        # These date fields are mostly static, but may be modified when checking the schema if
+        # some of them are not present (notably DocRef.context.period.start).
+        self.date_fields = copy.deepcopy(resource_info.DATES)
 
     def make_summary(self) -> None:
         """Makes a summary table, from all the individual metric tables"""
@@ -78,7 +67,9 @@ class MetricMixin:
 
         if src := kwargs.get("src"):
             kwargs["dates"] = self.date_fields.get(src)
+            kwargs["patient_field"] = resource_info.PATIENTS.get(src)
             kwargs["schema"] = self.schemas.get(src)
+            kwargs.update(resource_info.CATEGORIES.get(src, {}))
 
         # See how we should combine counts.
         # TODO: add the ability for cumulus-library to take study args like

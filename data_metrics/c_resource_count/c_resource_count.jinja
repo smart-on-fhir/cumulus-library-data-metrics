@@ -1,32 +1,17 @@
 {% import 'utils.jinja' as utils %}
 
 CREATE TABLE data_metrics__count_c_resource_count_{{ src|lower }}_{{ period|lower }} AS (
-{%- set cat_field = category %}
+{%- set orig_cat_field = cat_field %}
 WITH
 src_status AS {{ utils.extract_status(src) }},
-
-{%- if systems %}
--- Flatten categories of the provided system and recombine the codes as a list
-extracted_codes AS {{ utils.extract_codes(src, cat_field, system=systems, is_array=true) }},
-
--- Left join back to src to catch rows without a proper system category
-grouped_category_src AS (
-    SELECT src.*, extracted_codes.codes AS grouped_categories
-    FROM {{ src }} AS src
-    LEFT JOIN extracted_codes
-    ON src.id = extracted_codes.id
-),
-{%- set src = 'grouped_category_src' %}
-{%- set cat_field = 'grouped_categories' %}
-{%- endif %}
+src_category AS {{ utils.extract_category_codes(src, cat_field, cat_systems) }},
 
 simplified AS (
     SELECT
         src.id,
 
-        -- Convert array of categories into one string, separated by semicolon
-        {%- if category %}
-        {{ utils.array_to_string(cat_field) }} AS {{ category }},
+        {%- if cat_field %}
+        {{ utils.coalesce_missing('src_category.category') }} AS {{ cat_field }},
         {%- endif %}
 
         -- Parse string datetime into a single period string
@@ -40,11 +25,13 @@ simplified AS (
     FROM {{ src }} AS src
     LEFT JOIN src_status
     ON src.id = src_status.id
+    LEFT JOIN src_category
+    ON src.id = src_category.id
 )
 
 {% call utils.make_counts('simplified', output_mode) %}
-    {%- if category %}
-    {{ category }},
+    {%- if cat_field %}
+    {{ cat_field }},
     {%- endif %}
 
     {%- if dates %}

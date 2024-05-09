@@ -2,10 +2,14 @@
 
 **Basic Resource Counts Per Patient**
 
-This metric makes a single table with a row per resource,
-plus a total average for all resources.
+This metric makes a single table with a row per resource (sliced by category),
+with some basic stats.
+
+It also includes summary rows for each resource and database as wholes.
 
 ### Fields
 
 - id (name of resource)
-- average_per_patient
+- category (special value 'All' indicates all categories)
+- average
+- max

@@ -1,5 +1,8 @@
-{"id": "1", "subject": {"reference": "Patient/1"}}
-{"id": "2", "subject": {"reference": "Patient/2"}}
-{"id": "3.1", "subject": {"reference": "Patient/3"}}
-{"id": "3.2", "subject": {"reference": "Patient/3"}}
+{"id": "1.1", "subject": {"reference": "Patient/1"}}
+{"id": "1.2", "subject": {"reference": "Patient/1"}, "category": [{"coding": [{"code": "outpatient", "system": "http://terminology.hl7.org/CodeSystem/medicationrequest-category"}]}]}
+{"id": "2", "subject": {"reference": "Patient/2"}, "category": [{"coding": [{"code": "outpatient", "system": "http://terminology.hl7.org/CodeSystem/medicationrequest-category"}]}]}
+{"id": "3.1", "subject": {"reference": "Patient/3"}, "category": [{"coding": [{"code": "inpatient", "system": "http://terminology.hl7.org/CodeSystem/medicationrequest-category"}]}]}
+{"id": "3.2", "subject": {"reference": "Patient/3"}, "category": [{"coding": [{"code": "outpatient", "system": "http://terminology.hl7.org/CodeSystem/medicationrequest-category"}]}]}
+{"id": "3.3", "subject": {"reference": "Patient/3"}, "category": [{"coding": [{"code": "outpatient", "system": "http://terminology.hl7.org/CodeSystem/medicationrequest-category"}]}]}
+{"id": "3.4", "subject": {"reference": "Patient/3"}, "category": [{"coding": [{"code": "inpatient", "system": "http://terminology.hl7.org/CodeSystem/medicationrequest-category"}, {"code": "discharge", "system": "http://terminology.hl7.org/CodeSystem/medicationrequest-category"}]}]}
 {"id": "extra"}
