@@ -1,15 +1,16 @@
 """Module for generating tables based on US Core v4 profile features"""
 
+from typing import ClassVar
+
 from cumulus_library_data_metrics.data_metrics.base import MetricMixin
 
 
 class UsCoreV4Mixin(MetricMixin):
-
     # These methods largely deal with inspecting the schema before we fully query the table.
     # Complex column values deeper than the toplevel are not guaranteed to be present in the schema.
     # So we check if they are here.
 
-    uses_fields = {
+    uses_fields: ClassVar[dict] = {
         "AllergyIntolerance": {
             "reaction": [
                 "manifestation",

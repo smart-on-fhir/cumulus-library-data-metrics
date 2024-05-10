@@ -1,6 +1,7 @@
 """Module for generating c_pt_deceased_count tables"""
 
 from cumulus_library.base_table_builder import BaseTableBuilder
+
 from cumulus_library_data_metrics.data_metrics.base import MetricMixin
 
 

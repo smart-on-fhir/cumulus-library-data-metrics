@@ -1,1 +1,1 @@
-from .profiles import UsCoreV4Mixin
+from .profiles import UsCoreV4Mixin  # noqa: F401

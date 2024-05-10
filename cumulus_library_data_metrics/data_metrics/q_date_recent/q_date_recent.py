@@ -5,6 +5,7 @@ https://github.com/sync-for-science/qualifier/blob/master/metrics.md#q_date_rece
 """
 
 from cumulus_library.base_table_builder import BaseTableBuilder
+
 from cumulus_library_data_metrics.data_metrics.base import MetricMixin
 
 
@@ -13,7 +14,7 @@ class DateRecentBuilder(MetricMixin, BaseTableBuilder):
 
     def make_table(self, **kwargs) -> None:
         """Make a single metric table"""
-        summary_key = kwargs['src'].lower()
+        summary_key = kwargs["src"].lower()
         self.summary_entries[summary_key] = None
 
         self.queries.append(self.render_sql(self.name, **kwargs))

@@ -2,6 +2,7 @@
 
 import copy
 import os.path
+from typing import ClassVar
 
 import jinja2
 from cumulus_library import databases
@@ -11,9 +12,8 @@ from cumulus_library_data_metrics.data_metrics import resource_info
 
 
 class MetricMixin:
-
     name = "base"
-    uses_fields = {}
+    uses_fields: ClassVar[dict] = {}
 
     def __init__(self):
         super().__init__()
@@ -31,7 +31,9 @@ class MetricMixin:
         sql = self.render_sql("../base.summary", entries=self.summary_entries, metric=self.name)
         self.queries.append(sql)
 
-    def _query_schema(self, cursor: databases.DatabaseCursor, schema: str, parser: databases.DatabaseParser) -> None:
+    def _query_schema(
+        self, cursor: databases.DatabaseCursor, schema: str, parser: databases.DatabaseParser
+    ) -> None:
         fields_to_check = copy.deepcopy(self.uses_fields)
 
         # Since so many metrics use date data, add a standard date field into the mix
@@ -48,7 +50,10 @@ class MetricMixin:
             table_schema = cursor.fetchall()
             self.schemas[table] = parser.validate_table_schema(cols, table_schema)
 
-        if check_docref_period and not self.schemas["DocumentReference"]["context"]["period"]["start"]:
+        if (
+            check_docref_period
+            and not self.schemas["DocumentReference"]["context"]["period"]["start"]
+        ):
             self.date_fields["DocumentReference"].remove("context.period.start")
 
     def extra_schema_checks(self, cursor: databases.DatabaseCursor, schema: str) -> None:
@@ -57,7 +62,14 @@ class MetricMixin:
     def add_metric_queries(self) -> None:
         pass
 
-    def prepare_queries(self, cursor: databases.DatabaseCursor, schema: str, *args, parser: databases.DatabaseParser, **kwargs) -> None:
+    def prepare_queries(
+        self,
+        cursor: databases.DatabaseCursor,
+        schema: str,
+        *args,
+        parser: databases.DatabaseParser,
+        **kwargs,
+    ) -> None:
         self._query_schema(cursor, schema, parser)
         self.extra_schema_checks(cursor, schema)
         self.add_metric_queries()

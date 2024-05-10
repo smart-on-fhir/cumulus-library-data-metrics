@@ -11,11 +11,16 @@ CATEGORIES = {
     },
     "DiagnosticReport": {
         "cat_field": "category",
-        "cat_systems": ["http://loinc.org", "http://terminology.hl7.org/CodeSystem/v2-0074"],
+        "cat_systems": [
+            "http://loinc.org",
+            "http://terminology.hl7.org/CodeSystem/v2-0074",
+        ],
     },
     "DocumentReference": {
         "cat_field": "category",
-        "cat_systems": ["http://hl7.org/fhir/us/core/CodeSystem/us-core-documentreference-category"],
+        "cat_systems": [
+            "http://hl7.org/fhir/us/core/CodeSystem/us-core-documentreference-category"
+        ],
     },
     "Encounter": {
         "cat_field": "type",
@@ -43,7 +48,12 @@ DATES = {
     "Encounter": ["period.start"],
     "Immunization": ["occurrenceDateTime", "recorded"],
     "MedicationRequest": ["authoredOn"],
-    "Observation": ["effectiveDateTime", "effectivePeriod.start", "effectiveInstant", "issued"],
+    "Observation": [
+        "effectiveDateTime",
+        "effectivePeriod.start",
+        "effectiveInstant",
+        "issued",
+    ],
     "Procedure": ["performedDateTime", "performedPeriod.start"],
 }
 
