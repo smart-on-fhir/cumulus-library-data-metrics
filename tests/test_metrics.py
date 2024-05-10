@@ -111,10 +111,10 @@ class MetricsTestCase(unittest.TestCase):
         # Set up and run the study!
         with tempfile.TemporaryDirectory() as tmpdir:
             # Copy all our study code to this tmpdir
-            shutil.copytree(f"{root_dir}/data_metrics", f"{tmpdir}/data_metrics")
+            shutil.copytree(f"{root_dir}/cumulus_library_data_metrics", f"{tmpdir}/cumulus_library_data_metrics")
 
             # But change the manifest to only run one test metric, for speed reasons
-            with open(f"{tmpdir}/data_metrics/manifest.toml", "w", encoding="utf8") as f:
+            with open(f"{tmpdir}/cumulus_library_data_metrics/data_metrics/manifest.toml", "w", encoding="utf8") as f:
                 f.write(
                     f"""
 study_prefix = "data_metrics"
@@ -130,7 +130,7 @@ file_names = [
                     "build",
                     # "--verbose",
                     "--target=data_metrics",
-                    f"--study-dir={tmpdir}/data_metrics",
+                    f"--study-dir={tmpdir}/cumulus_library_data_metrics",
                     "--db-type=duckdb",
                     f"--database={tmpdir}/duck.db",
                     f"--load-ndjson-dir={data_dir}",

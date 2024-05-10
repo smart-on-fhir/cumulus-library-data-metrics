@@ -1,0 +1,36 @@
+[project]
+name = "cumulus-library-data-metrics"
+requires-python = ">= 3.10"
+dependencies = [
+    "cumulus-library >= 2.1, < 3",
+]
+description = "Data quality and characterization metrics for Cumulus"
+readme = "README.md"
+license = { text="Apache License 2.0" }
+classifiers = [
+    "License :: OSI Approved :: Apache Software License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+dynamic = ["version"]
+
+[project.urls]
+Home = "https://smarthealthit.org/cumulus/"
+Documentation = "https://docs.smarthealthit.org/cumulus/"
+Source = "https://github.com/smart-on-fhir/cumulus-library-data-metrics"
+
+[build-system]
+requires = ["flit_core >=3.4,<4"]
+build-backend = "flit_core.buildapi"
+
+[tool.flit.sdist]
+include = [
+    "tests/",
+    "LICENSE",
+]
+
+[project.optional-dependencies]
+tests = [
+    "pytest",
+]
