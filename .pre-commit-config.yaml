@@ -1,0 +1,11 @@
+default_install_hook_types: [pre-commit, pre-push]
+repos:
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.4.4
+    hooks:
+      - name: Ruff formatting
+        id: ruff-format
+        entry: bash -c 'ruff format --force-exclude "$@"; git add -u' --
+      - name: Ruff linting
+        id: ruff
+        stages: [pre-push]

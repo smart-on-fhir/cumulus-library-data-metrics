@@ -9,7 +9,6 @@ from unittest import mock
 
 import ddt
 import duckdb
-
 from cumulus_library import cli
 
 
@@ -84,11 +83,9 @@ class MetricsTestCase(unittest.TestCase):
         """This is a fake metric, designed just to test profile validity detection"""
         self.run_study("t_us_core_v4", test=test_name)
 
-
     # **********************************
     # ** Support code below this line **
     # **********************************
-
 
     def setUp(self):
         super().setUp()
@@ -111,10 +108,14 @@ class MetricsTestCase(unittest.TestCase):
         # Set up and run the study!
         with tempfile.TemporaryDirectory() as tmpdir:
             # Copy all our study code to this tmpdir
-            shutil.copytree(f"{root_dir}/data_metrics", f"{tmpdir}/data_metrics")
+            shutil.copytree(
+                f"{root_dir}/cumulus_library_data_metrics",
+                f"{tmpdir}/cumulus_library_data_metrics",
+            )
 
             # But change the manifest to only run one test metric, for speed reasons
-            with open(f"{tmpdir}/data_metrics/manifest.toml", "w", encoding="utf8") as f:
+            manifest_file = f"{tmpdir}/cumulus_library_data_metrics/data_metrics/manifest.toml"
+            with open(manifest_file, "w", encoding="utf8") as f:
                 f.write(
                     f"""
 study_prefix = "data_metrics"
@@ -130,7 +131,7 @@ file_names = [
                     "build",
                     # "--verbose",
                     "--target=data_metrics",
-                    f"--study-dir={tmpdir}/data_metrics",
+                    f"--study-dir={tmpdir}/cumulus_library_data_metrics",
                     "--db-type=duckdb",
                     f"--database={tmpdir}/duck.db",
                     f"--load-ndjson-dir={data_dir}",
@@ -139,23 +140,23 @@ file_names = [
             db = duckdb.connect(f"{tmpdir}/duck.db")
 
             # Uncomment this for extra debugging
-            # df = db.execute("select * from data_metrics__count_c_term_coverage_allergyintolerance_code_text_counts").df()
+            # df = db.execute("select * from data_metrics__xxx").df()
             # print(df.to_string())
 
             # Check each output with the saved & expected version
             for short_name, full_name in expected_tables.items():
                 csv_path = f"{tmpdir}/{full_name}.csv"
                 db_table = db.table(full_name)
-                sorted_table = db_table.order(f"ALL DESC NULLS FIRST")
+                sorted_table = db_table.order("ALL DESC NULLS FIRST")
                 sorted_table.to_csv(csv_path)
-                with open(csv_path, "r", encoding="utf8") as f:
+                with open(csv_path, encoding="utf8") as f:
                     csv = f.read()
 
                 expected_path = f"{data_dir}/expected{short_name}.csv"
-                with open(expected_path, "r", encoding="utf8") as f:
+                with open(expected_path, encoding="utf8") as f:
                     expected_lines = f.readlines()
                     # To allow for comments in expected files, strip them out here
-                    expected = ''.join(line for line in expected_lines if not line.startswith("#"))
+                    expected = "".join(line for line in expected_lines if not line.startswith("#"))
 
                 explanation = f"{short_name}:\n{csv}"
                 self.assertEqual(expected, csv, explanation)
