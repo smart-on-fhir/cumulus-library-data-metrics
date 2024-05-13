@@ -12,7 +12,16 @@ tmp_verification_flat AS {{
 tmp_verification AS (
     SELECT
         id,
-        BOOL_AND(tmp_verification_flat.code IS NOT NULL) AS valid_verification_status
+        -- This is a repeated check with the mandatory side.
+        -- We check the code binding on the mandatory side, since that's a required binding
+        -- and we like to validate those where possible.
+        -- But this field is really only a must-support field, so we also report it here.
+        BOOL_AND(
+            {{ utils.is_code_valid(
+                'tmp_verification_flat.code',
+                'unconfirmed | provisional | differential | confirmed | refuted | entered-in-error'
+            ) }}
+        ) AS valid_verification_status
     FROM tmp_verification_flat
     GROUP BY id
 ),
