@@ -3,5 +3,6 @@ cnt,systems,status,year
 2,SNOMED,cumulus__none,cumulus__none
 1,other,cumulus__none,2018
 1,other,confirmed,cumulus__none
+1,SNOMED (OID),cumulus__none,cumulus__none
 1,RxNorm; http://other,cumulus__none,cumulus__none
 1,LOINC; http://other,cumulus__none,cumulus__none

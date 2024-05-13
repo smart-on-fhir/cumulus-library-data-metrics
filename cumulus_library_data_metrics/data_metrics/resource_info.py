@@ -1,5 +1,7 @@
 """Holds various static info about resources we want to examine."""
 
+from cumulus_library_data_metrics.data_metrics import systems
+
 # Categories to slice on
 CATEGORIES = {
     "AllergyIntolerance": {
@@ -7,32 +9,27 @@ CATEGORIES = {
     },
     "Condition": {
         "cat_field": "category",
-        "cat_systems": ["http://terminology.hl7.org/CodeSystem/condition-category"],
+        "cat_systems": [systems.CONDITION_CATEGORY],
     },
     "DiagnosticReport": {
         "cat_field": "category",
-        "cat_systems": [
-            "http://loinc.org",
-            "http://terminology.hl7.org/CodeSystem/v2-0074",
-        ],
+        "cat_systems": [systems.LOINC, systems.DIAGNOSTIC_SECTION],
     },
     "DocumentReference": {
         "cat_field": "category",
-        "cat_systems": [
-            "http://hl7.org/fhir/us/core/CodeSystem/us-core-documentreference-category"
-        ],
+        "cat_systems": [systems.USCORE_DOCREF_CATEGORY],
     },
     "Encounter": {
         "cat_field": "type",
-        "cat_systems": ["http://www.ama-assn.org/go/cpt", "http://snomed.info/sct"],
+        "cat_systems": [systems.CPT, systems.SNOMED],
     },
     "MedicationRequest": {
         "cat_field": "category",
-        "cat_systems": ["http://terminology.hl7.org/CodeSystem/medicationrequest-category"],
+        "cat_systems": [systems.MEDREQ_CATEGORY],
     },
     "Observation": {
         "cat_field": "category",
-        "cat_systems": ["http://terminology.hl7.org/CodeSystem/observation-category"],
+        "cat_systems": [systems.OBSERVATION_CATEGORY],
     },
 }
 

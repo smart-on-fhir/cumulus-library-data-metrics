@@ -2,6 +2,7 @@
 
 from cumulus_library.base_table_builder import BaseTableBuilder
 
+from cumulus_library_data_metrics.data_metrics import systems
 from cumulus_library_data_metrics.data_metrics.base import MetricMixin
 
 # Note that this CUBE is already very large / slow.
@@ -14,7 +15,7 @@ class TermCoverageBuilder(MetricMixin, BaseTableBuilder):
 
     def make_table(self, **kwargs) -> None:
         """Make a single metric table"""
-        self.queries.append(self.render_sql(self.name, **kwargs))
+        self.queries.append(self.render_sql(self.name, system_names=systems.NAMES, **kwargs))
 
     def add_metric_queries(self) -> None:
         # https://github.com/sync-for-science/qualifier/blob/master/metrics.md#c_term_coverage-terminology-count-of-resources-by-terminology-system-by-resource-type-by-category
@@ -26,18 +27,18 @@ class TermCoverageBuilder(MetricMixin, BaseTableBuilder):
         self.make_table(
             src="Observation",
             field="code",
-            category_system="http://terminology.hl7.org/CodeSystem/observation-category",
+            category_system=systems.OBSERVATION_CATEGORY,
         )
         self.make_table(
             src="Observation",
             field="valueCodeableConcept",
-            category_system="http://terminology.hl7.org/CodeSystem/observation-category",
+            category_system=systems.OBSERVATION_CATEGORY,
         )
         self.make_table(src="AllergyIntolerance", field="code")
         self.make_table(
             src="Condition",
             field="code",
-            category_system="http://terminology.hl7.org/CodeSystem/condition-category",
+            category_system=systems.CONDITION_CATEGORY,
         )
         self.make_table(src="Device", field="type")
         self.make_table(src="DiagnosticReport", field="code")
