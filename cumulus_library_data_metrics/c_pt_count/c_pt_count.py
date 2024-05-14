@@ -4,7 +4,7 @@ from typing import ClassVar
 
 from cumulus_library.base_table_builder import BaseTableBuilder
 
-from cumulus_library_data_metrics.data_metrics.base import MetricMixin
+from cumulus_library_data_metrics.base import MetricMixin
 
 
 class PatientCountBuilder(MetricMixin, BaseTableBuilder):

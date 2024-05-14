@@ -3,6 +3,7 @@
 import glob
 import os
 import shutil
+import sys
 import tempfile
 import unittest
 from unittest import mock
@@ -113,8 +114,17 @@ class MetricsTestCase(unittest.TestCase):
                 f"{tmpdir}/cumulus_library_data_metrics",
             )
 
+            # Because we reload the data-metrics study from different paths each time,
+            # python might be keeping the stale imports from previous test builders around.
+            # Manually drop em here.
+            stale_modules = [
+                mod for mod in sys.modules if mod.startswith("cumulus_library_data_metrics")
+            ]
+            for mod in stale_modules:
+                del sys.modules[mod]
+
             # But change the manifest to only run one test metric, for speed reasons
-            manifest_file = f"{tmpdir}/cumulus_library_data_metrics/data_metrics/manifest.toml"
+            manifest_file = f"{tmpdir}/cumulus_library_data_metrics/manifest.toml"
             with open(manifest_file, "w", encoding="utf8") as f:
                 f.write(
                     f"""

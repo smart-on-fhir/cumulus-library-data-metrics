@@ -2,8 +2,8 @@
 
 from cumulus_library.base_table_builder import BaseTableBuilder
 
-from cumulus_library_data_metrics.data_metrics import systems
-from cumulus_library_data_metrics.data_metrics.base import MetricMixin
+from cumulus_library_data_metrics import systems
+from cumulus_library_data_metrics.base import MetricMixin
 
 
 class TermUseBuilder(MetricMixin, BaseTableBuilder):
@@ -71,8 +71,8 @@ class TermUseBuilder(MetricMixin, BaseTableBuilder):
                 systems.CPT,
                 systems.LOINC,
                 systems.SNOMED,
-                "http://www.ada.org/cdt",
-                "https://www.cms.gov/Medicare/Coding/HCPCSReleaseCodeSets",
+                "http://ada.org/cdt",
+                "http://www.cms.gov/Medicare/Coding/HCPCSReleaseCodeSets",
                 "http://www.cms.gov/Medicare/Coding/ICD10",
             ],
         )

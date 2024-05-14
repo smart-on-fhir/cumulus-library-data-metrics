@@ -1,6 +1,6 @@
 """Holds various static info about resources we want to examine."""
 
-from cumulus_library_data_metrics.data_metrics import systems
+from cumulus_library_data_metrics import systems
 
 # Categories to slice on
 CATEGORIES = {
@@ -40,8 +40,8 @@ CATEGORIES = {
 DATES = {
     "AllergyIntolerance": ["recordedDate", "onsetDateTime", "onsetPeriod.start"],
     "Condition": ["recordedDate", "onsetDateTime", "onsetPeriod.start"],
-    "DocumentReference": ["context.period.start", "date"],
     "DiagnosticReport": ["effectiveDateTime", "effectivePeriod.start", "issued"],
+    "DocumentReference": ["context.period.start", "date"],
     "Encounter": ["period.start"],
     "Immunization": ["occurrenceDateTime", "recorded"],
     "MedicationRequest": ["authoredOn"],

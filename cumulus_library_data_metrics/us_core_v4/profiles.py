@@ -2,7 +2,7 @@
 
 from typing import ClassVar
 
-from cumulus_library_data_metrics.data_metrics.base import MetricMixin
+from cumulus_library_data_metrics.base import MetricMixin
 
 
 class UsCoreV4Mixin(MetricMixin):
