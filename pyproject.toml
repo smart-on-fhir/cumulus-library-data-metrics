@@ -32,11 +32,12 @@ include = [
 
 [project.optional-dependencies]
 tests = [
+    "ddt",
     "pytest",
 ]
 dev = [
     "pre-commit",
-    "ruff",
+    "ruff == 0.4.4",  # sync with .pre-commit-config.yaml
 ]
 
 [tool.ruff]
