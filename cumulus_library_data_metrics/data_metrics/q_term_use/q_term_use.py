@@ -2,6 +2,7 @@
 
 from cumulus_library.base_table_builder import BaseTableBuilder
 
+from cumulus_library_data_metrics.data_metrics import systems
 from cumulus_library_data_metrics.data_metrics.base import MetricMixin
 
 
@@ -22,59 +23,44 @@ class TermUseBuilder(MetricMixin, BaseTableBuilder):
         self.make_table(
             src="AllergyIntolerance",
             field="code",
-            systems=[
-                "http://snomed.info/sct",
-                "http://www.nlm.nih.gov/research/umls/rxnorm",
-            ],
+            systems=[systems.RXNORM, systems.SNOMED],
         )
         self.make_table(
             src="Condition",
             field="code",
-            systems=[
-                "http://hl7.org/fhir/sid/icd-10-cm",
-                "http://hl7.org/fhir/sid/icd-9-cm",
-                "http://snomed.info/sct",
-            ],
+            systems=[systems.ICD9CM, systems.ICD10CM, systems.SNOMED],
         )
-        self.make_table(src="Device", field="type", systems=["http://snomed.info/sct"])
-        self.make_table(src="DiagnosticReport", field="code", systems=["http://loinc.org"])
-        self.make_table(src="DocumentReference", field="type", systems=["http://loinc.org"])
+        self.make_table(src="Device", field="type", systems=[systems.SNOMED])
+        self.make_table(src="DiagnosticReport", field="code", systems=[systems.LOINC])
+        self.make_table(src="DocumentReference", field="type", systems=[systems.LOINC])
         self.make_table(
             src="Immunization",
             field="vaccineCode",
-            systems=[
-                # The FHIR spec also gives urn:oid:1.2.36.1.2001.1005.17 as an example,
-                # but the US Core profile drops that suggestion in favor of only CVX.
-                "http://hl7.org/fhir/sid/cvx",
-            ],
+            # The FHIR spec also gives urn:oid:1.2.36.1.2001.1005.17 as an example,
+            # but the US Core profile drops that suggestion in favor of only CVX.
+            systems=[systems.CVX],
         )
         self.make_table(
             src="Medication",
             field="code",
-            systems=[
-                # The FHIR spec gives SNOMED as an example, but the US Core profile drops that
-                # suggestion in favor of only RxNorm
-                "http://www.nlm.nih.gov/research/umls/rxnorm",
-            ],
+            # The FHIR spec gives SNOMED as an example, but the US Core profile drops that
+            # suggestion in favor of only RxNorm
+            systems=[systems.RXNORM],
         )
         self.make_table(
             src="MedicationRequest",
             field="medicationCodeableConcept",
-            systems=[
-                # The FHIR spec gives SNOMED as an example, but the US Core profile drops that
-                # suggestion in favor of only RxNorm
-                "http://www.nlm.nih.gov/research/umls/rxnorm",
-            ],
+            # The FHIR spec gives SNOMED as an example, but the US Core profile drops that
+            # suggestion in favor of only RxNorm
+            systems=[systems.RXNORM],
         )
-        self.make_table(src="Observation", field="code", systems=["http://loinc.org"])
+        self.make_table(src="Observation", field="code", systems=[systems.LOINC])
         self.make_table(
             src="Observation",
             field="valueCodeableConcept",
-            systems=[
-                # Base FHIR doesn't suggest anything specific here, but the Laboratory and
-                # Smoking Status profiles both want SNOMED.
-                "http://snomed.info/sct",
-            ],
+            # Base FHIR doesn't suggest anything specific here, but the Laboratory and
+            # Smoking Status profiles both want SNOMED.
+            systems=[systems.SNOMED],
         )
         self.make_table(
             src="Procedure",
@@ -82,10 +68,10 @@ class TermUseBuilder(MetricMixin, BaseTableBuilder):
             systems=[
                 # Base FHIR only gives SNOMED as an example,
                 # but the US Core v4 profile lists all these.
-                "http://loinc.org",
-                "http://snomed.info/sct",
+                systems.CPT,
+                systems.LOINC,
+                systems.SNOMED,
                 "http://www.ada.org/cdt",
-                "http://www.ama-assn.org/go/cpt",
                 "https://www.cms.gov/Medicare/Coding/HCPCSReleaseCodeSets",
                 "http://www.cms.gov/Medicare/Coding/ICD10",
             ],

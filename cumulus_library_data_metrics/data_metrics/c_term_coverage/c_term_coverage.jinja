@@ -32,21 +32,13 @@ src_systems_flat AS (
 src_systems_readable AS (
     SELECT
         id,
-        (
-            CASE
-            WHEN system = 'http://hl7.org/fhir/sid/cvx'
-            THEN 'CVX'
-            WHEN system = 'http://hl7.org/fhir/sid/ndc'
-            THEN 'NDC'
-            WHEN system = 'http://loinc.org'
-            THEN 'LOINC'
-            WHEN system = 'http://snomed.info/sct'
-            THEN 'SNOMED'
-            WHEN system = 'http://www.nlm.nih.gov/research/umls/rxnorm'
-            THEN 'RxNorm'
-            ELSE system
-            END
-        ) AS system
+        CASE
+        {% for url, name in system_names.items() %}
+        WHEN system = '{{ url }}'
+        THEN '{{ name }}'
+        {% endfor %}
+        ELSE system
+        END AS system
     FROM src_systems_flat
 ),
 src_systems AS (

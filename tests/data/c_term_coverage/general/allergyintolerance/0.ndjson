@@ -1,5 +1,6 @@
 {"id": "snomed", "code": {"coding": [{"system": "http://snomed.info/sct"}]}}
 {"id": "snomed-with-text", "code": {"coding": [{"system": "http://snomed.info/sct"}], "text": "hello"}}
+{"id": "snomed-oid", "code": {"coding": [{"system": "urn:oid:2.16.840.1.113883.6.96"}]}}
 {"id": "multiple-systems", "code": {"coding": [{"code": "boo"}, {"system": "http://other"}, {"system": "http://loinc.org"}], "text": "\u0000"}}
 {"id": "repeated-systems", "code": {"coding": [{"system": "http://other"}, {"system": "http://other"}, {"system": "http://www.nlm.nih.gov/research/umls/rxnorm"}]}}
 {"id": "no-system", "code": {"coding": [{"code": "boo"}]}}
