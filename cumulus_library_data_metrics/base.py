@@ -5,10 +5,10 @@ import os.path
 from typing import ClassVar
 
 import jinja2
-from cumulus_library import databases
-from cumulus_library.template_sql import base_templates
+from cumulus_library import base_utils
+from cumulus_library.template_sql import sql_utils
 
-from cumulus_library_data_metrics.data_metrics import resource_info
+from cumulus_library_data_metrics import resource_info
 
 
 class MetricMixin:
@@ -31,9 +31,7 @@ class MetricMixin:
         sql = self.render_sql("../base.summary", entries=self.summary_entries, metric=self.name)
         self.queries.append(sql)
 
-    def _query_schema(
-        self, cursor: databases.DatabaseCursor, schema: str, parser: databases.DatabaseParser
-    ) -> None:
+    def _query_schema(self, config: base_utils.StudyConfig) -> None:
         fields_to_check = copy.deepcopy(self.uses_fields)
 
         # Since so many metrics use date data, add a standard date field into the mix
@@ -44,11 +42,7 @@ class MetricMixin:
             period = context.setdefault("period", {})
             period["start"] = {}
 
-        for table, cols in fields_to_check.items():
-            query = base_templates.get_column_datatype_query(schema, table.lower(), cols.keys())
-            cursor.execute(query)
-            table_schema = cursor.fetchall()
-            self.schemas[table] = parser.validate_table_schema(cols, table_schema)
+        self.schemas = sql_utils.validate_schema(config.db, fields_to_check)
 
         if (
             check_docref_period
@@ -56,7 +50,7 @@ class MetricMixin:
         ):
             self.date_fields["DocumentReference"].remove("context.period.start")
 
-    def extra_schema_checks(self, cursor: databases.DatabaseCursor, schema: str) -> None:
+    def extra_schema_checks(self, config: base_utils.StudyConfig) -> None:
         pass
 
     def add_metric_queries(self) -> None:
@@ -64,14 +58,12 @@ class MetricMixin:
 
     def prepare_queries(
         self,
-        cursor: databases.DatabaseCursor,
-        schema: str,
         *args,
-        parser: databases.DatabaseParser,
+        config: base_utils.StudyConfig,
         **kwargs,
     ) -> None:
-        self._query_schema(cursor, schema, parser)
-        self.extra_schema_checks(cursor, schema)
+        self._query_schema(config)
+        self.extra_schema_checks(config)
         self.add_metric_queries()
 
     def render_sql(self, template: str, **kwargs) -> str:

@@ -2,7 +2,7 @@
 
 from cumulus_library.base_table_builder import BaseTableBuilder
 
-from cumulus_library_data_metrics.data_metrics.us_core_v4 import UsCoreV4Mixin
+from cumulus_library_data_metrics.us_core_v4 import UsCoreV4Mixin
 
 
 class ValidUsCoreV4Builder(UsCoreV4Mixin, BaseTableBuilder):
