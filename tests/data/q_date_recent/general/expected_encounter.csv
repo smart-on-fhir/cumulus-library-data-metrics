@@ -1,2 +1,2 @@
-id,period_start,status
-future,9999,finished
+id,period_start,period_end,status
+future,2000,9999,finished

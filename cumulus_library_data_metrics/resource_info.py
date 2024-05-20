@@ -38,20 +38,34 @@ CATEGORIES = {
 # then best effort start dates like onsetDateTime.
 # See https://github.com/smart-on-fhir/cumulus-library-data-metrics/issues/16 for more.
 DATES = {
-    "AllergyIntolerance": ["recordedDate", "onsetDateTime", "onsetPeriod.start"],
-    "Condition": ["recordedDate", "onsetDateTime", "onsetPeriod.start"],
-    "DiagnosticReport": ["effectiveDateTime", "effectivePeriod.start", "issued"],
-    "DocumentReference": ["context.period.start", "date"],
-    "Encounter": ["period.start"],
+    "AllergyIntolerance": ["recordedDate", "onsetDateTime", "onsetPeriod.start", "onsetPeriod.end"],
+    "Condition": [
+        "recordedDate",
+        "onsetDateTime",
+        "onsetPeriod.start",
+        "onsetPeriod.end",
+        "abatementDateTime",
+        "abatementPeriod.start",
+        "abatementPeriod.end",
+    ],
+    "DiagnosticReport": [
+        "effectiveDateTime",
+        "effectivePeriod.start",
+        "effectivePeriod.end",
+        "issued",
+    ],
+    "DocumentReference": ["context.period.start", "context.period.end", "date"],
+    "Encounter": ["period.start", "period.end"],
     "Immunization": ["occurrenceDateTime", "recorded"],
     "MedicationRequest": ["authoredOn"],
     "Observation": [
         "effectiveDateTime",
         "effectivePeriod.start",
+        "effectivePeriod.end",
         "effectiveInstant",
         "issued",
     ],
-    "Procedure": ["performedDateTime", "performedPeriod.start"],
+    "Procedure": ["performedDateTime", "performedPeriod.start", "performedPeriod.end"],
 }
 
 # Which field to examine for a Patient

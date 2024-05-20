@@ -31,24 +31,33 @@ class MetricMixin:
         sql = self.render_sql("../base.summary", entries=self.summary_entries, metric=self.name)
         self.queries.append(sql)
 
-    def _query_schema(self, config: base_utils.StudyConfig) -> None:
-        fields_to_check = copy.deepcopy(self.uses_fields)
-
-        # Since so many metrics use date data, add a standard date field into the mix
-        check_docref_period = "context.period.start" in self.date_fields["DocumentReference"]
+    def _check_for_deep_docref_date(self, field: str, fields_to_check: dict) -> bool:
+        check_docref_period = f"context.period.{field}" in self.date_fields["DocumentReference"]
         if check_docref_period:
             docref = fields_to_check.setdefault("DocumentReference", {})
             context = docref.setdefault("context", {})
             period = context.setdefault("period", {})
-            period["start"] = {}
+            period[field] = {}
+        return check_docref_period
+
+    def _clear_deep_docref_date(self, field: str) -> None:
+        if not self.schemas["DocumentReference"]["context"]["period"][field]:
+            self.date_fields["DocumentReference"].remove(f"context.period.{field}")
+
+    def _query_schema(self, config: base_utils.StudyConfig) -> None:
+        fields_to_check = copy.deepcopy(self.uses_fields)
+
+        # Check for some known deep fields especially - if the list of fields grows, we should
+        # make this more generic.
+        check_docref_start = self._check_for_deep_docref_date("start", fields_to_check)
+        check_docref_end = self._check_for_deep_docref_date("end", fields_to_check)
 
         self.schemas = sql_utils.validate_schema(config.db, fields_to_check)
 
-        if (
-            check_docref_period
-            and not self.schemas["DocumentReference"]["context"]["period"]["start"]
-        ):
-            self.date_fields["DocumentReference"].remove("context.period.start")
+        if check_docref_start:
+            self._clear_deep_docref_date("start")
+        if check_docref_end:
+            self._clear_deep_docref_date("end")
 
     def extra_schema_checks(self, config: base_utils.StudyConfig) -> None:
         pass
