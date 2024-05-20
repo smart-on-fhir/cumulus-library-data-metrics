@@ -1,4 +1,11 @@
-{% if src == "Observation" %}
+{% if src == "DiagnosticReport" %}
+    {% import 'us_core_v4/diagnosticreport_utils.jinja' as dr_utils %}
+    {% if name == "lab" %}
+        {{ dr_utils.extract_lab_slice(src) }}
+    {% else %}
+        {{ dr_utils.extract_non_lab_slice(src) }}
+    {% endif %}
+{% elif src == "Observation" %}
     {% import 'us_core_v4/observation_utils.jinja' as obs_utils %}
     {% if loinc %}
         {{ obs_utils.extract_loinc_slice(src, loinc) }}

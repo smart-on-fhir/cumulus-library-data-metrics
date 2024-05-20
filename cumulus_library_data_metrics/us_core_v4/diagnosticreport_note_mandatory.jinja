@@ -1,8 +1,9 @@
 -- http://hl7.org/fhir/us/core/STU4/StructureDefinition-us-core-diagnosticreport-note.html
 -- There is another lab-report-specific profile,
--- but this is the "base DiagnosticReport" profile that covers the bare minimum.
+-- but this is the "base DiagnosticReport" profile that covers the non-LAB rows.
 
 WITH
+tmp_slice AS {% include 'us_core_v4/slice.jinja' %},
 
 tmp_simplified AS (
     SELECT
@@ -26,7 +27,7 @@ tmp_simplified AS (
             effectiveDateTime IS NOT NULL
             OR {{ utils.is_period_valid('effectivePeriod') }}
         ) AS valid_effective
-    FROM {{ src }}
+    FROM tmp_slice
 )
 
 {%
