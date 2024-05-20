@@ -18,12 +18,6 @@ class TermCoverageBuilder(MetricMixin, BaseTableBuilder):
         self.queries.append(self.render_sql(self.name, system_names=systems.NAMES, **kwargs))
 
     def add_metric_queries(self) -> None:
-        # https://github.com/sync-for-science/qualifier/blob/master/metrics.md#c_term_coverage-terminology-count-of-resources-by-terminology-system-by-resource-type-by-category
-        # With some tweaks:
-        # - Also stratify by year
-        # - Don't stratify by has_text -- CUBE was too big, had to drop something
-        # - added Encounter.class
-        # - added Medication.code
         self.make_table(
             src="Observation",
             field="code",

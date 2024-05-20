@@ -100,6 +100,7 @@ class UsCoreV4Mixin(MetricMixin):
         # Rest of profiles
         self.make_table(src="AllergyIntolerance")
         self.make_table(src="Condition")
+        self.make_table(src="DiagnosticReport", name="lab")
         self.make_table(src="DiagnosticReport", name="note")
         self.make_table(src="DocumentReference")
         self.make_table(src="Encounter")

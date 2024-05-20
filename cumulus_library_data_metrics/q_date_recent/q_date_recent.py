@@ -1,7 +1,5 @@
 """
 Module for generating q_date_recent tables
-
-https://github.com/sync-for-science/qualifier/blob/master/metrics.md#q_date_recent-plausibility-expect-date-to-be-in-recent-past
 """
 
 from cumulus_library.base_table_builder import BaseTableBuilder

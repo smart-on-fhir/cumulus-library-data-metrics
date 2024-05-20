@@ -41,3 +41,18 @@
     WHERE tmp_lab_ids.id IS NULL -- excludes all matching (i.e. LAB) rows
 )
 {%- endmacro %}
+
+{% macro is_dr_status_valid() -%}
+    {{ utils.is_code_valid('status', [
+        'registered',
+        'partial',
+        'preliminary',
+        'final',
+        'amended',
+        'corrected',
+        'appended',
+        'cancelled',
+        'entered-in-error',
+        'unknown',
+    ])}}
+{%- endmacro %}
