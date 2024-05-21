@@ -10,13 +10,13 @@ The following qualifier metrics are implemented (per May 2024 qualifer definitio
 - [c_pt_deceased_count](https://github.com/sync-for-science/qualifier/blob/master/metrics.md#c_pt_deceased_count)
 - [c_resource_count](https://github.com/sync-for-science/qualifier/blob/master/metrics.md#c_resource_count)
 - [c_resources_per_pt](https://github.com/sync-for-science/qualifier/blob/master/metrics.md#c_resources_per_pt)
-- [c_term_coverage](https://github.com/sync-for-science/qualifier/blob/master/metrics.md#c_term_coverage)
+- [c_system_use](https://github.com/sync-for-science/qualifier/blob/master/metrics.md#c_system_use)
 - [c_us_core_v4_count](https://github.com/sync-for-science/qualifier/blob/master/metrics.md#c_us_core_v4_count)
   - Note that the various more-specific Vital Signs profiles are not yet implemented
 - [q_date_recent](https://github.com/sync-for-science/qualifier/blob/master/metrics.md#q_date_recent)
 - [q_ref_target_pop](https://github.com/sync-for-science/qualifier/blob/master/metrics.md#q_ref_target_pop)
 - [q_ref_target_valid](https://github.com/sync-for-science/qualifier/blob/master/metrics.md#q_ref_target_valid)
-- [q_term_use](https://github.com/sync-for-science/qualifier/blob/master/metrics.md#q_term_use)
+- [q_system_use](https://github.com/sync-for-science/qualifier/blob/master/metrics.md#q_system_use)
 - [q_valid_us_core_v4](https://github.com/sync-for-science/qualifier/blob/master/metrics.md#q_valid_us_core_v4)
   - Note that the various more-specific Vital Signs profiles are not yet implemented
 

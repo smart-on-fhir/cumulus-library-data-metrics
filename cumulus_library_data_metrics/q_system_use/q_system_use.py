@@ -1,4 +1,4 @@
-"""Module for generating q_term_use tables"""
+"""Module for generating q_system_use tables"""
 
 from cumulus_library.base_table_builder import BaseTableBuilder
 
@@ -6,8 +6,8 @@ from cumulus_library_data_metrics import systems
 from cumulus_library_data_metrics.base import MetricMixin
 
 
-class TermUseBuilder(MetricMixin, BaseTableBuilder):
-    name = "q_term_use"
+class SystemUseBuilder(MetricMixin, BaseTableBuilder):
+    name = "q_system_use"
 
     def make_table(self, **kwargs) -> None:
         """Make a single metric table"""

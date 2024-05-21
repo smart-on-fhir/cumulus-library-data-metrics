@@ -1,4 +1,4 @@
-"""Module for generating c_term_coverage tables"""
+"""Module for generating c_system_use tables"""
 
 from cumulus_library.base_table_builder import BaseTableBuilder
 
@@ -10,8 +10,8 @@ from cumulus_library_data_metrics.base import MetricMixin
 # We already had to drop one planned column (has_text) from it due to performance.
 
 
-class TermCoverageBuilder(MetricMixin, BaseTableBuilder):
-    name = "c_term_coverage"
+class SystemUseBuilder(MetricMixin, BaseTableBuilder):
+    name = "c_system_use"
 
     def make_table(self, **kwargs) -> None:
         """Make a single metric table"""

@@ -1,4 +1,4 @@
-# c_term_coverage
+# c_system_use
 
 **Which Systems Are in Use?**
 
@@ -12,17 +12,6 @@ slicing and dicing that field by category and time (if relevant).
 - year (depending on resource)
 - status
 - systems
-
-### Notes on `has_text`
-
-This metric looks only at `CodeableConcept.text`,
-not any `Coding.display` values inside the `CodeableConcept`.
-
-There are four values:
-- `cumulus__none` (no `CodeableConcepts` were present at all for the field)
-- `No Text` (none of the `CodeableConcepts` have text)
-- `Partial Text` (some of the `CodeableConcepts` in the array had text, others did not)
-- `Has Text` (all `CodeableConcepts` for the field had text)
 
 ### Notes on `systems`
 
