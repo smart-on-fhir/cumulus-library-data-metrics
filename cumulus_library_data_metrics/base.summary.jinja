@@ -22,11 +22,13 @@ CREATE TABLE data_metrics__{{ metric }}_summary AS (
             numerator_table.entry_key AS id,
             numerator,
             denominator,
-            CASE
+            CAST(
+                CASE
                 WHEN denominator = 0 OR numerator = 0
-                THEN '0%'
-                ELSE CONCAT(CAST(CAST(CAST(numerator AS real) / denominator * 100 AS DECIMAL(5, 2)) AS varchar(10)), '%')
-            END AS percentage
+                THEN 0
+                ELSE CAST(numerator AS real) / denominator * 100
+                END
+            AS DECIMAL(5, 2)) AS percentage
         FROM {{ entry_key }}_numerator AS numerator_table
         INNER JOIN {{ entry_key }}_denominator AS denominator_table
         ON numerator_table.entry_key = denominator_table.entry_key
