@@ -1,205 +1,441 @@
-cnt,birth_year,administrative_gender,ethnicity,race,status
-11,,,,,
-9,,,,,active
-8,,,,cumulus__none,
-7,,,cumulus__none,,
-7,,other,,,
-7,,other,,,active
-6,,,,cumulus__none,active
-5,,,cumulus__none,,active
-5,,,cumulus__none,cumulus__none,
-5,,other,,cumulus__none,
-5,,other,,cumulus__none,active
-5,,other,cumulus__none,,
-5,,other,cumulus__none,,active
-5,2001,,,,
-5,2001,,,,active
-5,2001,,cumulus__none,,
-5,2001,,cumulus__none,,active
-5,2001,other,,,
-5,2001,other,,,active
-5,2001,other,cumulus__none,,
-5,2001,other,cumulus__none,,active
-3,,,cumulus__none,cumulus__none,active
-3,,,Hispanic or Latino,,
-3,,,Hispanic or Latino,,active
-3,,other,cumulus__none,cumulus__none,
-3,,other,cumulus__none,cumulus__none,active
-3,,cumulus__none,,,
-3,,cumulus__none,,cumulus__none,
-3,cumulus__none,,,,
-3,cumulus__none,,,cumulus__none,
-3,2001,,,cumulus__none,
-3,2001,,,cumulus__none,active
-3,2001,,cumulus__none,cumulus__none,
-3,2001,,cumulus__none,cumulus__none,active
-3,2001,other,,cumulus__none,
-3,2001,other,,cumulus__none,active
-3,2001,other,cumulus__none,cumulus__none,
-3,2001,other,cumulus__none,cumulus__none,active
-2,,,Hispanic or Latino,cumulus__none,
-2,,,Hispanic or Latino,cumulus__none,active
-2,,cumulus__none,cumulus__none,,
-2,,cumulus__none,cumulus__none,cumulus__none,
-2,cumulus__none,,cumulus__none,,
-2,cumulus__none,,cumulus__none,cumulus__none,
-2,cumulus__none,cumulus__none,,,
-2,cumulus__none,cumulus__none,,cumulus__none,
-2,cumulus__none,cumulus__none,cumulus__none,,
-2,cumulus__none,cumulus__none,cumulus__none,cumulus__none,
-1,,,,,inactive
-1,,,,,cumulus__none
-1,,,,cumulus__none,inactive
-1,,,,cumulus__none,cumulus__none
-1,,,,Unknown,
-1,,,,Unknown,active
-1,,,,Asked but no answer,
-1,,,,Asked but no answer,active
-1,,,,American Indian or Alaska Native; Asian; Black or African American; Native Hawaiian or Other Pacific Islander; White,
-1,,,,American Indian or Alaska Native; Asian; Black or African American; Native Hawaiian or Other Pacific Islander; White,active
-1,,,cumulus__none,,inactive
-1,,,cumulus__none,,cumulus__none
-1,,,cumulus__none,cumulus__none,inactive
-1,,,cumulus__none,cumulus__none,cumulus__none
-1,,,cumulus__none,Unknown,
-1,,,cumulus__none,Unknown,active
-1,,,cumulus__none,Asked but no answer,
-1,,,cumulus__none,Asked but no answer,active
-1,,,Non Hispanic or Latino,,
-1,,,Non Hispanic or Latino,,active
-1,,,Non Hispanic or Latino,cumulus__none,
-1,,,Non Hispanic or Latino,cumulus__none,active
-1,,,Hispanic or Latino,American Indian or Alaska Native; Asian; Black or African American; Native Hawaiian or Other Pacific Islander; White,
-1,,,Hispanic or Latino,American Indian or Alaska Native; Asian; Black or African American; Native Hawaiian or Other Pacific Islander; White,active
-1,,other,,Unknown,
-1,,other,,Unknown,active
-1,,other,,Asked but no answer,
-1,,other,,Asked but no answer,active
-1,,other,cumulus__none,Unknown,
-1,,other,cumulus__none,Unknown,active
-1,,other,cumulus__none,Asked but no answer,
-1,,other,cumulus__none,Asked but no answer,active
-1,,other,Non Hispanic or Latino,,
-1,,other,Non Hispanic or Latino,,active
-1,,other,Non Hispanic or Latino,cumulus__none,
-1,,other,Non Hispanic or Latino,cumulus__none,active
-1,,other,Hispanic or Latino,,
-1,,other,Hispanic or Latino,,active
-1,,other,Hispanic or Latino,cumulus__none,
-1,,other,Hispanic or Latino,cumulus__none,active
-1,,female,,,
-1,,female,,,active
-1,,female,,American Indian or Alaska Native; Asian; Black or African American; Native Hawaiian or Other Pacific Islander; White,
-1,,female,,American Indian or Alaska Native; Asian; Black or African American; Native Hawaiian or Other Pacific Islander; White,active
-1,,female,Hispanic or Latino,,
-1,,female,Hispanic or Latino,,active
-1,,female,Hispanic or Latino,American Indian or Alaska Native; Asian; Black or African American; Native Hawaiian or Other Pacific Islander; White,
-1,,female,Hispanic or Latino,American Indian or Alaska Native; Asian; Black or African American; Native Hawaiian or Other Pacific Islander; White,active
-1,,cumulus__none,,,inactive
-1,,cumulus__none,,,cumulus__none
-1,,cumulus__none,,,active
-1,,cumulus__none,,cumulus__none,inactive
-1,,cumulus__none,,cumulus__none,cumulus__none
-1,,cumulus__none,,cumulus__none,active
-1,,cumulus__none,cumulus__none,,inactive
-1,,cumulus__none,cumulus__none,,cumulus__none
-1,,cumulus__none,cumulus__none,cumulus__none,inactive
-1,,cumulus__none,cumulus__none,cumulus__none,cumulus__none
-1,,cumulus__none,Hispanic or Latino,,
-1,,cumulus__none,Hispanic or Latino,,active
-1,,cumulus__none,Hispanic or Latino,cumulus__none,
-1,,cumulus__none,Hispanic or Latino,cumulus__none,active
-1,cumulus__none,,,,inactive
-1,cumulus__none,,,,cumulus__none
-1,cumulus__none,,,,active
-1,cumulus__none,,,cumulus__none,inactive
-1,cumulus__none,,,cumulus__none,cumulus__none
-1,cumulus__none,,,cumulus__none,active
-1,cumulus__none,,cumulus__none,,inactive
-1,cumulus__none,,cumulus__none,,cumulus__none
-1,cumulus__none,,cumulus__none,cumulus__none,inactive
-1,cumulus__none,,cumulus__none,cumulus__none,cumulus__none
-1,cumulus__none,,Hispanic or Latino,,
-1,cumulus__none,,Hispanic or Latino,,active
-1,cumulus__none,,Hispanic or Latino,cumulus__none,
-1,cumulus__none,,Hispanic or Latino,cumulus__none,active
-1,cumulus__none,other,,,
-1,cumulus__none,other,,,active
-1,cumulus__none,other,,cumulus__none,
-1,cumulus__none,other,,cumulus__none,active
-1,cumulus__none,other,Hispanic or Latino,,
-1,cumulus__none,other,Hispanic or Latino,,active
-1,cumulus__none,other,Hispanic or Latino,cumulus__none,
-1,cumulus__none,other,Hispanic or Latino,cumulus__none,active
-1,cumulus__none,cumulus__none,,,inactive
-1,cumulus__none,cumulus__none,,,cumulus__none
-1,cumulus__none,cumulus__none,,cumulus__none,inactive
-1,cumulus__none,cumulus__none,,cumulus__none,cumulus__none
-1,cumulus__none,cumulus__none,cumulus__none,,inactive
-1,cumulus__none,cumulus__none,cumulus__none,,cumulus__none
-1,cumulus__none,cumulus__none,cumulus__none,cumulus__none,inactive
-1,cumulus__none,cumulus__none,cumulus__none,cumulus__none,cumulus__none
-1,2003,,,,
-1,2003,,,,active
-1,2003,,,cumulus__none,
-1,2003,,,cumulus__none,active
-1,2003,,Non Hispanic or Latino,,
-1,2003,,Non Hispanic or Latino,,active
-1,2003,,Non Hispanic or Latino,cumulus__none,
-1,2003,,Non Hispanic or Latino,cumulus__none,active
-1,2003,other,,,
-1,2003,other,,,active
-1,2003,other,,cumulus__none,
-1,2003,other,,cumulus__none,active
-1,2003,other,Non Hispanic or Latino,,
-1,2003,other,Non Hispanic or Latino,,active
-1,2003,other,Non Hispanic or Latino,cumulus__none,
-1,2003,other,Non Hispanic or Latino,cumulus__none,active
-1,2001,,,Unknown,
-1,2001,,,Unknown,active
-1,2001,,,Asked but no answer,
-1,2001,,,Asked but no answer,active
-1,2001,,cumulus__none,Unknown,
-1,2001,,cumulus__none,Unknown,active
-1,2001,,cumulus__none,Asked but no answer,
-1,2001,,cumulus__none,Asked but no answer,active
-1,2001,other,,Unknown,
-1,2001,other,,Unknown,active
-1,2001,other,,Asked but no answer,
-1,2001,other,,Asked but no answer,active
-1,2001,other,cumulus__none,Unknown,
-1,2001,other,cumulus__none,Unknown,active
-1,2001,other,cumulus__none,Asked but no answer,
-1,2001,other,cumulus__none,Asked but no answer,active
-1,2000,,,,
-1,2000,,,,active
-1,2000,,,American Indian or Alaska Native; Asian; Black or African American; Native Hawaiian or Other Pacific Islander; White,
-1,2000,,,American Indian or Alaska Native; Asian; Black or African American; Native Hawaiian or Other Pacific Islander; White,active
-1,2000,,Hispanic or Latino,,
-1,2000,,Hispanic or Latino,,active
-1,2000,,Hispanic or Latino,American Indian or Alaska Native; Asian; Black or African American; Native Hawaiian or Other Pacific Islander; White,
-1,2000,,Hispanic or Latino,American Indian or Alaska Native; Asian; Black or African American; Native Hawaiian or Other Pacific Islander; White,active
-1,2000,female,,,
-1,2000,female,,,active
-1,2000,female,,American Indian or Alaska Native; Asian; Black or African American; Native Hawaiian or Other Pacific Islander; White,
-1,2000,female,,American Indian or Alaska Native; Asian; Black or African American; Native Hawaiian or Other Pacific Islander; White,active
-1,2000,female,Hispanic or Latino,,
-1,2000,female,Hispanic or Latino,,active
-1,2000,female,Hispanic or Latino,American Indian or Alaska Native; Asian; Black or African American; Native Hawaiian or Other Pacific Islander; White,
-1,2000,female,Hispanic or Latino,American Indian or Alaska Native; Asian; Black or African American; Native Hawaiian or Other Pacific Islander; White,active
-1,1990,,,,
-1,1990,,,,active
-1,1990,,,cumulus__none,
-1,1990,,,cumulus__none,active
-1,1990,,Hispanic or Latino,,
-1,1990,,Hispanic or Latino,,active
-1,1990,,Hispanic or Latino,cumulus__none,
-1,1990,,Hispanic or Latino,cumulus__none,active
-1,1990,cumulus__none,,,
-1,1990,cumulus__none,,,active
-1,1990,cumulus__none,,cumulus__none,
-1,1990,cumulus__none,,cumulus__none,active
-1,1990,cumulus__none,Hispanic or Latino,,
-1,1990,cumulus__none,Hispanic or Latino,,active
-1,1990,cumulus__none,Hispanic or Latino,cumulus__none,
-1,1990,cumulus__none,Hispanic or Latino,cumulus__none,active
+cnt,birth_year,administrative_gender,ethnicity,race,deceased,status
+13,,,,,,
+11,,,,,false,
+10,,,,cumulus__none,,
+9,,,,,,active
+9,,,,,false,active
+9,,,cumulus__none,,,
+8,,,,cumulus__none,false,
+7,,,cumulus__none,,false,
+7,,,cumulus__none,cumulus__none,,
+7,,other,,,,
+7,,other,,,,active
+7,,other,,,false,
+7,,other,,,false,active
+6,,,,cumulus__none,,active
+6,,,,cumulus__none,false,active
+5,,,cumulus__none,,,active
+5,,,cumulus__none,,false,active
+5,,,cumulus__none,cumulus__none,false,
+5,,other,,cumulus__none,,
+5,,other,,cumulus__none,,active
+5,,other,,cumulus__none,false,
+5,,other,,cumulus__none,false,active
+5,,other,cumulus__none,,,
+5,,other,cumulus__none,,,active
+5,,other,cumulus__none,,false,
+5,,other,cumulus__none,,false,active
+5,,cumulus__none,,,,
+5,,cumulus__none,,cumulus__none,,
+5,cumulus__none,,,,,
+5,cumulus__none,,,cumulus__none,,
+5,2001,,,,,
+5,2001,,,,,active
+5,2001,,,,false,
+5,2001,,,,false,active
+5,2001,,cumulus__none,,,
+5,2001,,cumulus__none,,,active
+5,2001,,cumulus__none,,false,
+5,2001,,cumulus__none,,false,active
+5,2001,other,,,,
+5,2001,other,,,,active
+5,2001,other,,,false,
+5,2001,other,,,false,active
+5,2001,other,cumulus__none,,,
+5,2001,other,cumulus__none,,,active
+5,2001,other,cumulus__none,,false,
+5,2001,other,cumulus__none,,false,active
+4,,cumulus__none,cumulus__none,,,
+4,,cumulus__none,cumulus__none,cumulus__none,,
+4,cumulus__none,,cumulus__none,,,
+4,cumulus__none,,cumulus__none,cumulus__none,,
+4,cumulus__none,cumulus__none,,,,
+4,cumulus__none,cumulus__none,,cumulus__none,,
+4,cumulus__none,cumulus__none,cumulus__none,,,
+4,cumulus__none,cumulus__none,cumulus__none,cumulus__none,,
+3,,,,,,cumulus__none
+3,,,,cumulus__none,,cumulus__none
+3,,,cumulus__none,,,cumulus__none
+3,,,cumulus__none,cumulus__none,,cumulus__none
+3,,,cumulus__none,cumulus__none,,active
+3,,,cumulus__none,cumulus__none,false,active
+3,,,Hispanic or Latino,,,
+3,,,Hispanic or Latino,,,active
+3,,,Hispanic or Latino,,false,
+3,,,Hispanic or Latino,,false,active
+3,,other,cumulus__none,cumulus__none,,
+3,,other,cumulus__none,cumulus__none,,active
+3,,other,cumulus__none,cumulus__none,false,
+3,,other,cumulus__none,cumulus__none,false,active
+3,,cumulus__none,,,,cumulus__none
+3,,cumulus__none,,,false,
+3,,cumulus__none,,cumulus__none,,cumulus__none
+3,,cumulus__none,,cumulus__none,false,
+3,,cumulus__none,cumulus__none,,,cumulus__none
+3,,cumulus__none,cumulus__none,cumulus__none,,cumulus__none
+3,cumulus__none,,,,,cumulus__none
+3,cumulus__none,,,,false,
+3,cumulus__none,,,cumulus__none,,cumulus__none
+3,cumulus__none,,,cumulus__none,false,
+3,cumulus__none,,cumulus__none,,,cumulus__none
+3,cumulus__none,,cumulus__none,cumulus__none,,cumulus__none
+3,cumulus__none,cumulus__none,,,,cumulus__none
+3,cumulus__none,cumulus__none,,cumulus__none,,cumulus__none
+3,cumulus__none,cumulus__none,cumulus__none,,,cumulus__none
+3,cumulus__none,cumulus__none,cumulus__none,cumulus__none,,cumulus__none
+3,2001,,,cumulus__none,,
+3,2001,,,cumulus__none,,active
+3,2001,,,cumulus__none,false,
+3,2001,,,cumulus__none,false,active
+3,2001,,cumulus__none,cumulus__none,,
+3,2001,,cumulus__none,cumulus__none,,active
+3,2001,,cumulus__none,cumulus__none,false,
+3,2001,,cumulus__none,cumulus__none,false,active
+3,2001,other,,cumulus__none,,
+3,2001,other,,cumulus__none,,active
+3,2001,other,,cumulus__none,false,
+3,2001,other,,cumulus__none,false,active
+3,2001,other,cumulus__none,cumulus__none,,
+3,2001,other,cumulus__none,cumulus__none,,active
+3,2001,other,cumulus__none,cumulus__none,false,
+3,2001,other,cumulus__none,cumulus__none,false,active
+2,,,,,true,
+2,,,,,true,cumulus__none
+2,,,,cumulus__none,true,
+2,,,,cumulus__none,true,cumulus__none
+2,,,cumulus__none,,true,
+2,,,cumulus__none,,true,cumulus__none
+2,,,cumulus__none,cumulus__none,true,
+2,,,cumulus__none,cumulus__none,true,cumulus__none
+2,,,Hispanic or Latino,cumulus__none,,
+2,,,Hispanic or Latino,cumulus__none,,active
+2,,,Hispanic or Latino,cumulus__none,false,
+2,,,Hispanic or Latino,cumulus__none,false,active
+2,,cumulus__none,,,true,
+2,,cumulus__none,,,true,cumulus__none
+2,,cumulus__none,,cumulus__none,true,
+2,,cumulus__none,,cumulus__none,true,cumulus__none
+2,,cumulus__none,cumulus__none,,true,
+2,,cumulus__none,cumulus__none,,true,cumulus__none
+2,,cumulus__none,cumulus__none,,false,
+2,,cumulus__none,cumulus__none,cumulus__none,true,
+2,,cumulus__none,cumulus__none,cumulus__none,true,cumulus__none
+2,,cumulus__none,cumulus__none,cumulus__none,false,
+2,cumulus__none,,,,true,
+2,cumulus__none,,,,true,cumulus__none
+2,cumulus__none,,,cumulus__none,true,
+2,cumulus__none,,,cumulus__none,true,cumulus__none
+2,cumulus__none,,cumulus__none,,true,
+2,cumulus__none,,cumulus__none,,true,cumulus__none
+2,cumulus__none,,cumulus__none,,false,
+2,cumulus__none,,cumulus__none,cumulus__none,true,
+2,cumulus__none,,cumulus__none,cumulus__none,true,cumulus__none
+2,cumulus__none,,cumulus__none,cumulus__none,false,
+2,cumulus__none,cumulus__none,,,true,
+2,cumulus__none,cumulus__none,,,true,cumulus__none
+2,cumulus__none,cumulus__none,,,false,
+2,cumulus__none,cumulus__none,,cumulus__none,true,
+2,cumulus__none,cumulus__none,,cumulus__none,true,cumulus__none
+2,cumulus__none,cumulus__none,,cumulus__none,false,
+2,cumulus__none,cumulus__none,cumulus__none,,true,
+2,cumulus__none,cumulus__none,cumulus__none,,true,cumulus__none
+2,cumulus__none,cumulus__none,cumulus__none,,false,
+2,cumulus__none,cumulus__none,cumulus__none,cumulus__none,true,
+2,cumulus__none,cumulus__none,cumulus__none,cumulus__none,true,cumulus__none
+2,cumulus__none,cumulus__none,cumulus__none,cumulus__none,false,
+1,,,,,,inactive
+1,,,,,false,inactive
+1,,,,,false,cumulus__none
+1,,,,cumulus__none,,inactive
+1,,,,cumulus__none,false,inactive
+1,,,,cumulus__none,false,cumulus__none
+1,,,,Unknown,,
+1,,,,Unknown,,active
+1,,,,Unknown,false,
+1,,,,Unknown,false,active
+1,,,,Asked but no answer,,
+1,,,,Asked but no answer,,active
+1,,,,Asked but no answer,false,
+1,,,,Asked but no answer,false,active
+1,,,,American Indian or Alaska Native; Asian; Black or African American; Native Hawaiian or Other Pacific Islander; White,,
+1,,,,American Indian or Alaska Native; Asian; Black or African American; Native Hawaiian or Other Pacific Islander; White,,active
+1,,,,American Indian or Alaska Native; Asian; Black or African American; Native Hawaiian or Other Pacific Islander; White,false,
+1,,,,American Indian or Alaska Native; Asian; Black or African American; Native Hawaiian or Other Pacific Islander; White,false,active
+1,,,cumulus__none,,,inactive
+1,,,cumulus__none,,false,inactive
+1,,,cumulus__none,,false,cumulus__none
+1,,,cumulus__none,cumulus__none,,inactive
+1,,,cumulus__none,cumulus__none,false,inactive
+1,,,cumulus__none,cumulus__none,false,cumulus__none
+1,,,cumulus__none,Unknown,,
+1,,,cumulus__none,Unknown,,active
+1,,,cumulus__none,Unknown,false,
+1,,,cumulus__none,Unknown,false,active
+1,,,cumulus__none,Asked but no answer,,
+1,,,cumulus__none,Asked but no answer,,active
+1,,,cumulus__none,Asked but no answer,false,
+1,,,cumulus__none,Asked but no answer,false,active
+1,,,Non Hispanic or Latino,,,
+1,,,Non Hispanic or Latino,,,active
+1,,,Non Hispanic or Latino,,false,
+1,,,Non Hispanic or Latino,,false,active
+1,,,Non Hispanic or Latino,cumulus__none,,
+1,,,Non Hispanic or Latino,cumulus__none,,active
+1,,,Non Hispanic or Latino,cumulus__none,false,
+1,,,Non Hispanic or Latino,cumulus__none,false,active
+1,,,Hispanic or Latino,American Indian or Alaska Native; Asian; Black or African American; Native Hawaiian or Other Pacific Islander; White,,
+1,,,Hispanic or Latino,American Indian or Alaska Native; Asian; Black or African American; Native Hawaiian or Other Pacific Islander; White,,active
+1,,,Hispanic or Latino,American Indian or Alaska Native; Asian; Black or African American; Native Hawaiian or Other Pacific Islander; White,false,
+1,,,Hispanic or Latino,American Indian or Alaska Native; Asian; Black or African American; Native Hawaiian or Other Pacific Islander; White,false,active
+1,,other,,Unknown,,
+1,,other,,Unknown,,active
+1,,other,,Unknown,false,
+1,,other,,Unknown,false,active
+1,,other,,Asked but no answer,,
+1,,other,,Asked but no answer,,active
+1,,other,,Asked but no answer,false,
+1,,other,,Asked but no answer,false,active
+1,,other,cumulus__none,Unknown,,
+1,,other,cumulus__none,Unknown,,active
+1,,other,cumulus__none,Unknown,false,
+1,,other,cumulus__none,Unknown,false,active
+1,,other,cumulus__none,Asked but no answer,,
+1,,other,cumulus__none,Asked but no answer,,active
+1,,other,cumulus__none,Asked but no answer,false,
+1,,other,cumulus__none,Asked but no answer,false,active
+1,,other,Non Hispanic or Latino,,,
+1,,other,Non Hispanic or Latino,,,active
+1,,other,Non Hispanic or Latino,,false,
+1,,other,Non Hispanic or Latino,,false,active
+1,,other,Non Hispanic or Latino,cumulus__none,,
+1,,other,Non Hispanic or Latino,cumulus__none,,active
+1,,other,Non Hispanic or Latino,cumulus__none,false,
+1,,other,Non Hispanic or Latino,cumulus__none,false,active
+1,,other,Hispanic or Latino,,,
+1,,other,Hispanic or Latino,,,active
+1,,other,Hispanic or Latino,,false,
+1,,other,Hispanic or Latino,,false,active
+1,,other,Hispanic or Latino,cumulus__none,,
+1,,other,Hispanic or Latino,cumulus__none,,active
+1,,other,Hispanic or Latino,cumulus__none,false,
+1,,other,Hispanic or Latino,cumulus__none,false,active
+1,,female,,,,
+1,,female,,,,active
+1,,female,,,false,
+1,,female,,,false,active
+1,,female,,American Indian or Alaska Native; Asian; Black or African American; Native Hawaiian or Other Pacific Islander; White,,
+1,,female,,American Indian or Alaska Native; Asian; Black or African American; Native Hawaiian or Other Pacific Islander; White,,active
+1,,female,,American Indian or Alaska Native; Asian; Black or African American; Native Hawaiian or Other Pacific Islander; White,false,
+1,,female,,American Indian or Alaska Native; Asian; Black or African American; Native Hawaiian or Other Pacific Islander; White,false,active
+1,,female,Hispanic or Latino,,,
+1,,female,Hispanic or Latino,,,active
+1,,female,Hispanic or Latino,,false,
+1,,female,Hispanic or Latino,,false,active
+1,,female,Hispanic or Latino,American Indian or Alaska Native; Asian; Black or African American; Native Hawaiian or Other Pacific Islander; White,,
+1,,female,Hispanic or Latino,American Indian or Alaska Native; Asian; Black or African American; Native Hawaiian or Other Pacific Islander; White,,active
+1,,female,Hispanic or Latino,American Indian or Alaska Native; Asian; Black or African American; Native Hawaiian or Other Pacific Islander; White,false,
+1,,female,Hispanic or Latino,American Indian or Alaska Native; Asian; Black or African American; Native Hawaiian or Other Pacific Islander; White,false,active
+1,,cumulus__none,,,,inactive
+1,,cumulus__none,,,,active
+1,,cumulus__none,,,false,inactive
+1,,cumulus__none,,,false,cumulus__none
+1,,cumulus__none,,,false,active
+1,,cumulus__none,,cumulus__none,,inactive
+1,,cumulus__none,,cumulus__none,,active
+1,,cumulus__none,,cumulus__none,false,inactive
+1,,cumulus__none,,cumulus__none,false,cumulus__none
+1,,cumulus__none,,cumulus__none,false,active
+1,,cumulus__none,cumulus__none,,,inactive
+1,,cumulus__none,cumulus__none,,false,inactive
+1,,cumulus__none,cumulus__none,,false,cumulus__none
+1,,cumulus__none,cumulus__none,cumulus__none,,inactive
+1,,cumulus__none,cumulus__none,cumulus__none,false,inactive
+1,,cumulus__none,cumulus__none,cumulus__none,false,cumulus__none
+1,,cumulus__none,Hispanic or Latino,,,
+1,,cumulus__none,Hispanic or Latino,,,active
+1,,cumulus__none,Hispanic or Latino,,false,
+1,,cumulus__none,Hispanic or Latino,,false,active
+1,,cumulus__none,Hispanic or Latino,cumulus__none,,
+1,,cumulus__none,Hispanic or Latino,cumulus__none,,active
+1,,cumulus__none,Hispanic or Latino,cumulus__none,false,
+1,,cumulus__none,Hispanic or Latino,cumulus__none,false,active
+1,cumulus__none,,,,,inactive
+1,cumulus__none,,,,,active
+1,cumulus__none,,,,false,inactive
+1,cumulus__none,,,,false,cumulus__none
+1,cumulus__none,,,,false,active
+1,cumulus__none,,,cumulus__none,,inactive
+1,cumulus__none,,,cumulus__none,,active
+1,cumulus__none,,,cumulus__none,false,inactive
+1,cumulus__none,,,cumulus__none,false,cumulus__none
+1,cumulus__none,,,cumulus__none,false,active
+1,cumulus__none,,cumulus__none,,,inactive
+1,cumulus__none,,cumulus__none,,false,inactive
+1,cumulus__none,,cumulus__none,,false,cumulus__none
+1,cumulus__none,,cumulus__none,cumulus__none,,inactive
+1,cumulus__none,,cumulus__none,cumulus__none,false,inactive
+1,cumulus__none,,cumulus__none,cumulus__none,false,cumulus__none
+1,cumulus__none,,Hispanic or Latino,,,
+1,cumulus__none,,Hispanic or Latino,,,active
+1,cumulus__none,,Hispanic or Latino,,false,
+1,cumulus__none,,Hispanic or Latino,,false,active
+1,cumulus__none,,Hispanic or Latino,cumulus__none,,
+1,cumulus__none,,Hispanic or Latino,cumulus__none,,active
+1,cumulus__none,,Hispanic or Latino,cumulus__none,false,
+1,cumulus__none,,Hispanic or Latino,cumulus__none,false,active
+1,cumulus__none,other,,,,
+1,cumulus__none,other,,,,active
+1,cumulus__none,other,,,false,
+1,cumulus__none,other,,,false,active
+1,cumulus__none,other,,cumulus__none,,
+1,cumulus__none,other,,cumulus__none,,active
+1,cumulus__none,other,,cumulus__none,false,
+1,cumulus__none,other,,cumulus__none,false,active
+1,cumulus__none,other,Hispanic or Latino,,,
+1,cumulus__none,other,Hispanic or Latino,,,active
+1,cumulus__none,other,Hispanic or Latino,,false,
+1,cumulus__none,other,Hispanic or Latino,,false,active
+1,cumulus__none,other,Hispanic or Latino,cumulus__none,,
+1,cumulus__none,other,Hispanic or Latino,cumulus__none,,active
+1,cumulus__none,other,Hispanic or Latino,cumulus__none,false,
+1,cumulus__none,other,Hispanic or Latino,cumulus__none,false,active
+1,cumulus__none,cumulus__none,,,,inactive
+1,cumulus__none,cumulus__none,,,false,inactive
+1,cumulus__none,cumulus__none,,,false,cumulus__none
+1,cumulus__none,cumulus__none,,cumulus__none,,inactive
+1,cumulus__none,cumulus__none,,cumulus__none,false,inactive
+1,cumulus__none,cumulus__none,,cumulus__none,false,cumulus__none
+1,cumulus__none,cumulus__none,cumulus__none,,,inactive
+1,cumulus__none,cumulus__none,cumulus__none,,false,inactive
+1,cumulus__none,cumulus__none,cumulus__none,,false,cumulus__none
+1,cumulus__none,cumulus__none,cumulus__none,cumulus__none,,inactive
+1,cumulus__none,cumulus__none,cumulus__none,cumulus__none,false,inactive
+1,cumulus__none,cumulus__none,cumulus__none,cumulus__none,false,cumulus__none
+1,2003,,,,,
+1,2003,,,,,active
+1,2003,,,,false,
+1,2003,,,,false,active
+1,2003,,,cumulus__none,,
+1,2003,,,cumulus__none,,active
+1,2003,,,cumulus__none,false,
+1,2003,,,cumulus__none,false,active
+1,2003,,Non Hispanic or Latino,,,
+1,2003,,Non Hispanic or Latino,,,active
+1,2003,,Non Hispanic or Latino,,false,
+1,2003,,Non Hispanic or Latino,,false,active
+1,2003,,Non Hispanic or Latino,cumulus__none,,
+1,2003,,Non Hispanic or Latino,cumulus__none,,active
+1,2003,,Non Hispanic or Latino,cumulus__none,false,
+1,2003,,Non Hispanic or Latino,cumulus__none,false,active
+1,2003,other,,,,
+1,2003,other,,,,active
+1,2003,other,,,false,
+1,2003,other,,,false,active
+1,2003,other,,cumulus__none,,
+1,2003,other,,cumulus__none,,active
+1,2003,other,,cumulus__none,false,
+1,2003,other,,cumulus__none,false,active
+1,2003,other,Non Hispanic or Latino,,,
+1,2003,other,Non Hispanic or Latino,,,active
+1,2003,other,Non Hispanic or Latino,,false,
+1,2003,other,Non Hispanic or Latino,,false,active
+1,2003,other,Non Hispanic or Latino,cumulus__none,,
+1,2003,other,Non Hispanic or Latino,cumulus__none,,active
+1,2003,other,Non Hispanic or Latino,cumulus__none,false,
+1,2003,other,Non Hispanic or Latino,cumulus__none,false,active
+1,2001,,,Unknown,,
+1,2001,,,Unknown,,active
+1,2001,,,Unknown,false,
+1,2001,,,Unknown,false,active
+1,2001,,,Asked but no answer,,
+1,2001,,,Asked but no answer,,active
+1,2001,,,Asked but no answer,false,
+1,2001,,,Asked but no answer,false,active
+1,2001,,cumulus__none,Unknown,,
+1,2001,,cumulus__none,Unknown,,active
+1,2001,,cumulus__none,Unknown,false,
+1,2001,,cumulus__none,Unknown,false,active
+1,2001,,cumulus__none,Asked but no answer,,
+1,2001,,cumulus__none,Asked but no answer,,active
+1,2001,,cumulus__none,Asked but no answer,false,
+1,2001,,cumulus__none,Asked but no answer,false,active
+1,2001,other,,Unknown,,
+1,2001,other,,Unknown,,active
+1,2001,other,,Unknown,false,
+1,2001,other,,Unknown,false,active
+1,2001,other,,Asked but no answer,,
+1,2001,other,,Asked but no answer,,active
+1,2001,other,,Asked but no answer,false,
+1,2001,other,,Asked but no answer,false,active
+1,2001,other,cumulus__none,Unknown,,
+1,2001,other,cumulus__none,Unknown,,active
+1,2001,other,cumulus__none,Unknown,false,
+1,2001,other,cumulus__none,Unknown,false,active
+1,2001,other,cumulus__none,Asked but no answer,,
+1,2001,other,cumulus__none,Asked but no answer,,active
+1,2001,other,cumulus__none,Asked but no answer,false,
+1,2001,other,cumulus__none,Asked but no answer,false,active
+1,2000,,,,,
+1,2000,,,,,active
+1,2000,,,,false,
+1,2000,,,,false,active
+1,2000,,,American Indian or Alaska Native; Asian; Black or African American; Native Hawaiian or Other Pacific Islander; White,,
+1,2000,,,American Indian or Alaska Native; Asian; Black or African American; Native Hawaiian or Other Pacific Islander; White,,active
+1,2000,,,American Indian or Alaska Native; Asian; Black or African American; Native Hawaiian or Other Pacific Islander; White,false,
+1,2000,,,American Indian or Alaska Native; Asian; Black or African American; Native Hawaiian or Other Pacific Islander; White,false,active
+1,2000,,Hispanic or Latino,,,
+1,2000,,Hispanic or Latino,,,active
+1,2000,,Hispanic or Latino,,false,
+1,2000,,Hispanic or Latino,,false,active
+1,2000,,Hispanic or Latino,American Indian or Alaska Native; Asian; Black or African American; Native Hawaiian or Other Pacific Islander; White,,
+1,2000,,Hispanic or Latino,American Indian or Alaska Native; Asian; Black or African American; Native Hawaiian or Other Pacific Islander; White,,active
+1,2000,,Hispanic or Latino,American Indian or Alaska Native; Asian; Black or African American; Native Hawaiian or Other Pacific Islander; White,false,
+1,2000,,Hispanic or Latino,American Indian or Alaska Native; Asian; Black or African American; Native Hawaiian or Other Pacific Islander; White,false,active
+1,2000,female,,,,
+1,2000,female,,,,active
+1,2000,female,,,false,
+1,2000,female,,,false,active
+1,2000,female,,American Indian or Alaska Native; Asian; Black or African American; Native Hawaiian or Other Pacific Islander; White,,
+1,2000,female,,American Indian or Alaska Native; Asian; Black or African American; Native Hawaiian or Other Pacific Islander; White,,active
+1,2000,female,,American Indian or Alaska Native; Asian; Black or African American; Native Hawaiian or Other Pacific Islander; White,false,
+1,2000,female,,American Indian or Alaska Native; Asian; Black or African American; Native Hawaiian or Other Pacific Islander; White,false,active
+1,2000,female,Hispanic or Latino,,,
+1,2000,female,Hispanic or Latino,,,active
+1,2000,female,Hispanic or Latino,,false,
+1,2000,female,Hispanic or Latino,,false,active
+1,2000,female,Hispanic or Latino,American Indian or Alaska Native; Asian; Black or African American; Native Hawaiian or Other Pacific Islander; White,,
+1,2000,female,Hispanic or Latino,American Indian or Alaska Native; Asian; Black or African American; Native Hawaiian or Other Pacific Islander; White,,active
+1,2000,female,Hispanic or Latino,American Indian or Alaska Native; Asian; Black or African American; Native Hawaiian or Other Pacific Islander; White,false,
+1,2000,female,Hispanic or Latino,American Indian or Alaska Native; Asian; Black or African American; Native Hawaiian or Other Pacific Islander; White,false,active
+1,1990,,,,,
+1,1990,,,,,active
+1,1990,,,,false,
+1,1990,,,,false,active
+1,1990,,,cumulus__none,,
+1,1990,,,cumulus__none,,active
+1,1990,,,cumulus__none,false,
+1,1990,,,cumulus__none,false,active
+1,1990,,Hispanic or Latino,,,
+1,1990,,Hispanic or Latino,,,active
+1,1990,,Hispanic or Latino,,false,
+1,1990,,Hispanic or Latino,,false,active
+1,1990,,Hispanic or Latino,cumulus__none,,
+1,1990,,Hispanic or Latino,cumulus__none,,active
+1,1990,,Hispanic or Latino,cumulus__none,false,
+1,1990,,Hispanic or Latino,cumulus__none,false,active
+1,1990,cumulus__none,,,,
+1,1990,cumulus__none,,,,active
+1,1990,cumulus__none,,,false,
+1,1990,cumulus__none,,,false,active
+1,1990,cumulus__none,,cumulus__none,,
+1,1990,cumulus__none,,cumulus__none,,active
+1,1990,cumulus__none,,cumulus__none,false,
+1,1990,cumulus__none,,cumulus__none,false,active
+1,1990,cumulus__none,Hispanic or Latino,,,
+1,1990,cumulus__none,Hispanic or Latino,,,active
+1,1990,cumulus__none,Hispanic or Latino,,false,
+1,1990,cumulus__none,Hispanic or Latino,,false,active
+1,1990,cumulus__none,Hispanic or Latino,cumulus__none,,
+1,1990,cumulus__none,Hispanic or Latino,cumulus__none,,active
+1,1990,cumulus__none,Hispanic or Latino,cumulus__none,false,
+1,1990,cumulus__none,Hispanic or Latino,cumulus__none,false,active
