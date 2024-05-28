@@ -1,2 +1,2 @@
-cnt,birth_year,administrative_gender,ethnicity,race,status
-1,1970,cumulus__none,cumulus__none,cumulus__none,cumulus__none
+cnt,birth_year,administrative_gender,ethnicity,race,deceased,status
+1,1970,cumulus__none,cumulus__none,cumulus__none,false,cumulus__none

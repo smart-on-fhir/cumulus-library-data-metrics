@@ -15,8 +15,11 @@ simplified AS (
         {{ utils.coalesce_missing('src.gender') }} AS administrative_gender,
         {{ utils.coalesce_missing('src_status.status') }} AS status,
         {{ utils.coalesce_missing('grouped_ethnicity.display') }} AS ethnicity,
-        {{ utils.coalesce_missing('grouped_race.display') }} AS race
-
+        {{ utils.coalesce_missing('grouped_race.display') }} AS race,
+        (
+            deceasedDateTime IS NOT NULL
+            OR (deceasedBoolean IS NOT NULL AND deceasedBoolean)
+        ) AS deceased
     FROM patient AS src
     LEFT JOIN src_status
     ON src.id = src_status.id
@@ -31,6 +34,7 @@ simplified AS (
     administrative_gender,
     ethnicity,
     race,
+    deceased,
     status
 {% endcall %}
 );

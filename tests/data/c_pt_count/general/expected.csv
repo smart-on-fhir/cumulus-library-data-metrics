@@ -1,10 +1,11 @@
-cnt,birth_year,administrative_gender,ethnicity,race,status
-3,2001,other,cumulus__none,cumulus__none,active
-1,cumulus__none,other,Hispanic or Latino,cumulus__none,active
-1,cumulus__none,cumulus__none,cumulus__none,cumulus__none,inactive
-1,cumulus__none,cumulus__none,cumulus__none,cumulus__none,cumulus__none
-1,2003,other,Non Hispanic or Latino,cumulus__none,active
-1,2001,other,cumulus__none,Unknown,active
-1,2001,other,cumulus__none,Asked but no answer,active
-1,2000,female,Hispanic or Latino,American Indian or Alaska Native; Asian; Black or African American; Native Hawaiian or Other Pacific Islander; White,active
-1,1990,cumulus__none,Hispanic or Latino,cumulus__none,active
+cnt,birth_year,administrative_gender,ethnicity,race,deceased,status
+3,2001,other,cumulus__none,cumulus__none,false,active
+2,cumulus__none,cumulus__none,cumulus__none,cumulus__none,true,cumulus__none
+1,cumulus__none,other,Hispanic or Latino,cumulus__none,false,active
+1,cumulus__none,cumulus__none,cumulus__none,cumulus__none,false,inactive
+1,cumulus__none,cumulus__none,cumulus__none,cumulus__none,false,cumulus__none
+1,2003,other,Non Hispanic or Latino,cumulus__none,false,active
+1,2001,other,cumulus__none,Unknown,false,active
+1,2001,other,cumulus__none,Asked but no answer,false,active
+1,2000,female,Hispanic or Latino,American Indian or Alaska Native; Asian; Black or African American; Native Hawaiian or Other Pacific Islander; White,false,active
+1,1990,cumulus__none,Hispanic or Latino,cumulus__none,false,active
