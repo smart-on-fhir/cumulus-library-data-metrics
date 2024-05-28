@@ -2,18 +2,10 @@
 
 {% set ns = namespace(fields=[]) %}
 
-CREATE TABLE data_metrics__count_c_us_core_v4_count_{{ profile_name }} AS (
+CREATE TABLE data_metrics__count_c_us_core_v4_count_{{ profile_name }}_must_support AS (
 WITH
 src_status AS {{ utils.extract_status(src) }},
 
--- These separated files are responsible for providing a single table that looks like:
--- (id: str, valid: bool, valid_*: bool)
---
--- This table should hold every row from src inside it (i.e. not be a partial join table).
---
--- You may make additional helper tables, but please prefix with 'tmp_'
--- to avoid any future conflicts with this template here.
-src_mandatory AS ({% include 'us_core_v4/' + profile_name + '_mandatory.jinja' %}),
 src_must_support AS ({% include 'us_core_v4/' + profile_name + '_must_support.jinja' %}),
 
 simplified AS (
@@ -25,14 +17,11 @@ simplified AS (
         {{ utils.get_date_string(dates, 'year') }} AS "year",
         {% endif %}
 
-        src_mandatory.valid AS valid_mandatory
         {% if ns.fields %}
-        , src_must_support.{{ ns.fields|join(", src_must_support.") }}
+        src_must_support.{{ ns.fields|join(", src_must_support.") }}
         {% endif %}
 
     FROM {{ src }} AS src
-    INNER JOIN src_mandatory
-    ON src_mandatory.id = src.id
     {% if ns.fields %}
     INNER JOIN src_must_support
     ON src_must_support.id = src.id
@@ -42,13 +31,12 @@ simplified AS (
 )
 
 {% call utils.make_counts('simplified', output_mode) %}
-    valid_mandatory,
     {% if dates %}
     "year",
     {% endif %}
-    status
+    status,
     {% if ns.fields %}
-    , {{ ns.fields|join(", ") }}
+    {{ ns.fields|join(", ") }}
     {% endif %}
 {% endcall %}
 );

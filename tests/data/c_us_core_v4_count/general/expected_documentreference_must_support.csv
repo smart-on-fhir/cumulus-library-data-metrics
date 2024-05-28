@@ -1,0 +1,4 @@
+cnt,year,status,valid_date,valid_author,valid_format,valid_encounter,valid_period
+1,cumulus__none,current,false,false,false,false,false
+1,2015,current,true,true,true,true,true
+1,2014,cumulus__none,true,true,true,true,true

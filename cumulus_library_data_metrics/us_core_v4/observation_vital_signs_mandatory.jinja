@@ -116,7 +116,7 @@ tmp_simplified AS (
 )
 
 {%
-set fields = [
+set ns.fields = [
     'valid_status',
     'valid_subject',
     'valid_effective',
@@ -127,14 +127,14 @@ set fields = [
 ]
 %}
 {% if check_category %}
-    {% set fields = fields + ['valid_category'] %}
+    {% set ns.fields = ns.fields + ['valid_category'] %}
 {% endif %}
 {% if check_code %}
-    {% set fields = fields + ['valid_code'] %}
+    {% set ns.fields = ns.fields + ['valid_code'] %}
 {% endif %}
 
 SELECT
     id,
-    {{ fields|join(", ") }},
-    {{ fields|join(" AND ") }} AS valid
+    {{ ns.fields|join(", ") }},
+    {{ ns.fields|join(" AND ") }} AS valid
 FROM tmp_simplified

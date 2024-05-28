@@ -10,4 +10,8 @@ class UsCoreV4CountBuilder(UsCoreV4Mixin, BaseTableBuilder):
 
     def make_table(self, **kwargs) -> None:
         """Make a single metric table"""
-        self.queries.append(self.render_sql(self.name, **kwargs))
+        self.queries += [
+            # We break these into two tables to keep CUBE sizes reasonable.
+            self.render_sql("mandatory", **kwargs),
+            self.render_sql("must_support", **kwargs),
+        ]
