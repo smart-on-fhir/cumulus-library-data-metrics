@@ -1,3 +1,3 @@
-id,recordeddate,onsetdatetime,onsetperiod_start,status
-multiple-with-invalid-recorded,1899,2000,,
-multiple-with-invalid-onset,2000,1899,,
+id,recordeddate,onsetdatetime,onsetperiod_start,onsetperiod_end,abatementdatetime,abatementperiod_start,abatementperiod_end,status
+multiple-with-invalid-recorded,1899,2000,,,,,,
+multiple-with-invalid-onset,2000,1899,,,,,,

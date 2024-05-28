@@ -1,4 +1,4 @@
-"""Module for generating c_term_coverage tables"""
+"""Module for generating c_system_use tables"""
 
 from cumulus_library.base_table_builder import BaseTableBuilder
 
@@ -10,20 +10,14 @@ from cumulus_library_data_metrics.base import MetricMixin
 # We already had to drop one planned column (has_text) from it due to performance.
 
 
-class TermCoverageBuilder(MetricMixin, BaseTableBuilder):
-    name = "c_term_coverage"
+class SystemUseBuilder(MetricMixin, BaseTableBuilder):
+    name = "c_system_use"
 
     def make_table(self, **kwargs) -> None:
         """Make a single metric table"""
         self.queries.append(self.render_sql(self.name, system_names=systems.NAMES, **kwargs))
 
     def add_metric_queries(self) -> None:
-        # https://github.com/sync-for-science/qualifier/blob/master/metrics.md#c_term_coverage-terminology-count-of-resources-by-terminology-system-by-resource-type-by-category
-        # With some tweaks:
-        # - Also stratify by year
-        # - Don't stratify by has_text -- CUBE was too big, had to drop something
-        # - added Encounter.class
-        # - added Medication.code
         self.make_table(
             src="Observation",
             field="code",

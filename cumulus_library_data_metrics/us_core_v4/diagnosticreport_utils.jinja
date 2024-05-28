@@ -1,0 +1,58 @@
+{% import 'utils.jinja' as utils %}
+
+{% macro extract_category(src) -%}
+    {{ utils.extract_codes_flat(
+        src,
+        'category',
+        system='http://terminology.hl7.org/CodeSystem/v2-0074',
+        is_array=true,
+    ) }}
+{%- endmacro %}
+
+{% macro extract_lab_slice(src) -%}
+(
+    WITH
+    tmp_categories AS {{ extract_category(src) }},
+    tmp_ids AS (
+        SELECT DISTINCT id
+        FROM tmp_categories
+        WHERE tmp_categories.code = 'LAB'
+    )
+    SELECT src.*
+    FROM {{ src }} AS src
+    INNER JOIN tmp_ids
+    ON tmp_ids.id = src.id
+)
+{%- endmacro %}
+
+{% macro extract_non_lab_slice(src) -%}
+(
+    WITH
+    tmp_categories AS {{ extract_category(src) }},
+    tmp_lab_ids AS (
+        SELECT DISTINCT id
+        FROM tmp_categories
+        WHERE tmp_categories.code = 'LAB'
+    )
+    SELECT src.*
+    FROM {{ src }} AS src
+    LEFT JOIN tmp_lab_ids
+    ON tmp_lab_ids.id = src.id
+    WHERE tmp_lab_ids.id IS NULL -- excludes all matching (i.e. LAB) rows
+)
+{%- endmacro %}
+
+{% macro is_dr_status_valid() -%}
+    {{ utils.is_code_valid('status', [
+        'registered',
+        'partial',
+        'preliminary',
+        'final',
+        'amended',
+        'corrected',
+        'appended',
+        'cancelled',
+        'entered-in-error',
+        'unknown',
+    ])}}
+{%- endmacro %}

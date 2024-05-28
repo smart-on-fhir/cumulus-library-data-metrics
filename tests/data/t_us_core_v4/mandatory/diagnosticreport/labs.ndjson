@@ -1,0 +1,5 @@
+{"id": "lab-valid", "status": "cancelled", "code": {"text": "good"}, "subject": {"reference": "Patient/A"}, "effectiveDateTime": "2002", "issued": "2002", "category": [{"coding": [{"code": "LAB", "system": "http://terminology.hl7.org/CodeSystem/v2-0074"}]}]}
+{"id": "lab-multiple-categories", "category": [{"coding": [{"code": "LAB", "system": "http://terminology.hl7.org/CodeSystem/v2-0074"}, {"code": "OUS", "system": "http://terminology.hl7.org/CodeSystem/v2-0074"}]}]}
+{"id": "lab-status-bad", "status": "hello", "category": [{"coding": [{"code": "LAB", "system": "http://terminology.hl7.org/CodeSystem/v2-0074"}]}]}
+{"id": "lab-effective-period", "effectivePeriod": {"end": "2014"}, "category": [{"coding": [{"code": "LAB", "system": "http://terminology.hl7.org/CodeSystem/v2-0074"}]}]}
+{"id": "lab-nothing", "category": [{"coding": [{"code": "LAB", "system": "http://terminology.hl7.org/CodeSystem/v2-0074"}]}]}

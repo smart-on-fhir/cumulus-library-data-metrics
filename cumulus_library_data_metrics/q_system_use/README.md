@@ -1,4 +1,4 @@
-# q_term_use
+# q_system_use
 
 **Are the recommended coding systems being used?**
 
@@ -22,7 +22,7 @@ Each resource/field combo creates a table full of each row
 that was flagged as an issue.
 
 For example, for `Condition.code` a table named
-`data_metrics__q_term_use_condition_code` is created.
+`data_metrics__q_system_use_condition_code` is created.
 
 These tables hold the `id`, `status`, and problem field for each flagged row,
 to aid root cause analysis.

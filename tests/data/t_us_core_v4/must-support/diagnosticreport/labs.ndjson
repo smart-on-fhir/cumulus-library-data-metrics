@@ -1,0 +1,5 @@
+{"id": "lab-valid", "performer": [], "result": [{"reference": "Observation/A"}], "presentedForm": [], "category": [{"coding": [{"code": "LAB", "system": "http://terminology.hl7.org/CodeSystem/v2-0074"}]}]}
+{"id": "lab-multiple-categories", "category": [{"coding": [{"code": "LAB", "system": "http://terminology.hl7.org/CodeSystem/v2-0074"}, {"code": "OUS", "system": "http://terminology.hl7.org/CodeSystem/v2-0074"}]}]}
+{"id": "lab-multiple-result-good", "result": [{"reference": "Observation/A"}, {"reference": "Observation/B"}], "category": [{"coding": [{"code": "LAB", "system": "http://terminology.hl7.org/CodeSystem/v2-0074"}]}]}
+{"id": "lab-multiple-result-bad", "result": [{"reference": "Observation/A"}, {"reference": "Patient/A"}], "category": [{"coding": [{"code": "LAB", "system": "http://terminology.hl7.org/CodeSystem/v2-0074"}]}]}
+{"id": "lab-nothing", "category": [{"coding": [{"code": "LAB", "system": "http://terminology.hl7.org/CodeSystem/v2-0074"}]}]}

@@ -28,7 +28,6 @@ class TargetValidBuilder(MetricMixin, BaseTableBuilder):
         self.queries.append(self.render_sql(self.name, **kwargs))
 
     def add_metric_queries(self) -> None:
-        # https://github.com/sync-for-science/qualifier/blob/master/metrics.md#q_ref_target_valid-completeness-expect-reference-target-to-be-resolvable-when-populated
         self.make_table(src="AllergyIntolerance", dest="Patient", field="patient")
         self.make_table(src="AllergyIntolerance", dest="Encounter", field="encounter")
         self.make_table(src="Condition", dest="Patient", field="subject")

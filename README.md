@@ -1,7 +1,24 @@
 # Data Metrics
 
-See [qualifier repo](https://github.com/sync-for-science/qualifier/blob/master/metrics.md)
-for some metric definitions.
+A Cumulus-based implementation of the [qualifier metrics](https://github.com/sync-for-science/qualifier/blob/master/metrics.md).
+
+## Implemented Metrics
+
+The following qualifier metrics are implemented (per May 2024 qualifer definitions).
+
+- [c_pt_count](https://github.com/sync-for-science/qualifier/blob/master/metrics.md#c_pt_count)
+- [c_pt_deceased_count](https://github.com/sync-for-science/qualifier/blob/master/metrics.md#c_pt_deceased_count)
+- [c_resource_count](https://github.com/sync-for-science/qualifier/blob/master/metrics.md#c_resource_count)
+- [c_resources_per_pt](https://github.com/sync-for-science/qualifier/blob/master/metrics.md#c_resources_per_pt)
+- [c_system_use](https://github.com/sync-for-science/qualifier/blob/master/metrics.md#c_system_use)
+- [c_us_core_v4_count](https://github.com/sync-for-science/qualifier/blob/master/metrics.md#c_us_core_v4_count)
+  - Note that the various more-specific Vital Signs profiles are not yet implemented
+- [q_date_recent](https://github.com/sync-for-science/qualifier/blob/master/metrics.md#q_date_recent)
+- [q_ref_target_pop](https://github.com/sync-for-science/qualifier/blob/master/metrics.md#q_ref_target_pop)
+- [q_ref_target_valid](https://github.com/sync-for-science/qualifier/blob/master/metrics.md#q_ref_target_valid)
+- [q_system_use](https://github.com/sync-for-science/qualifier/blob/master/metrics.md#q_system_use)
+- [q_valid_us_core_v4](https://github.com/sync-for-science/qualifier/blob/master/metrics.md#q_valid_us_core_v4)
+  - Note that the various more-specific Vital Signs profiles are not yet implemented
 
 ## Installing
 
@@ -82,37 +99,3 @@ env \
   DATA_METRICS_OUTPUT_MODE=aggregate \
   cumulus-library build ...
 ```
-
-## SQL Writing Guidelines
-- Don't depend on `core__` tables.
-  - Allows folks to build this study even if they can't or haven't built `core`
-  - Allows `core` to smooth over data oddities we might be interested in
-
-- Consider looking at macros/logic from Google's analytics if helpful:
-  - https://github.com/google/fhir-dbt-analytics
-
-## Differences from Original Qualifier Metrics
-
-Across the board, we have some minor differences from the
-[upstream metric definitions](https://github.com/sync-for-science/qualifier/blob/master/metrics.md):
-- We usually stratify a metric by status as well as other fields
-- We drop MedicationAdministration from our metrics - it's not really supported in Cumulus
-- We add support for DiagnosticReport where sensible
-- We consider Observation.effectivePeriod.start and Observation.effectiveInstant in addition
-  to Observation.effectiveDateTime
-
-Other specific deltas will be noted in the code for the given metric.
-
-## Implemented Metrics
-
-- c_pt_count
-- c_pt_deceased_count
-- c_resource_count
-- c_resources_per_pt
-- c_term_coverage
-- c_us_core_v4_count
-- q_date_recent
-- q_ref_target_pop
-- q_ref_target_valid
-- q_term_use
-- q_valid_us_core_v4

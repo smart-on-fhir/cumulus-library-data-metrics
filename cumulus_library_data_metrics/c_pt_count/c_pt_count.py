@@ -25,5 +25,4 @@ class PatientCountBuilder(MetricMixin, BaseTableBuilder):
     }
 
     def add_metric_queries(self) -> None:
-        # https://github.com/sync-for-science/qualifier/blob/master/metrics.md#c_pt_count-demographics-count-of-patients-by-birth-year-by-gender-by-ethnicity-by-race
         self.queries = [self.render_sql(self.name, src="Patient")]

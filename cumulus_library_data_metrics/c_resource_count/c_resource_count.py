@@ -19,6 +19,5 @@ class ResourceCountBuilder(MetricMixin, BaseTableBuilder):
             self.queries.append(self.render_sql(self.name, period="all", src=src))
 
     def add_metric_queries(self) -> None:
-        # https://github.com/sync-for-science/qualifier/blob/master/metrics.md#c_resource_count-volume-count-of-unique-resources-by-resource-type-by-category-by-year-by-month
         for resource in resource_info.SUPPORTED:
             self.make_tables(resource)

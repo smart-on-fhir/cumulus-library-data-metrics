@@ -48,8 +48,8 @@ class MetricsTestCase(unittest.TestCase):
     def test_c_resources_per_pt(self):
         self.run_study("c_resources_per_pt")
 
-    def test_c_term_coverage(self):
-        self.run_study("c_term_coverage", prefix="count_")
+    def test_c_system_use(self):
+        self.run_study("c_system_use", prefix="count_")
 
     def test_c_us_core_v4_count(self):
         # Just spot checks one resource - the main logic is tested in t_us_core_v4
@@ -64,8 +64,8 @@ class MetricsTestCase(unittest.TestCase):
     def test_q_ref_target_valid(self):
         self.run_study("q_ref_target_valid")
 
-    def test_q_term_use(self):
-        self.run_study("q_term_use")
+    def test_q_system_use(self):
+        self.run_study("q_system_use")
 
     def test_q_valid_us_core_v4(self):
         # Just spot checks one resource & the summary - the main logic is tested in t_us_core_v4

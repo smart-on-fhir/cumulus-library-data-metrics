@@ -1,0 +1,47 @@
+-- http://hl7.org/fhir/us/core/STU4/StructureDefinition-us-core-diagnosticreport-lab.html
+-- There is another non-lab-report-specific profile,
+-- but this is the DiagnosticReport profile that covers the LAB rows.
+
+WITH
+tmp_slice AS {% include 'us_core_v4/slice.jinja' %},
+
+tmp_results AS (
+    SELECT
+        id,
+        BOOL_AND(
+            {{ utils.is_reference_of_type('u.result', 'Observation') }}
+        ) AS valid_result
+    FROM tmp_slice,
+        UNNEST(result) AS u (result)
+    GROUP BY id
+),
+
+tmp_simplified AS (
+    SELECT
+        tmp_slice.id,
+        performer IS NOT NULL AS valid_performer,
+        (
+            tmp_results.valid_result IS NOT NULL
+            AND tmp_results.valid_result
+        ) AS valid_result,
+        -- 'presentedForm' is not *marked* in the profile as must-support
+        -- but it is mentioned as an acceptable alternative to 'result',
+        -- which *is* must-support. So throw it in too.
+        presentedForm IS NOT NULL as valid_presented_form
+    FROM tmp_slice
+    LEFT JOIN tmp_results ON tmp_results.id = tmp_slice.id
+)
+
+{%
+set ns.fields = [
+    'valid_performer',
+    'valid_result',
+    'valid_presented_form',
+]
+%}
+
+SELECT
+    id,
+    {{ ns.fields|join(", ") }},
+    {{ ns.fields|join(" AND ") }} AS valid
+FROM tmp_simplified

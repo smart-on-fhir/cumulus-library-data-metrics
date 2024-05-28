@@ -1,6 +1,6 @@
--- http://hl7.org/fhir/us/core/STU4/StructureDefinition-us-core-diagnosticreport-note.html
--- There is another lab-report-specific profile,
--- but this is the "base DiagnosticReport" profile that covers the non-LAB rows.
+-- http://hl7.org/fhir/us/core/STU4/StructureDefinition-us-core-diagnosticreport-lab.html
+-- There is another non-lab-report-specific profile,
+-- but this is the DiagnosticReport profile that covers the LAB rows.
 
 {% import 'us_core_v4/diagnosticreport_utils.jinja' as dr_utils %}
 
@@ -11,23 +11,23 @@ tmp_simplified AS (
     SELECT
         id,
         {{ dr_utils.is_dr_status_valid() }} AS valid_status,
-        category IS NOT NULL AS valid_category,
         {{ utils.is_concept_valid('code') }} AS valid_code,
         {{ utils.is_reference_of_type('subject', 'Patient') }} AS valid_subject,
         (
             effectiveDateTime IS NOT NULL
             OR {{ utils.is_period_valid('effectivePeriod') }}
-        ) AS valid_effective
+        ) AS valid_effective,
+        issued IS NOT NULL AS valid_issued
     FROM tmp_slice
 )
 
 {%
 set fields = [
     'valid_status',
-    'valid_category',
     'valid_code',
     'valid_subject',
     'valid_effective',
+    'valid_issued',
 ]
 %}
 
