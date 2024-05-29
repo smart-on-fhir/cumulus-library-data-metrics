@@ -1,2 +1,2 @@
 id,status,target
-bad-encounter,,"{'id': NULL, 'display': NULL, 'reference': Encounter/Nope, 'type': NULL}"
+bad-encounter,,Encounter/Nope

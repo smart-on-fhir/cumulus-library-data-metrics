@@ -8,7 +8,6 @@ slicing and dicing that field by category and time (if relevant).
 ### Fields
 
 - category (depending on resource)
-- has_text (depending on field)
 - year (depending on resource)
 - status
 - systems

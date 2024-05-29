@@ -1,3 +1,4 @@
 id,status,target
-bad-second-encounter-in-list,,{'reference': Encounter/Nope}
-bad-encounter,,{'reference': Encounter/Nope}
+bad-second-encounter-in-list,,Encounter/Nope
+bad-multiple-encounters,current,Encounter/Nope; Encounter/Nope2
+bad-encounter,,Encounter/Nope

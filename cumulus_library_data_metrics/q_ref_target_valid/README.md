@@ -9,20 +9,18 @@ does that target actual exist in the Patient database?"
 
 ### Numerator (flagged rows)
 
-Any source Reference field which has a `.reference`
+Any source row which has at least one `.reference` field
 that looks like `"TargetResource/xxx"` but the corresponding `xxx` resource
 does not actually exist.
 
 Note that this does not check spec-valid but more complex forms like
 absolute URLs, contained resources, logical references, or display-only references.
-All such forms are not included in the numerator or denominator.
 
 ### Denominator
 
-All fields for the resource in question that have a populated reference to
-the target resource.
+All possible rows for the resource in question.
 
-(e.g. `count(*) from condition where subject.reference like 'Patient/%'`)
+(e.g. `count(*) from condition`)
 
 ### Debugging
 

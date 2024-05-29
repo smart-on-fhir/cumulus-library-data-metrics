@@ -21,9 +21,7 @@ class TargetValidBuilder(MetricMixin, BaseTableBuilder):
     def make_table(self, **kwargs) -> None:
         """Make a single metric table"""
         summary_key = f"{kwargs['src'].lower()}_{kwargs['dest'].lower()}"
-
-        # Only count filled-in references, not every row
-        self.summary_entries[summary_key] = self.render_sql("denominator", **kwargs)
+        self.summary_entries[summary_key] = None
 
         self.queries.append(self.render_sql(self.name, **kwargs))
 
