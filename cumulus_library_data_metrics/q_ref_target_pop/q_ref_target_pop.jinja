@@ -12,5 +12,5 @@ FROM {{ src }} AS src
 LEFT JOIN src_status
 ON src.id = src_status.id
 WHERE
-    src.{{ field }}.reference NOT LIKE '{{ dest }}/%'
+    NOT REGEXP_LIKE(src.{{ field }}.reference, '^{{ dest }}/')
 );

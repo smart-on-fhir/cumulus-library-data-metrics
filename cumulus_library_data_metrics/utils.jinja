@@ -174,14 +174,14 @@
     AND (
         {{ field }}.reference IS NOT NULL AND (
             {% for type in types %}
-            {{ field }}.reference LIKE '{{ type }}/%'
+            REGEXP_LIKE({{ field }}.reference, '^{{ type }}/')
             {%- if not loop.last %}OR{%- endif -%}
             {%- endfor %}
 
             {% if allow_contained %}
             {# Validating the type further would be very hard (unnesting), so we don't here.
                This is only used rarely (MedRequest, where the target must be Medication). #}
-            OR {{ field }}.reference LIKE '#%'
+            OR REGEXP_LIKE({{ field }}.reference, '^#')
             {% endif %}
         )
         -- TODO: Should we allow this form? FHIR spec says yes... but not sure our SQL allows it
