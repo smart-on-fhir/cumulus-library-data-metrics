@@ -8,7 +8,7 @@ SELECT
     src.id,
 
     {% for field in fields %}
-    src.{{ field }} AS {{ field|replace('.', '_')|lower }},
+    src.{{ utils.quote_field(field) }} AS {{ field|replace('.', '_')|lower }},
     {% endfor %}
 
     src_status.status
@@ -33,7 +33,7 @@ WHERE
         FALSE
         {% for field in fields %}
         OR (
-            {{ field }} IS NOT NULL
+            {{ utils.quote_field(field) }} IS NOT NULL
             AND {{ utils.coalesce_date([field]) }} NOT BETWEEN DATE('1900-01-01') AND CURRENT_DATE
         )
         {% endfor %}
