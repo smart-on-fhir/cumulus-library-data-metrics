@@ -118,6 +118,12 @@
 {%- endmacro %}
 
 
+-- Quotes a field that may include keywords and periods (like src.end -> "src"."end")
+{% macro quote_field(field) -%}
+    "{{ field|replace('.', '"."') }}"
+{%- endmacro %}
+
+
 -- Extracts a date field from a list of choices and returns a DATE.
 {% macro coalesce_date(fields) -%}
     date(from_iso8601_timestamp(
