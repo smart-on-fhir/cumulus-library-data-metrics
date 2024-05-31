@@ -90,12 +90,26 @@ class UsCoreV4Mixin(MetricMixin):
         pass  # to be overridden
 
     def add_metric_queries(self) -> None:
+        # Common kwargs:
+        # - src: FHIR resource
+        # - name: subcategory of profile, used in table names
+        # - category/loinc: property to slice on for Observations
+        # - mandatory_split: some profiles have a lot of mandatory fields, which can cause
+        #   performance issues when cubing. This is a recommended hint of how many tables to
+        #   split any mandatory cube into.
+
         # Observation is so big, that if it falls over in Athena, let's know early.
         # So we run these first,
         # self.make_table(src="Observation", name="blood_pressure", loinc="85354-9")
-        self.make_table(src="Observation", name="laboratory", category="laboratory")
-        self.make_table(src="Observation", name="smoking_status", loinc="72166-2")
-        self.make_table(src="Observation", name="vital_signs", category="vital-signs")
+        self.make_table(
+            src="Observation", name="laboratory", category="laboratory", mandatory_split=2
+        )
+        self.make_table(
+            src="Observation", name="smoking_status", loinc="72166-2", mandatory_split=2
+        )
+        self.make_table(
+            src="Observation", name="vital_signs", category="vital-signs", mandatory_split=3
+        )
 
         # Rest of profiles
         self.make_table(src="AllergyIntolerance")

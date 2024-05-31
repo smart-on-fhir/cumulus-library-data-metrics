@@ -2,11 +2,16 @@
 
 {% set ns = namespace(fields=[]) %}
 
-CREATE TABLE data_metrics__count_c_us_core_v4_count_{{ profile_name }}_mandatory AS (
+CREATE TABLE data_metrics__count_c_us_core_v4_count_{{ profile_name }}_mandatory{{ table_num|default('') }} AS (
 WITH
 src_status AS {{ utils.extract_status(src) }},
 
 src_mandatory AS ({% include 'us_core_v4/' + profile_name + '_mandatory.jinja' %}),
+{% set ns.fields = ns.fields + ['valid'] %}
+{% if table_max %}
+    {% set field_slices = ns.fields|slice(table_max)|list %}
+    {% set ns.fields = field_slices[table_num - 1] %}
+{% endif %}
 
 simplified AS (
     SELECT
@@ -17,8 +22,7 @@ simplified AS (
         {{ utils.get_date_string(dates, 'year') }} AS "year",
         {% endif %}
 
-        src_mandatory.{{ ns.fields|join(", src_mandatory.") }},
-        src_mandatory.valid
+        src_mandatory.{{ ns.fields|join(", src_mandatory.") }}
 
     FROM {{ src }} AS src
     INNER JOIN src_mandatory
@@ -32,7 +36,6 @@ simplified AS (
     "year",
     {% endif %}
     status,
-    {{ ns.fields|join(", ") }},
-    valid
+    {{ ns.fields|join(", ") }}
 {% endcall %}
 );

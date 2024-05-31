@@ -11,14 +11,14 @@ src_must_support AS ({% include 'us_core_v4/' + profile_name + '_must_support.ji
 simplified AS (
     SELECT
         src.id,
-        {{ utils.coalesce_missing('src_status.status') }} AS status,
+        {{ utils.coalesce_missing('src_status.status') }} AS status
 
         {% if dates %}
-        {{ utils.get_date_string(dates, 'year') }} AS "year",
+        , {{ utils.get_date_string(dates, 'year') }} AS "year"
         {% endif %}
 
         {% if ns.fields %}
-        src_must_support.{{ ns.fields|join(", src_must_support.") }}
+        , src_must_support.{{ ns.fields|join(", src_must_support.") }}
         {% endif %}
 
     FROM {{ src }} AS src
@@ -34,9 +34,9 @@ simplified AS (
     {% if dates %}
     "year",
     {% endif %}
-    status,
+    status
     {% if ns.fields %}
-    {{ ns.fields|join(", ") }}
+    , {{ ns.fields|join(", ") }}
     {% endif %}
 {% endcall %}
 );

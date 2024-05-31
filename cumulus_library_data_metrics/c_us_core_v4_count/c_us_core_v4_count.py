@@ -9,9 +9,13 @@ class UsCoreV4CountBuilder(UsCoreV4Mixin, BaseTableBuilder):
     name = "c_us_core_v4_count"
 
     def make_table(self, **kwargs) -> None:
-        """Make a single metric table"""
-        self.queries += [
-            # We break these into two tables to keep CUBE sizes reasonable.
-            self.render_sql("mandatory", **kwargs),
-            self.render_sql("must_support", **kwargs),
-        ]
+        if self.get_output_mode() == "cube" and "mandatory_split" in kwargs:
+            kwargs["table_max"] = kwargs["mandatory_split"]
+            self.queries += [
+                self.render_sql("mandatory", table_num=i + 1, **kwargs)
+                for i in range(kwargs["table_max"])
+            ]
+        else:
+            self.queries.append(self.render_sql("mandatory", **kwargs))
+
+        self.queries.append(self.render_sql("must_support", **kwargs))
