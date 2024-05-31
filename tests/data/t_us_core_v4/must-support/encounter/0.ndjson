@@ -2,4 +2,10 @@
 {"id": "hospitalization-no-disposition", "hospitalization": {"reAdmission": {"text": "X"}}}
 {"id": "location-multiple-good", "location": [{"location": {"reference": "Location/A"}}, {"location": {"reference": "Location/B"}}]}
 {"id": "location-multiple-bad", "location": [{"location": {"reference": "Location/A"}}, {"status": "active"}]}
+{"id": "reason-ref-good", "reasonReference": [{"reference": "Condition/A"}]}
+{"id": "reason-ref-multiple-good", "reasonReference": [{"reference": "Condition/A"}, {"reference": "Condition/B"}]}
+{"id": "reason-ref-multiple-bad", "reasonReference": [{"reference": "Condition/A"}, {"reference": "Patient/B"}]}
+{"id": "reason-ref-wrong-target", "reasonReference": [{"reference": "Patient/A"}]}
+{"id": "service-provider-good", "serviceProvider": {"reference": "Organization/A"}}
+{"id": "service-provider-wrong-target", "serviceProvider": {"reference": "Patient/A"}}
 {"id": "nothing"}

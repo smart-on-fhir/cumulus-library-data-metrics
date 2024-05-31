@@ -1,5 +1,11 @@
-id,valid_participant,valid_period,valid_reason_code,valid_discharge_disposition,valid_location,valid
+id,valid_participant,valid_period,valid_reason,valid_discharge_disposition,valid_location,valid
 valid,true,true,true,true,true,true
+service-provider-wrong-target,false,false,false,false,false,false
+service-provider-good,false,false,false,false,true,false
+reason-ref-wrong-target,false,false,false,false,false,false
+reason-ref-multiple-good,false,false,true,false,false,false
+reason-ref-multiple-bad,false,false,false,false,false,false
+reason-ref-good,false,false,true,false,false,false
 nothing,false,false,false,false,false,false
 location-multiple-good,false,false,false,false,true,false
 location-multiple-bad,false,false,false,false,false,false
