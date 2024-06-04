@@ -75,7 +75,13 @@ tmp_simplified AS (
 {%
 set ns.fields = [
     'valid_clinical_status',
-    'valid_verification_status',
+]
+%}
+{% if not skip_duplicated_mandatory_checks %}
+{% set ns.fields = ns.fields + ['valid_verification_status'] %}
+{% endif %}
+{%
+set ns.fields = ns.fields + [
     'valid_status_presence',
     'valid_category',
     'valid_code',
