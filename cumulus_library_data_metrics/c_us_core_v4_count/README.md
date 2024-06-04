@@ -4,10 +4,15 @@
 
 ### Fields
 
+There are multiple tables all with this general outline:
+
 - year (depending on resource)
 - status
-- valid_mandatory (for whether all Mandatory fields are present)
-- valid_* (one for each "Must Support" field)
+- valid_* (one for each profile check)
+
+There is a mandatory table
+(sometimes multiples if there are a lot of mandatory fields, for performance reasons)
+and a must-support table, for each US Core profile.
 
 ### Notes on "Must Support" fields
 

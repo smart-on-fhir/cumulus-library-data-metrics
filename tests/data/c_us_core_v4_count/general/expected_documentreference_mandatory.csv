@@ -1,0 +1,4 @@
+cnt,year,status,valid_status,valid_type,valid_category,valid_subject,valid_content_type,valid
+1,cumulus__none,current,true,true,true,true,true,true
+1,2015,current,true,true,true,true,true,true
+1,2014,cumulus__none,false,false,false,false,false,false

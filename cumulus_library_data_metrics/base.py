@@ -75,6 +75,14 @@ class MetricMixin:
         self.extra_schema_checks(config)
         self.add_metric_queries()
 
+    def get_output_mode(self) -> str:
+        # TODO: add the ability for cumulus-library to take study args like
+        #  --study-option=output-mode:cube (or whatever)
+        output_mode = os.environ.get("DATA_METRICS_OUTPUT_MODE")
+        if output_mode not in {"aggregate", "cube"}:
+            output_mode = "cube"
+        return output_mode
+
     def render_sql(self, template: str, **kwargs) -> str:
         path = os.path.dirname(__file__)
 
@@ -85,12 +93,7 @@ class MetricMixin:
             kwargs.update(resource_info.CATEGORIES.get(src, {}))
 
         # See how we should combine counts.
-        # TODO: add the ability for cumulus-library to take study args like
-        #  --study-option=output-mode:cube (or whatever)
-        output_mode = os.environ.get("DATA_METRICS_OUTPUT_MODE")
-        if output_mode not in {"aggregate", "cube"}:
-            output_mode = "cube"
-        kwargs["output_mode"] = output_mode
+        kwargs["output_mode"] = self.get_output_mode()
 
         with open(f"{path}/{self.name}/{template}.jinja") as file:
             template = file.read()

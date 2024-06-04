@@ -21,7 +21,7 @@ tmp_simplified AS (
 )
 
 {%
-set fields = [
+set ns.fields = [
     'valid_status',
     'valid_code',
     'valid_subject',
@@ -31,6 +31,6 @@ set fields = [
 
 SELECT
     id,
-    {{ fields|join(", ") }},
-    {{ fields|join(" AND ") }} AS valid
+    {{ ns.fields|join(", ") }},
+    {{ ns.fields|join(" AND ") }} AS valid
 FROM tmp_simplified

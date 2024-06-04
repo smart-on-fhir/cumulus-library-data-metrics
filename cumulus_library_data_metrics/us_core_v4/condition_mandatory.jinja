@@ -73,9 +73,15 @@ tmp_simplified AS (
 )
 
 {%
-set fields = [
+set ns.fields = [
     'valid_clinical_status',
-    'valid_verification_status',
+]
+%}
+{% if not skip_duplicated_mandatory_checks %}
+{% set ns.fields = ns.fields + ['valid_verification_status'] %}
+{% endif %}
+{%
+set ns.fields = ns.fields + [
     'valid_status_presence',
     'valid_category',
     'valid_code',
@@ -85,6 +91,6 @@ set fields = [
 
 SELECT
     id,
-    {{ fields|join(", ") }},
-    {{ fields|join(" AND ") }} AS valid
+    {{ ns.fields|join(", ") }},
+    {{ ns.fields|join(" AND ") }} AS valid
 FROM tmp_simplified

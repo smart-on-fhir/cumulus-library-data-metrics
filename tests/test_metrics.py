@@ -55,6 +55,12 @@ class MetricsTestCase(unittest.TestCase):
         # Just spot checks one resource - the main logic is tested in t_us_core_v4
         self.run_study("c_us_core_v4_count", prefix="count_")
 
+    def test_c_us_core_v4_count_cubed(self):
+        # We have special support for cutting up observation profiles into multiple
+        # tables in cube mode.
+        with mock.patch.dict(os.environ, {"DATA_METRICS_OUTPUT_MODE": "cube"}):
+            self.run_study("c_us_core_v4_count", test="cubed", prefix="count_")
+
     def test_q_date_recent(self):
         self.run_study("q_date_recent")
 
