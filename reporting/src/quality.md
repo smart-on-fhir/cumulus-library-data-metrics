@@ -24,7 +24,6 @@ const buildMetricHeading = metricId => {
 }
 
 const formatNumber = d3.format(",");
-
 ```
 
 ## Overview
@@ -76,7 +75,8 @@ Plot.plot({
   y: {label: null},
   color: {
     type: "linear",
-    scheme: "PiYG"
+    scheme: "spectral",
+    domain: [0, 100]
   },
   marginLeft: 200,
   marks: [
@@ -84,13 +84,15 @@ Plot.plot({
       x: "target", 
       y: "resource", 
       fill: "valid_pct", 
+      tip: true,
       inset: 0.5
     }),
     Plot.text(ref_target_valid, {
       x: "target", 
       y: "resource",
       text: (d) => d.valid_pct ? d.valid_pct+"%" : null,
-      fill: "black",
+      fill: (d) => d.valid_pct > 70 ? "white" : "black",
+      fontWeight: "bold",
       title: "title"
     })
   ]
@@ -119,7 +121,8 @@ Plot.plot({
   y: {label: null},
   color: {
     type: "linear",
-    scheme: "PiYG"
+    scheme: "spectral",
+    domain: [0, 100]
   },
   marginLeft: 200,
   marks: [
@@ -133,7 +136,8 @@ Plot.plot({
       x: "target", 
       y: "resource",
       text: (d) => d.valid_pct ? d.valid_pct+"%" : null, 
-      fill: "black", 
+      fill: (d) => d.valid_pct > 70 ? "white" : "black",
+      fontWeight: "bold",
       title: "title"
     })
   ]

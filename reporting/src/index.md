@@ -83,14 +83,22 @@ GROUP BY 1
 
 ```js
 Plot.plot({
-  x: {label: "%", percent:true},
+  x: {
+    label: "%", 
+    percent:true
+  },
+  color: {
+    legend: true,
+    scheme: "accent"
+  },
   marks: [
     Plot.ruleX([0, 1]),
     Plot.barX(gender, 
       Plot.stackX({
         order: "administrative_gender", 
         x: "pct_cnt", 
-        fill: "#FFD580",
+        fill: "administrative_gender",
+        fontWeight: "bold",
         insetLeft: 1,
         insetRight: 1,
         channels: {"count": "cnt"},
@@ -101,8 +109,7 @@ Plot.plot({
       Plot.stackX({
         order: "administrative_gender", 
         x: "pct_cnt", 
-        text: "administrative_gender", 
-        fontWeight: "bold",
+        text: d => d.pct_cnt > .25 ? d.administrative_gender : null,
         insetLeft: 1,
         insetRight: 1
       })
@@ -131,14 +138,21 @@ GROUP BY 1
 
 ```js
 Plot.plot({
-  x: {label: "%", percent:true},
+  x: {
+    label: "%", 
+    percent:true
+  },
+  color: {
+    legend: true,
+    scheme: "accent"
+  },
   marks: [
     Plot.ruleX([0, 1]),
     Plot.barX(deceased, 
       Plot.stackX({
         order: "deceased", 
         x: "pct_cnt", 
-        fill: "#FFD580",
+        fill: "pt_state",
         insetLeft: 1,
         insetRight: 1,
         channels: {"count": "cnt"},
@@ -149,7 +163,7 @@ Plot.plot({
       Plot.stackX({
         order: "pt_state", 
         x: "pct_cnt", 
-        text: "pt_state", 
+        text: d => d.pct_cnt > .25 ? d.pt_state : null, 
         fontWeight: "bold",
         insetLeft: 1,
         insetRight: 1

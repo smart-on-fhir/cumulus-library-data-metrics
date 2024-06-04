@@ -62,7 +62,7 @@ Plot.plot({
     tickFormat: "s"
   },
   y: {label: null},
-  marginLeft: 200,
+  marginLeft: 250,
   marks: [
     Plot.barX(resource_counts, {
         x: "cnt",
@@ -80,10 +80,14 @@ const resource_counts_by_year = await sql([
     `SELECT 
         CASE
             WHEN category = 'cumulus__none' OR category IS NULL
-            THEN resource
+              THEN resource
             ELSE resource || ' (' || category || ')'
         END AS resource,
-        year::INT AS year,
+        CASE 
+          WHEN year = 'cumulus__none' 
+            THEN NULL
+            ELSE year 
+          END::INT AS year,
         sum(cnt) AS cnt
     FROM (
         SELECT * FROM (${all_resources}) 
@@ -111,13 +115,14 @@ Plot.plot({
   axis: null,
   marginLeft: 20,
   marginRight: 20,
+  // height: 50 + 100 * d3.groups(resource_counts_by_year, d => d.resource).length,
   marks: [
     Plot.barY(resource_counts_by_year, {
         x: "year",
         y: "cnt",
         fy: "resource",
         tip: true,
-        title: d => `${d.year} resources: ${formatNumber(d.cnt)}`,
+        title: d => `${d.year || 'no year'}, resources: ${formatNumber(d.cnt)}`,
         fill: "#6cc5b0"
     }),
     Plot.text( resource_counts_by_year, 
@@ -177,7 +182,8 @@ Plot.plot({
       y: "resourceType",
       x: "avg",
       stroke:"#6cc5b0", 
-      fill: "#6cc5b0", 
+      fill: "#6cc5b0",
+      tip: true,
       r: 5
     })
   ]
@@ -205,6 +211,7 @@ Plot.plot({
       x: "max",
       stroke:"#6cc5b0", 
       fill: "#6cc5b0", 
+      tip: true,
       r: 5
     })
   ]
