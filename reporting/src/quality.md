@@ -29,6 +29,10 @@ const formatNumber = d3.format(",");
 ## Overview
 
 ```js
+
+//set globally here, but can move to per metric thresholds if needed
+const threshold = 0.05;
+
 const invalidMetricSql = [
   "SELECT metric FROM (",
   qualityMetrics.map( m => [
@@ -38,7 +42,8 @@ const invalidMetricSql = [
     `FROM metrics.data_metrics__${m.name}_summary`
   ].join("\n")).join("\nUNION ALL\n"),
   ")",
- "WHERE numerator > 0 AND denominator > 0"
+ "WHERE numerator > 0 AND denominator > 0",
+ `AND numerator/denominator >= ${threshold}`
 ].join("\n")
 
 const [...invalid_metrics] = await sql([invalidMetricSql]);
