@@ -1,4 +1,4 @@
-# Cumulus Data Metrics Report
+# Data Metrics Reporting
 
 Visualizations of locally run FHIR data quality and characterization metrics
 
@@ -51,4 +51,4 @@ Visualizations of locally run FHIR data quality and characterization metrics
 
 ## Updating and Customizing Reports
 
-The metrics report is built with the open source [Observable Framework](https://observablehq.com/framework/getting-started) and has no other dependencies.
+The metrics report is built with the open source [Observable Framework](https://observablehq.com/framework/getting-started) and has no other nodejs dependencies.
