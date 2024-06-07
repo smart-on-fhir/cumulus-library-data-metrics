@@ -36,6 +36,9 @@ SELECT
     {{ field }}
 FROM rejoined_src
 WHERE
-    has_target_system IS NULL
-    OR NOT has_target_system
+    {{ field }} IS NOT NULL
+    AND (
+        has_target_system IS NULL
+        OR NOT has_target_system
+    )
 );

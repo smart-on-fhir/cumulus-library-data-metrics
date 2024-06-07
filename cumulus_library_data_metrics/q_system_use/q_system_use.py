@@ -29,7 +29,9 @@ class SystemUseBuilder(MetricMixin, BaseTableBuilder):
         )
         self.make_table(src="Device", field="type", systems=[systems.SNOMED])
         self.make_table(src="DiagnosticReport", field="code", systems=[systems.LOINC])
-        self.make_table(src="DocumentReference", field="type", systems=[systems.LOINC])
+        self.make_table(
+            src="DocumentReference", field="type", systems=[systems.LOINC, systems.NULL_FLAVOR]
+        )
         self.make_table(
             src="Immunization",
             field="vaccineCode",
@@ -68,8 +70,8 @@ class SystemUseBuilder(MetricMixin, BaseTableBuilder):
                 systems.CPT,
                 systems.LOINC,
                 systems.SNOMED,
-                "http://ada.org/cdt",
-                "http://www.cms.gov/Medicare/Coding/HCPCSReleaseCodeSets",
+                "http://www.ada.org/cdt",
+                "https://www.cms.gov/Medicare/Coding/HCPCSReleaseCodeSets",
                 "http://www.cms.gov/Medicare/Coding/ICD10",
             ],
         )
