@@ -1,4 +1,9 @@
-{"id": "valid-simple", "code": {"coding": [{"system": "http://www.ama-assn.org/go/cpt"}]}}
+{"id": "valid-cdt", "code": {"coding": [{"system": "http://www.ada.org/cdt"}]}}
+{"id": "valid-cpt", "code": {"coding": [{"system": "http://www.ama-assn.org/go/cpt"}]}}
+{"id": "valid-hcpcs", "code": {"coding": [{"system": "https://www.cms.gov/Medicare/Coding/HCPCSReleaseCodeSets"}]}}
+{"id": "valid-icd10", "code": {"coding": [{"system": "http://www.cms.gov/Medicare/Coding/ICD10"}]}}
+{"id": "valid-loinc", "code": {"coding": [{"system": "http://loinc.org"}]}}
+{"id": "valid-snomed", "code": {"coding": [{"system": "http://snomed.info/sct"}]}}
 {"id": "valid-multiple", "code": {"coding": [{"system": "nope"}, {"system": "http://loinc.org"}]}}
 {"id": "bad-system", "code": {"coding": [{"system": "nope"}]}}
 {"id": "missing-system", "code": {"coding": [{"display": "No system"}]}}
