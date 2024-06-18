@@ -23,7 +23,7 @@ counts_by_pt AS (
     SELECT
         patient_refs.ref AS patient,
         '{{ resource }}' AS resource,
-        cat_codes.category,
+        {{ utils.coalesce_missing('cat_codes.category') }} AS category,
         COUNT(DISTINCT src.id) AS num_resources
     FROM patient_refs
     LEFT JOIN {{ resource }} AS src
@@ -37,6 +37,14 @@ counts_by_pt AS (
 {% endfor %}
 ),
 
+{% for resource in categories %}
+cat_{{ resource|lower }}_values AS (
+    SELECT DISTINCT category
+    FROM counts_by_pt
+    WHERE resource = '{{ resource }}'
+),
+{% endfor %}
+
 {% for resource, field_name in patient_fields.items() %}
 summed_{{ resource|lower }}_counts AS (
     SELECT
@@ -48,12 +56,6 @@ summed_{{ resource|lower }}_counts AS (
 ),
 {% endfor %}
 
-total_patients AS (
-    SELECT
-        COUNT(ref) AS total
-    FROM patient_refs
-),
-
 summed_counts AS (
     SELECT
         patient,
@@ -63,38 +65,37 @@ summed_counts AS (
 )
 
 SELECT
-    '* All' AS id,
-    '* All' AS category,
+    'cumulus__all' AS id,
+    'cumulus__all' AS category,
     CAST(AVG(num_resources) AS DECIMAL(18, 2)) AS average,
+    CAST(STDDEV_POP(num_resources) AS DECIMAL(18, 2)) AS std_dev,
     MAX(num_resources) AS "max"
 FROM summed_counts
 UNION
 {%- for resource in patient_fields %}
 SELECT
     '{{ resource }}' AS id,
-    '* All' AS category,
+    'cumulus__all' AS category,
     CAST(AVG(num_resources) AS DECIMAL(18, 2)) AS average,
+    CAST(STDDEV_POP(num_resources) AS DECIMAL(18, 2)) AS std_dev,
     MAX(num_resources) AS "max"
 FROM summed_{{ resource|lower }}_counts
 WHERE resource = '{{ resource }}'
 {% if resource in categories %}
 UNION
 SELECT
-    resource AS id,
-    COALESCE(category, '* No recognized category') AS category,
-    CASE
-        WHEN ARBITRARY(tp.total) = 0
-        THEN 0
-        ELSE CAST(
-            CAST(SUM(num_resources) AS DECIMAL(18, 2)) / ARBITRARY(tp.total)
-            AS DECIMAL(18, 2)
-        )
-    END AS average,
+    '{{ resource }}' AS id,
+    cat_values.category,
+    CAST(AVG(COALESCE(num_resources, 0)) AS DECIMAL(18, 2)) AS average,
+    CAST(STDDEV_POP(COALESCE(num_resources, 0)) AS DECIMAL(18, 2)) as std_dev,
     MAX(num_resources) AS "max"
-FROM counts_by_pt AS counts
-CROSS JOIN total_patients AS tp
-WHERE resource = '{{ resource }}'
-GROUP BY resource, category
+FROM patient_refs
+CROSS JOIN cat_{{ resource|lower }}_values AS cat_values
+LEFT JOIN counts_by_pt AS counts
+ON counts.resource = '{{ resource }}'
+AND counts.patient = patient_refs.ref
+AND counts.category = cat_values.category
+GROUP BY cat_values.category
 HAVING MAX(num_resources) > 0
 {% endif %}
 {%- if not loop.last %}
