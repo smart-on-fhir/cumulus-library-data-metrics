@@ -1,18 +1,18 @@
-id,category,average,max
-ServiceRequest,* All,0.00,0
-Procedure,* All,0.00,0
-Observation,* All,0.00,0
-MedicationRequest,outpatient,1.33,2
-MedicationRequest,inpatient,0.33,1
-MedicationRequest,discharge; inpatient,0.33,1
-MedicationRequest,* No recognized category,0.33,1
-MedicationRequest,* All,2.33,4
-Immunization,* All,0.00,0
-Encounter,* All,0.00,0
-DocumentReference,* All,0.00,0
-DiagnosticReport,* All,0.00,0
-Device,* All,0.00,0
-Condition,* No recognized category,0.67,1
-Condition,* All,0.67,1
-AllergyIntolerance,* All,0.00,0
-* All,* All,3.00,4
+id,category,average,std_dev,max
+cumulus__all,cumulus__all,3.00,0.82,4
+ServiceRequest,cumulus__all,0.00,0.00,0
+Procedure,cumulus__all,0.00,0.00,0
+Observation,cumulus__all,0.00,0.00,0
+MedicationRequest,outpatient,1.33,0.47,2
+MedicationRequest,inpatient,0.33,0.47,1
+MedicationRequest,discharge; inpatient,0.33,0.47,1
+MedicationRequest,cumulus__none,0.33,0.47,1
+MedicationRequest,cumulus__all,2.33,1.25,4
+Immunization,cumulus__all,0.00,0.00,0
+Encounter,cumulus__all,0.00,0.00,0
+DocumentReference,cumulus__all,0.00,0.00,0
+DiagnosticReport,cumulus__all,0.00,0.00,0
+Device,cumulus__all,0.00,0.00,0
+Condition,cumulus__none,0.67,0.47,1
+Condition,cumulus__all,0.67,0.47,1
+AllergyIntolerance,cumulus__all,0.00,0.00,0
