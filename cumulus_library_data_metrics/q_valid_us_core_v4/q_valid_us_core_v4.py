@@ -10,10 +10,13 @@ class ValidUsCoreV4Builder(UsCoreV4Mixin, BaseTableBuilder):
 
     def make_table(self, **kwargs) -> None:
         """Make a single metric table"""
-        profile_name = self.get_profile_name(kwargs)
-        self.summary_entries[profile_name] = self.render_sql("../us_core_v4/slice", **kwargs)
+        self.add_summary_entry(
+            kwargs["src"],
+            kwargs.get("name"),
+            denominator=self.render_sql("../us_core_v4/slice", **kwargs),
+        )
         self.queries.append(self.render_sql(self.name, **kwargs))
 
     def add_metric_queries(self) -> None:
         super().add_metric_queries()
-        self.make_summary()
+        self.make_summary(stratifier_column="profile")

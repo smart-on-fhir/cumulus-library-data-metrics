@@ -74,16 +74,9 @@ class UsCoreV4Mixin(MetricMixin):
         },
     }
 
-    @staticmethod
-    def get_profile_name(kwargs: dict[str, str]) -> str:
-        profile_name = kwargs["src"].lower()
-        if "name" in kwargs:
-            profile_name += f"_{kwargs['name']}"
-        return profile_name
-
     def render_sql(self, template: str, **kwargs) -> str:
-        if "src" in kwargs:
-            kwargs["profile_name"] = self.get_profile_name(kwargs)
+        if src := kwargs.get("src"):
+            kwargs["profile_name"] = self.make_table_fragment(src, kwargs.get("name"))
         return super().render_sql(template, **kwargs)
 
     def make_table(self, **kwargs) -> None:
@@ -102,20 +95,20 @@ class UsCoreV4Mixin(MetricMixin):
         # So we run these first,
         # self.make_table(src="Observation", name="blood_pressure", loinc="85354-9")
         self.make_table(
-            src="Observation", name="laboratory", category="laboratory", mandatory_split=2
+            src="Observation", name="Laboratory", category="laboratory", mandatory_split=2
         )
         self.make_table(
-            src="Observation", name="smoking_status", loinc="72166-2", mandatory_split=2
+            src="Observation", name="Smoking Status", loinc="72166-2", mandatory_split=2
         )
         self.make_table(
-            src="Observation", name="vital_signs", category="vital-signs", mandatory_split=3
+            src="Observation", name="Vital Signs", category="vital-signs", mandatory_split=3
         )
 
         # Rest of profiles
         self.make_table(src="AllergyIntolerance")
         self.make_table(src="Condition")
-        self.make_table(src="DiagnosticReport", name="lab")
-        self.make_table(src="DiagnosticReport", name="note")
+        self.make_table(src="DiagnosticReport", name="Lab")
+        self.make_table(src="DiagnosticReport", name="Note")
         self.make_table(src="DocumentReference")
         self.make_table(src="Encounter")
         self.make_table(src="Immunization")

@@ -10,9 +10,7 @@ class TargetPopBuilder(MetricMixin, BaseTableBuilder):
 
     def make_table(self, **kwargs) -> str:
         """Make a single metric table"""
-        summary_key = f"{kwargs['src'].lower()}_{kwargs['dest'].lower()}"
-        self.summary_entries[summary_key] = None
-
+        self.add_summary_entry(kwargs["src"], kwargs["dest"])
         self.queries.append(self.render_sql(self.name, **kwargs))
 
     def add_metric_queries(self) -> None:
@@ -26,4 +24,4 @@ class TargetPopBuilder(MetricMixin, BaseTableBuilder):
         self.make_table(src="MedicationRequest", dest="Patient", field="subject")
         self.make_table(src="Observation", dest="Patient", field="subject")
         self.make_table(src="Procedure", dest="Patient", field="subject")
-        self.make_summary()
+        self.make_summary(stratifier_column="target")
