@@ -1,15 +1,15 @@
-id,numerator,denominator,percentage
-procedure,0,0,0.00
-patient,0,0,0.00
-observation_vital_signs,0,0,0.00
-observation_smoking_status,0,0,0.00
-observation_laboratory,0,0,0.00
-medicationrequest,0,0,0.00
-medication,0,0,0.00
-immunization,0,0,0.00
-encounter,2,3,66.67
-documentreference,0,0,0.00
-diagnosticreport_note,0,0,0.00
-diagnosticreport_lab,0,0,0.00
-condition,0,0,0.00
-allergyintolerance,0,0,0.00
+resource,profile,numerator,denominator,percentage
+Procedure,,0,0,0.00
+Patient,,0,0,0.00
+Observation,Vital Signs,0,0,0.00
+Observation,Smoking Status,0,0,0.00
+Observation,Laboratory,0,0,0.00
+MedicationRequest,,0,0,0.00
+Medication,,0,0,0.00
+Immunization,,0,0,0.00
+Encounter,,2,3,66.67
+DocumentReference,,0,0,0.00
+DiagnosticReport,Note,0,0,0.00
+DiagnosticReport,Lab,0,0,0.00
+Condition,,0,0,0.00
+AllergyIntolerance,,0,0,0.00

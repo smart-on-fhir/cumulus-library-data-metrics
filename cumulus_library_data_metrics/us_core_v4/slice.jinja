@@ -1,6 +1,6 @@
 {% if src == "DiagnosticReport" %}
     {% import 'us_core_v4/diagnosticreport_utils.jinja' as dr_utils %}
-    {% if name == "lab" %}
+    {% if name == "Lab" %}
         {{ dr_utils.extract_lab_slice(src) }}
     {% else %}
         {{ dr_utils.extract_non_lab_slice(src) }}

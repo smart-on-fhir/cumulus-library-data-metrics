@@ -11,9 +11,7 @@ class SystemUseBuilder(MetricMixin, BaseTableBuilder):
 
     def make_table(self, **kwargs) -> None:
         """Make a single metric table"""
-        summary_key = f"{kwargs['src'].lower()}_{kwargs['field'].lower()}"
-        self.summary_entries[summary_key] = None
-
+        self.add_summary_entry(kwargs["src"], kwargs["field"])
         self.queries.append(self.render_sql(self.name, **kwargs))
 
     def add_metric_queries(self) -> None:
@@ -75,4 +73,4 @@ class SystemUseBuilder(MetricMixin, BaseTableBuilder):
                 "http://www.cms.gov/Medicare/Coding/ICD10",
             ],
         )
-        self.make_summary()
+        self.make_summary(stratifier_column="field")

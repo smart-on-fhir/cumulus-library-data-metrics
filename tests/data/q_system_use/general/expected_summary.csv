@@ -1,14 +1,14 @@
-id,numerator,denominator,percentage
+resource,field,numerator,denominator,percentage
 # Various edge cases here in procedure
-procedure_code,4,12,33.33
+Procedure,code,4,12,33.33
 # Rest are often short happy-path checks to confirm that we look at the right json field
-observation_valuecodeableconcept,0,2,0.00
-observation_code,0,2,0.00
-medicationrequest_medicationcodeableconcept,0,1,0.00
-medication_code,0,1,0.00
-immunization_vaccinecode,0,1,0.00
-documentreference_type,1,3,33.33
-diagnosticreport_code,0,1,0.00
-device_type,0,1,0.00
-condition_code,0,1,0.00
-allergyintolerance_code,0,1,0.00
+Observation,valueCodeableConcept,0,2,0.00
+Observation,code,0,2,0.00
+MedicationRequest,medicationCodeableConcept,0,1,0.00
+Medication,code,0,1,0.00
+Immunization,vaccineCode,0,1,0.00
+DocumentReference,type,1,3,33.33
+DiagnosticReport,code,0,1,0.00
+Device,type,0,1,0.00
+Condition,code,0,1,0.00
+AllergyIntolerance,code,0,1,0.00

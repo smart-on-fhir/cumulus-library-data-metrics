@@ -20,9 +20,7 @@ class TargetValidBuilder(MetricMixin, BaseTableBuilder):
 
     def make_table(self, **kwargs) -> None:
         """Make a single metric table"""
-        summary_key = f"{kwargs['src'].lower()}_{kwargs['dest'].lower()}"
-        self.summary_entries[summary_key] = None
-
+        self.add_summary_entry(kwargs["src"], kwargs["dest"])
         self.queries.append(self.render_sql(self.name, **kwargs))
 
     def add_metric_queries(self) -> None:
@@ -49,4 +47,4 @@ class TargetValidBuilder(MetricMixin, BaseTableBuilder):
         self.make_table(src="Observation", dest="Encounter", field="encounter")
         self.make_table(src="Procedure", dest="Patient", field="subject")
         self.make_table(src="Procedure", dest="Encounter", field="encounter")
-        self.make_summary()
+        self.make_summary(stratifier_column="target")

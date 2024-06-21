@@ -1,4 +1,4 @@
-id,category,average,std_dev,max
+resource,category,average,std_dev,max
 cumulus__all,cumulus__all,3.00,0.82,4
 ServiceRequest,cumulus__all,0.00,0.00,0
 Procedure,cumulus__all,0.00,0.00,0

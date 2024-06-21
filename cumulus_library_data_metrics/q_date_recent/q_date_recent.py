@@ -12,9 +12,7 @@ class DateRecentBuilder(MetricMixin, BaseTableBuilder):
 
     def make_table(self, **kwargs) -> None:
         """Make a single metric table"""
-        summary_key = kwargs["src"].lower()
-        self.summary_entries[summary_key] = None
-
+        self.add_summary_entry(kwargs["src"])
         self.queries.append(self.render_sql(self.name, **kwargs))
 
     def add_metric_queries(self) -> None:

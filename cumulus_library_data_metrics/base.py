@@ -26,9 +26,34 @@ class MetricMixin:
         # some of them are not present (notably DocRef.context.period.start).
         self.date_fields = copy.deepcopy(resource_info.DATES)
 
-    def make_summary(self) -> None:
+    def make_table_fragment(self, src: str, stratifier: str | None = None):
+        key = src.lower()
+        if stratifier:
+            key += f"_{stratifier.lower().replace(' ', '_')}"
+        return key
+
+    def add_summary_entry(
+        self, src: str, stratifier: str | None = None, *, denominator: str | None = None
+    ) -> None:
+        # These are all flags for the summary-table-builder jinja.
+        key = self.make_table_fragment(src, stratifier)
+        self.summary_entries[key] = {
+            "src": src,
+            "stratifier": stratifier,
+            "denominator": denominator,
+        }
+
+    def make_summary(self, stratifier_column: str | None = None) -> None:
         """Makes a summary table, from all the individual metric tables"""
-        sql = self.render_sql("../base.summary", entries=self.summary_entries, metric=self.name)
+        # Always define *something* even if we don't use it, so that consuming visualizations
+        # can assume a consistent two-column definition of resource + stratifier.
+        stratifier_column = stratifier_column or "stratifier"
+        sql = self.render_sql(
+            "../base.summary",
+            entries=self.summary_entries,
+            stratifier_column=stratifier_column,
+            metric=self.name,
+        )
         self.queries.append(sql)
 
     def _check_for_deep_docref_date(self, field: str, fields_to_check: dict) -> bool:
