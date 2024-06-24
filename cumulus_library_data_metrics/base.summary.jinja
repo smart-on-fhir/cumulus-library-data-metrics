@@ -23,7 +23,7 @@ CREATE TABLE data_metrics__{{ metric }}_summary AS (
             {% if summary_info["stratifier"] %}
             '{{ summary_info["stratifier"] }}' AS {{ stratifier_column }},
             {% else %}
-            NULL AS {{ stratifier_column }},
+            CAST(NULL AS VARCHAR) AS {{ stratifier_column }},
             {% endif %}
             numerator,
             denominator,
