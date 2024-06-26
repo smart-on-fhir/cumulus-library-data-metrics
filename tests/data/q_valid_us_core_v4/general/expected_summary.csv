@@ -1,15 +1,26 @@
 resource,profile,numerator,denominator,percentage
 Procedure,,0,0,0.00
+Procedure,cumulus__all,0,0,0.00
 Patient,,0,0,0.00
+Patient,cumulus__all,0,0,0.00
+Observation,cumulus__all,3,3,100.00
 Observation,Vital Signs,0,0,0.00
-Observation,Smoking Status,0,0,0.00
-Observation,Laboratory,0,0,0.00
+Observation,Smoking Status,2,2,100.00
+Observation,Laboratory,2,2,100.00
 MedicationRequest,,0,0,0.00
+MedicationRequest,cumulus__all,0,0,0.00
 Medication,,0,0,0.00
+Medication,cumulus__all,0,0,0.00
 Immunization,,0,0,0.00
+Immunization,cumulus__all,0,0,0.00
 Encounter,,2,3,66.67
+Encounter,cumulus__all,2,3,66.67
 DocumentReference,,0,0,0.00
+DocumentReference,cumulus__all,0,0,0.00
+DiagnosticReport,cumulus__all,0,0,0.00
 DiagnosticReport,Note,0,0,0.00
 DiagnosticReport,Lab,0,0,0.00
 Condition,,0,0,0.00
+Condition,cumulus__all,0,0,0.00
 AllergyIntolerance,,0,0,0.00
+AllergyIntolerance,cumulus__all,0,0,0.00

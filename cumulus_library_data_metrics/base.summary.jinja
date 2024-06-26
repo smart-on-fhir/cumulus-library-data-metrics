@@ -2,28 +2,74 @@ CREATE TABLE data_metrics__{{ metric }}_summary AS (
     WITH
     {%- for entry_key, summary_info in entries.items() %}
     {{ entry_key }}_numerator AS (
-        SELECT '{{ entry_key }}' AS entry_key, COUNT(id) AS numerator
+        SELECT COUNT(id) AS numerator
         FROM data_metrics__{{ metric }}_{{ entry_key }}
     ),
     {{ entry_key }}_denominator AS (
-        {% if summary_info["denominator"] and summary_info["denominator"].strip() %}
+        {% if summary_info["denominator"] %}
         WITH denominator_slice AS {{ summary_info["denominator"] }}
         {% else %}
         WITH denominator_slice AS (SELECT id from {{ summary_info["src"] }})
         {% endif %}
-        SELECT '{{ entry_key }}' AS entry_key, COUNT(id) AS denominator
+        SELECT COUNT(id) AS denominator
         FROM denominator_slice
     ),
     {%- endfor %}
+
+    -- Prepare roll-up "all resources" entries by unifying numerators and grabbing distinct IDs
+    {% for resource, groups in group_values.items() %}
+    {% set all_entry_key = resource.lower() + "_all" %}
+
+    {{ all_entry_key }}_numerator_ids AS (
+        {% for group_entry_key, summary_info in entries.items() %}
+        {% if summary_info["src"] == resource %}
+        SELECT id FROM data_metrics__{{ metric }}_{{ group_entry_key }}
+        UNION
+        {% endif %}
+        {% endfor %}
+        SELECT id FROM {{ resource }} WHERE 1=0  -- empty table to finish loop
+    ),
+    {{ all_entry_key }}_numerator AS (
+        SELECT COUNT(DISTINCT id) AS numerator FROM {{ all_entry_key }}_numerator_ids
+    ),
+
+    -- And now the denominators
+    {% set has_custom_denominator = false %}
+    {% for entry_key, summary_info in entries.items() %}
+        {% if summary_info["src"] == resource and summary_info["denominator"] %}
+            {% set has_custom_denominator = true %}
+        {% endif %}
+    {% endfor %}
+    {% if has_custom_denominator %}
+    {{ all_entry_key }}_denominator_ids AS (
+        {% for group_entry_key, summary_info in entries.items() %}
+        {% if summary_info["src"] == resource %}
+        SELECT id FROM {{ summary_info["denominator"] }}
+        UNION
+        {% endif %}
+        {% endfor %}
+        SELECT id FROM {{ resource }} WHERE 1=0  -- empty table to finish loop
+    ),
+    {{ all_entry_key }}_denominator AS (
+        SELECT COUNT(DISTINCT id) AS denominator FROM {{ all_entry_key }}_denominator_ids
+    ),
+    {% else %}
+    {{ all_entry_key }}_denominator AS (
+        SELECT COUNT(id) AS denominator FROM {{ resource }}
+    ),
+    {% endif %}
+
+    {% set _ = entries.update({all_entry_key: {"src": resource, "group": "cumulus__all"} }) %}
+    {% endfor %}
 
     union_table AS (
         {%- for entry_key, summary_info in entries.items() %}
         SELECT
             '{{ summary_info["src"] }}' AS resource,
-            {% if summary_info["stratifier"] %}
-            '{{ summary_info["stratifier"] }}' AS {{ stratifier_column }},
+            {% if summary_info["group"] %}
+            '{{ summary_info["group"] }}' AS {{ group_column }},
             {% else %}
-            CAST(NULL AS VARCHAR) AS {{ stratifier_column }},
+            CAST(NULL AS VARCHAR) AS {{ group_column }},
             {% endif %}
             numerator,
             denominator,
@@ -35,8 +81,7 @@ CREATE TABLE data_metrics__{{ metric }}_summary AS (
                 END
             AS DECIMAL(5, 2)) AS percentage
         FROM {{ entry_key }}_numerator AS numerator_table
-        INNER JOIN {{ entry_key }}_denominator AS denominator_table
-        ON numerator_table.entry_key = denominator_table.entry_key
+        CROSS JOIN {{ entry_key }}_denominator AS denominator_table
         {%- if not loop.last %}
         UNION
         {%- endif -%}
