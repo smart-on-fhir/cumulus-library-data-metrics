@@ -19,6 +19,11 @@ class MetricMixin:
         super().__init__()
         self.display_text = f"Creating {self.name} tables…"
         self.summary_entries = {}
+        # A "group" is a value in the second column - a secondary characteristic like "field"
+        # (group examples: "code", "valueCodeableConcept") or a stratifier like "profile"
+        # (group examples: "Lab", "Note"). These will "roll-up" to the resource level in the
+        # summary with a "cumulus__all" group entry row.
+        self.summary_groups = {}
         self.queries = []
         self.schemas = {}
 
@@ -26,32 +31,34 @@ class MetricMixin:
         # some of them are not present (notably DocRef.context.period.start).
         self.date_fields = copy.deepcopy(resource_info.DATES)
 
-    def make_table_fragment(self, src: str, stratifier: str | None = None):
+    def make_table_fragment(self, src: str, group: str | None = None):
         key = src.lower()
-        if stratifier:
-            key += f"_{stratifier.lower().replace(' ', '_')}"
+        if group:
+            key += f"_{group.lower().replace(' ', '_')}"
         return key
 
     def add_summary_entry(
-        self, src: str, stratifier: str | None = None, *, denominator: str | None = None
+        self, src: str, group: str | None = None, *, denominator: str | None = None
     ) -> None:
         # These are all flags for the summary-table-builder jinja.
-        key = self.make_table_fragment(src, stratifier)
+        key = self.make_table_fragment(src, group)
         self.summary_entries[key] = {
             "src": src,
-            "stratifier": stratifier,
+            "group": group,
             "denominator": denominator,
         }
+        self.summary_groups.setdefault(src, set()).add(group)
 
-    def make_summary(self, stratifier_column: str | None = None) -> None:
+    def make_summary(self, group_column: str | None = None) -> None:
         """Makes a summary table, from all the individual metric tables"""
         # Always define *something* even if we don't use it, so that consuming visualizations
-        # can assume a consistent two-column definition of resource + stratifier.
-        stratifier_column = stratifier_column or "stratifier"
+        # can assume a consistent two-column definition of resource + group.
+        group_column = group_column or "subgroup"
         sql = self.render_sql(
             "../base.summary",
             entries=self.summary_entries,
-            stratifier_column=stratifier_column,
+            group_column=group_column,
+            group_values=self.summary_groups,
             metric=self.name,
         )
         self.queries.append(sql)
