@@ -24,4 +24,4 @@ class TargetPopBuilder(MetricMixin, BaseTableBuilder):
         self.make_table(src="MedicationRequest", dest="Patient", field="subject")
         self.make_table(src="Observation", dest="Patient", field="subject")
         self.make_table(src="Procedure", dest="Patient", field="subject")
-        self.make_summary(stratifier_column="target")
+        self.make_summary(group_column="target")

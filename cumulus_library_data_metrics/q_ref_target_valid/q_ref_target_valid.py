@@ -47,4 +47,4 @@ class TargetValidBuilder(MetricMixin, BaseTableBuilder):
         self.make_table(src="Observation", dest="Encounter", field="encounter")
         self.make_table(src="Procedure", dest="Patient", field="subject")
         self.make_table(src="Procedure", dest="Encounter", field="encounter")
-        self.make_summary(stratifier_column="target")
+        self.make_summary(group_column="target")

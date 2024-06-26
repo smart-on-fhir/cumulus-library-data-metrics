@@ -19,4 +19,4 @@ class ValidUsCoreV4Builder(UsCoreV4Mixin, BaseTableBuilder):
 
     def add_metric_queries(self) -> None:
         super().add_metric_queries()
-        self.make_summary(stratifier_column="profile")
+        self.make_summary(group_column="profile")
