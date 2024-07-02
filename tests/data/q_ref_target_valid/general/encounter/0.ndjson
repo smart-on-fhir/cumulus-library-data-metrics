@@ -1,1 +1,1 @@
-{"id": "A", "subject": {"reference": "Patient/A"}}
+{"resourceType": "Encounter", "id": "A", "subject": {"reference": "Patient/A"}}

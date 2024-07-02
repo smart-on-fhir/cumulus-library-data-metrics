@@ -1,6 +1,6 @@
-{"id": "with-date", "type": [{"coding": [{"code": "abcd", "system": "http://www.ama-assn.org/go/cpt"}]}], "period": {"start": "2023-10-04"}}
-{"id": "no-date", "type": [{"coding": [{"code": "1234", "system": "http://snomed.info/sct"}]}]}
-{"id": "multiple-codings", "type": [{"coding": [{"code": "abcd", "system": "http://www.ama-assn.org/go/cpt"}, {"code": "1234", "system": "http://snomed.info/sct"}]}], "period": {"start": "2023-10-04"}}
-{"id": "unrelated-category", "type": [{"coding": [{"code": "nope", "system": "nope"}]}]}
-{"id": "no-category", "period": {"start": "2022-06-04"}}
-{"id": "nothing"}
+{"resourceType": "Encounter", "id": "with-date", "type": [{"coding": [{"code": "abcd", "system": "http://www.ama-assn.org/go/cpt"}]}], "period": {"start": "2023-10-04"}}
+{"resourceType": "Encounter", "id": "no-date", "type": [{"coding": [{"code": "1234", "system": "http://snomed.info/sct"}]}]}
+{"resourceType": "Encounter", "id": "multiple-codings", "type": [{"coding": [{"code": "abcd", "system": "http://www.ama-assn.org/go/cpt"}, {"code": "1234", "system": "http://snomed.info/sct"}]}], "period": {"start": "2023-10-04"}}
+{"resourceType": "Encounter", "id": "unrelated-category", "type": [{"coding": [{"code": "nope", "system": "nope"}]}]}
+{"resourceType": "Encounter", "id": "no-category", "period": {"start": "2022-06-04"}}
+{"resourceType": "Encounter", "id": "nothing"}

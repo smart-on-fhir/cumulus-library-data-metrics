@@ -1,1 +1,1 @@
-{"id": "valid", "code": {"coding":  [{"system": "http://loinc.org"}]}}
+{"resourceType": "DiagnosticReport", "id": "valid", "code": {"coding":  [{"system": "http://loinc.org"}]}}

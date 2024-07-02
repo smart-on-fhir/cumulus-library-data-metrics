@@ -1,8 +1,8 @@
-{"id": "valid-datetime", "status": "completed", "vaccineCode": {"text": "X"}, "patient": {"reference": "Patient/A"}, "occurrenceDateTime": "2000"}
-{"id": "valid-string", "status": "completed", "vaccineCode": {"text": "X"}, "patient": {"reference": "Patient/A"}, "occurrenceString": "last year"}
-{"id": "no-status", "vaccineCode": {"text": "X"}, "patient": {"reference": "Patient/A"}, "occurrenceDateTime": "2000"}
-{"id": "no-code", "status": "completed", "patient": {"reference": "Patient/A"}, "occurrenceDateTime": "2000"}
-{"id": "empty-code", "status": "completed", "vaccineCode": {}, "patient": {"reference": "Patient/A"}, "occurrenceDateTime": "2000"}
-{"id": "no-patient", "status": "completed", "vaccineCode": {"text": "X"}, "occurrenceDateTime": "2000"}
-{"id": "no-occurrence", "status": "completed", "vaccineCode": {"text": "X"}, "patient": {"reference": "Patient/A"}}
-{"id": "nothing"}
+{"resourceType": "Immunization", "id": "valid-datetime", "status": "completed", "vaccineCode": {"text": "X"}, "patient": {"reference": "Patient/A"}, "occurrenceDateTime": "2000"}
+{"resourceType": "Immunization", "id": "valid-string", "status": "completed", "vaccineCode": {"text": "X"}, "patient": {"reference": "Patient/A"}, "occurrenceString": "last year"}
+{"resourceType": "Immunization", "id": "no-status", "vaccineCode": {"text": "X"}, "patient": {"reference": "Patient/A"}, "occurrenceDateTime": "2000"}
+{"resourceType": "Immunization", "id": "no-code", "status": "completed", "patient": {"reference": "Patient/A"}, "occurrenceDateTime": "2000"}
+{"resourceType": "Immunization", "id": "empty-code", "status": "completed", "vaccineCode": {}, "patient": {"reference": "Patient/A"}, "occurrenceDateTime": "2000"}
+{"resourceType": "Immunization", "id": "no-patient", "status": "completed", "vaccineCode": {"text": "X"}, "occurrenceDateTime": "2000"}
+{"resourceType": "Immunization", "id": "no-occurrence", "status": "completed", "vaccineCode": {"text": "X"}, "patient": {"reference": "Patient/A"}}
+{"resourceType": "Immunization", "id": "nothing"}

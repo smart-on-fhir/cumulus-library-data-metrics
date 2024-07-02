@@ -1,1 +1,1 @@
-{"id": "valid", "type": {"coding":  [{"system": "http://snomed.info/sct"}]}}
+{"resourceType": "Device", "id": "valid", "type": {"coding":  [{"system": "http://snomed.info/sct"}]}}

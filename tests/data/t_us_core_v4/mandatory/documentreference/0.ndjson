@@ -1,13 +1,13 @@
-{"id": "valid", "status": "current", "category": [{"text": "X"}], "type": {"coding": [{"system": "http://loinc.org", "code": "11534-5"}]}, "subject": {"reference": "Patient/A"}, "content": [{"attachment": {"contentType": "text/plain"}}]}
-{"id": "type-empty", "type": {}}
-{"id": "type-bad-system", "type": {"coding": [{"system": "nope", "code": "11534-5"}]}}
-{"id": "type-null-flavor-good", "type": {"coding": [{"system": "http://terminology.hl7.org/CodeSystem/v3-NullFlavor", "code": "UNK"}]}}
-{"id": "type-null-flavor-bad", "type": {"coding": [{"system": "http://terminology.hl7.org/CodeSystem/v3-NullFlavor", "code": "INV"}]}}
-{"id": "type-multiple-good", "type": {"coding": [{"system": "nope", "code": "11534-5"}, {"system": "http://loinc.org", "code": "11534-5"}]}}
-{"id": "type-multiple-bad", "type": {"coding": [{"system": "nope", "code": "11534-5"}, {"system": "http://terminology.hl7.org/CodeSystem/v3-NullFlavor", "code": "nope"}]}}
-{"id": "subject-group", "subject": {"reference": "Group/A"}}
-{"id": "content-multiple-good", "content": [{"attachment": {"contentType": "text/plain"}}, {"attachment": {"contentType": "text/html"}}]}
-{"id": "content-multiple-bad", "content": [{"attachment": {"contentType": "text/plain"}}, {"format": {}}]}
-{"id": "content-no-contenttype", "content": [{"attachment": {"url": "hello"}}]}
-{"id": "content-no-attachment", "content": [{"format": {}}]}
-{"id": "nothing"}
+{"resourceType": "DocumentReference", "id": "valid", "status": "current", "category": [{"text": "X"}], "type": {"coding": [{"system": "http://loinc.org", "code": "11534-5"}]}, "subject": {"reference": "Patient/A"}, "content": [{"attachment": {"contentType": "text/plain"}}]}
+{"resourceType": "DocumentReference", "id": "type-empty", "type": {}}
+{"resourceType": "DocumentReference", "id": "type-bad-system", "type": {"coding": [{"system": "nope", "code": "11534-5"}]}}
+{"resourceType": "DocumentReference", "id": "type-null-flavor-good", "type": {"coding": [{"system": "http://terminology.hl7.org/CodeSystem/v3-NullFlavor", "code": "UNK"}]}}
+{"resourceType": "DocumentReference", "id": "type-null-flavor-bad", "type": {"coding": [{"system": "http://terminology.hl7.org/CodeSystem/v3-NullFlavor", "code": "INV"}]}}
+{"resourceType": "DocumentReference", "id": "type-multiple-good", "type": {"coding": [{"system": "nope", "code": "11534-5"}, {"system": "http://loinc.org", "code": "11534-5"}]}}
+{"resourceType": "DocumentReference", "id": "type-multiple-bad", "type": {"coding": [{"system": "nope", "code": "11534-5"}, {"system": "http://terminology.hl7.org/CodeSystem/v3-NullFlavor", "code": "nope"}]}}
+{"resourceType": "DocumentReference", "id": "subject-group", "subject": {"reference": "Group/A"}}
+{"resourceType": "DocumentReference", "id": "content-multiple-good", "content": [{"attachment": {"contentType": "text/plain"}}, {"attachment": {"contentType": "text/html"}}]}
+{"resourceType": "DocumentReference", "id": "content-multiple-bad", "content": [{"attachment": {"contentType": "text/plain"}}, {"format": {}}]}
+{"resourceType": "DocumentReference", "id": "content-no-contenttype", "content": [{"attachment": {"url": "hello"}}]}
+{"resourceType": "DocumentReference", "id": "content-no-attachment", "content": [{"format": {}}]}
+{"resourceType": "DocumentReference", "id": "nothing"}

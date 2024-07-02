@@ -1,2 +1,2 @@
-{"id": "system1", "type": {"coding": [{"system": "system1"}], "text": "Basic coding"}}
-{"id": "nothing"}
+{"resourceType": "Device", "id": "system1", "type": {"coding": [{"system": "system1"}], "text": "Basic coding"}}
+{"resourceType": "Device", "id": "nothing"}

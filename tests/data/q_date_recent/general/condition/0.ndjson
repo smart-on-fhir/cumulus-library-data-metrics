@@ -1,4 +1,4 @@
-{"id": "multiple-with-invalid-recorded", "recordedDate": "1899", "onsetDateTime": "2000"}
-{"id": "multiple-with-invalid-onset", "recordedDate": "2000", "onsetDateTime": "1899"}
-{"id": "multiple-valid", "recordedDate": "2000", "onsetDateTime": "2000"}
-{"id": "nothing"}
+{"resourceType": "Condition", "id": "multiple-with-invalid-recorded", "recordedDate": "1899", "onsetDateTime": "2000"}
+{"resourceType": "Condition", "id": "multiple-with-invalid-onset", "recordedDate": "2000", "onsetDateTime": "1899"}
+{"resourceType": "Condition", "id": "multiple-valid", "recordedDate": "2000", "onsetDateTime": "2000"}
+{"resourceType": "Condition", "id": "nothing"}

@@ -1,1 +1,1 @@
-{"id": "planned", "period": {"start": "2999-09-09"}, "status": "planned"}
+{"resourceType": "Encounter", "id": "planned", "period": {"start": "2999-09-09"}, "status": "planned"}

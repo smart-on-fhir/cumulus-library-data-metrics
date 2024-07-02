@@ -1,15 +1,15 @@
-{"id": "valid-with-status", "clinicalStatus": {"coding": [{"code": "active", "system": "http://terminology.hl7.org/CodeSystem/condition-clinical"}]}, "category": [], "code": {"text": "X"}, "subject": {"reference": "Patient/A"}}
-{"id": "valid-entered-in-error", "category": [], "code": {"text": "X"}, "subject": {"reference": "Patient/A"}, "verificationStatus": {"coding": [{"code": "entered-in-error", "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status"}, {"code": "other", "system": "other"}, {"code": "confirmed", "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status"}]}}
-{"id": "valid-with-verification", "clinicalStatus": {"coding": [{"code": "active", "system": "http://terminology.hl7.org/CodeSystem/condition-clinical"}]}, "category": [], "code": {"text": "X"}, "subject": {"reference": "Patient/A"}, "verificationStatus": {"coding": [{"code": "unconfirmed", "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status"}, {"code": "other", "system": "other"}, {"code": "confirmed", "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status"}]}}
-{"id": "status-and-entered-in-error", "clinicalStatus": {"coding": [{"code": "active", "system": "http://terminology.hl7.org/CodeSystem/condition-clinical"}]}, "code": {"text": "X"}, "patient": {"reference": "Patient/X"}, "verificationStatus": {"coding": [{"code": "entered-in-error", "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status"}, {"code": "confirmed", "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status"}]}}
-{"id": "status-without-coding", "clinicalStatus": {"text": "X"}}
-{"id": "status-with-other-system", "clinicalStatus": {"coding": [{"code": "other", "system": "other"}]}}
-{"id": "status-multiple-systems-good", "clinicalStatus": {"coding": [{"code": "other", "system": "other"}, {"code": "active", "system": "http://terminology.hl7.org/CodeSystem/condition-clinical"}]}}
-{"id": "status-multiple-systems-bad", "clinicalStatus": {"coding": [{"code": "other", "system": "other"}, {"code": "active", "system": "nope"}]}}
-{"id": "verification-with-other-system", "verificationStatus": {"coding": [{"code": "other", "system": "other"}]}}
-{"id": "verification-multiple-systems-good", "verificationStatus": {"coding": [{"code": "other", "system": "other"}, {"code": "unconfirmed", "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status"}]}}
-{"id": "verification-multiple-systems-bad", "verificationStatus": {"coding": [{"code": "other", "system": "other"}, {"code": "unconfirmed", "system": "nope"}]}}
-{"id": "empty-code", "code": {}}
-{"id": "empty-subject", "subject": {}}
-{"id": "group-subject", "subject": {"reference": "Group/A"}}
-{"id": "nothing"}
+{"resourceType": "Condition", "id": "valid-with-status", "clinicalStatus": {"coding": [{"code": "active", "system": "http://terminology.hl7.org/CodeSystem/condition-clinical"}]}, "category": [], "code": {"text": "X"}, "subject": {"reference": "Patient/A"}}
+{"resourceType": "Condition", "id": "valid-entered-in-error", "category": [], "code": {"text": "X"}, "subject": {"reference": "Patient/A"}, "verificationStatus": {"coding": [{"code": "entered-in-error", "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status"}, {"code": "other", "system": "other"}, {"code": "confirmed", "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status"}]}}
+{"resourceType": "Condition", "id": "valid-with-verification", "clinicalStatus": {"coding": [{"code": "active", "system": "http://terminology.hl7.org/CodeSystem/condition-clinical"}]}, "category": [], "code": {"text": "X"}, "subject": {"reference": "Patient/A"}, "verificationStatus": {"coding": [{"code": "unconfirmed", "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status"}, {"code": "other", "system": "other"}, {"code": "confirmed", "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status"}]}}
+{"resourceType": "Condition", "id": "status-and-entered-in-error", "clinicalStatus": {"coding": [{"code": "active", "system": "http://terminology.hl7.org/CodeSystem/condition-clinical"}]}, "code": {"text": "X"}, "patient": {"reference": "Patient/X"}, "verificationStatus": {"coding": [{"code": "entered-in-error", "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status"}, {"code": "confirmed", "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status"}]}}
+{"resourceType": "Condition", "id": "status-without-coding", "clinicalStatus": {"text": "X"}}
+{"resourceType": "Condition", "id": "status-with-other-system", "clinicalStatus": {"coding": [{"code": "other", "system": "other"}]}}
+{"resourceType": "Condition", "id": "status-multiple-systems-good", "clinicalStatus": {"coding": [{"code": "other", "system": "other"}, {"code": "active", "system": "http://terminology.hl7.org/CodeSystem/condition-clinical"}]}}
+{"resourceType": "Condition", "id": "status-multiple-systems-bad", "clinicalStatus": {"coding": [{"code": "other", "system": "other"}, {"code": "active", "system": "nope"}]}}
+{"resourceType": "Condition", "id": "verification-with-other-system", "verificationStatus": {"coding": [{"code": "other", "system": "other"}]}}
+{"resourceType": "Condition", "id": "verification-multiple-systems-good", "verificationStatus": {"coding": [{"code": "other", "system": "other"}, {"code": "unconfirmed", "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status"}]}}
+{"resourceType": "Condition", "id": "verification-multiple-systems-bad", "verificationStatus": {"coding": [{"code": "other", "system": "other"}, {"code": "unconfirmed", "system": "nope"}]}}
+{"resourceType": "Condition", "id": "empty-code", "code": {}}
+{"resourceType": "Condition", "id": "empty-subject", "subject": {}}
+{"resourceType": "Condition", "id": "group-subject", "subject": {"reference": "Group/A"}}
+{"resourceType": "Condition", "id": "nothing"}

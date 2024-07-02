@@ -1,1 +1,1 @@
-{"id": "valid", "code": {"coding":  [{"system": "http://snomed.info/sct"}]}}
+{"resourceType": "Condition", "id": "valid", "code": {"coding":  [{"system": "http://snomed.info/sct"}]}}

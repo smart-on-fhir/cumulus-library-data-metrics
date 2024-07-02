@@ -1,1 +1,1 @@
-{"id": "valid", "subject": {"reference": "Patient/A"}, "encounter": {"reference": "Encounter/A"}}
+{"resourceType": "Condition", "id": "valid", "subject": {"reference": "Patient/A"}, "encounter": {"reference": "Encounter/A"}}

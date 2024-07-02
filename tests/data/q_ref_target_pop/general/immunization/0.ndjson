@@ -1,1 +1,1 @@
-{"id": "valid", "patient": {"reference": "Patient/A"}}
+{"resourceType": "Immunization", "id": "valid", "patient": {"reference": "Patient/A"}}

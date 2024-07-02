@@ -1,1 +1,1 @@
-{"id": "valid", "patient": {"reference": "Patient/A"}, "encounter": {"reference": "Encounter/A"}}
+{"resourceType": "Device", "id": "valid", "patient": {"reference": "Patient/A"}, "encounter": {"reference": "Encounter/A"}}
