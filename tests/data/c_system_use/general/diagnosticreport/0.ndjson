@@ -1,2 +1,2 @@
-{"id": "system1", "code": {"coding": [{"system": "system1"}], "text": "Basic coding"}}
-{"id": "nothing"}
+{"resourceType": "DiagnosticReport", "id": "system1", "code": {"coding": [{"system": "system1"}], "text": "Basic coding"}}
+{"resourceType": "DiagnosticReport", "id": "nothing"}

@@ -1,6 +1,6 @@
-{"id": "performedDateTime", "performedDateTime": "2023-10-04"}
-{"id": "performedPeriod", "performedPeriod": {"start": "2023-02-04"}}
-{"id": "performed-only-year", "performedDateTime": "2022"}
-{"id": "completed", "status": "completed"}
-{"id": "entered-in-error", "status": "entered-in-error"}
-{"id": "nothing"}
+{"resourceType": "Procedure", "id": "performedDateTime", "performedDateTime": "2023-10-04"}
+{"resourceType": "Procedure", "id": "performedPeriod", "performedPeriod": {"start": "2023-02-04"}}
+{"resourceType": "Procedure", "id": "performed-only-year", "performedDateTime": "2022"}
+{"resourceType": "Procedure", "id": "completed", "status": "completed"}
+{"resourceType": "Procedure", "id": "entered-in-error", "status": "entered-in-error"}
+{"resourceType": "Procedure", "id": "nothing"}

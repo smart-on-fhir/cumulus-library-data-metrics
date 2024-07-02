@@ -1,12 +1,12 @@
-{"id": "valid-cdt", "code": {"coding": [{"system": "http://www.ada.org/cdt"}]}}
-{"id": "valid-cpt", "code": {"coding": [{"system": "http://www.ama-assn.org/go/cpt"}]}}
-{"id": "valid-hcpcs", "code": {"coding": [{"system": "https://www.cms.gov/Medicare/Coding/HCPCSReleaseCodeSets"}]}}
-{"id": "valid-icd10", "code": {"coding": [{"system": "http://www.cms.gov/Medicare/Coding/ICD10"}]}}
-{"id": "valid-loinc", "code": {"coding": [{"system": "http://loinc.org"}]}}
-{"id": "valid-snomed", "code": {"coding": [{"system": "http://snomed.info/sct"}]}}
-{"id": "valid-multiple", "code": {"coding": [{"system": "nope"}, {"system": "http://loinc.org"}]}}
-{"id": "bad-system", "code": {"coding": [{"system": "nope"}]}}
-{"id": "missing-system", "code": {"coding": [{"display": "No system"}]}}
-{"id": "empty-coding", "code": {"coding": []}}
-{"id": "missing-coding", "code": {"text": "No coding"}}
-{"id": "missing-code"}
+{"resourceType": "Procedure", "id": "valid-cdt", "code": {"coding": [{"system": "http://www.ada.org/cdt"}]}}
+{"resourceType": "Procedure", "id": "valid-cpt", "code": {"coding": [{"system": "http://www.ama-assn.org/go/cpt"}]}}
+{"resourceType": "Procedure", "id": "valid-hcpcs", "code": {"coding": [{"system": "https://www.cms.gov/Medicare/Coding/HCPCSReleaseCodeSets"}]}}
+{"resourceType": "Procedure", "id": "valid-icd10", "code": {"coding": [{"system": "http://www.cms.gov/Medicare/Coding/ICD10"}]}}
+{"resourceType": "Procedure", "id": "valid-loinc", "code": {"coding": [{"system": "http://loinc.org"}]}}
+{"resourceType": "Procedure", "id": "valid-snomed", "code": {"coding": [{"system": "http://snomed.info/sct"}]}}
+{"resourceType": "Procedure", "id": "valid-multiple", "code": {"coding": [{"system": "nope"}, {"system": "http://loinc.org"}]}}
+{"resourceType": "Procedure", "id": "bad-system", "code": {"coding": [{"system": "nope"}]}}
+{"resourceType": "Procedure", "id": "missing-system", "code": {"coding": [{"display": "No system"}]}}
+{"resourceType": "Procedure", "id": "empty-coding", "code": {"coding": []}}
+{"resourceType": "Procedure", "id": "missing-coding", "code": {"text": "No coding"}}
+{"resourceType": "Procedure", "id": "missing-code"}

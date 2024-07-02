@@ -1,1 +1,1 @@
-{"id": "A", "birthDate": "1970"}
+{"resourceType": "Patient", "id": "A", "birthDate": "1970"}

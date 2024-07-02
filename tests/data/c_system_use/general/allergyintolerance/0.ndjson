@@ -1,11 +1,11 @@
-{"id": "snomed", "code": {"coding": [{"system": "http://snomed.info/sct"}]}}
-{"id": "snomed-with-text", "code": {"coding": [{"system": "http://snomed.info/sct"}], "text": "hello"}}
-{"id": "snomed-oid", "code": {"coding": [{"system": "urn:oid:2.16.840.1.113883.6.96"}]}}
-{"id": "multiple-systems", "code": {"coding": [{"code": "boo"}, {"system": "http://other"}, {"system": "http://loinc.org"}], "text": "\u0000"}}
-{"id": "repeated-systems", "code": {"coding": [{"system": "http://other"}, {"system": "http://other"}, {"system": "http://www.nlm.nih.gov/research/umls/rxnorm"}]}}
-{"id": "no-system", "code": {"coding": [{"code": "boo"}]}}
-{"id": "only-text", "code": {"text": "Not coded :("}}
-{"id": "empty-text", "code": {"coding": [{"display": "X"}], "text": ""}}
-{"id": "with-date", "recordedDate": "2018-03-02", "code": {"coding": [{"system": "other"}]}}
-{"id": "with-status", "verificationStatus": {"coding": [{"code": "confirmed", "system": "http://terminology.hl7.org/CodeSystem/allergyintolerance-verification"}]}, "code": {"coding": [{"system": "other"}]}}
-{"id": "nothing"}
+{"resourceType": "AllergyIntolerance", "id": "snomed", "code": {"coding": [{"system": "http://snomed.info/sct"}]}}
+{"resourceType": "AllergyIntolerance", "id": "snomed-with-text", "code": {"coding": [{"system": "http://snomed.info/sct"}], "text": "hello"}}
+{"resourceType": "AllergyIntolerance", "id": "snomed-oid", "code": {"coding": [{"system": "urn:oid:2.16.840.1.113883.6.96"}]}}
+{"resourceType": "AllergyIntolerance", "id": "multiple-systems", "code": {"coding": [{"code": "boo"}, {"system": "http://other"}, {"system": "http://loinc.org"}], "text": "\u0000"}}
+{"resourceType": "AllergyIntolerance", "id": "repeated-systems", "code": {"coding": [{"system": "http://other"}, {"system": "http://other"}, {"system": "http://www.nlm.nih.gov/research/umls/rxnorm"}]}}
+{"resourceType": "AllergyIntolerance", "id": "no-system", "code": {"coding": [{"code": "boo"}]}}
+{"resourceType": "AllergyIntolerance", "id": "only-text", "code": {"text": "Not coded :("}}
+{"resourceType": "AllergyIntolerance", "id": "empty-text", "code": {"coding": [{"display": "X"}], "text": ""}}
+{"resourceType": "AllergyIntolerance", "id": "with-date", "recordedDate": "2018-03-02", "code": {"coding": [{"system": "other"}]}}
+{"resourceType": "AllergyIntolerance", "id": "with-status", "verificationStatus": {"coding": [{"code": "confirmed", "system": "http://terminology.hl7.org/CodeSystem/allergyintolerance-verification"}]}, "code": {"coding": [{"system": "other"}]}}
+{"resourceType": "AllergyIntolerance", "id": "nothing"}

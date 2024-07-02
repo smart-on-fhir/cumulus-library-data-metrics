@@ -1,11 +1,11 @@
-{"id": "valid", "participant": [{"individual": {"display": "X"}}], "period": {"start": "2013"}, "reasonCode": [{"text": "X"}], "hospitalization": {"dischargeDisposition": {"text": "X"}}, "location": [{"location": {"reference": "Location/A"}}]}
-{"id": "hospitalization-no-disposition", "hospitalization": {"reAdmission": {"text": "X"}}}
-{"id": "location-multiple-good", "location": [{"location": {"reference": "Location/A"}}, {"location": {"reference": "Location/B"}}]}
-{"id": "location-multiple-bad", "location": [{"location": {"reference": "Location/A"}}, {"status": "active"}]}
-{"id": "reason-ref-good", "reasonReference": [{"reference": "Condition/A"}]}
-{"id": "reason-ref-multiple-good", "reasonReference": [{"reference": "Condition/A"}, {"reference": "Condition/B"}]}
-{"id": "reason-ref-multiple-bad", "reasonReference": [{"reference": "Condition/A"}, {"reference": "Patient/B"}]}
-{"id": "reason-ref-wrong-target", "reasonReference": [{"reference": "Patient/A"}]}
-{"id": "service-provider-good", "serviceProvider": {"reference": "Organization/A"}}
-{"id": "service-provider-wrong-target", "serviceProvider": {"reference": "Patient/A"}}
-{"id": "nothing"}
+{"resourceType": "Encounter", "id": "valid", "participant": [{"individual": {"display": "X"}}], "period": {"start": "2013"}, "reasonCode": [{"text": "X"}], "hospitalization": {"dischargeDisposition": {"text": "X"}}, "location": [{"location": {"reference": "Location/A"}}]}
+{"resourceType": "Encounter", "id": "hospitalization-no-disposition", "hospitalization": {"reAdmission": {"text": "X"}}}
+{"resourceType": "Encounter", "id": "location-multiple-good", "location": [{"location": {"reference": "Location/A"}}, {"location": {"reference": "Location/B"}}]}
+{"resourceType": "Encounter", "id": "location-multiple-bad", "location": [{"location": {"reference": "Location/A"}}, {"status": "active"}]}
+{"resourceType": "Encounter", "id": "reason-ref-good", "reasonReference": [{"reference": "Condition/A"}]}
+{"resourceType": "Encounter", "id": "reason-ref-multiple-good", "reasonReference": [{"reference": "Condition/A"}, {"reference": "Condition/B"}]}
+{"resourceType": "Encounter", "id": "reason-ref-multiple-bad", "reasonReference": [{"reference": "Condition/A"}, {"reference": "Patient/B"}]}
+{"resourceType": "Encounter", "id": "reason-ref-wrong-target", "reasonReference": [{"reference": "Patient/A"}]}
+{"resourceType": "Encounter", "id": "service-provider-good", "serviceProvider": {"reference": "Organization/A"}}
+{"resourceType": "Encounter", "id": "service-provider-wrong-target", "serviceProvider": {"reference": "Patient/A"}}
+{"resourceType": "Encounter", "id": "nothing"}

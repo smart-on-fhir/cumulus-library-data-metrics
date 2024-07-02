@@ -1,1 +1,1 @@
-{"id": "valid", "patient": {"reference": "Patient/A"}}
+{"resourceType": "AllergyIntolerance", "id": "valid", "patient": {"reference": "Patient/A"}}

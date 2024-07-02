@@ -1,1 +1,1 @@
-{"id": "valid", "code": {"coding":  [{"system": "http://www.nlm.nih.gov/research/umls/rxnorm"}]}}
+{"resourceType": "Medication", "id": "valid", "code": {"coding":  [{"system": "http://www.nlm.nih.gov/research/umls/rxnorm"}]}}

@@ -1,1 +1,1 @@
-{"id": "smoking-nothing", "code": {"coding": [{"code": "72166-2", "system": "http://loinc.org"}]}}
+{"resourceType": "Observation", "id": "smoking-nothing", "code": {"coding": [{"code": "72166-2", "system": "http://loinc.org"}]}}

@@ -1,8 +1,8 @@
-{"id": "valid-concept", "status": "active", "intent": "plan", "medicationCodeableConcept": {"text": "X"}, "subject": {"reference": "Patient/A"}, "requester": {"reference": "RelatedPerson/X"}}
-{"id": "valid-external-reference", "status": "active", "intent": "plan", "medicationReference": {"reference": "Medication/A"}, "subject": {"reference": "Patient/A"}, "requester": {"reference": "Patient/X"}}
-{"id": "valid-contained-reference", "status": "active", "intent": "plan", "medicationReference": {"reference": "#A"}, "subject": {"reference": "Patient/A"}, "requester": {"reference": "Device/X"}}
-{"id": "medication-invalid-ref", "medicationReference": {"reference": "Condition/A"}}
-{"id": "group-subject", "subject": {"reference": "Group/A"}, "requester": {"reference": "Organization/X"}}
-{"id": "requester-invalid", "requester": {"reference": "Condition/A"}}
-{"id": "requester-display", "requester": {"display": "X"}}
-{"id": "nothing"}
+{"resourceType": "MedicationRequest", "id": "valid-concept", "status": "active", "intent": "plan", "medicationCodeableConcept": {"text": "X"}, "subject": {"reference": "Patient/A"}, "requester": {"reference": "RelatedPerson/X"}}
+{"resourceType": "MedicationRequest", "id": "valid-external-reference", "status": "active", "intent": "plan", "medicationReference": {"reference": "Medication/A"}, "subject": {"reference": "Patient/A"}, "requester": {"reference": "Patient/X"}}
+{"resourceType": "MedicationRequest", "id": "valid-contained-reference", "status": "active", "intent": "plan", "medicationReference": {"reference": "#A"}, "subject": {"reference": "Patient/A"}, "requester": {"reference": "Device/X"}}
+{"resourceType": "MedicationRequest", "id": "medication-invalid-ref", "medicationReference": {"reference": "Condition/A"}}
+{"resourceType": "MedicationRequest", "id": "group-subject", "subject": {"reference": "Group/A"}, "requester": {"reference": "Organization/X"}}
+{"resourceType": "MedicationRequest", "id": "requester-invalid", "requester": {"reference": "Condition/A"}}
+{"resourceType": "MedicationRequest", "id": "requester-display", "requester": {"display": "X"}}
+{"resourceType": "MedicationRequest", "id": "nothing"}

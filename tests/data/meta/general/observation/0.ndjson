@@ -1,5 +1,5 @@
-{"id": "old", "effectiveDateTime": "2012-02-02"}
-{"id": "mid", "effectiveDateTime": "2018-07-07"}
-{"id": "new", "effectiveDateTime": "2022-10-13"}
-{"id": "bogus", "effectiveDateTime": "3022-10-13", "status": "entered-in-error"}
-{"id": "nothing"}
+{"resourceType": "Observation", "id": "old", "effectiveDateTime": "2012-02-02"}
+{"resourceType": "Observation", "id": "mid", "effectiveDateTime": "2018-07-07"}
+{"resourceType": "Observation", "id": "new", "effectiveDateTime": "2022-10-13"}
+{"resourceType": "Observation", "id": "bogus", "effectiveDateTime": "3022-10-13", "status": "entered-in-error"}
+{"resourceType": "Observation", "id": "nothing"}

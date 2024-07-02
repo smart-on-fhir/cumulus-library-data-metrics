@@ -1,9 +1,9 @@
-{"id": "valid", "subject": {"reference": "Patient/A"}, "encounter": {"reference": "Encounter/A"}}
-{"id": "bad-patient", "subject": {"reference": "Patient/Nope"}, "encounter": {"reference": "Encounter/A"}}
-{"id": "bad-encounter", "subject": {"reference": "Patient/A"}, "encounter": {"reference": "Encounter/Nope"}}
-{"id": "non-patient", "subject": {"reference": "Device/A"}, "encounter": {"reference": "Encounter/A"}}
-{"id": "non-encounter", "subject": {"reference": "Patient/A"}, "encounter": {"reference": "Device/A"}}
-{"id": "missing-patient-ref", "subject": {"display": "Patient A"}, "encounter": {"reference": "Encounter/A"}}
-{"id": "missing-patient-field", "encounter": {"reference": "Encounter/A"}}
-{"id": "missing-encounter-ref", "subject": {"reference": "Patient/A"}, "encounter": {"display": "Encounter A"}}
-{"id": "missing-encounter-field", "subject": {"reference": "Patient/A"}}
+{"resourceType": "Procedure", "id": "valid", "subject": {"reference": "Patient/A"}, "encounter": {"reference": "Encounter/A"}}
+{"resourceType": "Procedure", "id": "bad-patient", "subject": {"reference": "Patient/Nope"}, "encounter": {"reference": "Encounter/A"}}
+{"resourceType": "Procedure", "id": "bad-encounter", "subject": {"reference": "Patient/A"}, "encounter": {"reference": "Encounter/Nope"}}
+{"resourceType": "Procedure", "id": "non-patient", "subject": {"reference": "Device/A"}, "encounter": {"reference": "Encounter/A"}}
+{"resourceType": "Procedure", "id": "non-encounter", "subject": {"reference": "Patient/A"}, "encounter": {"reference": "Device/A"}}
+{"resourceType": "Procedure", "id": "missing-patient-ref", "subject": {"display": "Patient A"}, "encounter": {"reference": "Encounter/A"}}
+{"resourceType": "Procedure", "id": "missing-patient-field", "encounter": {"reference": "Encounter/A"}}
+{"resourceType": "Procedure", "id": "missing-encounter-ref", "subject": {"reference": "Patient/A"}, "encounter": {"display": "Encounter A"}}
+{"resourceType": "Procedure", "id": "missing-encounter-field", "subject": {"reference": "Patient/A"}}

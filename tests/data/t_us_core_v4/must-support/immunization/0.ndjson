@@ -1,5 +1,5 @@
-{"id": "valid-null-status", "primarySource": true}
-{"id": "valid-with-status", "status": "completed", "primarySource": false}
-{"id": "valid-with-reason", "status": "not-done", "statusReason": {"text": "X"}, "primarySource": false}
-{"id": "missing-reason", "status": "not-done"}
-{"id": "nothing"}
+{"resourceType": "Immunization", "id": "valid-null-status", "primarySource": true}
+{"resourceType": "Immunization", "id": "valid-with-status", "status": "completed", "primarySource": false}
+{"resourceType": "Immunization", "id": "valid-with-reason", "status": "not-done", "statusReason": {"text": "X"}, "primarySource": false}
+{"resourceType": "Immunization", "id": "missing-reason", "status": "not-done"}
+{"resourceType": "Immunization", "id": "nothing"}
