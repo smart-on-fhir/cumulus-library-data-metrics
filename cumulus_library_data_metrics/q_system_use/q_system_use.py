@@ -73,4 +73,4 @@ class SystemUseBuilder(MetricMixin, BaseTableBuilder):
                 "http://www.cms.gov/Medicare/Coding/ICD10",
             ],
         )
-        self.make_summary(stratifier_column="field")
+        self.make_summary(group_column="field")

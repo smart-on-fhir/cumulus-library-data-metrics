@@ -1,6 +1,9 @@
 resource,category,average,std_dev,max
+cumulus__all,,3.00,0.82,4
 cumulus__all,cumulus__all,3.00,0.82,4
+ServiceRequest,,0.00,0.00,0
 ServiceRequest,cumulus__all,0.00,0.00,0
+Procedure,,0.00,0.00,0
 Procedure,cumulus__all,0.00,0.00,0
 Observation,cumulus__all,0.00,0.00,0
 MedicationRequest,outpatient,1.33,0.47,2
@@ -8,10 +11,12 @@ MedicationRequest,inpatient,0.33,0.47,1
 MedicationRequest,discharge; inpatient,0.33,0.47,1
 MedicationRequest,cumulus__none,0.33,0.47,1
 MedicationRequest,cumulus__all,2.33,1.25,4
+Immunization,,0.00,0.00,0
 Immunization,cumulus__all,0.00,0.00,0
 Encounter,cumulus__all,0.00,0.00,0
 DocumentReference,cumulus__all,0.00,0.00,0
 DiagnosticReport,cumulus__all,0.00,0.00,0
+Device,,0.00,0.00,0
 Device,cumulus__all,0.00,0.00,0
 Condition,cumulus__none,0.67,0.47,1
 Condition,cumulus__all,0.67,0.47,1
