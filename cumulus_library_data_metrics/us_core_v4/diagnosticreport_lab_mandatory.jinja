@@ -2,6 +2,7 @@
 -- There is another non-lab-report-specific profile,
 -- but this is the DiagnosticReport profile that covers the LAB rows.
 
+{% import 'us_core_v4/utils.jinja' as core_utils %}
 {% import 'us_core_v4/diagnosticreport_utils.jinja' as dr_utils %}
 
 WITH
@@ -31,8 +32,4 @@ set ns.fields = [
 ]
 %}
 
-SELECT
-    id,
-    {{ ns.fields|join(", ") }},
-    {{ ns.fields|join(" AND ") }} AS valid
-FROM tmp_simplified
+{{ core_utils.select_all_fields(ns.fields) }}

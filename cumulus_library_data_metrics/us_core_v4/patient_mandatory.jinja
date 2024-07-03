@@ -4,6 +4,8 @@
 -- This profile also requires a patient identifier and name, both of which Cumulus ETL strips out
 -- early. So we don't bother checking that here.
 
+{% import 'us_core_v4/utils.jinja' as core_utils %}
+
 WITH
 tmp_simplified AS (
     SELECT
@@ -21,8 +23,4 @@ set ns.fields = [
 ]
 %}
 
-SELECT
-    id,
-    {{ ns.fields|join(", ") }},
-    {{ ns.fields|join(" AND ") }} AS valid
-FROM tmp_simplified
+{{ core_utils.select_all_fields(ns.fields) }}

@@ -16,6 +16,7 @@
 --
 -- But in general, this check does try to follow both profiles' constraints.
 
+{% import 'us_core_v4/utils.jinja' as core_utils %}
 {% import 'us_core_v4/observation_utils.jinja' as obs_utils %}
 
 -- We may be slicing on category or code - make sure to check non-sliced attributes
@@ -133,8 +134,4 @@ set ns.fields = [
     {% set ns.fields = ns.fields + ['valid_code'] %}
 {% endif %}
 
-SELECT
-    id,
-    {{ ns.fields|join(", ") }},
-    {{ ns.fields|join(" AND ") }} AS valid
-FROM tmp_simplified
+{{ core_utils.select_all_fields(ns.fields) }}

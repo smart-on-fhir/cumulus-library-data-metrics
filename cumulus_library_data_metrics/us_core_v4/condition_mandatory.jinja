@@ -1,5 +1,7 @@
 -- http://hl7.org/fhir/us/core/STU4/StructureDefinition-us-core-condition.html
 
+{% import 'us_core_v4/utils.jinja' as core_utils %}
+
 WITH
 
 tmp_clinical_status AS {{
@@ -89,8 +91,4 @@ set ns.fields = ns.fields + [
 ]
 %}
 
-SELECT
-    id,
-    {{ ns.fields|join(", ") }},
-    {{ ns.fields|join(" AND ") }} AS valid
-FROM tmp_simplified
+{{ core_utils.select_all_fields(ns.fields) }}
