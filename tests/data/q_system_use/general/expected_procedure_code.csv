@@ -1,0 +1,5 @@
+id,status,code
+missing-system,,"{'id': NULL, 'coding': [{'id': NULL, 'code': NULL, 'display': No system, 'system': NULL, 'userSelected': NULL, 'version': NULL}], 'text': NULL}"
+missing-coding,,"{'id': NULL, 'coding': NULL, 'text': No coding}"
+empty-coding,,"{'id': NULL, 'coding': [], 'text': NULL}"
+bad-system,,"{'id': NULL, 'coding': [{'id': NULL, 'code': NULL, 'display': NULL, 'system': nope, 'userSelected': NULL, 'version': NULL}], 'text': NULL}"

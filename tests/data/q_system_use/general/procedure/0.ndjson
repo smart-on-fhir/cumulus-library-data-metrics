@@ -9,4 +9,5 @@
 {"resourceType": "Procedure", "id": "missing-system", "code": {"coding": [{"display": "No system"}]}}
 {"resourceType": "Procedure", "id": "empty-coding", "code": {"coding": []}}
 {"resourceType": "Procedure", "id": "missing-coding", "code": {"text": "No coding"}}
+{"resourceType": "Procedure", "id": "invalid-code", "code": {"id": "no content"}}
 {"resourceType": "Procedure", "id": "missing-code"}

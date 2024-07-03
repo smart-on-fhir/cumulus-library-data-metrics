@@ -1,7 +1,7 @@
 resource,field,numerator,denominator,percentage
 # Various edge cases here in procedure
-Procedure,cumulus__all,4,12,33.33
-Procedure,code,4,12,33.33
+Procedure,cumulus__all,4,13,30.77
+Procedure,code,4,13,30.77
 # Rest are often short happy-path checks to confirm that we look at the right json field
 Observation,valueCodeableConcept,0,2,0.00
 Observation,cumulus__all,0,2,0.00
