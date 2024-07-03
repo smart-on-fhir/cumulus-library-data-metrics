@@ -1,0 +1,10 @@
+{# note: this requires a tmp_simplified table #}
+{% macro select_all_fields(fields) %}
+SELECT
+    id,
+    {% for field in fields %}
+    COALESCE({{ field }}, FALSE) AS {{ field }},
+    {% endfor %}
+    COALESCE({{ fields|join(" AND ") }}, FALSE) AS valid
+FROM tmp_simplified
+{% endmacro %}

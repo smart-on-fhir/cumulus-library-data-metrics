@@ -22,6 +22,7 @@ lab-non-ucum,true,true,true,true,true,false,true,false
 lab-no-values,true,true,true,true,false,true,true,false
 lab-no-subject,true,true,false,true,true,true,true,false
 lab-no-status,false,true,true,true,true,true,true,false
+lab-no-quantity-system,true,true,true,true,true,false,true,false
 lab-no-code,true,false,true,true,true,true,true,false
 lab-group-subject,true,true,false,true,true,true,true,false
 lab-bare-ref-range,true,true,true,true,true,true,false,false

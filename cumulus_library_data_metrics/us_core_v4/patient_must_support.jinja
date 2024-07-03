@@ -5,6 +5,7 @@
 -- This profile mentions supporting an address, name, and other contact info,
 -- but Cumulus strips those bits so we ignore them.
 
+{% import 'us_core_v4/utils.jinja' as core_utils %}
 {% import 'us_core_v4/patient_utils.jinja' as patient_utils %}
 
 WITH
@@ -83,8 +84,4 @@ set ns.fields = [
 ]
 %}
 
-SELECT
-    id,
-    {{ ns.fields|join(", ") }},
-    {{ ns.fields|join(" AND ") }} AS valid
-FROM tmp_simplified
+{{ core_utils.select_all_fields(ns.fields) }}
