@@ -1,6 +1,6 @@
-id,valid_performer,valid_result,valid_presented_form,valid
-lab-valid,true,true,true,true
-lab-nothing,false,false,false,false
-lab-multiple-result-good,false,true,false,false
-lab-multiple-result-bad,false,false,false,false
-lab-multiple-categories,false,false,false,false
+id,valid_performer,valid_result,valid
+lab-valid,true,true,true
+lab-nothing,false,false,false
+lab-multiple-result-good,false,true,false
+lab-multiple-result-bad,false,false,false
+lab-multiple-categories,false,false,false
