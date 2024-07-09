@@ -2,6 +2,9 @@
 -- There is another non-lab-report-specific profile,
 -- but this is the DiagnosticReport profile that covers the LAB rows.
 
+-- CUMULUS-QUIRK
+-- Doesn't look for "presentedForm", because Cumulus strips that field.
+
 {% import 'us_core_v4/utils.jinja' as core_utils %}
 
 WITH
@@ -25,11 +28,7 @@ tmp_simplified AS (
         (
             tmp_results.valid_result IS NOT NULL
             AND tmp_results.valid_result
-        ) AS valid_result,
-        -- 'presentedForm' is not *marked* in the profile as must-support
-        -- but it is mentioned as an acceptable alternative to 'result',
-        -- which *is* must-support. So throw it in too.
-        presentedForm IS NOT NULL as valid_presented_form
+        ) AS valid_result
     FROM tmp_slice
     LEFT JOIN tmp_results ON tmp_results.id = tmp_slice.id
 )
@@ -38,7 +37,6 @@ tmp_simplified AS (
 set ns.fields = [
     'valid_performer',
     'valid_result',
-    'valid_presented_form',
 ]
 %}
 

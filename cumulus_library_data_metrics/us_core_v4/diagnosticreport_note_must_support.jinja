@@ -2,6 +2,9 @@
 -- There is another lab-report-specific profile,
 -- but this is the "base DiagnosticReport" profile that covers the bare minimum.
 
+-- CUMULUS-QUIRK
+-- Doesn't look for "presentedForm", because Cumulus strips that field.
+
 {% import 'us_core_v4/utils.jinja' as core_utils %}
 
 WITH
@@ -12,8 +15,7 @@ tmp_simplified AS (
         id,
         {{ utils.is_reference_of_type('encounter', 'Encounter') }} AS valid_encounter,
         issued IS NOT NULL AS valid_issued,
-        performer IS NOT NULL AS valid_performer,
-        presentedForm IS NOT NULL as valid_presented_form
+        performer IS NOT NULL AS valid_performer
     FROM tmp_slice
 )
 
@@ -22,7 +24,6 @@ set ns.fields = [
     'valid_encounter',
     'valid_issued',
     'valid_performer',
-    'valid_presented_form',
 ]
 %}
 
