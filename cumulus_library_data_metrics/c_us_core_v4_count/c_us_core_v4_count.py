@@ -17,7 +17,7 @@ class UsCoreV4CountBuilder(UsCoreV4Mixin, BaseTableBuilder):
         # at a metric like this one with both mandatory and must-support fields.
         kwargs["skip_duplicated_mandatory_checks"] = True
 
-        if self.get_output_mode() == "cube" and "mandatory_split" in kwargs:
+        if self.output_mode == "cube" and "mandatory_split" in kwargs:
             kwargs["table_max"] = kwargs["mandatory_split"]
             self.queries += [
                 self.render_sql("mandatory", table_num=i + 1, **kwargs)

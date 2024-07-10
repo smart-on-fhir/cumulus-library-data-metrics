@@ -13,8 +13,6 @@ import duckdb
 from cumulus_library import cli
 
 
-# Use aggregate mode by default because it produces less noisy CSVs
-@mock.patch.dict(os.environ, {"DATA_METRICS_OUTPUT_MODE": "aggregate"})
 @ddt.ddt
 class MetricsTestCase(unittest.TestCase):
     """Test case for data metrics"""
@@ -28,16 +26,19 @@ class MetricsTestCase(unittest.TestCase):
     def test_c_pt_count_no_ext(self):
         self.run_study("c_pt_count", test="no-ext", prefix="count_")
 
-    def test_c_pt_count_cubed(self):
-        # Test directly asking for cube mode
+    def test_cubed_output_mode(self):
+        # Test directly asking for cube mode via env var
         with mock.patch.dict(os.environ, {"DATA_METRICS_OUTPUT_MODE": "cube"}):
-            self.run_study("c_pt_count", test="cubed", prefix="count_")
+            self.run_study("c_pt_count", test="cubed", prefix="count_", output=None)
 
-        # Now do the same test but without any env var, to confirm the default is cube
-        env = dict(os.environ)
-        del env["DATA_METRICS_OUTPUT_MODE"]
-        with mock.patch.dict(os.environ, env, clear=True):
-            self.run_study("c_pt_count", test="cubed", prefix="count_")
+        # Test directly asking for cube mode via CLI option
+        self.run_study("c_pt_count", test="cubed", prefix="count_", output="cube")
+
+        # Now do the same test but with a bogus arg, confirm it falls back to cube
+        self.run_study("c_pt_count", test="cubed", prefix="count_", output="bogus")
+
+        # Now do the same test but without any input, to confirm the default is cube
+        self.run_study("c_pt_count", test="cubed", prefix="count_", output=None)
 
     def test_c_pt_deceased_count(self):
         self.run_study("c_pt_deceased_count", prefix="count_")
@@ -58,8 +59,7 @@ class MetricsTestCase(unittest.TestCase):
     def test_c_us_core_v4_count_cubed(self):
         # We have special support for cutting up observation profiles into multiple
         # tables in cube mode.
-        with mock.patch.dict(os.environ, {"DATA_METRICS_OUTPUT_MODE": "cube"}):
-            self.run_study("c_us_core_v4_count", test="cubed", prefix="count_")
+        self.run_study("c_us_core_v4_count", test="cubed", prefix="count_", output="cube")
 
     def test_q_date_recent(self):
         self.run_study("q_date_recent")
@@ -98,7 +98,9 @@ class MetricsTestCase(unittest.TestCase):
         super().setUp()
         self.maxDiff = None
 
-    def run_study(self, metric: str, test: str = "general", prefix: str = "") -> None:
+    def run_study(
+        self, metric: str, test: str = "general", prefix: str = "", output="aggregate"
+    ) -> None:
         """Runs a single test case"""
         test_dir = os.path.dirname(__file__)
         root_dir = os.path.dirname(test_dir)
@@ -142,17 +144,18 @@ file_names = [
                     """
                 )
 
-            cli.main(
-                [
-                    "build",
-                    # "--verbose",
-                    "--target=data_metrics",
-                    f"--study-dir={tmpdir}/cumulus_library_data_metrics",
-                    "--db-type=duckdb",
-                    f"--database={tmpdir}/duck.db",
-                    f"--load-ndjson-dir={data_dir}",
-                ]
-            )
+            args = [
+                "build",
+                # "--verbose",
+                "--target=data_metrics",
+                f"--study-dir={tmpdir}/cumulus_library_data_metrics",
+                "--db-type=duckdb",
+                f"--database={tmpdir}/duck.db",
+                f"--load-ndjson-dir={data_dir}",
+            ]
+            if output:
+                args.append(f"--option=output-mode:{output}")
+            cli.main(args)
             db = duckdb.connect(f"{tmpdir}/duck.db")
 
             # Uncomment this for extra debugging

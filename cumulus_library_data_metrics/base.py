@@ -2,6 +2,7 @@
 
 import copy
 import os.path
+import sys
 from typing import ClassVar
 
 import jinja2
@@ -18,6 +19,7 @@ class MetricMixin:
     def __init__(self):
         super().__init__()
         self.display_text = f"Creating {self.name} tables…"
+        self.output_mode = "cube"
         self.summary_entries = {}
         # A "group" is a value in the second column - a secondary characteristic like "field"
         # (group examples: "code", "valueCodeableConcept") or a stratifier like "profile"
@@ -103,16 +105,23 @@ class MetricMixin:
         config: base_utils.StudyConfig,
         **kwargs,
     ) -> None:
+        self.output_mode = self.get_output_mode(config)
         self._query_schema(config)
         self.extra_schema_checks(config)
         self.add_metric_queries()
 
-    def get_output_mode(self) -> str:
-        # TODO: add the ability for cumulus-library to take study args like
-        #  --study-option=output-mode:cube (or whatever)
-        output_mode = os.environ.get("DATA_METRICS_OUTPUT_MODE")
+    def get_output_mode(self, config: base_utils.StudyConfig) -> str:
+        output_mode = (
+            (config.options and config.options.get("output-mode"))
+            # Deprecated approach (before --option existed) -- let it lie for now
+            or os.environ.get("DATA_METRICS_OUTPUT_MODE")
+        )
         if output_mode not in {"aggregate", "cube"}:
             output_mode = "cube"
+            print(
+                f"Did not understand output mode '{output_mode}'. Using 'cube' instead.",
+                file=sys.stderr,
+            )
         return output_mode
 
     def render_sql(self, template: str, **kwargs) -> str:
@@ -125,7 +134,7 @@ class MetricMixin:
             kwargs.update(resource_info.CATEGORIES.get(src, {}))
 
         # See how we should combine counts.
-        kwargs["output_mode"] = self.get_output_mode()
+        kwargs["output_mode"] = self.output_mode
 
         with open(f"{path}/{self.name}/{template}.jinja") as file:
             template = file.read()
