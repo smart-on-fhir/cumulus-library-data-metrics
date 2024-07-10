@@ -93,11 +93,9 @@ cumulus-library export \
 This study generates `CUBE` output by default.
 If it's easier to work with simple aggregate counts of every value combination
 (that is, without the partial value combinations that `CUBE()` generates),
-run the build step with `DATA_METRICS_OUTPUT_MODE=aggregate` in your environment.
+run the build step with `--option output-mode:aggregate`.
 
 That is, run it like:
 ```sh
-env \
-  DATA_METRICS_OUTPUT_MODE=aggregate \
-  cumulus-library build ...
+cumulus-library build --option output-mode:aggregate ...
 ```
