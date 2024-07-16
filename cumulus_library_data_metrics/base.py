@@ -117,11 +117,12 @@ class MetricMixin:
             or os.environ.get("DATA_METRICS_OUTPUT_MODE")
         )
         if output_mode not in {"aggregate", "cube"}:
+            if output_mode:
+                print(
+                    f"Did not understand output mode '{output_mode}'. Using 'cube' instead.",
+                    file=sys.stderr,
+                )
             output_mode = "cube"
-            print(
-                f"Did not understand output mode '{output_mode}'. Using 'cube' instead.",
-                file=sys.stderr,
-            )
         return output_mode
 
     def render_sql(self, template: str, **kwargs) -> str:
