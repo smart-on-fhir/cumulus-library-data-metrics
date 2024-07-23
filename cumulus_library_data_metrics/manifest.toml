@@ -41,7 +41,7 @@ export_list = [
     "data_metrics__count_c_resource_count_patient_all",
     "data_metrics__count_c_resource_count_procedure_month",
     "data_metrics__count_c_resource_count_procedure_year",
-    "data_metrics__c_resources_per_pt_summary",
+    #"data_metrics__c_resources_per_pt_summary",  # disabled until library 3.0
     "data_metrics__count_c_system_use_allergyintolerance_code",
     "data_metrics__count_c_system_use_condition_code",
     "data_metrics__count_c_system_use_device_type",
@@ -87,9 +87,9 @@ export_list = [
     "data_metrics__count_c_us_core_v4_count_patient_must_support",
     "data_metrics__count_c_us_core_v4_count_procedure_mandatory",
     "data_metrics__count_c_us_core_v4_count_procedure_must_support",
-    "data_metrics__q_date_recent_summary",
-    "data_metrics__q_ref_target_pop_summary",
-    "data_metrics__q_ref_target_valid_summary",
-    "data_metrics__q_system_use_summary",
-    "data_metrics__q_valid_us_core_v4_summary",
+    #"data_metrics__q_date_recent_summary",  # disabled until library 3.0
+    #"data_metrics__q_ref_target_pop_summary",  # disabled until library 3.0
+    #"data_metrics__q_ref_target_valid_summary",  # disabled until library 3.0
+    #"data_metrics__q_system_use_summary",  # disabled until library 3.0
+    #"data_metrics__q_valid_us_core_v4_summary",  # disabled until library 3.0
 ]
