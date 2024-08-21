@@ -1,11 +1,11 @@
 """Module for generating c_us_core_v4_count tables"""
 
-from cumulus_library.base_table_builder import BaseTableBuilder
+import cumulus_library
 
 from cumulus_library_data_metrics.us_core_v4 import UsCoreV4Mixin
 
 
-class UsCoreV4CountBuilder(UsCoreV4Mixin, BaseTableBuilder):
+class UsCoreV4CountBuilder(UsCoreV4Mixin, cumulus_library.BaseTableBuilder):
     name = "c_us_core_v4_count"
 
     def make_table(self, **kwargs) -> None:

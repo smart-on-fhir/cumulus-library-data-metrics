@@ -2,12 +2,12 @@
 Module for generating q_date_recent tables
 """
 
-from cumulus_library.base_table_builder import BaseTableBuilder
+import cumulus_library
 
 from cumulus_library_data_metrics.base import MetricMixin
 
 
-class DateRecentBuilder(MetricMixin, BaseTableBuilder):
+class DateRecentBuilder(MetricMixin, cumulus_library.BaseTableBuilder):
     name = "q_date_recent"
 
     def make_table(self, **kwargs) -> None:

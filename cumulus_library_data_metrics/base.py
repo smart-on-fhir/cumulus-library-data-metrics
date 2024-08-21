@@ -5,8 +5,8 @@ import os.path
 import sys
 from typing import ClassVar
 
+import cumulus_library
 import jinja2
-from cumulus_library import base_utils
 from cumulus_library.template_sql import sql_utils
 
 from cumulus_library_data_metrics import resource_info
@@ -78,7 +78,7 @@ class MetricMixin:
         if not self.schemas["DocumentReference"]["context"]["period"][field]:
             self.date_fields["DocumentReference"].remove(f"context.period.{field}")
 
-    def _query_schema(self, config: base_utils.StudyConfig) -> None:
+    def _query_schema(self, config: cumulus_library.StudyConfig) -> None:
         fields_to_check = copy.deepcopy(self.uses_fields)
 
         # Check for some known deep fields especially - if the list of fields grows, we should
@@ -93,7 +93,7 @@ class MetricMixin:
         if check_docref_end:
             self._clear_deep_docref_date("end")
 
-    def extra_schema_checks(self, config: base_utils.StudyConfig) -> None:
+    def extra_schema_checks(self, config: cumulus_library.StudyConfig) -> None:
         pass
 
     def add_metric_queries(self) -> None:
@@ -102,7 +102,7 @@ class MetricMixin:
     def prepare_queries(
         self,
         *args,
-        config: base_utils.StudyConfig,
+        config: cumulus_library.StudyConfig,
         **kwargs,
     ) -> None:
         self.output_mode = self.get_output_mode(config)
@@ -110,9 +110,9 @@ class MetricMixin:
         self.extra_schema_checks(config)
         self.add_metric_queries()
 
-    def get_output_mode(self, config: base_utils.StudyConfig) -> str:
+    def get_output_mode(self, config: cumulus_library.StudyConfig) -> str:
         output_mode = (
-            (config.options and config.options.get("output-mode"))
+            config.options.get("output-mode")
             # Deprecated approach (before --option existed) -- let it lie for now
             or os.environ.get("DATA_METRICS_OUTPUT_MODE")
         )

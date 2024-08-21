@@ -2,12 +2,12 @@
 
 from typing import ClassVar
 
-from cumulus_library.base_table_builder import BaseTableBuilder
+import cumulus_library
 
 from cumulus_library_data_metrics.base import MetricMixin
 
 
-class TargetValidBuilder(MetricMixin, BaseTableBuilder):
+class TargetValidBuilder(MetricMixin, cumulus_library.BaseTableBuilder):
     name = "q_ref_target_valid"
 
     uses_fields: ClassVar[dict] = {

@@ -1,11 +1,11 @@
 """Module for generating q_valid_us_core_v4 tables"""
 
-from cumulus_library.base_table_builder import BaseTableBuilder
+import cumulus_library
 
 from cumulus_library_data_metrics.us_core_v4 import UsCoreV4Mixin
 
 
-class ValidUsCoreV4Builder(UsCoreV4Mixin, BaseTableBuilder):
+class ValidUsCoreV4Builder(UsCoreV4Mixin, cumulus_library.BaseTableBuilder):
     name = "q_valid_us_core_v4"
 
     def make_table(self, **kwargs) -> None:

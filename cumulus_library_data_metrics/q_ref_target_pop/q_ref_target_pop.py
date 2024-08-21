@@ -1,11 +1,11 @@
 """Module for generating q_ref_target_pop tables"""
 
-from cumulus_library.base_table_builder import BaseTableBuilder
+import cumulus_library
 
 from cumulus_library_data_metrics.base import MetricMixin
 
 
-class TargetPopBuilder(MetricMixin, BaseTableBuilder):
+class TargetPopBuilder(MetricMixin, cumulus_library.BaseTableBuilder):
     name = "q_ref_target_pop"
 
     def make_table(self, **kwargs) -> str:

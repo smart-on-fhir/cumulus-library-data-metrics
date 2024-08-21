@@ -1,12 +1,12 @@
 """Module for generating c_resources_per_pt tables"""
 
-from cumulus_library.base_table_builder import BaseTableBuilder
+import cumulus_library
 
 from cumulus_library_data_metrics import resource_info
 from cumulus_library_data_metrics.base import MetricMixin
 
 
-class ResourcesPerPatientBuilder(MetricMixin, BaseTableBuilder):
+class ResourcesPerPatientBuilder(MetricMixin, cumulus_library.BaseTableBuilder):
     name = "c_resources_per_pt"
 
     def add_metric_queries(self) -> None:

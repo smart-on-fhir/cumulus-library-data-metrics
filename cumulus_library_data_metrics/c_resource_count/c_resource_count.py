@@ -1,12 +1,12 @@
 """Module for generating c_resource_count tables"""
 
-from cumulus_library.base_table_builder import BaseTableBuilder
+import cumulus_library
 
 from cumulus_library_data_metrics import resource_info
 from cumulus_library_data_metrics.base import MetricMixin
 
 
-class ResourceCountBuilder(MetricMixin, BaseTableBuilder):
+class ResourceCountBuilder(MetricMixin, cumulus_library.BaseTableBuilder):
     name = "c_resource_count"
 
     def make_tables(self, src: str) -> None:
