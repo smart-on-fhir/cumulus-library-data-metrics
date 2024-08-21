@@ -1,12 +1,12 @@
 """Module for generating q_system_use tables"""
 
-from cumulus_library.base_table_builder import BaseTableBuilder
+import cumulus_library
 
 from cumulus_library_data_metrics import systems
 from cumulus_library_data_metrics.base import MetricMixin
 
 
-class SystemUseBuilder(MetricMixin, BaseTableBuilder):
+class SystemUseBuilder(MetricMixin, cumulus_library.BaseTableBuilder):
     name = "q_system_use"
 
     def make_table(self, **kwargs) -> None:

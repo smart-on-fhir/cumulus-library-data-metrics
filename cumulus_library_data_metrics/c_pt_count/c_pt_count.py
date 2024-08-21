@@ -2,12 +2,12 @@
 
 from typing import ClassVar
 
-from cumulus_library.base_table_builder import BaseTableBuilder
+import cumulus_library
 
 from cumulus_library_data_metrics.base import MetricMixin
 
 
-class PatientCountBuilder(MetricMixin, BaseTableBuilder):
+class PatientCountBuilder(MetricMixin, cumulus_library.BaseTableBuilder):
     name = "c_pt_count"
     uses_fields: ClassVar[dict] = {
         "Patient": {

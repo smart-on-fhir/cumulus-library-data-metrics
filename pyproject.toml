@@ -1,8 +1,8 @@
 [project]
 name = "cumulus-library-data-metrics"
-requires-python = ">= 3.10"
+requires-python = ">= 3.11"
 dependencies = [
-    "cumulus-library >= 2.3, < 3",
+    "cumulus-library >= 3, < 4",
 ]
 description = "Data quality and characterization metrics for Cumulus"
 readme = "README.md"

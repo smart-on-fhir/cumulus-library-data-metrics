@@ -1,11 +1,11 @@
 """Fake/test metric for us_core_v4 profiles"""
 
-from cumulus_library.base_table_builder import BaseTableBuilder
+import cumulus_library
 
 from cumulus_library_data_metrics.us_core_v4 import UsCoreV4Mixin
 
 
-class TestUsCoreV4Builder(UsCoreV4Mixin, BaseTableBuilder):
+class TestUsCoreV4Builder(UsCoreV4Mixin, cumulus_library.BaseTableBuilder):
     name = "t_us_core_v4"
 
     def make_table(self, **kwargs) -> None:

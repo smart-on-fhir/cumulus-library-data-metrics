@@ -1,11 +1,11 @@
 """Sets study metadata"""
 
-from cumulus_library.base_table_builder import BaseTableBuilder
+import cumulus_library
 
 from cumulus_library_data_metrics.base import MetricMixin
 
 
-class MetadataBuilder(MetricMixin, BaseTableBuilder):
+class MetadataBuilder(MetricMixin, cumulus_library.BaseTableBuilder):
     name = "meta"
 
     def add_date_query(self) -> None:
