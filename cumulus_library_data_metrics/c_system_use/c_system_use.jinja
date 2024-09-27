@@ -5,8 +5,8 @@ CREATE TABLE data_metrics__count_c_system_use_{{ src|lower }}_{{ field|lower }} 
 WITH
 src_status AS {{ utils.extract_status(src) }},
 
-{% if category_system %}
-src_categories AS {{ utils.extract_codes(src, 'category', system=category_system, is_array=true) }},
+{% if use_category %}
+src_categories AS {{ utils.extract_codes(src, cat_field, system=cat_systems, is_array=true) }},
 {% endif %}
 
 src_systems_flat AS (
@@ -57,7 +57,7 @@ simplified AS (
         {{ utils.get_date_string(dates, 'year') }} AS "year",
         {% endif %}
 
-        {% if category_system %}
+        {% if use_category %}
         {{ utils.array_to_string('src_categories.codes') }} AS category,
         {% endif %}
 
@@ -69,7 +69,7 @@ simplified AS (
     LEFT JOIN src_status
     ON src.id = src_status.id
 
-    {% if category_system %}
+    {% if use_category %}
     LEFT JOIN src_categories
     ON src.id = src_categories.id
     {% endif %}
@@ -80,7 +80,7 @@ simplified AS (
 
 
 {% call utils.make_counts('simplified', output_mode) %}
-    {% if category_system %}
+    {% if use_category %}
     category,
     {% endif %}
 

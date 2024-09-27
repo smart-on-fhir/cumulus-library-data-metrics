@@ -16,6 +16,7 @@ CONDITION_CATEGORY = "http://terminology.hl7.org/CodeSystem/condition-category"
 DIAGNOSTIC_SECTION = "http://terminology.hl7.org/CodeSystem/v2-0074"
 MEDREQ_CATEGORY = "http://terminology.hl7.org/CodeSystem/medicationrequest-category"
 OBSERVATION_CATEGORY = "http://terminology.hl7.org/CodeSystem/observation-category"
+USCORE_CONDITION_CATEGORY = "http://hl7.org/fhir/us/core/CodeSystem/condition-category"
 USCORE_DOCREF_CATEGORY = "http://hl7.org/fhir/us/core/CodeSystem/us-core-documentreference-category"
 
 # Object Identifiers (OIDs).
