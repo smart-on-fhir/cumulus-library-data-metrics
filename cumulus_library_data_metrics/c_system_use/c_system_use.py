@@ -18,22 +18,10 @@ class SystemUseBuilder(MetricMixin, cumulus_library.BaseTableBuilder):
         self.queries.append(self.render_sql(self.name, system_names=systems.NAMES, **kwargs))
 
     def add_metric_queries(self) -> None:
-        self.make_table(
-            src="Observation",
-            field="code",
-            category_system=systems.OBSERVATION_CATEGORY,
-        )
-        self.make_table(
-            src="Observation",
-            field="valueCodeableConcept",
-            category_system=systems.OBSERVATION_CATEGORY,
-        )
+        self.make_table(src="Observation", field="code", use_category=True)
+        self.make_table(src="Observation", field="valueCodeableConcept", use_category=True)
         self.make_table(src="AllergyIntolerance", field="code")
-        self.make_table(
-            src="Condition",
-            field="code",
-            category_system=systems.CONDITION_CATEGORY,
-        )
+        self.make_table(src="Condition", field="code", use_category=True)
         self.make_table(src="Device", field="type")
         self.make_table(src="DiagnosticReport", field="code")
         self.make_table(src="DocumentReference", field="type")

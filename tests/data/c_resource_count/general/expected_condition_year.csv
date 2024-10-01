@@ -1,8 +1,8 @@
 cnt,category,year,status
 3,encounter-diagnosis,2023,cumulus__none
 2,problem-list-item,2023,cumulus__none
-1,encounter-diagnosis; problem-list-item,2023,cumulus__none
-1,encounter-diagnosis; problem-list-item,2022,cumulus__none
+1,encounter-diagnosis; health-concern,2023,cumulus__none
 1,encounter-diagnosis,cumulus__none,cumulus__none
 1,cumulus__none,cumulus__none,cumulus__none
 1,cumulus__none,2023,cumulus__none
+1,16100001; problem-list-item,2022,cumulus__none

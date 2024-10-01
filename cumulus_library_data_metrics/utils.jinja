@@ -1,13 +1,30 @@
+{% macro _compare_systems(system) -%}
+    {#- Support both a list of systems or a single system #}
+    {%- if system is string %}
+        c.coding.system = '{{ system }}'
+    {%- elif system %}
+        (
+            FALSE -- just here so rest of these can start with OR
+        {%- for sys_info in system %}
+            {#- sys_info can either by a string or a list of string then codes #}
+            {%- if sys_info is string %}
+            OR c.coding.system = '{{ sys_info }}'
+            {%- else %}
+            OR (
+                c.coding.system = '{{ sys_info[0] }}'
+                AND c.coding.code in ('{{ sys_info[1]|join("', '") }}')
+            )
+            {%- endif %}
+        {%- endfor %}
+        )
+    {%- else %}
+        TRUE
+    {%- endif %}
+{%- endmacro %}
+
 -- Extracts the codes from a codeableConcept and returns a select with (id, codes).
 {% macro extract_codes(src, src_field, system=null, is_array=false) -%}
 (
-    -- Support both a list of systems or a single system
-    {%- if system is string %}
-        {%- set system_list = "('" + system + "')" %}
-    {%- elif system %}
-        {%- set system_list = "('" + system|join("', '") + "')" %}
-    {%- endif %}
-
     -- Flatten codings of the provided system and recombine the codes as a list
     SELECT
         id,
@@ -21,9 +38,8 @@
         {%- endif %}
     WHERE
         c.coding.code IS NOT NULL
-    {% if system_list %}
-        AND c.coding.system in {{ system_list }}
-    {% endif %}
+        AND {{ _compare_systems(system) }}
+
     GROUP BY id
 )
 {%- endmacro %}
@@ -32,13 +48,6 @@
 -- Extracts the codes from a codeableConcept and returns a flat select with (id, code).
 {% macro extract_codes_flat(src, src_field, system=null, is_array=false) -%}
 (
-    -- Support both a list of systems or a single system
-    {%- if system is string %}
-        {%- set system_list = "('" + system + "')" %}
-    {%- elif system %}
-        {%- set system_list = "('" + system|join("', '") + "')" %}
-    {%- endif %}
-
     -- Flatten codings of the provided system and recombine the codes as a list
     SELECT
         id,
@@ -53,9 +62,7 @@
         {%- endif %}
     WHERE
         c.coding.code IS NOT NULL
-    {% if system_list %}
-        AND c.coding.system in {{ system_list }}
-    {% endif %}
+        AND {{ _compare_systems(system) }}
 )
 {%- endmacro %}
 
