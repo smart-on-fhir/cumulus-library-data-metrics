@@ -92,4 +92,6 @@ export_list = [
     "data_metrics__q_ref_target_valid_summary",
     "data_metrics__q_system_use_summary",
     "data_metrics__q_valid_us_core_v4_summary",
+    "data_metrics__meta_date",
+    "data_metrics__meta_version",
 ]
