@@ -43,7 +43,11 @@ unified AS (
 
 SELECT
     MIN(min_date) AS min_date,
-    MAX(max_date) AS max_date
+    -- Cap max_date to NOW because (A) it's not entirely accurate to say this study goes to the
+    -- year 2990 just because someone makes a typo and (B) Pandas has issues with parsing dates
+    -- past 2262 by default (search "timestamp limitations" in pandas docs) and gets confused
+    -- when exporting this table.
+    LEAST(MAX(max_date), CURRENT_DATE) AS max_date
 FROM unified
 
 );
