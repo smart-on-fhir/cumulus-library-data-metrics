@@ -2,7 +2,7 @@
 
 {% set ns = namespace(fields=[]) %}
 
-CREATE TABLE data_metrics__q_valid_us_core_v4_{{ profile_name }} AS (
+CREATE TABLE {{ study_prefix }}__q_valid_us_core_v4_{{ profile_name }} AS (
 WITH
 src_status AS {{ utils.extract_status(src) }},
 

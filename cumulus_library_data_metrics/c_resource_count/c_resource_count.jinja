@@ -1,6 +1,6 @@
 {% import 'utils.jinja' as utils %}
 
-CREATE TABLE data_metrics__count_c_resource_count_{{ src|lower }}_{{ period|lower }} AS (
+CREATE TABLE {{ study_prefix }}__count_c_resource_count_{{ src|lower }}_{{ period|lower }} AS (
 {%- set orig_cat_field = cat_field %}
 WITH
 src_status AS {{ utils.extract_status(src) }},

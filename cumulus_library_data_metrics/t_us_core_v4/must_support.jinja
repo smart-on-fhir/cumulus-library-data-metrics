@@ -2,6 +2,6 @@
 
 {% set ns = namespace(fields=[]) %}
 
-CREATE TABLE data_metrics__t_us_core_v4_{{ profile_name }}_must_support AS (
+CREATE TABLE {{ study_prefix }}__t_us_core_v4_{{ profile_name }}_must_support AS (
     {% include 'us_core_v4/' + profile_name + '_must_support.jinja' %}
 );

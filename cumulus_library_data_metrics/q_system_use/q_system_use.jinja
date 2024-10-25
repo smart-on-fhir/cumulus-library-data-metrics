@@ -2,7 +2,7 @@
 
 {%- set system_list = "('" + systems|join("', '") + "')" %}
 
-CREATE TABLE data_metrics__q_system_use_{{ src|lower }}_{{ field|lower }} AS (
+CREATE TABLE {{ study_prefix }}__q_system_use_{{ src|lower }}_{{ field|lower }} AS (
 WITH
 src_status AS {{ utils.extract_status(src) }},
 

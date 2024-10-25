@@ -2,7 +2,7 @@
 
 {% set ns = namespace(fields=[]) %}
 
-CREATE TABLE data_metrics__count_c_us_core_v4_count_{{ profile_name }}_must_support AS (
+CREATE TABLE {{ study_prefix }}__count_c_us_core_v4_count_{{ profile_name }}_must_support AS (
 WITH
 src_status AS {{ utils.extract_status(src) }},
 
