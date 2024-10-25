@@ -19,6 +19,7 @@ class MetricMixin:
     def __init__(self):
         super().__init__()
         self.display_text = f"Creating {self.name} tables…"
+        self.study_prefix = "data_metrics"
         self.output_mode = "cube"
         self.summary_entries = {}
         # A "group" is a value in the second column - a secondary characteristic like "field"
@@ -103,8 +104,10 @@ class MetricMixin:
         self,
         *args,
         config: cumulus_library.StudyConfig,
+        manifest: cumulus_library.StudyManifest,
         **kwargs,
     ) -> None:
+        self.study_prefix = manifest.get_study_prefix()
         self.output_mode = self.get_output_mode(config)
         self._query_schema(config)
         self.extra_schema_checks(config)
@@ -136,6 +139,7 @@ class MetricMixin:
 
         # See how we should combine counts.
         kwargs["output_mode"] = self.output_mode
+        kwargs["study_prefix"] = self.study_prefix
 
         with open(f"{path}/{self.name}/{template}.jinja") as file:
             template = file.read()

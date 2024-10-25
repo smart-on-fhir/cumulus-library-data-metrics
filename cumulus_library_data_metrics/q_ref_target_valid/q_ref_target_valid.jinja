@@ -1,6 +1,6 @@
 {% import 'utils.jinja' as utils %}
 
-CREATE TABLE data_metrics__q_ref_target_valid_{{ src|lower }}_{{ dest|lower }} AS (
+CREATE TABLE {{ study_prefix }}__q_ref_target_valid_{{ src|lower }}_{{ dest|lower }} AS (
 
 {% if field == 'context.encounter' and not schema['context']['encounter'] %}
     SELECT id FROM {{ src }} WHERE 1=0  -- return an empty table

@@ -1,6 +1,6 @@
 {% import 'utils.jinja' as utils %}
 
-CREATE TABLE data_metrics__q_ref_target_pop_{{ src|lower }}_{{ dest|lower }} AS (
+CREATE TABLE {{ study_prefix }}__q_ref_target_pop_{{ src|lower }}_{{ dest|lower }} AS (
 WITH
 src_status AS {{ utils.extract_status(src) }}
 

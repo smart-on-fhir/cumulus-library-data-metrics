@@ -1,9 +1,9 @@
-CREATE TABLE data_metrics__{{ metric }}_summary AS (
+CREATE TABLE {{ study_prefix }}__{{ metric }}_summary AS (
     WITH
     {%- for entry_key, summary_info in entries.items() %}
     {{ entry_key }}_numerator AS (
         SELECT COUNT(id) AS numerator
-        FROM data_metrics__{{ metric }}_{{ entry_key }}
+        FROM {{ study_prefix }}__{{ metric }}_{{ entry_key }}
     ),
     {{ entry_key }}_denominator AS (
         {% if summary_info["denominator"] %}
@@ -23,7 +23,7 @@ CREATE TABLE data_metrics__{{ metric }}_summary AS (
     {{ all_entry_key }}_numerator_ids AS (
         {% for group_entry_key, summary_info in entries.items() %}
         {% if summary_info["src"] == resource %}
-        SELECT id FROM data_metrics__{{ metric }}_{{ group_entry_key }}
+        SELECT id FROM {{ study_prefix }}__{{ metric }}_{{ group_entry_key }}
         UNION
         {% endif %}
         {% endfor %}
