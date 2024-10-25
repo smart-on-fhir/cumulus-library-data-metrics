@@ -9,4 +9,4 @@ args, _rest = parser.parse_known_args()
 if args.study:
     print(f"data_metrics_{args.study}")
 else:
-    print(f"data_metrics")
+    print("data_metrics")

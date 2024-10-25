@@ -204,6 +204,15 @@
 {%- endmacro %}
 
 
+-- Provides a window into the source table, limited to a specific cohort.
+{% macro slice(src, study) -%}
+SELECT src.*
+FROM {{ src }} AS src
+INNER JOIN {{ study }}__patient_list AS cohort
+ON cohort.id = src.id
+{%- endmacro %}
+
+
 -- Abstracts whether we're doing a CUBE call or a simple GROUP BY.
 -- Designed to be used as a call block.
 {% macro make_counts(src_table, mode) -%}

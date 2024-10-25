@@ -3,6 +3,7 @@
 
 CREATE TABLE {{ study_prefix }}__count_c_pt_count AS (
 WITH
+src_slice AS {{ utils.slice(src, study) }},
 src_status AS {{ utils.extract_status('Patient') }},
 
 grouped_ethnicity AS {{ patient_utils.extract_ethnicity(schema) }},
@@ -20,7 +21,7 @@ simplified AS (
             deceasedDateTime IS NOT NULL
             OR (deceasedBoolean IS NOT NULL AND deceasedBoolean)
         ) AS deceased
-    FROM patient AS src
+    FROM src_slice AS src
     LEFT JOIN src_status
     ON src.id = src_status.id
     LEFT JOIN grouped_ethnicity
