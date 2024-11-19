@@ -2,7 +2,7 @@
 name = "cumulus-library-data-metrics"
 requires-python = ">= 3.11"
 dependencies = [
-    "cumulus-library >= 3, < 4",
+    "cumulus-library >= 4, < 5",
 ]
 description = "Data quality and characterization metrics for Cumulus"
 readme = "README.md"
@@ -37,26 +37,23 @@ tests = [
 ]
 dev = [
     "pre-commit",
-    "ruff == 0.4.4",  # sync with .pre-commit-config.yaml
+    # Ruff is using minor versions for breaking changes until their 1.0 release.
+    # See https://docs.astral.sh/ruff/versioning/
+    "ruff < 0.8",  # keep in rough sync with pre-commit-config.yaml
 ]
 
 [tool.ruff]
 line-length = 100
 
 [tool.ruff.lint]
+allowed-confusables = ["’"]  # allow proper apostrophes
 select = [
     "A",  # prevent using keywords that clobber python builtins
-    "B",  # bugbear: security warnings
     "E",  # pycodestyle
     "F",  # pyflakes
     "I",  # isort
-    "ISC",  # implicit string concatenation
     "PLE",  # pylint errors
     "RUF",  # the ruff developer's own rules
+    "S",  # bandit security warnings
     "UP",  # alert you when better syntax is available in your python version
-]
-ignore = [
-# Recommended ingore from `ruff format` due to in-project conflicts with check.
-# It's expected that this will be fixed in the coming months.
-    "ISC001"
 ]

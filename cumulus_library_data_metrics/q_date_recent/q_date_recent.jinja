@@ -1,6 +1,6 @@
 {% import 'utils.jinja' as utils %}
 
-CREATE TABLE data_metrics__q_date_recent_{{ src|lower }} AS (
+CREATE TABLE {{ study_prefix }}__q_date_recent_{{ src|lower }} AS (
 WITH
 src_status AS {{ utils.extract_status(src) }}
 

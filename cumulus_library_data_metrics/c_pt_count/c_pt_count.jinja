@@ -1,7 +1,7 @@
 {% import 'utils.jinja' as utils %}
 {% import 'us_core_v4/patient_utils.jinja' as patient_utils %}
 
-CREATE TABLE data_metrics__count_c_pt_count AS (
+CREATE TABLE {{ study_prefix }}__count_c_pt_count AS (
 WITH
 src_status AS {{ utils.extract_status('Patient') }},
 

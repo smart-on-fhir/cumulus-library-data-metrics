@@ -1,6 +1,6 @@
 {% import 'utils.jinja' as utils %}
 
-CREATE TABLE data_metrics__c_resources_per_pt_summary AS (
+CREATE TABLE {{ study_prefix }}__c_resources_per_pt_summary AS (
 
 WITH
 patient_refs AS (
