@@ -1,0 +1,6 @@
+{"resourceType": "DiagnosticReport", "id": "basic", "status": "basic", "issued": "2019-10-11", "code": {"coding": [{"system": "http://loinc.org", "code": "10418-2"}]}, "presentedForm": [{"contentType": "text/html; charset=utf8", "data": "xxx"}]}
+{"resourceType": "DiagnosticReport", "id": "multiple-content-types", "status": "multiple-content-types", "presentedForm": [{"contentType": "text/plain", "url": "xxx"}, {"contentType": "text/html", "data": "xxx"}]}
+{"resourceType": "DiagnosticReport", "id": "no-content", "status": "no-content", "presentedForm": [{"contentType": "text/with-data", "data": "xxx"}, {"contentType": "text/no-data"}]}
+{"resourceType": "DiagnosticReport", "id": "multiple-types", "status": "multiple-types", "code": {"coding": [{"system": "http://loinc.org", "code": "10458-8"}, {"system": "http://loinc.org", "code": "10877-9"}]}}
+{"resourceType": "DiagnosticReport", "id": "unknown-type", "status": "unknown-type", "code": {"coding": [{"system": "heyo", "code": "bye"}]}}
+{"resourceType": "DiagnosticReport", "id": "nothing"}
