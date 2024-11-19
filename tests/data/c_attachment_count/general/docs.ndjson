@@ -1,0 +1,7 @@
+{"resourceType": "DocumentReference", "id": "everything", "status": "everything", "content": [{"attachment": {"contentType": "text/html", "language": "en-US", "data": "xxx", "url": "xxx"}, "format": {"code": "urn:ihe:pcc:aps:2007", "system": "http://ihe.net/fhir/ValueSet/IHE.FormatCode.codesystem"}}]}
+{"resourceType": "DocumentReference", "id": "unknown-format", "status": "unknown-format", "content": [{"format": {"code": "blarg", "system": "http://ihe.net/fhir/ValueSet/IHE.FormatCode.codesystem"}}]}
+{"resourceType": "DocumentReference", "id": "multiple-attachments", "content": [{"attachment": {"contentType": "text/plain", "language": "ja"}}, {"attachment": {"contentType": "text/plain", "language": "zh-HK"}}]}
+{"resourceType": "DocumentReference", "id": "redacted-data", "status": "redacted-data", "content": [{"attachment": {"_data": {"extension": [{"url": "http://hl7.org/fhir/StructureDefinition/data-absent-reason", "valueCode": "masked"}]}}}]}
+{"resourceType": "DocumentReference", "id": "redacted-url", "status": "redacted-url", "content": [{"attachment": {"_url": {"extension": [{"url": "blarg", "valueCode": "blarg"}, {"url": "http://hl7.org/fhir/StructureDefinition/data-absent-reason", "valueCode": "masked"}]}}}]}
+{"resourceType": "DocumentReference", "id": "missing-data", "status": "missing-data", "content": [{"attachment": {"_data": {"extension": [{"url": "http://hl7.org/fhir/StructureDefinition/data-absent-reason", "valueCode": "unknown"}]}}}]}
+{"resourceType": "DocumentReference", "id": "nothing"}

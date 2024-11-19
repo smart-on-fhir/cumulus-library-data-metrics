@@ -1,0 +1,77 @@
+{% import 'utils.jinja' as utils %}
+{% import 'attachment_utils.jinja' as attachment_utils %}
+
+CREATE TABLE {{ study_prefix }}__count_c_content_type_use_{{ src|lower }} AS (
+WITH
+
+attachments AS {{ attachment_utils.extract_attachments(src, schema) }},
+
+simplified_attachments AS (
+    SELECT
+        id,
+        row,
+
+        -- Null out the content type if neither URL or data are present.
+        -- Per the spec (https://www.hl7.org/fhir/R4/datatypes.html#Attachment, att-1 constraint),
+        -- that means a positive assertion that no content is available for the given content_type
+        -- and language. So let's not report it in the available content types.
+        CASE
+        WHEN has_data OR has_url
+        THEN content_type
+        ELSE NULL
+        END AS content_type
+
+    FROM attachments
+),
+
+content_types AS (
+    SELECT
+        id,
+
+        {% call utils.array_to_string() %}
+          ARRAY_AGG(content_type)
+        {% endcall %} AS content_types
+
+    FROM simplified_attachments
+    GROUP BY id
+),
+
+{% if src == "DiagnosticReport" %}
+{# LOINC is an extensible binding for both DiagnosticReport US Core profiles #}
+types AS {{ utils.extract_codes(src, 'code', [
+    'http://loinc.org',
+]) }},
+{% elif src == "DocumentReference" %}
+{# These two systems are required bindings for US Core #}
+types AS {{ utils.extract_codes(src, 'type', [
+    'http://loinc.org',
+    'http://terminology.hl7.org/CodeSystem/v3-NullFlavor',
+]) }},
+{% endif %}
+
+simplified AS (
+    SELECT
+        id,
+
+        {{ utils.coalesce_missing('status') }} AS status,
+{% if src == "DocumentReference" %}
+        {{ utils.coalesce_missing('docStatus') }} AS doc_status,
+{% else %}
+        'cumulus__none' AS doc_status,
+{% endif %}
+        {{ utils.get_date_string(dates, 'year') }} AS "year",
+        {{ utils.array_to_string('types.codes') }} AS type,
+        {{ utils.coalesce_missing('content_types.content_types') }} as content_types
+    FROM {{ src }} AS src
+    LEFT JOIN content_types USING (id)
+    LEFT JOIN types USING (id)
+)
+
+{% call utils.make_counts('simplified', output_mode) %}
+    status,
+    doc_status,
+    "year",
+    type,
+    content_types
+{% endcall %}
+);

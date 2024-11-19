@@ -1,0 +1,7 @@
+cnt,status,content_type,language,format,content_location
+1,redacted-url,cumulus__none,cumulus__none,cumulus__none,External
+1,redacted-data,cumulus__none,cumulus__none,cumulus__none,Embedded
+1,missing-data,cumulus__none,cumulus__none,cumulus__none,Not available
+1,everything,text/html,en-US,cumulus__none,Embedded and external
+1,cumulus__none,text/plain,zh-HK,cumulus__none,Not available
+1,cumulus__none,text/plain,ja,cumulus__none,Not available
