@@ -22,6 +22,16 @@
     {%- endif %}
 {%- endmacro %}
 
+
+{%- macro nullable(schema_val, field, alias) -%}
+    {% if schema_val %}
+    {{ field }} AS {{ alias }}
+    {% else %}
+    CAST(NULL AS VARCHAR) AS {{ alias }}
+    {% endif %}
+{%- endmacro -%}
+
+
 -- Extracts the codes from a codeableConcept and returns a select with (id, codes).
 {% macro extract_codes(src, src_field, system=null, is_array=false) -%}
 (
@@ -206,10 +216,15 @@
 
 -- Abstracts whether we're doing a CUBE call or a simple GROUP BY.
 -- Designed to be used as a call block.
-{% macro make_counts(src_table, mode) -%}
+{% macro make_counts(src_table, mode, unique_ids=null) -%}
 {% set cols = caller() %}
+{% set unique_ids = unique_ids or ['id'] %}
 SELECT
-    COUNT(DISTINCT id) AS cnt,
+{% if unique_ids|length > 1 %}
+    COUNT(DISTINCT CONCAT({{ ", ':', ".join(unique_ids) }})) AS cnt,
+{% else %}
+    COUNT(DISTINCT {{ unique_ids[0] }}) AS cnt,
+{% endif %}
     {{ cols }}
 FROM {{ src_table }}
 {% if mode == "cube" %}

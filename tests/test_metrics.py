@@ -20,6 +20,13 @@ class MetricsTestCase(unittest.TestCase):
     def test_meta(self):
         self.run_study("meta")
 
+    def test_c_attachment_count(self):
+        self.run_study("c_attachment_count", prefix="count_")
+        self.run_study("c_attachment_count", prefix="count_", test="low-schema")
+
+    def test_c_content_type_use(self):
+        self.run_study("c_content_type_use", prefix="count_")
+
     def test_c_pt_count(self):
         self.run_study("c_pt_count", prefix="count_")
 

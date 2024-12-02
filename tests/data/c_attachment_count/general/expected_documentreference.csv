@@ -1,0 +1,8 @@
+cnt,status,content_type,language,format,content
+1,unknown-format,cumulus__none,cumulus__none,cumulus__none,Not available
+1,redacted-url,cumulus__none,cumulus__none,cumulus__none,URL
+1,redacted-data,cumulus__none,cumulus__none,cumulus__none,Data
+1,missing-data,cumulus__none,cumulus__none,cumulus__none,Not available
+1,everything,text/html,en-US,IHE Antepartum Summary,Data and URL
+1,cumulus__none,text/plain,zh-HK,cumulus__none,Not available
+1,cumulus__none,text/plain,ja,cumulus__none,Not available
