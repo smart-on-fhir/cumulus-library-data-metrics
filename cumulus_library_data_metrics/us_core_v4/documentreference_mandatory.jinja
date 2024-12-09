@@ -13,7 +13,7 @@ tmp_attachment_flat AS (
         {% if schema["content"]["attachment"] %}
         u.content.attachment.contenttype
         {% else %}
-        NULL AS contenttype
+        CAST(NULL AS VARCHAR) AS contenttype
         {% endif %}
 
     FROM {{ src }},

@@ -7,16 +7,11 @@
 
 WITH
 
+{% if schema["content"]["format"] %}
 tmp_content_flat AS (
     SELECT
         id,
-
-        {% if schema["content"]["format"] %}
         u.content.format
-        {% else %}
-        NULL AS format
-        {% endif %}
-
     FROM {{ src }},
         UNNEST(content) AS u (content)
 ),
@@ -27,6 +22,11 @@ tmp_content_grouped AS (
     FROM tmp_content_flat
     GROUP BY id
 ),
+{% else %}
+tmp_content_grouped AS (
+    SELECT id, FALSE AS valid_format FROM {{ src }} WHERE 1=0  -- return an empty table
+),
+{% endif %}
 
 tmp_encounters AS (
     SELECT
