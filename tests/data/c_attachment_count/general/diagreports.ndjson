@@ -1,0 +1,6 @@
+{"resourceType": "DiagnosticReport", "id": "everything", "status": "everything", "presentedForm": [{"contentType": "text/html", "language": "en-US", "data": "xxx", "url": "xxx"}]}
+{"resourceType": "DiagnosticReport", "id": "multiple-attachments", "presentedForm": [{"contentType": "text/plain", "language": "ja"}, {"contentType": "text/plain", "language": "zh-HK"}]}
+{"resourceType": "DiagnosticReport", "id": "redacted-data", "status": "redacted-data", "presentedForm": [{"_data": {"extension": [{"url": "http://hl7.org/fhir/StructureDefinition/data-absent-reason", "valueCode": "masked"}]}}]}
+{"resourceType": "DiagnosticReport", "id": "redacted-url", "status": "redacted-url", "presentedForm": [{"_url": {"extension": [{"url": "blarg", "valueCode": "blarg"}, {"url": "http://hl7.org/fhir/StructureDefinition/data-absent-reason", "valueCode": "masked"}]}}]}
+{"resourceType": "DiagnosticReport", "id": "missing-data", "status": "missing-data", "presentedForm": [{"_data": {"extension": [{"url": "http://hl7.org/fhir/StructureDefinition/data-absent-reason", "valueCode": "unknown"}]}}]}
+{"resourceType": "DiagnosticReport", "id": "nothing"}
