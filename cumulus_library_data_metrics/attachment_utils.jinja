@@ -1,0 +1,187 @@
+{% import 'utils.jinja' as utils %}
+
+
+{% macro _extract_attachment_info(src, unnest_field, access_field, attachment_schema, extra_field_names, extra_fields) -%}
+{% set has_data_ext = attachment_schema["_data"]["extension"]["url"] and attachment_schema["_data"]["extension"]["valueCode"] %}
+{% set has_url_ext = attachment_schema["_url"]["extension"]["url"] and attachment_schema["_url"]["extension"]["valueCode"] %}
+(
+    WITH
+    tmp_rows AS (
+        SELECT
+            id,
+            ROW_NUMBER() OVER (PARTITION BY id) AS row,
+
+            {% for extra_field in extra_fields %}
+            {{ extra_field }},
+            {% endfor %}
+
+            {{ utils.nullable(
+                attachment_schema["contentType"],
+                "u." + access_field + ".contentType",
+                "content_type",
+            ) }},
+            {{ utils.nullable(
+                attachment_schema["language"],
+                "u." + access_field + ".language",
+                "language",
+            ) }},
+            {{ utils.nullable(
+                attachment_schema["data"],
+                "u." + access_field + ".data",
+                "data",
+            ) }},
+            {{ utils.nullable(
+                has_data_ext,
+                "u." + access_field + "._data",
+                "_data",
+            ) }},
+            {{ utils.nullable(
+                attachment_schema["url"],
+                "u." + access_field + ".url",
+                "url",
+            ) }},
+            {{ utils.nullable(
+                has_url_ext,
+                "u." + access_field + "._url",
+                "_url",
+            ) }}
+
+        FROM {{ src }},
+            UNNEST({{ unnest_field }}) AS u ({{ unnest_field }})
+    ),
+
+    data_absent_reasons AS (
+    {% if has_data_ext %}
+        SELECT
+            id,
+            row,
+            BOOL_OR(
+                u.extension.url = 'http://hl7.org/fhir/StructureDefinition/data-absent-reason'
+                AND u.extension.valueCode = 'masked'
+            ) AS was_masked
+        FROM tmp_rows,
+            UNNEST(_data.extension) AS u (extension)
+        GROUP BY id, row
+
+    {% else %}
+        SELECT id, row, FALSE AS was_masked FROM tmp_rows WHERE 1=0  -- return an empty table
+    {% endif %}
+    ),
+
+    url_absent_reasons AS (
+    {% if has_url_ext %}
+        SELECT
+            id,
+            row,
+            BOOL_OR(
+                u.extension.url = 'http://hl7.org/fhir/StructureDefinition/data-absent-reason'
+                AND u.extension.valueCode = 'masked'
+            ) AS was_masked
+        FROM tmp_rows,
+            UNNEST(_url.extension) AS u (extension)
+        GROUP BY id, row
+
+    {% else %}
+        SELECT id, row, FALSE AS was_masked FROM tmp_rows WHERE 1=0  -- return an empty table
+    {% endif %}
+    )
+
+    SELECT
+        id,
+        row,
+        language,
+
+        CASE WHEN content_type IS NULL THEN NULL
+        ELSE lower(split_part(content_type, ';', 1))  -- chop off any encoding arg
+        END as content_type,
+
+        {% for name in extra_field_names %}
+        {{ name }},
+        {% endfor %}
+
+        (
+            {{ utils.is_string_valid('data') }}
+            OR (data_absent_reasons.was_masked IS NOT NULL AND data_absent_reasons.was_masked)
+        ) AS has_data,
+
+        (
+            {{ utils.is_string_valid('url') }}
+            OR (url_absent_reasons.was_masked IS NOT NULL AND url_absent_reasons.was_masked)
+        ) AS has_url
+
+    FROM tmp_rows
+    LEFT JOIN url_absent_reasons USING(id, row)
+    LEFT JOIN data_absent_reasons USING(id, row)
+)
+{% endmacro %}
+
+
+{% macro _extract_diagnostic_report_attachments(schema) -%}
+(
+    WITH
+    att_info AS {{ _extract_attachment_info(
+        "diagnosticreport", "presentedForm", "presentedForm", schema["presentedForm"], [], []
+    ) }}
+
+    SELECT
+        id,
+        att.row,
+        dr.status,
+        CAST(NULL AS VARCHAR) AS doc_status,
+        att.content_type,
+        att.language,
+        CAST(NULL AS VARCHAR) AS format_code,
+        CAST(NULL AS VARCHAR) AS format_system,
+        att.has_data,
+        att.has_url
+
+    FROM att_info AS att
+    JOIN diagnosticreport AS dr USING(id)
+)
+{% endmacro %}
+
+
+{% macro _extract_document_reference_attachments(schema) -%}
+(
+    WITH
+    att_info AS {{ _extract_attachment_info(
+        "documentreference", "content", "content.attachment", schema["content"]["attachment"],
+        ["format_system", "format_code"],
+        [
+            utils.nullable(
+                schema["content"]["format"]["system"],
+                "u.content.format.system",
+                "format_system",
+            ),
+            utils.nullable(
+                schema["content"]["format"]["code"],
+                "u.content.format.code",
+                "format_code",
+            ),
+        ]
+    ) }}
+
+    SELECT
+        id,
+        att.row,
+        dr.status,
+        dr.docStatus AS doc_status,
+        att.content_type,
+        att.language,
+        att.format_code,
+        att.format_system,
+        att.has_data,
+        att.has_url
+
+    FROM att_info AS att
+    JOIN documentreference AS dr USING(id)
+)
+{% endmacro %}
+
+{% macro extract_attachments(src, schema) -%}
+{% if src == "DiagnosticReport" %}
+    {{ _extract_diagnostic_report_attachments(schema) }}
+{% elif src == "DocumentReference" %}
+    {{ _extract_document_reference_attachments(schema) }}
+{% endif %}
+{% endmacro %}

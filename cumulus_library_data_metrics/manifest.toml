@@ -4,6 +4,8 @@ dynamic_study_prefix = "gen_prefix.py"
 [file_config]
 file_names = [
     "meta/meta.py",
+    "c_attachment_count/c_attachment_count.py",
+    "c_content_type_use/c_content_type_use.py",
     "c_pt_count/c_pt_count.py",
     "c_pt_deceased_count/c_pt_deceased_count.py",
     "c_resource_count/c_resource_count.py",
@@ -19,6 +21,10 @@ file_names = [
 
 [export_config]
 count_list = [
+    "count_c_attachment_count_diagnosticreport",
+    "count_c_attachment_count_documentreference",
+    "count_c_content_type_use_diagnosticreport",
+    "count_c_content_type_use_documentreference",
     "count_c_pt_count",
     "count_c_pt_deceased_count",
     "count_c_resource_count_allergyintolerance_month",

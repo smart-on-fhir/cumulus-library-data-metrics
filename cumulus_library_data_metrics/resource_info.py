@@ -111,3 +111,45 @@ SUPPORTED = {
     "Patient",
     "Procedure",
 }
+
+# Use these in your metrics' "uses_fields" section when you want to inspect attachments.
+# Usually with docref_utils.extract_attachments().
+# Use like:
+# uses_fields: ClassVar[dict] = {
+#     "DiagnosticReport": {
+#         **DIAGNOSTIC_REPORT_ATTACHMENT_SCHEMA,
+#     },
+#     "DocumentReference": {
+#         **DOCREF_ATTACHMENT_SCHEMA,
+#     },
+# }
+ATTACHMENT_SCHEMA = {
+    "contentType": {},
+    "language": {},
+    "data": {},
+    "_data": {
+        "extension": {
+            "url": {},
+            "valueCode": {},
+        },
+    },
+    "url": {},
+    "_url": {
+        "extension": {
+            "url": {},
+            "valueCode": {},
+        },
+    },
+}
+DIAGNOSTIC_REPORT_ATTACHMENT_SCHEMA = {
+    "presentedForm": ATTACHMENT_SCHEMA,
+}
+DOCREF_ATTACHMENT_SCHEMA = {
+    "content": {
+        "attachment": ATTACHMENT_SCHEMA,
+        "format": {
+            "system": {},
+            "code": {},
+        },
+    },
+}

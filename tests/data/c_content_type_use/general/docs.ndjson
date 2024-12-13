@@ -1,0 +1,6 @@
+{"resourceType": "DocumentReference", "id": "basic", "status": "basic", "docStatus": "amended", "date": "2012-01-02", "type": {"coding": [{"system": "http://loinc.org", "code": "24538-1"}]}, "content": [{"attachment": {"contentType": "text/html; charset=utf8", "data": "xxx"}}]}
+{"resourceType": "DocumentReference", "id": "multiple-content-types", "status": "multiple-content-types", "content": [{"attachment": {"contentType": "text/plain", "data": "xxx"}}, {"attachment": {"contentType": "text/HTML", "url": "xxx"}}]}
+{"resourceType": "DocumentReference", "id": "no-content", "status": "no-content", "content": [{"attachment": {"contentType": "text/with-data", "data": "xxx"}}, {"attachment": {"contentType": "text/no-data"}}]}
+{"resourceType": "DocumentReference", "id": "multiple-types", "status": "multiple-types", "type": {"coding": [{"code": "11488-4", "system": "http://loinc.org"}, {"code": "UNK", "system": "http://terminology.hl7.org/CodeSystem/v3-NullFlavor"}]}}
+{"resourceType": "DocumentReference", "id": "unknown-type", "status": "unknown-type", "type": {"coding": [{"code": "18825-0", "system": "http://loinc.org"}, {"code": "foo", "system": "blarg"}]}}
+{"resourceType": "DocumentReference", "id": "nothing"}

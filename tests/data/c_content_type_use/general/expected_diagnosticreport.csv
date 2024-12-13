@@ -1,0 +1,7 @@
+cnt,status,doc_status,year,type,content_types
+1,unknown-type,cumulus__none,cumulus__none,cumulus__none,cumulus__none
+1,no-content,cumulus__none,cumulus__none,cumulus__none,text/with-data
+1,multiple-types,cumulus__none,cumulus__none,10458-8; 10877-9,cumulus__none
+1,multiple-content-types,cumulus__none,cumulus__none,cumulus__none,text/html; text/plain
+1,cumulus__none,cumulus__none,cumulus__none,cumulus__none,cumulus__none
+1,basic,cumulus__none,2019,10418-2,text/html
