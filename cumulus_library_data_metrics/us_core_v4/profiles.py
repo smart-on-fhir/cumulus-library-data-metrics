@@ -2,6 +2,7 @@
 
 from typing import ClassVar
 
+from cumulus_library_data_metrics import resource_info
 from cumulus_library_data_metrics.base import MetricMixin
 
 
@@ -17,10 +18,6 @@ class UsCoreV4Mixin(MetricMixin):
             ],
         },
         "DocumentReference": {
-            "content": [
-                "attachment",
-                "format",
-            ],
             "context": {
                 "encounter": {},
                 "period": {
@@ -28,6 +25,7 @@ class UsCoreV4Mixin(MetricMixin):
                     "end": {},
                 },
             },
+            **resource_info.DOCREF_ATTACHMENT_SCHEMA,
         },
         "Encounter": {
             "hospitalization": [
@@ -89,7 +87,11 @@ class UsCoreV4Mixin(MetricMixin):
         # - category/loinc: property to slice on for Observations
         # - mandatory_split: some profiles have a lot of mandatory fields, which can cause
         #   performance issues when cubing. This is a recommended hint of how many tables to
-        #   split any mandatory cube into.
+        #   split any mandatory cube into. Note that this argument gets passed on to the metric
+        #   classes that implement this mixin, and _optionally_ used. For example, the
+        #   q_valid_us_core_v4 metric does not care about this argument, because it doesn't cube.
+        #   The c_us_core_v4_count metric *does* care about it, when cubing. It will split its
+        #   output tables into multiple tables, to keep CUBE time low.
 
         # Observation is so big, that if it falls over in Athena, let's know early.
         # So we run these first,
@@ -109,7 +111,7 @@ class UsCoreV4Mixin(MetricMixin):
         self.make_table(src="Condition")
         self.make_table(src="DiagnosticReport", name="Lab")
         self.make_table(src="DiagnosticReport", name="Note")
-        self.make_table(src="DocumentReference")
+        self.make_table(src="DocumentReference", mandatory_split=2)
         self.make_table(src="Encounter")
         self.make_table(src="Immunization")
         self.make_table(src="Medication")

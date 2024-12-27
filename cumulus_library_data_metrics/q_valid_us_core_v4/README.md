@@ -55,21 +55,6 @@ All possible rows for the resource in question.
 In the case of Observation profiles,
 it's just the count of rows with the category in question.
 
-### A note on the DiagnosticReport profile
-
-The DiagnosticReport profiles mark `presentedForm` as "Must Support".
-
-But since Cumulus ETL strips these fields as possible PHI,
-this metric does not examine them.
-
-### A note on the DocumentReference profile
-
-The DocumentReference profile requires one or both of `content.attachment.data`
-and `content.attachment.url`.
-
-But since Cumulus ETL strips these fields as PHI,
-this metric does not require them.
-
 ### A note on Observation profiles
 
 Unlike the other resources, which check all rows, Observations are kind of a wild
