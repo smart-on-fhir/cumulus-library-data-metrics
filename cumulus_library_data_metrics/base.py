@@ -7,6 +7,7 @@ from typing import ClassVar
 
 import cumulus_library
 import jinja2
+from cumulus_library import db_config
 from cumulus_library.template_sql import sql_utils
 
 from cumulus_library_data_metrics import resource_info
@@ -140,6 +141,7 @@ class MetricMixin:
         # See how we should combine counts.
         kwargs["output_mode"] = self.output_mode
         kwargs["study_prefix"] = self.study_prefix
+        kwargs["db_type"] = db_config.db_type
 
         with open(f"{path}/{self.name}/{template}.jinja") as file:
             template = file.read()

@@ -1,0 +1,20 @@
+{% macro median(db_type, col_expr) -%}
+    {% if db_type == "athena" %}
+        {#
+          This has a few flaws, namely that it is imprecise.
+
+          1. First off, it only promises to be "approx" in the first place.
+            - Report of it being ~7% off here: https://github.com/trinodb/trino/discussions/22388
+          2. If the series of values is even, it will pick a side, rather than average the middle.
+             I think this _can_ be a definition of median? But it seems like the SQL world agrees
+             that median is best defined with an interpolated value.
+            - https://github.com/starburstdata/dbt-trino-utils/pull/28#discussion_r1197969422
+
+          But... it's good enough for our purposes. Not worth doing extra custom code.
+        #}
+        approx_percentile({{ col_expr }}, 0.5)
+    {% else %}
+        {# Assume that the DB is kind and offers a direct median method. #}
+        median({{ col_expr }})
+    {% endif %}
+{%- endmacro %}
