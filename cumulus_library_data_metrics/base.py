@@ -110,6 +110,7 @@ class MetricMixin:
     ) -> None:
         self.study_prefix = manifest.get_study_prefix()
         self.output_mode = self.get_output_mode(config)
+        self.min_bucket_size = self.get_min_bucket_size(config)
         self._query_schema(config)
         self.extra_schema_checks(config)
         self.add_metric_queries()
@@ -129,6 +130,21 @@ class MetricMixin:
             output_mode = "cube"
         return output_mode
 
+    def get_min_bucket_size(self, config: cumulus_library.StudyConfig) -> int:
+        orig_min_bucket_size = config.options.get("min-bucket-size")
+        if orig_min_bucket_size is None:
+            return 10
+
+        try:
+            min_bucket_size = int(orig_min_bucket_size)
+        except ValueError:
+            min_bucket_size = -1
+
+        if min_bucket_size < 0:
+            sys.exit(f"Did not understand minimum bucket size '{orig_min_bucket_size}'.")
+
+        return min_bucket_size
+
     def render_sql(self, template: str, **kwargs) -> str:
         path = os.path.dirname(__file__)
 
@@ -147,6 +163,10 @@ class MetricMixin:
             template = file.read()
             loader = jinja2.FileSystemLoader(path)
             env = jinja2.Environment(loader=loader).from_string(template)  # noqa: S701
+
+            # Set global variables that we want easily accessible even in macros
+            env.globals["min_bucket_size"] = self.min_bucket_size
+
             sql = env.render(**kwargs)
             # print(sql)
             return sql

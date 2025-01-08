@@ -99,3 +99,15 @@ That is, run it like:
 ```sh
 cumulus-library build --option output-mode:aggregate ...
 ```
+
+#### Bucket sizes
+
+To help preserve privacy, this study ignores any count results of less than ten.
+
+For example, if there are only two male patients that died at age 55,
+that combination of male & 55 will be dropped from the `c_pt_deceased_count` table.
+
+This makes it easier to share the count results with other institutions.
+But if that's not a concern and you want the fine-grained details,
+you can run the build step with `--option min-bucket-size:0` to turn this feature off.
+Or use another value to change the bucket threshold (the default value is 10).
