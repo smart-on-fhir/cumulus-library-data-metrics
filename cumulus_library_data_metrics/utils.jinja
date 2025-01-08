@@ -219,21 +219,26 @@
 {% macro make_counts(src_table, mode, unique_ids=null) -%}
 {% set cols = caller() %}
 {% set unique_ids = unique_ids or ['id'] %}
-SELECT
-{% if unique_ids|length > 1 %}
-    COUNT(DISTINCT CONCAT({{ ", ':', ".join(unique_ids) }})) AS cnt,
-{% else %}
-    COUNT(DISTINCT {{ unique_ids[0] }}) AS cnt,
-{% endif %}
-    {{ cols }}
-FROM {{ src_table }}
-{% if mode == "cube" %}
-GROUP BY CUBE(
-{% else %}
-GROUP BY (
-{% endif %}
-    {{ cols }}
+SELECT cnt, {{ cols }}
+FROM (
+    SELECT
+    {% if unique_ids|length > 1 %}
+        COUNT(DISTINCT CONCAT({{ ", ':', ".join(unique_ids) }})) AS cnt,
+    {% else %}
+        COUNT(DISTINCT {{ unique_ids[0] }}) AS cnt,
+    {% endif %}
+        {{ cols }}
+    FROM {{ src_table }}
+    {% if mode == "cube" %}
+    GROUP BY CUBE(
+    {% else %}
+    GROUP BY (
+    {% endif %}
+        {{ cols }}
+    )
 )
+-- Chop off any rows that don't have enough patients to meet privacy needs
+WHERE cnt >= {{ min_bucket_size }}
 {%- endmacro %}
 
 

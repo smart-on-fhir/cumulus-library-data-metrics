@@ -47,6 +47,15 @@ class MetricsTestCase(unittest.TestCase):
         # Now do the same test but without any input, to confirm the default is cube
         self.run_study("c_pt_count", test="cubed", prefix="count_", output=None)
 
+    def test_min_bucket_size(self):
+        """Test that the default is 10 and that it cuts out small buckets."""
+        self.run_study(
+            "c_pt_count", test="min-bucket", prefix="count_", output="cube", min_bucket_size=None
+        )
+        with self.assertRaises(SystemExit) as cm:
+            self.run_study("c_pt_count", test="min-bucket", min_bucket_size="NaN")
+        self.assertEqual(cm.exception.code, "Did not understand minimum bucket size 'NaN'.")
+
     def test_c_pt_deceased_count(self):
         self.run_study("c_pt_deceased_count", prefix="count_")
 
@@ -106,7 +115,12 @@ class MetricsTestCase(unittest.TestCase):
         self.maxDiff = None
 
     def run_study(
-        self, metric: str, test: str = "general", prefix: str = "", output="aggregate"
+        self,
+        metric: str,
+        test: str = "general",
+        prefix: str = "",
+        output: str = "aggregate",
+        min_bucket_size: int = 0,
     ) -> None:
         """Runs a single test case"""
         test_dir = os.path.dirname(__file__)
@@ -160,6 +174,8 @@ file_names = [
                 f"--database={tmpdir}/duck.db",
                 f"--load-ndjson-dir={data_dir}",
             ]
+            if min_bucket_size is not None:
+                args.append(f"--option=min-bucket-size:{min_bucket_size}")
             if output:
                 args.append(f"--option=output-mode:{output}")
             cli.main(args)
