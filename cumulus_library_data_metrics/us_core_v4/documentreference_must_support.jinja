@@ -7,7 +7,7 @@
 
 WITH
 
-{% if schema["content"]["format"] %}
+{% if schema["content"]["format"]["code"] or schema["content"]["format"]["system"] %}
 tmp_content_flat AS (
     SELECT
         id,

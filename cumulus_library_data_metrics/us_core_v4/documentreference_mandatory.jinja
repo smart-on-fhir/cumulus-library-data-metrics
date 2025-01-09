@@ -3,23 +3,11 @@
 -- CUMULUS-QUIRK
 -- Doesn't look at the us-core-6 attachment data/url check, because Cumulus strips those fields.
 
+{% import 'attachment_utils.jinja' as attachment_utils %}
 {% import 'us_core_v4/utils.jinja' as core_utils %}
 
 WITH
-tmp_attachment_flat AS (
-    SELECT
-        id,
-
-        {% if schema["content"]["attachment"] %}
-        u.content.attachment.contenttype
-        {% else %}
-        CAST(NULL AS VARCHAR) AS contenttype
-        {% endif %}
-
-    FROM {{ src }},
-        UNNEST(content) AS u (content)
-),
-
+tmp_attachment_flat AS {{ attachment_utils.extract_attachments(src, schema) }},
 tmp_type_codes_flat AS {{ utils.extract_codes_flat(src, 'type')}},
 
 tmp_grouped AS (
@@ -44,8 +32,12 @@ tmp_grouped AS (
         ) AS valid_type,
 
         BOOL_AND(
-            att.contenttype IS NOT NULL
-        ) AS valid_content_type
+            att.content_type IS NOT NULL
+        ) AS valid_content_type,
+
+        BOOL_AND(
+            att.has_data OR att.has_url
+        ) AS valid_us_core_6
 
     FROM {{ src }} AS src
     LEFT JOIN tmp_attachment_flat AS att ON att.id = src.id
@@ -63,7 +55,8 @@ tmp_simplified AS (
         valid_type,
         category IS NOT NULL AS valid_category,
         {{ utils.is_reference_of_type('subject', 'Patient') }} AS valid_subject,
-        valid_content_type
+        valid_content_type,
+        valid_us_core_6
     FROM tmp_grouped
 )
 
@@ -74,6 +67,7 @@ set ns.fields = [
     'valid_category',
     'valid_subject',
     'valid_content_type',
+    'valid_us_core_6',
 ]
 %}
 
