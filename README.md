@@ -4,8 +4,10 @@ A Cumulus-based implementation of the [qualifier metrics](https://github.com/syn
 
 ## Implemented Metrics
 
-The following qualifier metrics are implemented (per June 2024 qualifer definitions).
+The following qualifier metrics are implemented (per January 2025 qualifer definitions).
 
+- [c_attachment_count](https://github.com/sync-for-science/qualifier/blob/master/metrics.md#c_attachment_count)
+- [c_content_type_use](https://github.com/sync-for-science/qualifier/blob/master/metrics.md#c_content_type_use)
 - [c_pt_count](https://github.com/sync-for-science/qualifier/blob/master/metrics.md#c_pt_count)
 - [c_pt_deceased_count](https://github.com/sync-for-science/qualifier/blob/master/metrics.md#c_pt_deceased_count)
 - [c_resource_count](https://github.com/sync-for-science/qualifier/blob/master/metrics.md#c_resource_count)
