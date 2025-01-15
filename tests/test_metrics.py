@@ -106,6 +106,46 @@ class MetricsTestCase(unittest.TestCase):
         """This is a fake metric, designed just to test profile validity detection"""
         self.run_study("t_us_core_v4", test=test_name)
 
+    def test_end_to_end_no_data(self):
+        """
+        Just validate that the machinery works, from building to exporting.
+
+        This can catch manifest typos and the like.
+        """
+        test_dir = os.path.dirname(__file__)
+        root_dir = os.path.dirname(test_dir)
+
+        self.reset_test_modules()
+
+        with tempfile.TemporaryDirectory() as tmpdir:
+            cli.main(
+                [
+                    "build",
+                    "--target=data_metrics",
+                    f"--study-dir={root_dir}/cumulus_library_data_metrics",
+                    "--db-type=duckdb",
+                    f"--database={tmpdir}/duck.db",
+                    f"--load-ndjson-dir={tmpdir}",  # no data
+                ]
+            )
+            cli.main(
+                [
+                    "export",
+                    tmpdir,
+                    "--target=data_metrics",
+                    f"--study-dir={root_dir}/cumulus_library_data_metrics",
+                    "--db-type=duckdb",
+                    f"--database={tmpdir}/duck.db",
+                ]
+            )
+
+            # Spot check an exported file
+            self.assertTrue(
+                os.path.exists(
+                    f"{tmpdir}/data_metrics/data_metrics__count_c_system_use_device_type.cube.csv"
+                )
+            )
+
     # **********************************
     # ** Support code below this line **
     # **********************************
@@ -113,6 +153,16 @@ class MetricsTestCase(unittest.TestCase):
     def setUp(self):
         super().setUp()
         self.maxDiff = None
+
+    def reset_test_modules(self):
+        # Because we reload the data-metrics study from different paths each time,
+        # python might be keeping the stale imports from previous test builders around.
+        # Manually drop em here.
+        stale_modules = [
+            mod for mod in sys.modules if mod.startswith("cumulus_library_data_metrics")
+        ]
+        for mod in stale_modules:
+            del sys.modules[mod]
 
     def run_study(
         self,
@@ -143,14 +193,7 @@ class MetricsTestCase(unittest.TestCase):
                 f"{tmpdir}/cumulus_library_data_metrics",
             )
 
-            # Because we reload the data-metrics study from different paths each time,
-            # python might be keeping the stale imports from previous test builders around.
-            # Manually drop em here.
-            stale_modules = [
-                mod for mod in sys.modules if mod.startswith("cumulus_library_data_metrics")
-            ]
-            for mod in stale_modules:
-                del sys.modules[mod]
+            self.reset_test_modules()
 
             # But change the manifest to only run one test metric, for speed reasons
             manifest_file = f"{tmpdir}/cumulus_library_data_metrics/manifest.toml"
