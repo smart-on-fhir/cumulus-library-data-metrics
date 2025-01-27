@@ -17,8 +17,8 @@ class MetricMixin:
     name = "base"
     uses_fields: ClassVar[dict] = {}
 
-    def __init__(self):
-        super().__init__()
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
         self.display_text = f"Creating {self.name} tables…"
         self.study_prefix = "data_metrics"
         self.output_mode = "cube"
