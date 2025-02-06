@@ -31,9 +31,10 @@ CATEGORIES = {
         "cat_systems": [systems.USCORE_DOCREF_CATEGORY],
     },
     "Encounter": {
-        "cat_field": "type",
-        # https://hl7.org/fhir/us/core/STU4/ValueSet-us-core-encounter-type.html
-        "cat_systems": [systems.CPT, systems.SNOMED],
+        "cat_field": "class",
+        # https://www.hl7.org/fhir/R4/v3/ActEncounterCode/vs.html
+        "cat_systems": [systems.ENCOUNTER_CLASS],
+        "is_coding": True,
     },
     "MedicationRequest": {
         "cat_field": "category",
@@ -50,7 +51,7 @@ CATEGORIES = {
 # Date fields in preference order.
 # This prefers "interaction with health system" dates, then administrative dates like "issued",
 # then best effort start dates like onsetDateTime.
-# See https://github.com/smart-on-fhir/cumulus-library-data-metrics/issues/16 for more.
+# See https://github.com/sync-for-science/qualifier/blob/master/metrics.md#by-date
 DATES = {
     "AllergyIntolerance": ["recordedDate", "onsetDateTime", "onsetPeriod.start", "onsetPeriod.end"],
     "Condition": [
