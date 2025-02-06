@@ -12,11 +12,7 @@ patient_refs AS (
 
 {% for resource, field_name in patient_fields.items() %}
 cat_slice_{{ resource|lower }}_codes AS
-{{ utils.extract_category_codes(
-    resource,
-    categories.get(resource, {}).get("cat_field"),
-    categories.get(resource, {}).get("cat_systems"),
-) }},
+{{ utils.extract_category_codes(resource, categories.get(resource, {})) }},
 {% endfor %}
 
 counts_by_pt AS (

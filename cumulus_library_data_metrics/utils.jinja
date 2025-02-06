@@ -1,18 +1,18 @@
-{% macro _compare_systems(system) -%}
+{% macro _compare_systems(coding_field, system) -%}
     {#- Support both a list of systems or a single system #}
     {%- if system is string %}
-        c.coding.system = '{{ system }}'
+        {{ coding_field }}.system = '{{ system }}'
     {%- elif system %}
         (
             FALSE -- just here so rest of these can start with OR
         {%- for sys_info in system %}
             {#- sys_info can either by a string or a list of string then codes #}
             {%- if sys_info is string %}
-            OR c.coding.system = '{{ sys_info }}'
+            OR {{ coding_field }}.system = '{{ sys_info }}'
             {%- else %}
             OR (
-                c.coding.system = '{{ sys_info[0] }}'
-                AND c.coding.code in ('{{ sys_info[1]|join("', '") }}')
+                {{ coding_field }}.system = '{{ sys_info[0] }}'
+                AND {{ coding_field }}.code in ('{{ sys_info[1]|join("', '") }}')
             )
             {%- endif %}
         {%- endfor %}
@@ -48,7 +48,7 @@
         {%- endif %}
     WHERE
         c.coding.code IS NOT NULL
-        AND {{ _compare_systems(system) }}
+        AND {{ _compare_systems("c.coding", system) }}
 
     GROUP BY id
 )
@@ -72,7 +72,7 @@
         {%- endif %}
     WHERE
         c.coding.code IS NOT NULL
-        AND {{ _compare_systems(system) }}
+        AND {{ _compare_systems("c.coding", system) }}
 )
 {%- endmacro %}
 
@@ -117,9 +117,17 @@
 
 
 -- Extracts the category codes and returns a select with (id (string), category (string)).
-{% macro extract_category_codes(src, cat_field, cat_systems) -%}
+{% macro extract_category_codes(src, cat_info) -%}
 (
-{% if cat_systems %}
+{%- set cat_systems = cat_info.get("cat_systems") %}
+{%- set cat_field = cat_info.get("cat_field") %}
+{%- set is_coding = cat_info.get("is_coding", False) %}
+{% if is_coding %}
+    {# TODO: handle array & no-systems cases. But this works for now. #}
+    SELECT id, {{ cat_field }}.code AS category
+    FROM {{ src }}
+    WHERE {{ _compare_systems(cat_field, cat_systems) }}
+{% elif cat_systems %}
     WITH
     array_codes AS {{ extract_codes(src, cat_field, system=cat_systems, is_array=true) }}
     SELECT id, {{ array_to_string('codes') }} AS category

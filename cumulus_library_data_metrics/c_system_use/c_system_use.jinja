@@ -6,7 +6,7 @@ WITH
 src_status AS {{ utils.extract_status(src) }},
 
 {% if use_category %}
-src_categories AS {{ utils.extract_codes(src, cat_field, system=cat_systems, is_array=true) }},
+src_categories AS {{ utils.extract_category_codes(src, cat_info) }},
 {% endif %}
 
 src_systems_flat AS (
@@ -58,7 +58,7 @@ simplified AS (
         {% endif %}
 
         {% if use_category %}
-        {{ utils.array_to_string('src_categories.codes') }} AS category,
+        {{ utils.coalesce_missing('src_categories.category') }} AS category,
         {% endif %}
 
         {{ utils.array_to_string('src_systems.systems') }} AS systems,
