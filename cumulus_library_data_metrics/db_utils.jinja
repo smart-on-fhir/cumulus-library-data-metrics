@@ -1,4 +1,4 @@
-{% macro median(db_type, col_expr) -%}
+{% macro median(col_expr) -%}
     {% if db_type == "athena" %}
         {#
           This has a few flaws, namely that it is imprecise.
@@ -18,3 +18,28 @@
         median({{ col_expr }})
     {% endif %}
 {%- endmacro %}
+
+
+{%- macro unnest_with_row(src, field) -%}
+    {% if db_type == "duckdb" %}
+        {#-
+            DuckDB does not yet have WITH ORDINALITY, which is a bit simpler than this branch.
+            TODO: remove this branch once the following PR lands:
+                https://github.com/duckdb/duckdb/pull/9014
+            But first make sure that it does not run out of memory on lots (>=5GB?) of data.
+        -#}
+        SELECT
+            id,
+            generate_subscripts("{{ field }}", 1) AS row,
+            UNNEST("{{ field }}") AS "{{ field }}"
+        FROM {{ src }} AS src
+    {% else %}
+        SELECT
+            src.id,
+            r.row,
+            r."{{ field }}"
+        FROM
+            {{ src }} AS src,
+            UNNEST(src."{{ field }}") WITH ORDINALITY AS r ("{{ field }}", row)
+    {% endif %}
+{%- endmacro -%}

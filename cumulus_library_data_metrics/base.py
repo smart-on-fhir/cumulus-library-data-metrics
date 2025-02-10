@@ -157,7 +157,6 @@ class MetricMixin:
         # See how we should combine counts.
         kwargs["output_mode"] = self.output_mode
         kwargs["study_prefix"] = self.study_prefix
-        kwargs["db_type"] = db_config.db_type
 
         with open(f"{path}/{self.name}/{template}.jinja") as file:
             template = file.read()
@@ -165,6 +164,7 @@ class MetricMixin:
             env = jinja2.Environment(loader=loader).from_string(template)  # noqa: S701
 
             # Set global variables that we want easily accessible even in macros
+            env.globals["db_type"] = db_config.db_type
             env.globals["min_bucket_size"] = self.min_bucket_size
 
             sql = env.render(**kwargs)
