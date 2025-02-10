@@ -1,4 +1,5 @@
 {% import 'utils.jinja' as utils %}
+{% import 'db_utils.jinja' as db_utils with context %}
 
 
 {% macro _extract_attachment_info(src, unnest_field, access_field, attachment_schema, extra_field_names, extra_fields) -%}
@@ -6,10 +7,11 @@
 {% set has_url_ext = attachment_schema["_url"]["extension"]["url"] and attachment_schema["_url"]["extension"]["valueCode"] %}
 (
     WITH
+    tmp_unnested AS ({{ db_utils.unnest_with_row(src, unnest_field) }}),
     tmp_rows AS (
         SELECT
             id,
-            ROW_NUMBER() OVER (PARTITION BY id) AS row,
+            row,
 
             {% for extra_field in extra_fields %}
             {{ extra_field }},
@@ -17,37 +19,36 @@
 
             {{ utils.nullable(
                 attachment_schema["contentType"],
-                "u." + access_field + ".contentType",
+                access_field + ".contentType",
                 "content_type",
             ) }},
             {{ utils.nullable(
                 attachment_schema["language"],
-                "u." + access_field + ".language",
+                access_field + ".language",
                 "language",
             ) }},
             {{ utils.nullable(
                 attachment_schema["data"],
-                "u." + access_field + ".data",
+                access_field + ".data",
                 "data",
             ) }},
             {{ utils.nullable(
                 has_data_ext,
-                "u." + access_field + "._data",
+                access_field + "._data",
                 "_data",
             ) }},
             {{ utils.nullable(
                 attachment_schema["url"],
-                "u." + access_field + ".url",
+                access_field + ".url",
                 "url",
             ) }},
             {{ utils.nullable(
                 has_url_ext,
-                "u." + access_field + "._url",
+                access_field + "._url",
                 "_url",
             ) }}
 
-        FROM {{ src }},
-            UNNEST({{ unnest_field }}) AS u ({{ unnest_field }})
+        FROM tmp_unnested
     ),
 
     data_absent_reasons AS (
@@ -150,12 +151,12 @@
         [
             utils.nullable(
                 schema["content"]["format"]["system"],
-                "u.content.format.system",
+                "content.format.system",
                 "format_system",
             ),
             utils.nullable(
                 schema["content"]["format"]["code"],
-                "u.content.format.code",
+                "content.format.code",
                 "format_code",
             ),
         ]

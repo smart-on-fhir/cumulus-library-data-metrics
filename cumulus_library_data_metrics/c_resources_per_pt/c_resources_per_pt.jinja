@@ -64,7 +64,7 @@ summed_counts AS (
 SELECT
     'cumulus__all' AS resource,
     'cumulus__all' AS category,
-    CAST({{ db_utils.median(db_type, 'num_resources') }} AS DECIMAL(18, 2)) AS "median",
+    CAST({{ db_utils.median('num_resources') }} AS DECIMAL(18, 2)) AS "median",
     CAST(AVG(num_resources) AS DECIMAL(18, 2)) AS average,
     CAST(STDDEV_POP(num_resources) AS DECIMAL(18, 2)) AS std_dev,
     MAX(num_resources) AS "max"
@@ -75,7 +75,7 @@ UNION
 SELECT
     'cumulus__all' AS resource,
     CAST(NULL AS VARCHAR) AS category,
-    CAST({{ db_utils.median(db_type, 'num_resources') }} AS DECIMAL(18, 2)) AS "median",
+    CAST({{ db_utils.median('num_resources') }} AS DECIMAL(18, 2)) AS "median",
     CAST(AVG(num_resources) AS DECIMAL(18, 2)) AS average,
     CAST(STDDEV_POP(num_resources) AS DECIMAL(18, 2)) AS std_dev,
     MAX(num_resources) AS "max"
@@ -87,7 +87,7 @@ UNION
 SELECT
     '{{ resource }}' AS resource,
     'cumulus__all' AS category,
-    CAST({{ db_utils.median(db_type, 'num_resources') }} AS DECIMAL(18, 2)) AS "median",
+    CAST({{ db_utils.median('num_resources') }} AS DECIMAL(18, 2)) AS "median",
     CAST(AVG(num_resources) AS DECIMAL(18, 2)) AS average,
     CAST(STDDEV_POP(num_resources) AS DECIMAL(18, 2)) AS std_dev,
     MAX(num_resources) AS "max"
@@ -98,7 +98,7 @@ UNION
 SELECT
     '{{ resource }}' AS resource,
     cat_values.category,
-    CAST({{ db_utils.median(db_type, 'COALESCE(num_resources, 0)') }} AS DECIMAL(18, 2)) AS "median",
+    CAST({{ db_utils.median('COALESCE(num_resources, 0)') }} AS DECIMAL(18, 2)) AS "median",
     CAST(AVG(COALESCE(num_resources, 0)) AS DECIMAL(18, 2)) AS average,
     CAST(STDDEV_POP(COALESCE(num_resources, 0)) AS DECIMAL(18, 2)) as std_dev,
     MAX(num_resources) AS "max"
@@ -121,7 +121,7 @@ UNION
 SELECT
     '{{ resource }}' AS resource,
     CAST(NULL AS VARCHAR) AS category,
-    CAST({{ db_utils.median(db_type, 'num_resources') }} AS DECIMAL(18, 2)) AS "median",
+    CAST({{ db_utils.median('num_resources') }} AS DECIMAL(18, 2)) AS "median",
     CAST(AVG(num_resources) AS DECIMAL(18, 2)) AS average,
     CAST(STDDEV_POP(num_resources) AS DECIMAL(18, 2)) AS std_dev,
     MAX(num_resources) AS "max"
