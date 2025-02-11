@@ -1,17 +1,16 @@
 {% import 'utils.jinja' as utils %}
 
 CREATE TABLE {{ study_prefix }}__count_c_resource_count_{{ src|lower }}_{{ period|lower }} AS (
-{%- set orig_cat_field = cat_field %}
 WITH
 src_status AS {{ utils.extract_status(src) }},
-src_category AS {{ utils.extract_category_codes(src, cat_field, cat_systems) }},
+src_category AS {{ utils.extract_category_codes(src, cat_info) }},
 
 simplified AS (
     SELECT
         src.id,
 
-        {%- if cat_field %}
-        {{ utils.coalesce_missing('src_category.category') }} AS {{ cat_field }},
+        {%- if cat_info %}
+        {{ utils.coalesce_missing('src_category.category') }} AS {{ cat_info["cat_field"] }},
         {%- endif %}
 
         -- Parse string datetime into a single period string
@@ -30,8 +29,8 @@ simplified AS (
 )
 
 {% call utils.make_counts('simplified', output_mode) %}
-    {%- if cat_field %}
-    {{ cat_field }},
+    {%- if cat_info %}
+    {{ cat_info["cat_field"] }},
     {%- endif %}
 
     {%- if dates %}

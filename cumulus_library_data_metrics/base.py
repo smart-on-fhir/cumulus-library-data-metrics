@@ -152,7 +152,7 @@ class MetricMixin:
             kwargs["dates"] = self.date_fields.get(src)
             kwargs["patient_field"] = resource_info.PATIENTS.get(src)
             kwargs["schema"] = self.schemas.get(src)
-            kwargs.update(resource_info.CATEGORIES.get(src, {}))
+            kwargs["cat_info"] = resource_info.CATEGORIES.get(src, {})
 
         # See how we should combine counts.
         kwargs["output_mode"] = self.output_mode
