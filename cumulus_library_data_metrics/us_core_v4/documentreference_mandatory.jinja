@@ -3,7 +3,7 @@
 -- CUMULUS-QUIRK
 -- Doesn't look at the us-core-6 attachment data/url check, because Cumulus strips those fields.
 
-{% import 'attachment_utils.jinja' as attachment_utils %}
+{% import 'attachment_utils.jinja' as attachment_utils with context %}
 {% import 'us_core_v4/utils.jinja' as core_utils %}
 
 WITH
