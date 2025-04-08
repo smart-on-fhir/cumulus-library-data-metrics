@@ -29,7 +29,7 @@ counts_by_pt AS (
     ON src.id = cat_codes.id
     GROUP BY patient_refs.ref, cat_codes.category
     {%- if not loop.last %}
-    UNION
+    UNION ALL
     {%- endif -%}
 {% endfor %}
 ),
@@ -69,7 +69,7 @@ SELECT
     CAST(STDDEV_POP(num_resources) AS DECIMAL(18, 2)) AS std_dev,
     MAX(num_resources) AS "max"
 FROM summed_counts
-UNION
+UNION ALL
 -- duplicate the above for consistency with flagging
 -- "no category available" situations via a NULL category
 SELECT
@@ -80,7 +80,7 @@ SELECT
     CAST(STDDEV_POP(num_resources) AS DECIMAL(18, 2)) AS std_dev,
     MAX(num_resources) AS "max"
 FROM summed_counts
-UNION
+UNION ALL
 {%- for resource in patient_fields %}
 -- If you change this cumulus_all block, also change its
 -- duplicate block below where we use NULL as the category.
@@ -94,7 +94,7 @@ SELECT
 FROM summed_{{ resource|lower }}_counts
 WHERE resource = '{{ resource }}'
 {% if resource in categories %}
-UNION
+UNION ALL
 SELECT
     '{{ resource }}' AS resource,
     cat_values.category,
@@ -117,7 +117,7 @@ HAVING MAX(num_resources) > 0
 -- metrics like rows in q_date_recent.
 -- Note how this is different than "cumulus__none" here, because
 -- there just isn't a categorization we even look for.
-UNION
+UNION ALL
 SELECT
     '{{ resource }}' AS resource,
     CAST(NULL AS VARCHAR) AS category,
@@ -129,7 +129,7 @@ FROM summed_{{ resource|lower }}_counts
 WHERE resource = '{{ resource }}'
 {% endif %}
 {%- if not loop.last %}
-UNION
+UNION ALL
 {%- endif -%}
 {%- endfor %}
 );

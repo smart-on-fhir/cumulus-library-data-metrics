@@ -36,7 +36,7 @@ unified AS (
     {% for resource in src_dates %}
     SELECT * FROM ranges_{{ resource }}
     {% if not loop.last %}
-    UNION
+    UNION ALL
     {% endif -%}
     {% endfor %}
 )
