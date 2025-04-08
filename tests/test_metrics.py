@@ -125,7 +125,8 @@ class MetricsTestCase(unittest.TestCase):
                     f"--study-dir={root_dir}/cumulus_library_data_metrics",
                     "--db-type=duckdb",
                     f"--database={tmpdir}/duck.db",
-                    f"--load-ndjson-dir={tmpdir}",  # no data
+                    # Choose a random test folder that has _some_ patient data
+                    f"--load-ndjson-dir={root_dir}/tests/data/c_pt_count/min-bucket/",
                 ]
             )
             cli.main(
@@ -140,11 +141,8 @@ class MetricsTestCase(unittest.TestCase):
             )
 
             # Spot check an exported file
-            self.assertTrue(
-                os.path.exists(
-                    f"{tmpdir}/data_metrics/data_metrics__count_c_system_use_device_type.cube.csv"
-                )
-            )
+            cube_filename = "data_metrics__count_c_resource_count_patient_all.cube.csv"
+            self.assertTrue(os.path.exists(f"{tmpdir}/data_metrics/{cube_filename}"))
 
     # **********************************
     # ** Support code below this line **
