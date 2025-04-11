@@ -51,6 +51,7 @@ tmp_encounters AS (
 tmp_simplified AS (
     SELECT
         src.id,
+        {{ utils.extract_status(src) }} AS status,
         "date" IS NOT NULL AS valid_date,
         author IS NOT NULL AS valid_author,
 

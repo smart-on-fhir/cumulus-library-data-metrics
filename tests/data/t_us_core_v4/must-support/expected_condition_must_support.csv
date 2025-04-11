@@ -1,4 +1,4 @@
-id,valid_verification_status,valid
-verification-just-text,false,false
-valid,true,true
-nothing,false,false
+id,valid_verification_status,valid,status
+verification-just-text,false,false,
+valid,true,true,unconfirmed
+nothing,false,false,

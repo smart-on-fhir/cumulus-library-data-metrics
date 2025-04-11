@@ -7,38 +7,39 @@ CREATE TABLE {{ study_prefix }}__q_ref_target_valid_{{ src|lower }}_{{ dest|lowe
 {% else %}
 
 WITH
-src_status AS {{ utils.extract_status(src) }},
-
+reduced_src AS (
+    SELECT
+        id,
+        {{ utils.extract_status(src) }} AS status,
 {%- if is_array %}
-    flattened AS (
-        SELECT id, t.row AS unnested_field
-        FROM {{ src }},
-            UNNEST({{ field }}) AS t (row)
-    ),
-{%- set src = 'flattened' %}
-{%- set field = 'unnested_field' %}
+        t.row.reference AS target
+    FROM {{ src }},
+        UNNEST({{ field }}) AS t (row)
+{%- else %}
+        {{ field }}.reference AS target
+    FROM {{ src }}
 {%- endif %}
+),
 
 grouped_bad_refs AS (
     SELECT
         src.id,
-        ARRAY_AGG(src.{{ field }}.reference) AS target
-    FROM {{ src }} AS src
+        ARBITRARY(src.status) AS status,
+        ARRAY_AGG(src.target) AS target
+    FROM reduced_src AS src
     LEFT JOIN {{ dest }} AS dest
-    ON SUBSTRING(src.{{ field }}.reference, LENGTH('{{ dest }}/') + 1) = dest.id
+    ON SUBSTRING(src.target, LENGTH('{{ dest }}/') + 1) = dest.id
     WHERE
-        REGEXP_LIKE(src.{{ field }}.reference, '^{{ dest }}/')
+        REGEXP_LIKE(src.target, '^{{ dest }}/')
         AND dest.id IS NULL
     GROUP BY src.id
 )
 
 SELECT
     src.id,
-    src_status.status,
+    status,
     {{ utils.array_to_string('target') }} AS target
 FROM grouped_bad_refs AS src
-LEFT JOIN src_status
-ON src.id = src_status.id
 
 {% endif %} -- closing initial "return empty table" check
 

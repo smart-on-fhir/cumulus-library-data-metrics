@@ -5,5 +5,6 @@ tmp_slice AS {% include 'us_core_v4/slice.jinja' %}
 
 SELECT
     id,
-    TRUE AS valid
+    TRUE AS valid,
+    {{ utils.extract_status(src) }} AS status
 FROM tmp_slice

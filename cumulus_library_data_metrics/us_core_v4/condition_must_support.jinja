@@ -31,6 +31,7 @@ tmp_verification AS (
 tmp_simplified AS (
     SELECT
         src.id,
+        {{ utils.extract_status(src) }} AS status,
         (
             tmp_verification.valid_verification_status IS NOT NULL
             AND tmp_verification.valid_verification_status

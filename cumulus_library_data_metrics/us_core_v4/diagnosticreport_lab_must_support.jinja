@@ -21,6 +21,7 @@ tmp_results AS (
 tmp_simplified AS (
     SELECT
         tmp_slice.id,
+        {{ utils.extract_status(src) }} AS status,
         performer IS NOT NULL AS valid_performer,
         (
             tmp_results.valid_result IS NOT NULL

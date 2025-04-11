@@ -4,14 +4,12 @@
 
 CREATE TABLE {{ study_prefix }}__count_c_us_core_v4_count_{{ profile_name }}_must_support AS (
 WITH
-src_status AS {{ utils.extract_status(src) }},
-
 src_must_support AS ({% include 'us_core_v4/' + profile_name + '_must_support.jinja' %}),
 
 simplified AS (
     SELECT
         src.id,
-        {{ utils.coalesce_missing('src_status.status') }} AS status
+        {{ utils.coalesce_missing('src_must_support.status') }} AS status
 
         {% if dates %}
         , {{ utils.get_date_string(dates, 'year') }} AS "year"
@@ -22,12 +20,8 @@ simplified AS (
         {% endif %}
 
     FROM {{ src }} AS src
-    {% if ns.fields %}
     INNER JOIN src_must_support
     ON src_must_support.id = src.id
-    {% endif %}
-    LEFT JOIN src_status
-    ON src_status.id = src.id
 )
 
 {% call utils.make_counts('simplified', output_mode) %}

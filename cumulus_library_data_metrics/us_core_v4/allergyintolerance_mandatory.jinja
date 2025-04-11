@@ -25,6 +25,7 @@ tmp_grouped AS (
         src.id,
         ARBITRARY(src.code) AS code,
         ARBITRARY(src.patient) AS patient,
+        ARBITRARY(src.verificationStatus) AS verificationStatus,
 
         ARBITRARY(NOT {{ utils.is_concept_valid('src.clinicalStatus') }})
         OR BOOL_AND(
@@ -64,6 +65,7 @@ tmp_grouped AS (
 tmp_simplified AS (
     SELECT
         id,
+        {{ utils.extract_status(src) }} AS status,
         valid_clinical_status,
         valid_verification_status,
         valid_status_presence,

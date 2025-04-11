@@ -3,8 +3,6 @@
 CREATE TABLE {{ study_prefix }}__count_c_system_use_{{ src|lower }}_{{ field|lower }} AS (
 
 WITH
-src_status AS {{ utils.extract_status(src) }},
-
 {% if use_category %}
 src_categories AS {{ utils.extract_category_codes(src, cat_info) }},
 {% endif %}
@@ -62,12 +60,9 @@ simplified AS (
         {% endif %}
 
         {{ utils.array_to_string('src_systems.systems') }} AS systems,
-        {{ utils.coalesce_missing('src_status.status') }} AS status
+        {{ utils.extract_status(src, coalesced=true) }} AS status
 
     FROM {{ src }} AS src
-
-    LEFT JOIN src_status
-    ON src.id = src_status.id
 
     {% if use_category %}
     LEFT JOIN src_categories

@@ -1,2 +1,2 @@
-id,valid_participant,valid_period,valid_reason,valid_discharge_disposition,valid_location,valid
-nothing,false,false,false,false,false,false
+id,valid_participant,valid_period,valid_reason,valid_discharge_disposition,valid_location,valid,status
+nothing,false,false,false,false,false,false,

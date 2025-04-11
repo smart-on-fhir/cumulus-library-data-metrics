@@ -4,8 +4,6 @@
 
 CREATE TABLE {{ study_prefix }}__q_system_use_{{ src|lower }}_{{ field|lower }} AS (
 WITH
-src_status AS {{ utils.extract_status(src) }},
-
 -- Look for target systems
 src_has_system AS (
     SELECT
@@ -20,12 +18,10 @@ src_has_system AS (
 rejoined_src AS (
     SELECT
         src.id,
-        src_status.status,
+        {{ utils.extract_status(src) }} AS status,
         src.{{ field }},
         src_has_system.has_target_system
     FROM {{ src }} AS src
-    LEFT JOIN src_status
-    ON src.id = src_status.id
     LEFT JOIN src_has_system
     ON src.id = src_has_system.id
 )

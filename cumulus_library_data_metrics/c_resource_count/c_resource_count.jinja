@@ -2,7 +2,6 @@
 
 CREATE TABLE {{ study_prefix }}__count_c_resource_count_{{ src|lower }}_{{ period|lower }} AS (
 WITH
-src_status AS {{ utils.extract_status(src) }},
 src_category AS {{ utils.extract_category_codes(src, cat_info) }},
 
 simplified AS (
@@ -18,12 +17,8 @@ simplified AS (
         {{ utils.get_date_string(dates, period) }} AS {{ period }},
         {% endif %}
 
-        {% call utils.coalesce_missing() %}
-            src_status.status
-        {% endcall %} AS status
+        {{ utils.extract_status(src, coalesced=true) }} AS status
     FROM {{ src }} AS src
-    LEFT JOIN src_status
-    ON src.id = src_status.id
     LEFT JOIN src_category
     ON src.id = src_category.id
 )

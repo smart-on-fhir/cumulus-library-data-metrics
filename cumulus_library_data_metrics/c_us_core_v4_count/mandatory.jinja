@@ -4,8 +4,6 @@
 
 CREATE TABLE {{ study_prefix }}__count_c_us_core_v4_count_{{ profile_name }}_mandatory{{ table_num|default('') }} AS (
 WITH
-src_status AS {{ utils.extract_status(src) }},
-
 src_mandatory AS ({% include 'us_core_v4/' + profile_name + '_mandatory.jinja' %}),
 {% set ns.fields = ns.fields + ['valid'] %}
 {% if table_max %}
@@ -16,7 +14,7 @@ src_mandatory AS ({% include 'us_core_v4/' + profile_name + '_mandatory.jinja' %
 simplified AS (
     SELECT
         src.id,
-        {{ utils.coalesce_missing('src_status.status') }} AS status,
+        {{ utils.coalesce_missing('src_mandatory.status') }} AS status,
 
         {% if dates %}
         {{ utils.get_date_string(dates, 'year') }} AS "year",
@@ -27,8 +25,6 @@ simplified AS (
     FROM {{ src }} AS src
     INNER JOIN src_mandatory
     ON src_mandatory.id = src.id
-    LEFT JOIN src_status
-    ON src_status.id = src.id
 )
 
 {% call utils.make_counts('simplified', output_mode) %}

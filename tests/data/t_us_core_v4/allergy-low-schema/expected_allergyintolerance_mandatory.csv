@@ -1,2 +1,2 @@
-id,valid_clinical_status,valid_verification_status,valid_status_presence,valid_code,valid_patient,valid
-nothing,true,true,false,false,false,false
+id,valid_clinical_status,valid_verification_status,valid_status_presence,valid_code,valid_patient,valid,status
+nothing,true,true,false,false,false,false,
