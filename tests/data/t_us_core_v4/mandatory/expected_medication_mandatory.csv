@@ -1,4 +1,4 @@
-id,valid_code,valid
-with-status,false,false
-valid,true,true
-nothing,false,false
+id,valid_code,valid,status
+with-status,false,false,entered-in-error
+valid,true,true,
+nothing,false,false,

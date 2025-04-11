@@ -5,6 +5,7 @@ SELECT
     {% for field in fields %}
     COALESCE({{ field }}, FALSE) AS {{ field }},
     {% endfor %}
-    COALESCE({{ fields|join(" AND ") }}, FALSE) AS valid
+    COALESCE({{ fields|join(" AND ") }}, FALSE) AS valid,
+    status
 FROM tmp_simplified
 {% endmacro %}

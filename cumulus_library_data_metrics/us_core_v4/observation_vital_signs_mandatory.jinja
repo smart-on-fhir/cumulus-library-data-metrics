@@ -72,6 +72,7 @@ tmp_vs3 AS (
 tmp_simplified AS (
     SELECT
         src.id,
+        {{ utils.extract_status(src) }} AS status,
         {{ obs_utils.is_obs_status_valid() }} AS valid_status,
         {% if check_category %}
         (

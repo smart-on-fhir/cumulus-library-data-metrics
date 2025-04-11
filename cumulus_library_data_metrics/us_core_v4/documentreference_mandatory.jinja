@@ -48,6 +48,7 @@ tmp_grouped AS (
 tmp_simplified AS (
     SELECT
         id,
+        {{ utils.extract_status(src) }} AS status,
         {{ utils.is_code_valid(
             'status',
             'current | superseded | entered-in-error'

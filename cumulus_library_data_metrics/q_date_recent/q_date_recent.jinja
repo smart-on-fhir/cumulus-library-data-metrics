@@ -2,8 +2,7 @@
 
 CREATE TABLE {{ study_prefix }}__q_date_recent_{{ src|lower }} AS (
 WITH
-src_status AS {{ utils.extract_status(src) }}
-
+intermediate AS (
 SELECT
     src.id,
 
@@ -11,19 +10,19 @@ SELECT
     src.{{ utils.quote_field(field) }} AS {{ field|replace('.', '_')|lower }},
     {% endfor %}
 
-    src_status.status
+    {{ utils.extract_status(src) }} AS status
 FROM {{ src }} AS src
-LEFT JOIN src_status
-ON src_status.id = src.id
+)
+SELECT * FROM intermediate
 WHERE
     (
         -- Check status, because it's not fair to ding error rows (or planned encounters)
         -- If you change this logic, consider if meta/dates.jinja needs the same change.
-        src_status.status IS NULL
+        status IS NULL
         OR (
-            src_status.status <> 'entered-in-error'
+            status <> 'entered-in-error'
             {% if src == 'Encounter' %}
-            AND src_status.status <> 'planned'
+            AND status <> 'planned'
             {% endif %}
         )
     ) AND (
@@ -33,8 +32,8 @@ WHERE
         FALSE
         {% for field in fields %}
         OR (
-            {{ utils.quote_field(field) }} IS NOT NULL
-            AND {{ utils.coalesce_date([field]) }} NOT BETWEEN DATE('1900-01-01') AND CURRENT_DATE
+            {{ utils.quote_field(field|replace('.', '_')|lower) }} IS NOT NULL
+            AND {{ utils.coalesce_date([field|replace('.', '_')|lower]) }} NOT BETWEEN DATE('1900-01-01') AND CURRENT_DATE
         )
         {% endfor %}
     )

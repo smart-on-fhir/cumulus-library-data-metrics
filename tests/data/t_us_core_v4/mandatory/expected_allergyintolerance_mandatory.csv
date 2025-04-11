@@ -1,16 +1,16 @@
-id,valid_clinical_status,valid_verification_status,valid_status_presence,valid_code,valid_patient,valid
-verification-with-other-system,true,false,false,false,false,false
-verification-multiple-systems-good,true,true,false,false,false,false
-verification-multiple-systems-bad,true,false,false,false,false,false
-valid-with-verification,true,true,true,true,true,true
-valid-with-status,true,true,true,true,true,true
-valid-entered-in-error,true,true,true,true,true,true
-status-without-coding,false,true,true,false,false,false
-status-with-other-system,false,true,true,false,false,false
-status-multiple-systems-good,true,true,true,false,false,false
-status-multiple-systems-bad,false,true,true,false,false,false
-status-and-entered-in-error,true,true,false,true,true,false
-nothing,true,true,false,false,false,false
-group-patient,true,true,false,false,false,false
-empty-patient,true,true,false,false,false,false
-empty-code,true,true,false,false,false,false
+id,valid_clinical_status,valid_verification_status,valid_status_presence,valid_code,valid_patient,valid,status
+verification-with-other-system,true,false,false,false,false,false,
+verification-multiple-systems-good,true,true,false,false,false,false,unconfirmed
+verification-multiple-systems-bad,true,false,false,false,false,false,
+valid-with-verification,true,true,true,true,true,true,confirmed; unconfirmed
+valid-with-status,true,true,true,true,true,true,
+valid-entered-in-error,true,true,true,true,true,true,confirmed; entered-in-error
+status-without-coding,false,true,true,false,false,false,
+status-with-other-system,false,true,true,false,false,false,
+status-multiple-systems-good,true,true,true,false,false,false,
+status-multiple-systems-bad,false,true,true,false,false,false,
+status-and-entered-in-error,true,true,false,true,true,false,confirmed; entered-in-error
+nothing,true,true,false,false,false,false,
+group-patient,true,true,false,false,false,false,
+empty-patient,true,true,false,false,false,false,
+empty-code,true,true,false,false,false,false,

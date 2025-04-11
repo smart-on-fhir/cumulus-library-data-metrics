@@ -5,23 +5,12 @@ CREATE TABLE {{ study_prefix }}__meta_date AS (
 WITH
 
 {% for resource, dates in src_dates.items() %}
-status_{{ resource }} AS {{ utils.extract_status(resource) }},
 
 dates_{{ resource }} AS (
   SELECT
+      {{ utils.extract_status(resource) }} AS status,
       {{ utils.coalesce_date(dates) }} AS "date"
   FROM {{ resource }} AS src
-  LEFT JOIN status_{{ resource }} AS status
-  ON status.id = src.id
-  WHERE
-      -- If you change this status logic, consider if q_date_recent needs the same change.
-      status.status IS NULL
-      OR (
-          status.status <> 'entered-in-error'
-          {% if resource == 'Encounter' %}
-          AND status.status <> 'planned'
-          {% endif %}
-      )
 ),
 
 ranges_{{ resource }} AS (
@@ -29,6 +18,15 @@ ranges_{{ resource }} AS (
         MIN("date") AS min_date,
         MAX("date") AS max_date
     FROM dates_{{ resource }}
+    WHERE
+        -- If you change this status logic, consider if q_date_recent needs the same change.
+        status IS NULL
+        OR (
+            status <> 'entered-in-error'
+            {% if resource == 'Encounter' %}
+            AND status <> 'planned'
+            {% endif %}
+        )
 ),
 {% endfor %}
 

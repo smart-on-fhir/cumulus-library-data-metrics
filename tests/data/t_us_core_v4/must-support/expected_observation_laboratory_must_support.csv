@@ -1,6 +1,6 @@
-id,valid_effective,valid
-labs-timing,true,true
-labs-period,true,true
-labs-nothing,false,false
-labs-instant,true,true
-labs-datetime,true,true
+id,valid_effective,valid,status
+labs-timing,true,true,
+labs-period,true,true,
+labs-nothing,false,false,
+labs-instant,true,true,
+labs-datetime,true,true,

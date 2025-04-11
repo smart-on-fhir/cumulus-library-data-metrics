@@ -39,6 +39,7 @@ tmp_reason_references AS (
 tmp_simplified AS (
     SELECT
         src.id,
+        {{ utils.extract_status(src) }} AS status,
         participant IS NOT NULL AS valid_participant, -- array
         {{ utils.is_period_valid('period') }} AS valid_period,
         reasonCode IS NOT NULL -- array
