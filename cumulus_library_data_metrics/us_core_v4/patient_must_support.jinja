@@ -39,6 +39,7 @@ tmp_communication AS (
 tmp_simplified AS (
     SELECT
         src.id,
+        {{ utils.extract_status(src) }} AS status,
         birthDate IS NOT NULL AS valid_birth_date,
         (
             tmp_address.valid_postal_code IS NOT NULL

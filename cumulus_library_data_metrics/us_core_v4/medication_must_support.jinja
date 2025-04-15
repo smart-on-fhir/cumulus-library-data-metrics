@@ -2,5 +2,6 @@
 
 SELECT
     id,
-    TRUE AS valid
+    TRUE AS valid,
+    {{ utils.extract_status(src) }} AS status
 FROM {{ src }}

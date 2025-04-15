@@ -4,8 +4,6 @@
 
 CREATE TABLE {{ study_prefix }}__q_valid_us_core_v4_{{ profile_name }} AS (
 WITH
-src_status AS {{ utils.extract_status(src) }},
-
 -- These separated files are responsible for providing a single table that looks like:
 -- (id: str, valid: bool, valid_*: bool)
 --
@@ -15,11 +13,7 @@ src_status AS {{ utils.extract_status(src) }},
 -- to avoid any future conflicts with this template here.
 src_valid AS ({% include 'us_core_v4/' + profile_name + '_mandatory.jinja' %})
 
-SELECT
-    src_valid.*,
-    src_status.status
+SELECT *
 FROM src_valid
-LEFT JOIN src_status
-ON src_valid.id = src_status.id
 WHERE src_valid.valid IS NULL OR NOT src_valid.valid
 );

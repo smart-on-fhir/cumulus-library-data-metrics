@@ -11,6 +11,7 @@ tmp_slice AS {% include 'us_core_v4/slice.jinja' %},
 tmp_simplified AS (
     SELECT
         id,
+        {{ utils.extract_status(src) }} AS status,
         {{ dr_utils.is_dr_status_valid() }} AS valid_status,
         category IS NOT NULL AS valid_category,
         {{ utils.is_concept_valid('code') }} AS valid_code,

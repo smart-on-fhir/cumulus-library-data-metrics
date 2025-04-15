@@ -1,6 +1,6 @@
-id,valid_status_reason,valid_primary_source,valid
-valid-with-status,true,true,true
-valid-with-reason,true,true,true
-valid-null-status,true,true,true
-nothing,true,false,false
-missing-reason,false,false,false
+id,valid_status_reason,valid_primary_source,valid,status
+valid-with-status,true,true,true,completed
+valid-with-reason,true,true,true,not-done
+valid-null-status,true,true,true,
+nothing,true,false,false,
+missing-reason,false,false,false,not-done

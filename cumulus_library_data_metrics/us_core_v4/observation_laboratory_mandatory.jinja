@@ -21,6 +21,7 @@ tmp_grouped_checks AS (
 tmp_simplified AS (
     SELECT
         src.id,
+        {{ utils.extract_status(src) }} AS status,
         {{ obs_utils.is_obs_status_valid() }} AS valid_status,
         {{ utils.is_concept_valid('code') }} AS valid_code,
         {{ utils.is_reference_of_type('subject', 'Patient') }} AS valid_subject,

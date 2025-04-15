@@ -1,3 +1,10 @@
+{% if db_type == "duckdb" -%}
+{% set transform = 'LIST_TRANSFORM' %}
+{% else %}
+{% set transform = 'TRANSFORM' %}
+{%- endif %}
+
+
 {% macro _compare_systems(coding_field, system) -%}
     {#- Support both a list of systems or a single system #}
     {%- if system is string %}
@@ -77,42 +84,37 @@
 {%- endmacro %}
 
 
--- Extracts the status field and returns a select with (id, status).
-{% macro extract_status(src) -%}
-(
-    -- Annoyingly, allergies and conditions use a codeableConcept field.
-    {% set systems = {
-        'AllergyIntolerance': 'http://terminology.hl7.org/CodeSystem/allergyintolerance-verification',
-        'Condition': 'http://terminology.hl7.org/CodeSystem/condition-ver-status',
-    } %}
+{% macro _extract_status_helper(src) %}
+{% if src == 'AllergyIntolerance' %}
+    {% call array_to_string_nullable() %}
+    {{ transform }}(FILTER(
+        verificationStatus.coding,
+        x -> x.system = 'http://terminology.hl7.org/CodeSystem/allergyintolerance-verification'
+    ), x -> x.code)
+    {% endcall %}
+{% elif src == 'Condition' %}
+    {% call array_to_string_nullable() %}
+    {{ transform }}(FILTER(
+        verificationStatus.coding,
+        x -> x.system = 'http://terminology.hl7.org/CodeSystem/condition-ver-status'
+    ), x -> x.code)
+    {% endcall %}
+{% elif src == 'Patient' %}
+    {{ patient_active_status() }}
+{% else %}
+    status
+{%- endif %}
+{% endmacro %}
 
-    -- Check what kind of resource we are dealing with
-    {% if src in systems %}
-        {% set join_table = src + '_extract_status_tmp_codes' %}
-        WITH {{ join_table }} AS {{ extract_codes(src, 'verificationstatus', system=systems[src]) }}
-    {%- endif %}
 
-    -- Now extract the status
-    SELECT
-        src.id,
-        {% if join_table %}
-        ARRAY_JOIN(ARRAY_SORT(join_table.codes), '; ')
-
-        {% elif src == 'Patient' %}
-        {{ patient_active_status() }}
-
-        {% else %}
-        status
-        {%- endif %}
-
-        AS status
-    FROM {{ src }} AS src
-
-    {%- if join_table %}
-    JOIN {{ join_table }} AS join_table
-    ON src.id = join_table.id
-    {%- endif %}
-)
+{% macro extract_status(src, coalesced=false) -%}
+{% if coalesced %}
+    {% call coalesce_missing() %}
+        {{ _extract_status_helper(src) }}
+    {% endcall %}
+{% else %}
+    {{ _extract_status_helper(src) }}
+{% endif %}
 {%- endmacro %}
 
 
@@ -151,11 +153,11 @@
 
 -- Extracts a date field from a list of choices and returns a DATE.
 {% macro coalesce_date(fields) -%}
-    date(from_iso8601_timestamp(
+    CAST(from_iso8601_timestamp(
         COALESCE(
             "{{ fields|join('", "')|replace('.', '"."') }}"
         )
-    ))
+    ) AS DATE)
 {%- endmacro %}
 
 -- Extracts a date field from a list of choices, chops it to the period, and returns a string.
@@ -253,6 +255,21 @@ WHERE cnt >= {{ min_bucket_size }}
 -- Converts an array to a semicolon-delineated list, or cumulus__none
 -- Can be called with the name of the array to check ('list_field')
 -- or wrapped in a call block
+{% macro array_to_string_nullable() -%}
+    {% if varargs %}
+        {% set arg = varargs[0] %}
+    {% else %}
+        {% set arg = caller() %}
+    {% endif %}
+
+    -- Use nullif to convert empty arrays (which get joined into an empty string) into nulls
+    NULLIF(ARRAY_JOIN(ARRAY_SORT(ARRAY_DISTINCT({{ arg }})), '; '), '')
+{%- endmacro %}
+
+
+-- Converts an array to a semicolon-delineated list, or cumulus__none
+-- Can be called with the name of the array to check ('list_field')
+-- or wrapped in a call block
 {% macro array_to_string() -%}
     {% if varargs %}
         {% set arg = varargs[0] %}
@@ -261,8 +278,9 @@ WHERE cnt >= {{ min_bucket_size }}
     {% endif %}
 
     {% call coalesce_missing() %}
-        -- Use nullif to convert empty arrays (which get joined into the empty string) into nulls
-        NULLIF(ARRAY_JOIN(ARRAY_SORT(ARRAY_DISTINCT({{ arg }})), '; '), '')
+        {% call array_to_string_nullable() %}
+            {{ arg }}
+        {% endcall %}
     {% endcall %}
 {%- endmacro %}
 

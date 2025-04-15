@@ -30,6 +30,7 @@ tmp_grouped_obs_3 AS (
 tmp_simplified AS (
     SELECT DISTINCT
         src.id,
+        {{ utils.extract_status(src) }} AS status,
         -- Smoking Status restricts the set of statuses further than base Observation
         {{ utils.is_code_valid('status', ['final', 'entered-in-error'])}} AS valid_status,
         (
