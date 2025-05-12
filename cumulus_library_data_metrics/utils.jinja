@@ -306,6 +306,7 @@ WHERE cnt >= {{ min_bucket_size }}
     {{ field }} IS NOT NULL
     AND (
         {{ field }}.code IS NOT NULL
+        OR {{ field }}.system IS NOT NULL
         OR {{ is_string_valid(field + '.display') }}
     )
 )

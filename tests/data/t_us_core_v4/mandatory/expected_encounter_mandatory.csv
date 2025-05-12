@@ -1,5 +1,6 @@
 id,valid_status,valid_class,valid_type,valid_subject,valid,status
 valid,true,true,true,true,true,finished
+system-only-class,false,true,false,false,false,
 nothing,false,false,false,false,false,
 no-type,true,true,false,true,false,finished
 no-subject,true,true,true,false,false,finished
