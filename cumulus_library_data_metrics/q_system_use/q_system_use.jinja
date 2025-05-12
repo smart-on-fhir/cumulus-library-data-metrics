@@ -6,12 +6,19 @@ CREATE TABLE {{ study_prefix }}__q_system_use_{{ src|lower }}_{{ field|lower }} 
 WITH
 -- Look for target systems
 src_has_system AS (
+{% if is_coding %}
+    SELECT
+        id,
+        {{ field }}.system IN {{ system_list }} AS has_target_system
+    FROM {{ src }}
+{% else %}
     SELECT
         id,
         BOOL_OR(c.coding.system IN {{ system_list }}) AS has_target_system
     FROM {{ src }},
         UNNEST({{ field }}.coding) AS c (coding)
     GROUP BY id
+{% endif %}
 ),
 
 -- Left join back to src to catch all rows, not just those with codings
@@ -32,7 +39,11 @@ SELECT
     {{ field }}
 FROM rejoined_src
 WHERE
+{% if is_coding %}
+    {{ utils.is_coding_valid(field) }}
+{% else %}
     {{ utils.is_concept_valid(field) }}
+{% endif %}
     AND (
         has_target_system IS NULL
         OR NOT has_target_system

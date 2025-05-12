@@ -31,6 +31,12 @@ class SystemUseBuilder(MetricMixin, cumulus_library.BaseTableBuilder):
             src="DocumentReference", field="type", systems=[systems.LOINC, systems.NULL_FLAVOR]
         )
         self.make_table(
+            src="Encounter",
+            field="class",
+            systems=[systems.ENCOUNTER_CLASS],
+            is_coding=True,
+        )
+        self.make_table(
             src="Immunization",
             field="vaccineCode",
             # The FHIR spec also gives urn:oid:1.2.36.1.2001.1005.17 as an example,
