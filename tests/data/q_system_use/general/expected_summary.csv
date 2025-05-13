@@ -12,6 +12,8 @@ Medication,cumulus__all,0,1,0.00
 Medication,code,0,1,0.00
 Immunization,vaccineCode,0,1,0.00
 Immunization,cumulus__all,0,1,0.00
+Encounter,cumulus__all,0,1,0.00
+Encounter,class,0,1,0.00
 DocumentReference,type,1,3,33.33
 DocumentReference,cumulus__all,1,3,33.33
 DiagnosticReport,cumulus__all,0,1,0.00
