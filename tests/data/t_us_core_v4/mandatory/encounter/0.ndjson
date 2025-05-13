@@ -1,6 +1,7 @@
 {"resourceType": "Encounter", "id": "valid", "status": "finished", "class": {"display": "X"}, "type": [], "subject": {"reference": "Patient/A"}}
 {"resourceType": "Encounter", "id": "no-status", "class": {"display": "X"}, "type": [], "subject": {"reference": "Patient/A"}}
 {"resourceType": "Encounter", "id": "no-class", "status": "finished", "type": [], "subject": {"reference": "Patient/A"}}
+{"resourceType": "Encounter", "id": "system-only-class", "class": {"system": "some-system"}}
 {"resourceType": "Encounter", "id": "empty-class", "status": "finished", "class": {}, "type": [], "subject": {"reference": "Patient/A"}}
 {"resourceType": "Encounter", "id": "no-type", "status": "finished", "class": {"display": "X"}, "subject": {"reference": "Patient/A"}}
 {"resourceType": "Encounter", "id": "no-subject", "status": "finished", "class": {"display": "X"}, "type": []}
