@@ -24,7 +24,7 @@ simplified AS (
         {{ utils.coalesce_missing('gender') }} AS administrative_gender,
 
         {% call utils.coalesce_missing() %}
-            {{ utils.patient_active_status() }}
+            {{ utils.active_boolean_as_string() }}
         {% endcall %} AS status,
 
         -- Calculate age at death.

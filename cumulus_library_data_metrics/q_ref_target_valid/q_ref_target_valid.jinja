@@ -1,8 +1,10 @@
 {% import 'utils.jinja' as utils %}
 
-CREATE TABLE {{ study_prefix }}__q_ref_target_valid_{{ src|lower }}_{{ dest|lower }} AS (
+{% set field_safe = field|lower|replace('.', '_') %}
 
-{% if field == 'context.encounter' and not schema['context']['encounter'] %}
+CREATE TABLE {{ study_prefix }}__q_ref_target_valid_{{ src|lower }}_{{ field_safe }}_{{ dest|lower }} AS (
+
+{% if '.' in field and not schema[field.split('.')[0]][field.split('.')[1]] %}
     SELECT id FROM {{ src }} WHERE 1=0  -- return an empty table
 {% else %}
 
@@ -15,6 +17,10 @@ reduced_src AS (
         t.row.reference AS target
     FROM {{ src }},
         UNNEST({{ field }}) AS t (row)
+{%- elif parent_array %}
+        t.row.{{ field.split('.')[1] }}.reference AS target
+    FROM {{ src }},
+        UNNEST({{ field.split('.')[0] }}) AS t (row)
 {%- else %}
         {{ field }}.reference AS target
     FROM {{ src }}
@@ -38,6 +44,7 @@ grouped_bad_refs AS (
 SELECT
     src.id,
     status,
+    '{{ field_safe }}' AS field,
     {{ utils.array_to_string('target') }} AS target
 FROM grouped_bad_refs AS src
 

@@ -99,8 +99,8 @@
         x -> x.system = 'http://terminology.hl7.org/CodeSystem/condition-ver-status'
     ), x -> x.code)
     {% endcall %}
-{% elif src == 'Patient' %}
-    {{ patient_active_status() }}
+{% elif src in ['Organization', 'Patient', 'Practitioner', 'PractitionerRole'] %}
+    {{ active_boolean_as_string() }}
 {% else %}
     status
 {%- endif %}
@@ -186,7 +186,7 @@
 {%- endmacro %}
 
 
-{% macro patient_active_status() -%}
+{% macro active_boolean_as_string() -%}
     CASE WHEN active IS NULL
     THEN NULL
     ELSE

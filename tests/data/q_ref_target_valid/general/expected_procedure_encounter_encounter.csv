@@ -1,0 +1,3 @@
+id,status,field,target
+bad-encounter,,encounter,Encounter/Nope
+bad-both,,encounter,Encounter/Nope
