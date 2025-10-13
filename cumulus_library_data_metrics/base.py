@@ -38,7 +38,7 @@ class MetricMixin:
     def make_table_fragment(self, src: str, group: str | None = None):
         key = src.lower()
         if group:
-            key += f"_{group.lower().replace(' ', '_')}"
+            key += f"_{group.lower().replace(' ', '_').replace('.', '_').replace(':', '_')}"
         return key
 
     def add_summary_entry(

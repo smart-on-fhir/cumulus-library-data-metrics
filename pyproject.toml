@@ -2,7 +2,7 @@
 name = "cumulus-library-data-metrics"
 requires-python = ">= 3.11"
 dependencies = [
-    "cumulus-library >= 4, < 5",
+    "cumulus-library >= 5, < 6",
 ]
 description = "Data quality and characterization metrics for Cumulus"
 readme = "README.md"
@@ -39,7 +39,7 @@ dev = [
     "pre-commit",
     # Ruff is using minor versions for breaking changes until their 1.0 release.
     # See https://docs.astral.sh/ruff/versioning/
-    "ruff < 0.12",  # keep in rough sync with .pre-commit-config.yaml
+    "ruff < 0.15",  # keep in rough sync with .pre-commit-config.yaml
 ]
 
 [tool.ruff]

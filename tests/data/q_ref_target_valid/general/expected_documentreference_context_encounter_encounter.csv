@@ -1,0 +1,4 @@
+id,status,field,target
+bad-second-encounter-in-list,,context_encounter,Encounter/Nope
+bad-multiple-encounters,current,context_encounter,Encounter/Nope; Encounter/Nope2
+bad-encounter,,context_encounter,Encounter/Nope

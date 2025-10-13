@@ -1,0 +1,2 @@
+{"resourceType": "Patient", "id": "A", "link": [{"other": {"reference": "Patient/bad-links"}}]}
+{"resourceType": "Patient", "id": "bad-links", "link": [{"other": {"reference": "Patient/bogus"}}]}
