@@ -1,0 +1,9 @@
+{"resourceType": "Procedure", "id": "performed-valid", "performedDateTime": "2000-01-01", "subject": {"reference": "Patient/alive"}}
+{"resourceType": "Procedure", "id": "performed-before-invalid", "performedDateTime": "1950-01-01", "subject": {"reference": "Patient/alive"}}
+{"resourceType": "Procedure", "id": "performed-after-death-invalid", "performedDateTime": "2025-01-01", "subject": {"reference": "Patient/dead"}}
+{"resourceType": "Procedure", "id": "performed-start-valid", "performedPeriod": {"start": "2000-01-01"}, "subject": {"reference": "Patient/alive"}}
+{"resourceType": "Procedure", "id": "performed-start-before-invalid", "performedPeriod": {"start": "1950-01-01"}, "subject": {"reference": "Patient/alive"}}
+{"resourceType": "Procedure", "id": "performed-start-after-death-invalid", "performedPeriod": {"start": "2025-01-01"}, "subject": {"reference": "Patient/dead"}}
+{"resourceType": "Procedure", "id": "performed-start-valid", "performedPeriod": {"start": "2000-01-01", "end": "2000-01-01"}, "subject": {"reference": "Patient/alive"}}
+{"resourceType": "Procedure", "id": "performed-start-before-invalid", "performedPeriod": {"start": "2000-01-01", "end": "1950-01-01"}, "subject": {"reference": "Patient/alive"}}
+{"resourceType": "Procedure", "id": "performed-start-after-death-invalid", "performedPeriod": {"start": "2000-01-01", "end": "2025-01-01"}, "subject": {"reference": "Patient/dead"}}

@@ -1,0 +1,9 @@
+patient_ref,id,invalid_fields
+Patient/dead,invalid-recorded-before-birth,[recordedDate]
+Patient/dead,invalid-recorded-after-death,[recordedDate]
+Patient/dead,invalid-period-end-before-birth,[onsetPeriod.end]
+Patient/dead,invalid-period-end-after-death,[onsetPeriod.end]
+Patient/dead,invalid-period-before-birth,[onsetPeriod.start]
+Patient/dead,invalid-period-after-death,[onsetPeriod.start]
+Patient/dead,invalid-onset-before-birth,[onsetDateTime]
+Patient/dead,invalid-onset-after-death,[onsetDateTime]

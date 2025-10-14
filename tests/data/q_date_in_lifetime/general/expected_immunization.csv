@@ -1,0 +1,5 @@
+patient_ref,id,invalid_fields
+Patient/dead,recorded_after_invalid,[recorded]
+Patient/dead,occurrence_after_invalid,[occurrenceDateTime]
+Patient/alive,recorded_before_invalid,[recorded]
+Patient/alive,occurrence_before_invalid,[occurrenceDateTime]

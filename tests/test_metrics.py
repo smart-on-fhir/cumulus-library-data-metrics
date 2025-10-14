@@ -93,6 +93,9 @@ class MetricsTestCase(unittest.TestCase):
         # Just spot checks one resource & the summary - the main logic is tested in t_us_core_v4
         self.run_study("q_valid_us_core_v4")
 
+    def test_q_date_in_lifetime(self):
+        self.run_study("q_date_in_lifetime")
+
     @ddt.data(
         "mandatory",
         "must-support",

@@ -378,3 +378,21 @@ WHERE cnt >= {{ min_bucket_size }}
     )
 )
 {%- endmacro %}
+
+-- partial_date: iso date string
+-- suffix: to append to year if date is incomplete. Ex : '-01-01T23:59:59'
+{% macro date_with_fallback_suffix(partial_date, suffix) -%}
+-- date_with_fallback_suffix
+CASE -- Any date of format YYYY-MM-DD or more detailed, just parse
+    WHEN LENGTH({{ partial_date }}) > 10 THEN try(from_iso8601_timestamp({{ partial_date }}))
+    -- If there is a parsable YYYY OR YYYY-MM OR YYYY-MM-DD, append the suffix to the end of the valid date
+    -- YYYY
+    WHEN LENGTH({{ partial_date }}) = 4 THEN try(from_iso8601_timestamp(concat({{ partial_date }}, '{{ suffix }}')))
+    -- YYYY-MM                                                                                 -01-01T00:00:00 becomes -01T00:00:00
+    WHEN LENGTH({{ partial_date }}) = 7 THEN try(from_iso8601_timestamp(concat({{ partial_date }}, substring('{{ suffix }}', 4, 16))))
+    -- YYYY-MM-DD                                                                              -01-01T00:00:00 becomes T00:00:00
+    WHEN LENGTH({{ partial_date }}) = 10 THEN try(from_iso8601_timestamp(concat({{ partial_date }}, substring('{{ suffix }}', 7, 16))))
+    -- Bail, date is unsupported, return NULL
+    ELSE NULL
+END
+{%- endmacro %}

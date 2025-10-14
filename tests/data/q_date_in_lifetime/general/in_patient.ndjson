@@ -1,0 +1,5 @@
+{"resourceType": "Patient", "id": "dead", "active": true, "birthDate": "1990-01-01","deceasedDateTime": "2020-01-01"}
+{"resourceType": "Patient", "id": "alive", "active": true, "birthDate": "1990-01-01"}
+{"resourceType": "Patient", "id": "1day", "active": true, "birthDate": "1999-01-01T01:01:01","deceasedDateTime": "2000-01-01T23:59:59"}
+{"resourceType": "Patient", "id": "undead", "active": true,"deceasedDateTime": "2000-01-01"}
+{"resourceType": "Patient", "id": "beyond-mortal-comprehension", "active": true}

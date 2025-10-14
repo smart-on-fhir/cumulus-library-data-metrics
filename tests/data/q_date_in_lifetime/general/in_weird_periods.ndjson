@@ -1,0 +1,2 @@
+{"resourceType": "AllergyIntolerance", "onsetPeriod": {"start": "1776"}, "id": "recorded-valid-no-birth", "patient": {"reference": "Patient/undead"}}
+{"resourceType": "AllergyIntolerance", "onsetPeriod": {"start": "1776", "end": "9999"}, ",id": "recorded-valid-dates-at-all", "patient": {"reference": "Patient/beyond-mortal-comprehension"}}

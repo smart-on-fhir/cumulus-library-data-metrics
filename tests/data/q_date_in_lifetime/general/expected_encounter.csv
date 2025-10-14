@@ -1,0 +1,4 @@
+patient_ref,id,invalid_fields
+Patient/dead,period_start_before_invalid,[period.start]
+Patient/dead,period_start_after_invalid,[period.end]
+Patient/dead,period_end_after_invalid,[period.end]

@@ -1,0 +1,15 @@
+{"resourceType": "Observation", "id": "effective_valid", "effectiveDateTime": "2020-01-01", "subject": {"reference": "Patient/alive"}}
+{"resourceType": "Observation", "id": "effective_before_invalid", "effectiveDateTime": "1950-01-01", "subject": {"reference": "Patient/alive"}}
+{"resourceType": "Observation", "id": "effective_after_death_invalid", "effectiveDateTime": "2025-01-01", "subject": {"reference": "Patient/dead"}}
+{"resourceType": "Observation", "id": "effective_instant_valid", "effectiveInstant": "2020-01-01", "subject": {"reference": "Patient/alive"}}
+{"resourceType": "Observation", "id": "effective_instant_before_invalid", "effectiveInstant": "1950-01-01", "subject": {"reference": "Patient/alive"}}
+{"resourceType": "Observation", "id": "effective_instant_after_death_invalid", "effectiveInstant": "2025-01-01", "subject": {"reference": "Patient/dead"}}
+{"resourceType": "Observation", "id": "issued_valid", "issued": "2020-01-01", "subject": {"reference": "Patient/alive"}}
+{"resourceType": "Observation", "id": "issued_before_invalid", "issued": "1950-01-01", "subject": {"reference": "Patient/alive"}}
+{"resourceType": "Observation", "id": "issued_after_death_invalid", "issued": "2025-01-01", "subject": {"reference": "Patient/dead"}}
+{"resourceType": "Observation", "id": "effective_start_valid", "effectivePeriod": {"start": "2020-01-01"}, "subject": {"reference": "Patient/alive"}}
+{"resourceType": "Observation", "id": "effective_start_before_invalid", "effectivePeriod": {"start": "1950-01-01"}, "subject": {"reference": "Patient/alive"}}
+{"resourceType": "Observation", "id": "effective_start_after_death_invalid", "effectivePeriod": {"start": "2025-01-01"}, "subject": {"reference": "Patient/dead"}}
+{"resourceType": "Observation", "id": "effective_end_valid", "effectivePeriod": {"start": "2020-01-01", "end": "2020-01-01"}, "subject": {"reference": "Patient/alive"}}
+{"resourceType": "Observation", "id": "effective_end_before_invalid", "effectivePeriod": {"start": "2020-01-01", "end": "1950-01-01"}, "subject": {"reference": "Patient/alive"}}
+{"resourceType": "Observation", "id": "effective_end_after_death_invalid", "effectivePeriod": {"start": "2020-01-01", "end": "2025-01-01"}, "subject": {"reference": "Patient/dead"}}

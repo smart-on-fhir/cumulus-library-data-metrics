@@ -1,0 +1,47 @@
+{% import 'utils.jinja' as utils %}
+
+-- This takes a date and verifies it is between birth and death.
+-- Since we accept dates of varying precision (year / year-month / year-month-day...)
+-- this function will adjust the birth and death to the widest possible
+-- period, given the precision of the birth and death given
+{% macro date_within_lifespan(observation_date, birth, death) -%}
+-- date_within_lifespan
+(
+    ({{ death }} IS NULL OR {{ utils.date_with_fallback_suffix(observation_date, '-01-01T00:00:00') }} < {{ death }})
+    AND
+    ({{ birth }} IS NULL OR {{ utils.date_with_fallback_suffix(observation_date, '-12-31T23:59:59') }} > {{ birth }})
+)
+{%- endmacro %}
+
+CREATE TABLE {{ study_prefix }}__q_date_in_lifetime_{{ src|lower }} AS
+WITH PATIENT_LIFESPAN AS (
+    SELECT
+        concat('Patient/', id) AS ref,
+        {{ utils.date_with_fallback_suffix('birthDate', '-01-01T00:00:00') }} AS date_of_birth,
+        {{ utils.date_with_fallback_suffix('deceasedDateTime', '-12-31T23:59:59') }} + INTERVAL '30' DAY AS date_of_death
+    FROM Patient
+),
+invalid_fields AS (
+{% for field in dates %}
+    SELECT
+        {{ src }}.{{ patient_field }}.reference as patient_ref,
+        P.date_of_birth AS date_of_birth,
+        P.date_of_death AS date_of_death,
+        id as resource_id,
+        '{{ field }}' AS field,
+        {{ utils.quote_field(field) }}  AS value
+    FROM {{ src }}
+        INNER JOIN PATIENT_LIFESPAN P ON P.ref = {{ src }}.{{ patient_field }}.reference
+    WHERE
+        {{ utils.quote_field(field) }} IS NOT NULL AND -- ignore fields that don't exist
+        NOT {{ date_within_lifespan(utils.quote_field(field), 'P.date_of_birth', 'P.date_of_death') }}
+    {% if not loop.last %}UNION ALL{% endif %}
+{% endfor %}
+)
+SELECT
+    patient_ref,
+    resource_id as id,
+    -- order by just to make test pass deterministically
+    ARRAY_AGG(field ORDER BY field DESC) as invalid_fields
+FROM invalid_fields
+GROUP BY patient_ref, resource_id;

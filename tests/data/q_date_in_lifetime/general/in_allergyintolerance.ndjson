@@ -1,0 +1,16 @@
+{"resourceType": "AllergyIntolerance", "recordedDate": "2000-01-01", "id": "valid-recorded", "patient": {"reference": "Patient/dead"}}
+{"resourceType": "AllergyIntolerance", "recordedDate": "2000-01-01", "id": "valid-recorded-after-birth-alive", "patient": {"reference": "Patient/alive"}}
+{"resourceType": "AllergyIntolerance", "recordedDate": "1980-01-01", "id": "invalid-recorded-before-birth", "patient": {"reference": "Patient/dead"}}
+{"resourceType": "AllergyIntolerance", "recordedDate": "2025-01-01", "id": "invalid-recorded-after-death", "patient": {"reference": "Patient/dead"}}
+{"resourceType": "AllergyIntolerance", "onsetDateTime": "2000-01-01", "id": "valid-onset", "patient": {"reference": "Patient/dead"}}
+{"resourceType": "AllergyIntolerance", "onsetDateTime": "2000-01-01", "id": "valid-onset-after-birth-alive", "patient": {"reference": "Patient/alive"}}
+{"resourceType": "AllergyIntolerance", "onsetDateTime": "1980-01-01", "id": "invalid-onset-before-birth", "patient": {"reference": "Patient/dead"}}
+{"resourceType": "AllergyIntolerance", "onsetDateTime": "2025-01-01", "id": "invalid-onset-after-death", "patient": {"reference": "Patient/dead"}}
+{"resourceType": "AllergyIntolerance", "onsetPeriod": {"start": "2000-01-01"}, "id": "valid-period", "patient": {"reference": "Patient/dead"}}
+{"resourceType": "AllergyIntolerance", "onsetPeriod": {"start": "2000-01-01"}, "id": "valid-period-after-birth-alive", "patient": {"reference": "Patient/alive"}}
+{"resourceType": "AllergyIntolerance", "onsetPeriod": {"start": "1980-01-01"}, "id": "invalid-period-before-birth", "patient": {"reference": "Patient/dead"}}
+{"resourceType": "AllergyIntolerance", "onsetPeriod": {"start": "2025-01-01"}, "id": "invalid-period-after-death", "patient": {"reference": "Patient/dead"}}
+{"resourceType": "AllergyIntolerance", "onsetPeriod": {"start": "2000-01-1", "end": "2000-01-01"}, "id": "valid-period-end", "patient": {"reference": "Patient/dead"}}
+{"resourceType": "AllergyIntolerance", "onsetPeriod": {"start": "2000-01-1", "end": "2000-01-01"}, "id": "valid-period-end-after-birth-alive", "patient": {"reference": "Patient/alive"}}
+{"resourceType": "AllergyIntolerance", "onsetPeriod": {"start": "2000-01-1", "end": "1980-01-01"}, "id": "invalid-period-end-before-birth", "patient": {"reference": "Patient/dead"}}
+{"resourceType": "AllergyIntolerance", "onsetPeriod": {"start": "2000-01-1", "end": "2025-01-01"}, "id": "invalid-period-end-after-death", "patient": {"reference": "Patient/dead"}}

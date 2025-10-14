@@ -1,0 +1,7 @@
+{"resourceType": "Condition", "recordedDate": "2000", "id": "recorded-valid-year", "subject": {"reference": "Patient/dead"}}
+{"resourceType": "Condition", "recordedDate": "2000-01", "id": "recorded-valid-year-month", "subject": {"reference": "Patient/dead"}}
+{"resourceType": "Condition", "recordedDate": "2000-01-01T00:00:00", "id": "recorded-valid-time", "subject": {"reference": "Patient/dead"}}
+{"resourceType": "Condition", "recordedDate": "2000", "id": "recorded-valid-same-as-dod", "subject": {"reference": "Patient/1day"}}
+{"resourceType": "Condition", "recordedDate": "1999", "id": "recorded-valid-same-as-dob", "subject": {"reference": "Patient/1day"}}
+{"resourceType": "Condition", "recordedDate": "2020-01-29", "id": "recorded-29d-after-dod", "subject": {"reference": "Patient/dead"}}
+{"resourceType": "Condition", "recordedDate": "2020-02-01", "id": "invalid-recorded-31d-after-dod", "subject": {"reference": "Patient/dead"}}
