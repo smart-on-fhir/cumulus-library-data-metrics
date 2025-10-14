@@ -2,6 +2,17 @@
 
 A Cumulus-based implementation of the [qualifier metrics](https://github.com/sync-for-science/qualifier/blob/master/metrics.md).
 
+## Table of Contents
+
+- [Implemented Metrics](#implemented-metrics)
+- [Installing](#installing)
+- [Running the Metrics](#running-the-metrics)
+  - [Local Ndjson](#local-ndjson)
+  - [Athena](#athena)
+- [Exporting Counts](#exporting-counts)
+  - [Aggregate counts](#aggregate-counts)
+  - [Bucket sizes](#bucket-sizes)
+
 ## Implemented Metrics
 
 The following qualifier metrics are implemented (per September 2025 qualifier definitions).
@@ -19,6 +30,7 @@ The following qualifier metrics are implemented (per September 2025 qualifier de
 - [q_ref_target_valid](https://github.com/sync-for-science/qualifier/blob/master/metrics.md#q_ref_target_valid)
 - [q_system_use](https://github.com/sync-for-science/qualifier/blob/master/metrics.md#q_system_use)
 - [q_valid_us_core_v4](https://github.com/sync-for-science/qualifier/blob/master/metrics.md#q_valid_us_core_v4) *
+- [q_date_in_lifetime](https://github.com/sync-for-science/qualifier/blob/master/metrics.md#q_date_in_lifetime)
 
 \* These are US Core profile-based metrics, and the following profiles are not yet implemented:
   - Implantable Device (due to the difficulty in identify implantable records)
@@ -37,6 +49,9 @@ These metrics are designed as a
 study and are run using the `cumulus-library` command.
 
 ### Local Ndjson
+If you don't have any ndjson data to work with, you can generate them using this
+repo: [sample-bulk-fhir-datasets](https://github.com/smart-on-fhir/sample-bulk-fhir-datasets/)
+
 First, you'll want to organize your ndjson into the following file tree format:
 ```
 root/
@@ -59,8 +74,12 @@ cumulus-library build \
   --target data_metrics
 ```
 
-And then you can load `output-tables.db` in a DuckDB session and see the results.
-Or read below to export the counts tables.
+There are three ways to view the outputs from this build:
+
+1. You can load `output-tables.db` in a DuckDB session and see the results.
+2. Run the [cumulus-data-metrics-reporting](https://github.com/smart-on-fhir/cumulus-data-metrics-reporting/)
+repo to generate a visualization of your metrics
+3. Export the counts tables. [Read below](#exporting-counts)
 
 ### Athena
 Here's a sample command to run against your Cumulus data in Athena:
