@@ -1,0 +1,44 @@
+-- http://hl7.org/fhir/us/core/STU6.1/StructureDefinition-us-core-medicationrequest.html
+
+{% import 'us_core_v6/utils.jinja' as core_utils %}
+
+WITH
+tmp_simplified AS (
+    SELECT
+        id,
+        {{ utils.extract_status(src) }} AS status,
+        {{ utils.is_code_valid(
+            'status',
+            'active | on-hold | cancelled | completed | entered-in-error | stopped | draft | unknown'
+        ) }} AS valid_status,
+        {{ utils.is_code_valid(
+            'intent',
+            'proposal | plan | order | original-order | reflex-order | filler-order | instance-order | option'
+        ) }} AS valid_intent,
+        (
+            {{ utils.is_concept_valid('medicationCodeableConcept') }}
+            OR {{ utils.is_reference_of_type('medicationReference', 'Medication', allow_contained=true) }}
+        ) AS valid_medication,
+        {{ utils.is_reference_of_type('subject', 'Patient') }} AS valid_subject,
+        {{ utils.is_reference_of_type('requester', [
+            'Practitioner',
+            'Patient',
+            'Organization',
+            'PractitionerRole',
+            'RelatedPerson',
+            'Device',
+        ]) }} AS valid_requester
+    FROM {{ src }}
+)
+
+{%
+set ns.fields = [
+    'valid_status',
+    'valid_intent',
+    'valid_medication',
+    'valid_subject',
+    'valid_requester',
+]
+%}
+
+{{ core_utils.select_all_fields(ns.fields) }}

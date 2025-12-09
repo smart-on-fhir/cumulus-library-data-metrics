@@ -1,0 +1,30 @@
+-- http://hl7.org/fhir/us/core/STU6.1/StructureDefinition-us-core-diagnosticreport-note.html
+-- There is another lab-report-specific profile,
+-- but this is the "base DiagnosticReport" profile that covers the bare minimum.
+
+{% import 'us_core_v6/utils.jinja' as core_utils %}
+
+WITH
+tmp_slice AS {% include 'us_core_v6/slice.jinja' %},
+
+tmp_simplified AS (
+    SELECT
+        id,
+        {{ utils.extract_status(src) }} AS status,
+        {{ utils.is_reference_of_type('encounter', 'Encounter') }} AS valid_encounter,
+        issued IS NOT NULL AS valid_issued,
+        performer IS NOT NULL AS valid_performer,
+        presentedForm IS NOT NULL AS valid_presented_form
+    FROM tmp_slice
+)
+
+{%
+set ns.fields = [
+    'valid_encounter',
+    'valid_issued',
+    'valid_performer',
+    'valid_presented_form',
+]
+%}
+
+{{ core_utils.select_all_fields(ns.fields) }}

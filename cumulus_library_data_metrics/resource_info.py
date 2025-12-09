@@ -10,7 +10,7 @@ CATEGORIES = {
     "Condition": {
         "cat_field": "category",
         "cat_systems": [
-            # https://hl7.org/fhir/us/core/stu4/ValueSet-us-core-condition-category.html
+            # https://hl7.org/fhir/us/core/STU6.1/ValueSet-us-core-condition-category.html
             systems.CONDITION_CATEGORY,
             [systems.USCORE_CONDITION_CATEGORY, ["health-concern"]],
             [systems.SNOMED, ["16100001"]],
@@ -18,8 +18,8 @@ CATEGORIES = {
     },
     "DiagnosticReport": {
         "cat_field": "category",
-        # http://hl7.org/fhir/us/core/STU4/StructureDefinition-us-core-diagnosticreport-lab.html
-        # https://hl7.org/fhir/us/core/STU4/ValueSet-us-core-diagnosticreport-category.html
+        # http://hl7.org/fhir/us/core/STU6.1/StructureDefinition-us-core-diagnosticreport-lab.html
+        # https://hl7.org/fhir/us/core/STU6.1/ValueSet-us-core-diagnosticreport-category.html
         "cat_systems": [
             [systems.DIAGNOSTIC_SECTION, ["LAB"]],  # for labs
             [systems.LOINC, ["LP29684-5", "LP29708-2", "LP7839-6"]],  # for notes
@@ -27,7 +27,7 @@ CATEGORIES = {
     },
     "DocumentReference": {
         "cat_field": "category",
-        # https://hl7.org/fhir/us/core/STU4/ValueSet-us-core-documentreference-category.html
+        # https://hl7.org/fhir/us/core/STU6.1/ValueSet-us-core-documentreference-category.html
         "cat_systems": [systems.USCORE_DOCREF_CATEGORY],
     },
     "Encounter": {

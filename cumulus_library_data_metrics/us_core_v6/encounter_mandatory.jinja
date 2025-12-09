@@ -1,0 +1,36 @@
+-- http://hl7.org/fhir/us/core/STU6.1/StructureDefinition-us-core-encounter.html
+
+{% import 'us_core_v6/utils.jinja' as core_utils %}
+
+WITH
+tmp_simplified AS (
+    SELECT
+        id,
+        {{ utils.extract_status(src) }} AS status,
+        {{ utils.is_code_valid('status', [
+            'planned',
+            'arrived',
+            'triaged',
+            'in-progress',
+            'onleave',
+            'finished',
+            'cancelled',
+            'entered-in-error',
+            'unknown',
+        ]) }} AS valid_status,
+        {{ utils.is_coding_valid('class') }} AS valid_class,
+        type IS NOT NULL AS valid_type,
+        {{ utils.is_reference_of_type('subject', 'Patient') }} AS valid_subject
+    FROM {{ src }}
+)
+
+{%
+set ns.fields = [
+    'valid_status',
+    'valid_class',
+    'valid_type',
+    'valid_subject',
+]
+%}
+
+{{ core_utils.select_all_fields(ns.fields) }}

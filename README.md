@@ -13,12 +13,12 @@ The following qualifier metrics are implemented (per September 2025 qualifier de
 - [c_resource_count](https://github.com/sync-for-science/qualifier/blob/master/metrics.md#c_resource_count)
 - [c_resources_per_pt](https://github.com/sync-for-science/qualifier/blob/master/metrics.md#c_resources_per_pt)
 - [c_system_use](https://github.com/sync-for-science/qualifier/blob/master/metrics.md#c_system_use)
-- [c_us_core_v4_count](https://github.com/sync-for-science/qualifier/blob/master/metrics.md#c_us_core_v4_count) *
+- [c_us_core_v6_count](https://github.com/sync-for-science/qualifier/blob/master/metrics.md#c_us_core_v6_count) *
 - [q_date_recent](https://github.com/sync-for-science/qualifier/blob/master/metrics.md#q_date_recent)
 - [q_ref_target_pop](https://github.com/sync-for-science/qualifier/blob/master/metrics.md#q_ref_target_pop)
 - [q_ref_target_valid](https://github.com/sync-for-science/qualifier/blob/master/metrics.md#q_ref_target_valid)
 - [q_system_use](https://github.com/sync-for-science/qualifier/blob/master/metrics.md#q_system_use)
-- [q_valid_us_core_v4](https://github.com/sync-for-science/qualifier/blob/master/metrics.md#q_valid_us_core_v4) *
+- [q_valid_us_core_v6](https://github.com/sync-for-science/qualifier/blob/master/metrics.md#q_valid_us_core_v6) *
 
 \* These are US Core profile-based metrics, and the following profiles are not yet implemented:
   - Implantable Device (due to the difficulty in identify implantable records)

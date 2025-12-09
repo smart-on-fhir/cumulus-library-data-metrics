@@ -1,0 +1,38 @@
+-- http://hl7.org/fhir/us/core/STU6.1/StructureDefinition-us-core-medicationrequest.html
+
+-- CUMULUS-QUIRK
+-- Doesn't look for "dosageInstruction.text", because Cumulus strips that field.
+
+{% import 'us_core_v6/utils.jinja' as core_utils %}
+
+WITH
+tmp_simplified AS (
+    SELECT
+        id,
+        {{ utils.extract_status(src) }} AS status,
+        category IS NOT NULL AS valid_category, -- array of concepts
+        (
+            reportedBoolean IS NOT NULL
+            OR {{ utils.is_reference_of_type('reportedReference', [
+                'Practitioner',
+                'Organization',
+                'Patient',
+                'PractitionerRole',
+                'RelatedPerson',
+            ])}}
+        ) AS valid_reported,
+        {{ utils.is_reference_of_type('encounter', 'Encounter') }} AS valid_encounter,
+        authoredOn IS NOT NULL AS valid_authored_on
+    FROM {{ src }}
+)
+
+{%
+set ns.fields = [
+    'valid_category',
+    'valid_reported',
+    'valid_encounter',
+    'valid_authored_on',
+]
+%}
+
+{{ core_utils.select_all_fields(ns.fields) }}

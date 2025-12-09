@@ -1,0 +1,19 @@
+{% import 'utils.jinja' as utils %}
+
+{% set ns = namespace(fields=[]) %}
+
+CREATE TABLE {{ study_prefix }}__q_valid_us_core_v6_{{ profile_name }} AS (
+WITH
+-- These separated files are responsible for providing a single table that looks like:
+-- (id: str, valid: bool, valid_*: bool)
+--
+-- This table should hold every row from src inside it (i.e. not be a partial join table).
+--
+-- You may make additional helper tables, but please prefix with 'tmp_'
+-- to avoid any future conflicts with this template here.
+src_valid AS ({% include 'us_core_v6/' + profile_name + '_mandatory.jinja' %})
+
+SELECT *
+FROM src_valid
+WHERE src_valid.valid IS NULL OR NOT src_valid.valid
+);

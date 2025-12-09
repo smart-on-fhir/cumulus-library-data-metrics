@@ -1,0 +1,7 @@
+{% import 'utils.jinja' as utils %}
+
+{% set ns = namespace(fields=[]) %}
+
+CREATE TABLE {{ study_prefix }}__t_us_core_v6_{{ profile_name }}_mandatory AS (
+    {% include 'us_core_v6/' + profile_name + '_mandatory.jinja' %}
+);
