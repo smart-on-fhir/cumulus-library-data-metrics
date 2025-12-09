@@ -4,16 +4,14 @@ requires-python = ">= 3.11"
 dependencies = [
     "cumulus-library >= 5, < 6",
 ]
-description = "Data quality and characterization metrics for Cumulus"
 readme = "README.md"
-license = { text="Apache License 2.0" }
+license = "Apache-2.0"
 classifiers = [
-    "License :: OSI Approved :: Apache Software License",
     "Operating System :: OS Independent",
     "Programming Language :: Python :: 3",
     "Topic :: Software Development :: Libraries :: Python Modules",
 ]
-dynamic = ["version"]
+dynamic = ["description", "version"]
 
 [project.urls]
 Home = "https://smarthealthit.org/cumulus/"
