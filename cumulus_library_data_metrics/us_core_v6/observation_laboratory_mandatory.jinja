@@ -6,18 +6,6 @@
 WITH
 tmp_slice AS {% include 'us_core_v6/slice.jinja' %},
 
-tmp_grouped_checks AS (
-    SELECT
-        src.id,
-        -- obs-3: referenceRange must have at least a low or a high or text
-        BOOL_AND(
-            {{ obs_utils.is_obs_3_valid('r', schema) }}
-        ) AS valid_obs_3
-    FROM tmp_slice AS src,
-        UNNEST(referenceRange) AS r (referenceRange)
-    GROUP BY src.id
-),
-
 tmp_simplified AS (
     SELECT
         src.id,
@@ -45,16 +33,8 @@ tmp_simplified AS (
               valueQuantity.system IS NOT NULL
               AND valueQuantity.system = 'http://unitsofmeasure.org'
             )
-        ) AS valid_us_core_3,
-        -- obs-3: referenceRange must have at least a low or a high or text
-        -- (This is a basic FHIR constraint, but the profile re-iterates it, so let's check it)
-        (
-            tmp_grouped_checks.valid_obs_3 IS NULL
-            OR tmp_grouped_checks.valid_obs_3
-        ) AS valid_obs_3
+        ) AS valid_us_core_3
     FROM tmp_slice AS src
-    LEFT JOIN tmp_grouped_checks
-    ON tmp_grouped_checks.id = src.id
 )
 
 {%
@@ -65,7 +45,6 @@ set ns.fields = [
     'valid_us_core_1',
     'valid_us_core_2',
     'valid_us_core_3',
-    'valid_obs_3',
 ]
 %}
 

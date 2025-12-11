@@ -1,4 +1,4 @@
-id,valid_administrative_gender,valid,status
+id,valid_gender,valid,status
 with-inactive-status,false,false,inactive
 with-active-status,false,false,active
 valid,true,true,

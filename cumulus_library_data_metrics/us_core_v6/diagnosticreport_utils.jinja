@@ -56,3 +56,15 @@
         'unknown',
     ])}}
 {%- endmacro %}
+
+{# Has the DxReport started, with a real issued time etc? #}
+{% macro is_dr_status_started() -%}
+    {{ utils.is_code_valid('status', [
+        'partial',
+        'preliminary',
+        'final',
+        'amended',
+        'corrected',
+        'appended',
+    ])}}
+{%- endmacro %}

@@ -1,0 +1,5 @@
+id,valid_clinical_status,valid_verification_status,valid_encounter,valid_onset_date_time,valid_abatement_date_time,valid_recorded_date,valid_asserted_date,valid,status
+enc-verification-just-text,false,false,false,false,false,false,false,false,
+enc-valid,true,true,true,true,true,true,true,true,unconfirmed
+enc-status-just-text,false,false,false,false,false,false,false,false,
+enc-nothing,false,false,false,false,false,false,false,false,

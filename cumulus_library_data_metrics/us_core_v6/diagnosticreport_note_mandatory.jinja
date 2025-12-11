@@ -17,7 +17,8 @@ tmp_simplified AS (
         {{ utils.is_concept_valid('code') }} AS valid_code,
         {{ utils.is_reference_of_type('subject', 'Patient') }} AS valid_subject,
         (
-            effectiveDateTime IS NOT NULL
+            NOT {{ dr_utils.is_dr_status_started() }}
+            OR effectiveDateTime IS NOT NULL
             OR {{ utils.is_period_valid('effectivePeriod') }}
         ) AS valid_effective
     FROM tmp_slice

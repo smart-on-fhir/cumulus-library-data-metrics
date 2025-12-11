@@ -17,6 +17,17 @@ class UsCoreV6Mixin(MetricMixin):
                 "manifestation",
             ],
         },
+        "Condition": {
+            "extension": [
+                "url",
+                "valueDateTime",
+            ],
+        },
+        "DiagnosticReport": {
+            "media": [
+                "link",
+            ],
+        },
         "DocumentReference": {
             "context": {
                 "encounter": {},
@@ -28,6 +39,11 @@ class UsCoreV6Mixin(MetricMixin):
             **resource_info.DOCREF_ATTACHMENT_SCHEMA,
         },
         "Encounter": {
+            "participant": [
+                "type",
+                "period",
+                "individual",
+            ],
             "hospitalization": [
                 "dischargeDisposition",
             ],
@@ -35,16 +51,43 @@ class UsCoreV6Mixin(MetricMixin):
                 "location",
             ],
         },
-        "Observation": {
-            "component": [
-                "dataAbsentReason",
-                "valueCodeableConcept",
-                "valuePeriod",
-                "valueQuantity",  # TODO: need to expand this deeper
-                "valueRange",
-                "valueRatio",
-                "valueSampledData",
+        "MedicationRequest": {
+            "dosageInstruction": {
+                "timing": {},
+                "doseAndRate": {
+                    "doseQuantity": [
+                        "system",
+                    ],
+                    "doseRange": {
+                        "low": [
+                            "system",
+                        ],
+                        "high": [
+                            "system",
+                        ],
+                    },
+                },
+            },
+            "dispenseRequest": [
+                "quantity",
             ],
+        },
+        "Observation": {
+            "component": {
+                "dataAbsentReason": {},
+                "valueCodeableConcept": {},
+                "valuePeriod": {},
+                "valueQuantity": [
+                    "value",
+                    "comparator",
+                    "unit",
+                    "system",
+                    "code",
+                ],
+                "valueRange": {},
+                "valueRatio": {},
+                "valueSampledData": {},
+            },
             "effectiveTiming": [
                 "code",
                 "event",
@@ -62,12 +105,14 @@ class UsCoreV6Mixin(MetricMixin):
             "extension": {
                 "extension": {
                     "url": {},
+                    "valueCodeableConcept": {},
                     "valueCoding": [
                         "code",
                         "system",
                     ],
                 },
                 "url": {},
+                "valueCodeableConcept": {},
             },
         },
     }
@@ -108,13 +153,14 @@ class UsCoreV6Mixin(MetricMixin):
 
         # Rest of profiles
         self.make_table(src="AllergyIntolerance")
-        self.make_table(src="Condition")
+        self.make_table(src="Condition", name="Enc")
+        self.make_table(src="Condition", name="Prob")
         self.make_table(src="DiagnosticReport", name="Lab")
         self.make_table(src="DiagnosticReport", name="Note")
         self.make_table(src="DocumentReference", mandatory_split=2)
         self.make_table(src="Encounter")
         self.make_table(src="Immunization")
         self.make_table(src="Medication")
-        self.make_table(src="MedicationRequest")
-        self.make_table(src="Patient")
+        self.make_table(src="MedicationRequest", must_support_split=3)
+        self.make_table(src="Patient", must_support_split=2)
         self.make_table(src="Procedure")

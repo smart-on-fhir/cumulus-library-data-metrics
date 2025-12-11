@@ -1,4 +1,4 @@
-id,valid_status,valid_type,valid_category,valid_subject,valid_content_type,valid_us_core_6,valid,status
+id,valid_status,valid_type,valid_category,valid_subject,valid_content_attachment_content_type,valid_us_core_6,valid,status
 valid,true,true,true,true,true,true,true,current
 type-null-flavor-good,false,true,false,false,false,false,false,
 type-null-flavor-bad,false,false,false,false,false,false,false,

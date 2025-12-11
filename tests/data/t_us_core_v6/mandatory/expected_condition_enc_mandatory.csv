@@ -1,0 +1,13 @@
+id,valid_clinical_status,valid_verification_status,valid_code,valid_subject,valid,status
+enc-verification-with-other-system,true,false,false,false,false,
+enc-verification-multiple-systems-good,true,true,false,false,false,unconfirmed
+enc-verification-multiple-systems-bad,true,false,false,false,false,
+enc-valid-bare,true,true,true,true,true,
+enc-status-without-coding,false,true,false,false,false,
+enc-status-with-other-system,false,true,false,false,false,
+enc-status-multiple-systems-good,true,true,false,false,false,
+enc-status-multiple-systems-bad,false,true,false,false,false,
+enc-nothing,true,true,false,false,false,
+enc-group-subject,true,true,false,false,false,
+enc-empty-subject,true,true,false,false,false,
+enc-empty-code,true,true,false,false,false,

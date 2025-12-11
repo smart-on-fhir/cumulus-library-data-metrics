@@ -2,9 +2,13 @@
 
 {% set ns = namespace(fields=[]) %}
 
-CREATE TABLE {{ study_prefix }}__count_c_us_core_v6_count_{{ profile_name }}_must_support AS (
+CREATE TABLE {{ study_prefix }}__count_c_us_core_v6_count_{{ profile_name }}_must_support{{ table_num|default('') }} AS (
 WITH
 src_must_support AS ({% include 'us_core_v6/' + profile_name + '_must_support.jinja' %}),
+{% if table_max %}
+    {% set field_slices = ns.fields|slice(table_max)|list %}
+    {% set ns.fields = field_slices[table_num - 1] %}
+{% endif %}
 
 simplified AS (
     SELECT

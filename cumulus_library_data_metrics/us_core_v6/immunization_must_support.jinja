@@ -12,6 +12,7 @@ tmp_simplified AS (
             OR status <> 'not-done'
             OR {{ utils.is_concept_valid('statusReason') }}
         ) AS valid_status_reason,
+        occurrenceDateTime IS NOT NULL AS valid_occurrence_date_time,
         primarySource IS NOT NULL AS valid_primary_source
     FROM {{ src }}
 )
@@ -19,6 +20,7 @@ tmp_simplified AS (
 {%
 set ns.fields = [
     'valid_status_reason',
+    'valid_occurrence_date_time',
     'valid_primary_source',
 ]
 %}

@@ -1,8 +1,8 @@
 -- http://hl7.org/fhir/us/core/STU6.1/StructureDefinition-us-core-patient.html
 
 -- CUMULUS-QUIRK
--- This profile also requires a patient identifier and name, both of which Cumulus ETL strips out
--- early. So we don't bother checking that here.
+-- This profile also requires a patient identifier, name, and certain telecom fields, all of which
+-- Cumulus ETL strips out. So we don't bother checking that here.
 
 {% import 'us_core_v6/utils.jinja' as core_utils %}
 
@@ -14,13 +14,13 @@ tmp_simplified AS (
         {{ utils.is_code_valid(
             'gender',
             'male | female | other | unknown'
-        )}} AS valid_administrative_gender
+        )}} AS valid_gender
     FROM {{ src }}
 )
 
 {%
 set ns.fields = [
-    'valid_administrative_gender',
+    'valid_gender',
 ]
 %}
 

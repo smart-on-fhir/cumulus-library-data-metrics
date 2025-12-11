@@ -89,7 +89,9 @@
 
     -- Now check each complicated (struct) field separately, based on whether it's in the schema
 
-    {% if 'component.value' not in prefix or schema["component"]["valueQuantity"] %}
+    {% if 'component.value' in prefix %}
+        OR {{ utils.is_quantity_valid(prefix + 'Quantity', schema["component"]["valueQuantity"]) }}
+    {% else %}
         OR {{ utils.is_quantity_valid(prefix + 'Quantity') }}
     {% endif %}
 
@@ -112,21 +114,5 @@
     {% if 'component.value' not in prefix or schema["component"]["valuePeriod"] %}
         OR {{ utils.is_period_valid(prefix + 'Period') }}
     {% endif %}
-)
-{%- endmacro %}
-
--- obs-3: referenceRange must have at least a low or a high or text
--- (This is a basic FHIR constraint, but profiles often re-iterate it,
--- so here is a convenience macro check for it.)
-{% macro is_obs_3_valid(parent, schema) -%}
-(
-    {{ parent }}.referenceRange IS NULL
-    {% if schema["referenceRange"]["low"] %}
-        OR {{ parent }}.referenceRange.low IS NOT NULL
-    {% endif %}
-    {% if schema["referenceRange"]["high"] %}
-        OR {{ parent }}.referenceRange.high IS NOT NULL
-    {% endif %}
-    OR {{ utils.is_string_valid(parent + '.referenceRange.text') }}
 )
 {%- endmacro %}

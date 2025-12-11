@@ -5,7 +5,7 @@ import cumulus_library
 from cumulus_library_data_metrics.us_core_v6 import UsCoreV6Mixin
 
 
-class ValidUsCoreV4Builder(UsCoreV6Mixin, cumulus_library.BaseTableBuilder):
+class ValidUsCoreV6Builder(UsCoreV6Mixin, cumulus_library.BaseTableBuilder):
     name = "q_valid_us_core_v6"
 
     def make_table(self, **kwargs) -> None:

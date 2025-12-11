@@ -1,0 +1,71 @@
+-- http://hl7.org/fhir/us/core/STU6.1/StructureDefinition-us-core-condition-problems-health-concerns.html
+
+{% import 'us_core_v6/utils.jinja' as core_utils %}
+
+{# Mandatory requirements are similar between the profiles, so start with the base #}
+{% include 'us_core_v6/condition_must_support.jinja' %}
+
+-- The only real difference with the encounter diagnosis profile is we drop an encounter check and
+-- add an assessment category check.
+
+tmp_us_core_cat_flat AS (
+    {{ utils.extract_codes_flat(
+        'tmp_slice',
+        'category',
+        system='http://hl7.org/fhir/us/core/CodeSystem/us-core-category',
+        is_array=true,
+    ) }}
+),
+tmp_us_core_cat AS (
+    SELECT
+        id,
+        BOOL_AND(
+            {{ utils.is_code_valid(
+                'tmp_us_core_cat_flat.code',
+                'sdoh | functional-status | disability-status | cognitive-status'
+            ) }}
+        ) AS valid_us_core_cat
+    FROM tmp_us_core_cat_flat
+    GROUP BY id
+),
+
+tmp_simplified AS (
+    SELECT
+        src.id,
+        {{ utils.extract_status(src) }} AS status,
+        (
+            tmp_clinical_status.valid_clinical_status IS NOT NULL
+            AND tmp_clinical_status.valid_clinical_status
+        ) AS valid_clinical_status,
+        (
+            tmp_verification.valid_verification_status IS NOT NULL
+            AND tmp_verification.valid_verification_status
+        ) AS valid_verification_status,
+        (
+            tmp_us_core_cat.valid_us_core_cat IS NOT NULL
+            AND tmp_us_core_cat.valid_us_core_cat
+        ) AS valid_assessment_category,
+        onsetDateTime IS NOT NULL AS valid_onset_date_time, -- spec only cares about this one
+        abatementDateTime IS NOT NULL AS valid_abatement_date_time, -- spec only cares about this one
+        recordedDate IS NOT NULL AS valid_recorded_date,
+        tmp_asserted_date.asserted_date IS NOT NULL AS valid_asserted_date
+    FROM tmp_slice AS src
+    LEFT JOIN tmp_clinical_status ON tmp_clinical_status.id = src.id
+    LEFT JOIN tmp_verification ON tmp_verification.id = src.id
+    LEFT JOIN tmp_asserted_date ON tmp_asserted_date.id = src.id
+    LEFT JOIN tmp_us_core_cat ON tmp_us_core_cat.id = src.id
+)
+
+{%
+set ns.fields = [
+    'valid_clinical_status',
+    'valid_verification_status',
+    'valid_assessment_category',
+    'valid_onset_date_time',
+    'valid_abatement_date_time',
+    'valid_recorded_date',
+    'valid_asserted_date',
+]
+%}
+
+{{ core_utils.select_all_fields(ns.fields) }}

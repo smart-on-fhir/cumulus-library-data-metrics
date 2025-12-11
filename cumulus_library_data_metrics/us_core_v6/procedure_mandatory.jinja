@@ -14,11 +14,15 @@ tmp_simplified AS (
         {{ utils.is_concept_valid('code') }} AS valid_code,
         {{ utils.is_reference_of_type('subject', 'Patient') }} AS valid_subject,
         (
-            performedDateTime IS NOT NULL
-            OR {{ utils.is_period_valid('performedPeriod') }}
-            OR {{ utils.is_string_valid('performedString') }}
-            OR {{ utils.is_quantity_valid('performedAge') }}
-            OR performedRange IS NOT NULL
+            status IS NULL
+            OR status NOT IN ('completed', 'in-progress')
+            OR (
+                performedDateTime IS NOT NULL
+                OR {{ utils.is_period_valid('performedPeriod') }}
+                OR {{ utils.is_string_valid('performedString') }}
+                OR {{ utils.is_quantity_valid('performedAge') }}
+                OR performedRange IS NOT NULL
+            )
         ) AS valid_performed
     FROM {{ src }}
 )

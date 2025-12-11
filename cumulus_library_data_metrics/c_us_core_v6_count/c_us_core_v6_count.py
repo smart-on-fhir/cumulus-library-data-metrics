@@ -5,7 +5,7 @@ import cumulus_library
 from cumulus_library_data_metrics.us_core_v6 import UsCoreV6Mixin
 
 
-class UsCoreV4CountBuilder(UsCoreV6Mixin, cumulus_library.BaseTableBuilder):
+class UsCoreV6CountBuilder(UsCoreV6Mixin, cumulus_library.BaseTableBuilder):
     name = "c_us_core_v6_count"
 
     def make_table(self, **kwargs) -> None:
@@ -17,13 +17,13 @@ class UsCoreV4CountBuilder(UsCoreV6Mixin, cumulus_library.BaseTableBuilder):
         # at a metric like this one with both mandatory and must-support fields.
         kwargs["skip_duplicated_mandatory_checks"] = True
 
-        if self.output_mode == "cube" and "mandatory_split" in kwargs:
-            kwargs["table_max"] = kwargs["mandatory_split"]
-            self.queries += [
-                self.render_sql("mandatory", table_num=i + 1, **kwargs)
-                for i in range(kwargs["table_max"])
-            ]
-        else:
-            self.queries.append(self.render_sql("mandatory", **kwargs))
-
-        self.queries.append(self.render_sql("must_support", **kwargs))
+        for kind in ["mandatory", "must_support"]:
+            split_arg = f"{kind}_split"
+            if self.output_mode == "cube" and split_arg in kwargs:
+                table_max = kwargs[split_arg]
+                self.queries += [
+                    self.render_sql(kind, table_num=i + 1, table_max=table_max, **kwargs)
+                    for i in range(table_max)
+                ]
+            else:
+                self.queries.append(self.render_sql(kind, **kwargs))

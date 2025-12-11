@@ -40,7 +40,7 @@
 
 
 -- Extracts the codes from a codeableConcept and returns a select with (id, codes).
-{% macro extract_codes(src, src_field, system=null, is_array=false) -%}
+{% macro extract_codes(src, src_field, system=null, is_array=false, codes=null) -%}
 (
     -- Flatten codings of the provided system and recombine the codes as a list
     SELECT
@@ -55,6 +55,9 @@
         {%- endif %}
     WHERE
         c.coding.code IS NOT NULL
+{%- if codes %}
+        AND c.coding.code in ('{{ codes|join("', '") }}')
+{%- endif %}
         AND {{ _compare_systems("c.coding", system) }}
 
     GROUP BY id
@@ -63,7 +66,7 @@
 
 
 -- Extracts the codes from a codeableConcept and returns a flat select with (id, code).
-{% macro extract_codes_flat(src, src_field, system=null, is_array=false) -%}
+{% macro extract_codes_flat(src, src_field, system=null, is_array=false, codes=null) -%}
 (
     -- Flatten codings of the provided system and recombine the codes as a list
     SELECT
@@ -79,6 +82,9 @@
         {%- endif %}
     WHERE
         c.coding.code IS NOT NULL
+{%- if codes %}
+        AND c.coding.code in ('{{ codes|join("', '") }}')
+{%- endif %}
         AND {{ _compare_systems("c.coding", system) }}
 )
 {%- endmacro %}
@@ -329,17 +335,32 @@ WHERE cnt >= {{ min_bucket_size }}
     )
 )
 {%- endmacro %}
-{% macro is_quantity_valid(field) -%}
+{% macro is_quantity_valid(field, schema = None) -%}
 (
+    {%- if schema and not schema["code"] and not schema["comparator"] and not schema["unit"]
+        and not schema["system"] and not schema["code"] %}
+    FALSE
+    {%- else %}
     {{ field }} IS NOT NULL
     AND (
-        {{ field }}."value" IS NOT NULL
-        -- TODO: re-enable once we can validate deep schemas (i.e. in Obs.component.valueQuantity)
-        -- OR {{ field }}.comparator IS NOT NULL
+        FALSE
+        {%- if not schema or schema["value"] %}
+        OR {{ field }}."value" IS NOT NULL
+        {%- endif %}
+        {%- if not schema or schema["comparator"] %}
+        OR {{ field }}.comparator IS NOT NULL
+        {%- endif %}
+        {%- if not schema or schema["unit"] %}
         OR {{ field }}.unit IS NOT NULL
+        {%- endif %}
+        {%- if not schema or schema["system"] %}
         OR {{ field }}.system IS NOT NULL
+        {%- endif %}
+        {%- if not schema or schema["code"] %}
         OR {{ field }}.code IS NOT NULL
+        {%- endif %}
     )
+    {%- endif %}
 )
 {%- endmacro %}
 {% macro is_reference_valid(field) -%}

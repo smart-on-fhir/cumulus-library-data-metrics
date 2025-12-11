@@ -1,0 +1,13 @@
+id,valid_clinical_status,valid_verification_status,valid_code,valid_subject,valid,status
+prob-verification-with-other-system,true,false,false,false,false,
+prob-verification-multiple-systems-good,true,true,false,false,false,unconfirmed
+prob-verification-multiple-systems-bad,true,false,false,false,false,
+prob-valid-bare,true,true,true,true,true,
+prob-status-without-coding,false,true,false,false,false,
+prob-status-with-other-system,false,true,false,false,false,
+prob-status-multiple-systems-good,true,true,false,false,false,
+prob-status-multiple-systems-bad,false,true,false,false,false,
+prob-nothing,true,true,false,false,false,
+prob-group-subject,true,true,false,false,false,
+prob-empty-subject,true,true,false,false,false,
+prob-empty-code,true,true,false,false,false,

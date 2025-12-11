@@ -1,2 +1,2 @@
-id,valid_date,valid_author,valid_format,valid_encounter,valid_period,valid,status
-nothing,false,false,false,false,false,false,
+id,valid_category,valid_date,valid_author,valid_content_format,valid_context_encounter,valid_context_period,valid,status
+nothing,false,false,false,false,false,false,false,

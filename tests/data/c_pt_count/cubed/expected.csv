@@ -153,10 +153,10 @@ cnt,birth_year,administrative_gender,ethnicity,race,deceased,status
 1,,,,Unknown,,active
 1,,,,Unknown,false,
 1,,,,Unknown,false,active
-1,,,,Asked but no answer,,
-1,,,,Asked but no answer,,active
-1,,,,Asked but no answer,false,
-1,,,,Asked but no answer,false,active
+1,,,,Asked but unknown,,
+1,,,,Asked but unknown,,active
+1,,,,Asked but unknown,false,
+1,,,,Asked but unknown,false,active
 1,,,,American Indian or Alaska Native; Asian; Black or African American; Native Hawaiian or Other Pacific Islander; White,,
 1,,,,American Indian or Alaska Native; Asian; Black or African American; Native Hawaiian or Other Pacific Islander; White,,active
 1,,,,American Indian or Alaska Native; Asian; Black or African American; Native Hawaiian or Other Pacific Islander; White,false,
@@ -171,10 +171,10 @@ cnt,birth_year,administrative_gender,ethnicity,race,deceased,status
 1,,,cumulus__none,Unknown,,active
 1,,,cumulus__none,Unknown,false,
 1,,,cumulus__none,Unknown,false,active
-1,,,cumulus__none,Asked but no answer,,
-1,,,cumulus__none,Asked but no answer,,active
-1,,,cumulus__none,Asked but no answer,false,
-1,,,cumulus__none,Asked but no answer,false,active
+1,,,cumulus__none,Asked but unknown,,
+1,,,cumulus__none,Asked but unknown,,active
+1,,,cumulus__none,Asked but unknown,false,
+1,,,cumulus__none,Asked but unknown,false,active
 1,,,Non Hispanic or Latino,,,
 1,,,Non Hispanic or Latino,,,active
 1,,,Non Hispanic or Latino,,false,
@@ -191,18 +191,18 @@ cnt,birth_year,administrative_gender,ethnicity,race,deceased,status
 1,,other,,Unknown,,active
 1,,other,,Unknown,false,
 1,,other,,Unknown,false,active
-1,,other,,Asked but no answer,,
-1,,other,,Asked but no answer,,active
-1,,other,,Asked but no answer,false,
-1,,other,,Asked but no answer,false,active
+1,,other,,Asked but unknown,,
+1,,other,,Asked but unknown,,active
+1,,other,,Asked but unknown,false,
+1,,other,,Asked but unknown,false,active
 1,,other,cumulus__none,Unknown,,
 1,,other,cumulus__none,Unknown,,active
 1,,other,cumulus__none,Unknown,false,
 1,,other,cumulus__none,Unknown,false,active
-1,,other,cumulus__none,Asked but no answer,,
-1,,other,cumulus__none,Asked but no answer,,active
-1,,other,cumulus__none,Asked but no answer,false,
-1,,other,cumulus__none,Asked but no answer,false,active
+1,,other,cumulus__none,Asked but unknown,,
+1,,other,cumulus__none,Asked but unknown,,active
+1,,other,cumulus__none,Asked but unknown,false,
+1,,other,cumulus__none,Asked but unknown,false,active
 1,,other,Non Hispanic or Latino,,,
 1,,other,Non Hispanic or Latino,,,active
 1,,other,Non Hispanic or Latino,,false,
@@ -347,34 +347,34 @@ cnt,birth_year,administrative_gender,ethnicity,race,deceased,status
 1,2001,,,Unknown,,active
 1,2001,,,Unknown,false,
 1,2001,,,Unknown,false,active
-1,2001,,,Asked but no answer,,
-1,2001,,,Asked but no answer,,active
-1,2001,,,Asked but no answer,false,
-1,2001,,,Asked but no answer,false,active
+1,2001,,,Asked but unknown,,
+1,2001,,,Asked but unknown,,active
+1,2001,,,Asked but unknown,false,
+1,2001,,,Asked but unknown,false,active
 1,2001,,cumulus__none,Unknown,,
 1,2001,,cumulus__none,Unknown,,active
 1,2001,,cumulus__none,Unknown,false,
 1,2001,,cumulus__none,Unknown,false,active
-1,2001,,cumulus__none,Asked but no answer,,
-1,2001,,cumulus__none,Asked but no answer,,active
-1,2001,,cumulus__none,Asked but no answer,false,
-1,2001,,cumulus__none,Asked but no answer,false,active
+1,2001,,cumulus__none,Asked but unknown,,
+1,2001,,cumulus__none,Asked but unknown,,active
+1,2001,,cumulus__none,Asked but unknown,false,
+1,2001,,cumulus__none,Asked but unknown,false,active
 1,2001,other,,Unknown,,
 1,2001,other,,Unknown,,active
 1,2001,other,,Unknown,false,
 1,2001,other,,Unknown,false,active
-1,2001,other,,Asked but no answer,,
-1,2001,other,,Asked but no answer,,active
-1,2001,other,,Asked but no answer,false,
-1,2001,other,,Asked but no answer,false,active
+1,2001,other,,Asked but unknown,,
+1,2001,other,,Asked but unknown,,active
+1,2001,other,,Asked but unknown,false,
+1,2001,other,,Asked but unknown,false,active
 1,2001,other,cumulus__none,Unknown,,
 1,2001,other,cumulus__none,Unknown,,active
 1,2001,other,cumulus__none,Unknown,false,
 1,2001,other,cumulus__none,Unknown,false,active
-1,2001,other,cumulus__none,Asked but no answer,,
-1,2001,other,cumulus__none,Asked but no answer,,active
-1,2001,other,cumulus__none,Asked but no answer,false,
-1,2001,other,cumulus__none,Asked but no answer,false,active
+1,2001,other,cumulus__none,Asked but unknown,,
+1,2001,other,cumulus__none,Asked but unknown,,active
+1,2001,other,cumulus__none,Asked but unknown,false,
+1,2001,other,cumulus__none,Asked but unknown,false,active
 1,2000,,,,,
 1,2000,,,,,active
 1,2000,,,,false,

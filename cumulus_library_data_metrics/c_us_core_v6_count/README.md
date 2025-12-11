@@ -30,6 +30,13 @@ But if it did not see those fields present,
 that does not necessarily indicate a failure on the part of the server software's compliance.
 The data may not be present in the first place.
 
+Where a field is both Mandatory and Must Support, we don't include it in the Must Support table.
+Except in cases where the Must Support requirement is more specific than the Mandatory requirement.
+For example, in DiagnosticReport Labs, the `effective[X]` choice field has some constraints that
+the Mandatory table will validate. But on the Must Support side, only `effectiveDateTime` must be
+supported, so the Must Support table includes its own `valid_effective_date_time` check that just
+looks at that one variant of the field.
+
 ### A note on profile mandatory checks
 
 All the same profile-specific cautions in the `q_valid_us_core_v6` metric

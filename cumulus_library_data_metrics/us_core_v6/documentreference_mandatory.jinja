@@ -31,9 +31,14 @@ tmp_grouped AS (
             )
         ) AS valid_type,
 
+        -- This is no longer marked as minimum cardinality 1 (it was in v4).
+        -- But... the narrative text still describes it as required.
+        -- The minimum cardinality seems to have accidentally been changed due to:
+        -- https://github.com/HL7/US-Core/commit/ac479b2d8f95256cf21fe6673b02076a6a989cc6
+        -- https://jira.hl7.org/browse/FHIR-32848
         BOOL_AND(
             att.content_type IS NOT NULL
-        ) AS valid_content_type,
+        ) AS valid_content_attachment_content_type,
 
         BOOL_AND(
             att.has_data OR att.has_url
@@ -56,7 +61,7 @@ tmp_simplified AS (
         valid_type,
         category IS NOT NULL AS valid_category,
         {{ utils.is_reference_of_type('subject', 'Patient') }} AS valid_subject,
-        valid_content_type,
+        valid_content_attachment_content_type,
         valid_us_core_6
     FROM tmp_grouped
 )
@@ -67,7 +72,7 @@ set ns.fields = [
     'valid_type',
     'valid_category',
     'valid_subject',
-    'valid_content_type',
+    'valid_content_attachment_content_type',
     'valid_us_core_6',
 ]
 %}

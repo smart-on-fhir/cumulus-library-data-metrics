@@ -37,20 +37,6 @@ tmp_grouped_categories AS (
 ),
 {% endif %}
 
-tmp_obs3 AS (
-    SELECT
-        src.id,
-
-        -- obs-3: referenceRange must have at least a low or a high or text
-        BOOL_AND(
-            {{ obs_utils.is_obs_3_valid('r', schema) }}
-        ) AS valid_obs_3
-
-    FROM tmp_slice AS src,
-        UNNEST(referenceRange) AS r (referenceRange)
-    GROUP BY src.id
-),
-
 tmp_vs3 AS (
     SELECT
         src.id,
@@ -102,13 +88,8 @@ tmp_simplified AS (
             OR {{ obs_utils.is_value_valid('value', schema) }}
         ) AS valid_vs_2,
         -- vs-3: each component must have value or a dataAbsentReason
-        (tmp_vs3.valid_vs_3 IS NULL OR tmp_vs3.valid_vs_3) AS valid_vs_3,
-        -- obs-3: referenceRange must have at least a low or a high or text
-        -- (This is a basic FHIR constraint, but the profile re-iterates it, so let's check it)
-        (tmp_obs3.valid_obs_3 IS NULL OR tmp_obs3.valid_obs_3) AS valid_obs_3
+        (tmp_vs3.valid_vs_3 IS NULL OR tmp_vs3.valid_vs_3) AS valid_vs_3
     FROM tmp_slice AS src
-    LEFT JOIN tmp_obs3
-    ON tmp_obs3.id = src.id
     LEFT JOIN tmp_vs3
     ON tmp_vs3.id = src.id
     {% if check_category %}
@@ -125,7 +106,6 @@ set ns.fields = [
     'valid_vs_1',
     'valid_vs_2',
     'valid_vs_3',
-    'valid_obs_3',
 ]
 %}
 {% if check_category %}

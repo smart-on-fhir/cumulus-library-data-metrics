@@ -7,10 +7,21 @@
 WITH
 tmp_slice AS {% include 'us_core_v6/slice.jinja' %},
 
+tmp_performers AS (
+    SELECT
+        id,
+        BOOL_OR(
+            {{ utils.is_reference_of_type('u.performer', 'Practitioner') }}
+        ) AS valid_performer
+    FROM tmp_slice,
+        UNNEST(performer) AS u (performer)
+    GROUP BY id
+),
+
 tmp_results AS (
     SELECT
         id,
-        BOOL_AND(
+        BOOL_OR(
             {{ utils.is_reference_of_type('u.result', 'Observation') }}
         ) AS valid_result
     FROM tmp_slice,
@@ -22,17 +33,23 @@ tmp_simplified AS (
     SELECT
         tmp_slice.id,
         {{ utils.extract_status(src) }} AS status,
-        performer IS NOT NULL AS valid_performer,
+        effectiveDateTime IS NOT NULL AS valid_effective_date_time,
+        (
+            tmp_performers.valid_performer IS NOT NULL
+            AND tmp_performers.valid_performer
+        ) AS valid_performer,
         (
             tmp_results.valid_result IS NOT NULL
             AND tmp_results.valid_result
         ) AS valid_result
     FROM tmp_slice
+    LEFT JOIN tmp_performers ON tmp_performers.id = tmp_slice.id
     LEFT JOIN tmp_results ON tmp_results.id = tmp_slice.id
 )
 
 {%
 set ns.fields = [
+    'valid_effective_date_time',
     'valid_performer',
     'valid_result',
 ]

@@ -102,6 +102,7 @@ class MetricsTestCase(unittest.TestCase):
         "allergy-low-schema",
         "docref-low-schema",
         "encounter-low-schema",
+        "medreq-low-schema",
         "obs-low-schema",
         "patient-low-schema",
     )
@@ -202,7 +203,7 @@ class MetricsTestCase(unittest.TestCase):
                 f.write(
                     f"""
 study_prefix = "data_metrics"
-[table_builder_config]
+[file_config]
 file_names = [
     "{metric}/{metric}.py",
 ]

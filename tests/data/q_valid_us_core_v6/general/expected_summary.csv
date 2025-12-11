@@ -20,7 +20,8 @@ DocumentReference,cumulus__all,0,0,0.00
 DiagnosticReport,cumulus__all,0,0,0.00
 DiagnosticReport,Note,0,0,0.00
 DiagnosticReport,Lab,0,0,0.00
-Condition,,0,0,0.00
 Condition,cumulus__all,0,0,0.00
+Condition,Prob,0,0,0.00
+Condition,Enc,0,0,0.00
 AllergyIntolerance,,0,0,0.00
 AllergyIntolerance,cumulus__all,0,0,0.00
