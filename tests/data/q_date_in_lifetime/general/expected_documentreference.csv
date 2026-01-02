@@ -1,0 +1,4 @@
+patient_ref,id,invalid_fields
+Patient/dead,date_invalid,[date]
+Patient/dead,context_period_start_invalid,[context.period.start]
+Patient/dead,context_period_end_invalid,[context.period.end]

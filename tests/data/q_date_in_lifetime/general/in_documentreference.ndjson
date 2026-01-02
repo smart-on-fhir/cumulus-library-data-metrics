@@ -1,0 +1,6 @@
+{"resourceType": "DocumentReference", "id": "context_period_start_valid", "context": {"period": {"start": "2000-01-01"}}, "subject": {"reference": "Patient/alive"}}
+{"resourceType": "DocumentReference", "id": "context_period_start_invalid", "context": {"period": {"start": "9999-01-01"}}, "subject": {"reference": "Patient/dead"}}
+{"resourceType": "DocumentReference", "id": "context_period_end_valid", "context": {"period": {"start": "2000-01-01", "end": "2000-01-02"}}, "subject": {"reference": "Patient/alive"}}
+{"resourceType": "DocumentReference", "id": "context_period_end_invalid", "context": {"period": {"start": "2000-01-01", "end": "9999-01-01"}}, "subject": {"reference": "Patient/dead"}}
+{"resourceType": "DocumentReference", "id": "date_valid", "date": "2000-01-01", ",subject": {"reference": "Patient/alive"}}
+{"resourceType": "DocumentReference", "id": "date_invalid", "date": "9999-01-01", "subject": {"reference": "Patient/dead"}}

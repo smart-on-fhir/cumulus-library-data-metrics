@@ -1,0 +1,5 @@
+patient_ref,id,invalid_fields
+Patient/dead,effectivePeriod-end-invalid,[effectivePeriod.end]
+Patient/alive,issued-invalid,[issued]
+Patient/alive,effectivePeriod-start-invalid,[effectivePeriod.start]
+Patient/alive,effectiveDateTime-invalid,[effectiveDateTime]

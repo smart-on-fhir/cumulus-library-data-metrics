@@ -1,0 +1,8 @@
+{"resourceType": "DiagnosticReport", "id": "effectiveDateTime-valid", "effectiveDateTime": "2000-01-01", "subject": {"reference": "Patient/alive"}}
+{"resourceType": "DiagnosticReport", "id": "effectiveDateTime-invalid", "effectiveDateTime": "1800-01-01", "subject": {"reference": "Patient/alive"}}
+{"resourceType": "DiagnosticReport", "id": "effectivePeriod-start-valid", "effectivePeriod": {"start": "2000-01-01", "end": "2000-01-01"}, "subject": {"reference": "Patient/alive"}}
+{"resourceType": "DiagnosticReport", "id": "effectivePeriod-start-invalid", "effectivePeriod": {"start": "1800-01-01", "end": "2000-01-01"}, "subject": {"reference": "Patient/alive"}}
+{"resourceType": "DiagnosticReport", "id": "effectivePeriod-end-valid", "effectivePeriod": {"start": "2000-01-01", "end": "2000-01-01"}, "subject": {"reference": "Patient/alive"}}
+{"resourceType": "DiagnosticReport", "id": "effectivePeriod-end-invalid", "effectivePeriod": {"start": "2000-01-01", "end": "9999-01-01"}, "subject": {"reference": "Patient/dead"}}
+{"resourceType": "DiagnosticReport", "id": "issued-valid", "issued": "2000-01-01", "subject": {"reference": "Patient/alive"}}
+{"resourceType": "DiagnosticReport", "id": "issued-invalid", "issued": "1800-01-01", "subject": {"reference": "Patient/alive"}}

@@ -1,0 +1,28 @@
+{"resourceType": "Condition", "recordedDate": "2000-01-01", "id": "valid-recorded", "subject": {"reference": "Patient/dead"}}
+{"resourceType": "Condition", "recordedDate": "2000-01-01", "id": "valid-recorded-after-birth-alive", "subject": {"reference": "Patient/alive"}}
+{"resourceType": "Condition", "recordedDate": "1980-01-01", "id": "invalid-recorded-before-birth", "subject": {"reference": "Patient/dead"}}
+{"resourceType": "Condition", "recordedDate": "2025-01-01", "id": "invalid-recorded-after-death", "subject": {"reference": "Patient/dead"}}
+{"resourceType": "Condition", "onsetDateTime": "2000-01-01", "id": "valid-onset", "subject": {"reference": "Patient/dead"}}
+{"resourceType": "Condition", "onsetDateTime": "2000-01-01", "id": "valid-onset-after-birth-alive", "subject": {"reference": "Patient/alive"}}
+{"resourceType": "Condition", "onsetDateTime": "1980-01-01", "id": "invalid-onset-before-birth", "subject": {"reference": "Patient/dead"}}
+{"resourceType": "Condition", "onsetDateTime": "2025-01-01", "id": "invalid-onset-after-death", "subject": {"reference": "Patient/dead"}}
+{"resourceType": "Condition", "abatementDateTime": "2000-01-01", "id": "valid-abatement", "subject": {"reference": "Patient/dead"}}
+{"resourceType": "Condition", "abatementDateTime": "2000-01-01", "id": "valid-abatement-after-birth-alive", "subject": {"reference": "Patient/alive"}}
+{"resourceType": "Condition", "abatementDateTime": "1980-01-01", "id": "invalid-abatement-before-birth", "subject": {"reference": "Patient/dead"}}
+{"resourceType": "Condition", "abatementDateTime": "2025-01-01", "id": "invalid-abatement-after-death", "subject": {"reference": "Patient/dead"}}
+{"resourceType": "Condition", "abatementPeriod": {"start": "2000-01-01"}, "id": "valid-abatement-start", "subject": {"reference": "Patient/dead"}}
+{"resourceType": "Condition", "abatementPeriod": {"start": "2000-01-01"}, "id": "valid-abatement-start-after-birth-alive", "subject": {"reference": "Patient/alive"}}
+{"resourceType": "Condition", "abatementPeriod": {"start": "1980-01-01"}, "id": "invalid-abatement-start-before-birth", "subject": {"reference": "Patient/dead"}}
+{"resourceType": "Condition", "abatementPeriod": {"start": "2025-01-01"}, "id": "invalid-abatement-start-after-death", "subject": {"reference": "Patient/dead"}}
+{"resourceType": "Condition", "abatementPeriod": {"start": "2000-01-01", "end": "2000-01-01"}, "id": "valid-abatement-end", "subject": {"reference": "Patient/dead"}}
+{"resourceType": "Condition", "abatementPeriod": {"start": "2000-01-01", "end": "2000-01-01"}, "id": "valid-abatement-end-after-birth-alive", "subject": {"reference": "Patient/alive"}}
+{"resourceType": "Condition", "abatementPeriod": {"start": "2000-01-01", "end": "1980-01-01"}, "id": "invalid-abatement-end-before-birth", "subject": {"reference": "Patient/dead"}}
+{"resourceType": "Condition", "abatementPeriod": {"start": "2000-01-01", "end": "2025-01-01"}, "id": "invalid-abatement-end-after-death", "subject": {"reference": "Patient/dead"}}
+{"resourceType": "Condition", "onsetPeriod": {"start": "2000-01-01"}, "id": "valid-onset-start", "subject": {"reference": "Patient/dead"}}
+{"resourceType": "Condition", "onsetPeriod": {"start": "2000-01-01"}, "id": "valid-onset-start-after-birth-alive", "subject": {"reference": "Patient/alive"}}
+{"resourceType": "Condition", "onsetPeriod": {"start": "1980-01-01"}, "id": "invalid-onset-start-before-birth", "subject": {"reference": "Patient/dead"}}
+{"resourceType": "Condition", "onsetPeriod": {"start": "2025-01-01"}, "id": "invalid-onset-start-after-death", "subject": {"reference": "Patient/dead"}}
+{"resourceType": "Condition", "onsetPeriod": {"start": "2000-01-01", "end": "2000-01-01"}, "id": "valid-onset-end", "subject": {"reference": "Patient/dead"}}
+{"resourceType": "Condition", "onsetPeriod": {"start": "2000-01-01", "end": "2000-01-01"}, "id": "valid-onset-end-after-birth-alive", "subject": {"reference": "Patient/alive"}}
+{"resourceType": "Condition", "onsetPeriod": {"start": "2000-01-01", "end": "1980-01-01"}, "id": "invalid-onset-end-before-birth", "subject": {"reference": "Patient/dead"}}
+{"resourceType": "Condition", "onsetPeriod": {"start": "2000-01-01", "end": "2025-01-01"}, "id": "invalid-onset-end-after-death", "subject": {"reference": "Patient/dead"}}

@@ -1,0 +1,11 @@
+patient_ref,id,invalid_fields
+Patient/dead,issued_after_death_invalid,[issued]
+Patient/dead,effective_start_after_death_invalid,[effectivePeriod.start]
+Patient/dead,effective_instant_after_death_invalid,[effectiveInstant]
+Patient/dead,effective_end_after_death_invalid,[effectivePeriod.end]
+Patient/dead,effective_after_death_invalid,[effectiveDateTime]
+Patient/alive,issued_before_invalid,[issued]
+Patient/alive,effective_start_before_invalid,[effectivePeriod.start]
+Patient/alive,effective_instant_before_invalid,[effectiveInstant]
+Patient/alive,effective_end_before_invalid,[effectivePeriod.end]
+Patient/alive,effective_before_invalid,[effectiveDateTime]

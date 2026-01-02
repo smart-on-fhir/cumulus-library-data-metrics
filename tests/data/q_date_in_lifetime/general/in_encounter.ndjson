@@ -1,0 +1,5 @@
+{"resourceType": "Encounter", "id": "period_start_valid", "period": {"start": "2020-01-01", "end": "2020-01-02"}, "subject": {"reference": "Patient/alive"}}
+{"resourceType": "Encounter", "id": "period_start_before_invalid", "period": {"start": "1700-01-01", "end": "2020-01-02"}, "subject": {"reference": "Patient/dead"}}
+{"resourceType": "Encounter", "id": "period_start_after_invalid", "period": {"start": "2020-01-01", "end": "9999-01-02"}, "subject": {"reference": "Patient/dead"}}
+{"resourceType": "Encounter", "id": "period_end_valid", "period": {"start": "2020-01-01", "end": "2020-01-02"}, "subject": {"reference": "Patient/alive"}}
+{"resourceType": "Encounter", "id": "period_end_after_invalid", "period": {"start": "2020-01-01", "end": "9999-01-02"}, "subject": {"reference": "Patient/dead"}}

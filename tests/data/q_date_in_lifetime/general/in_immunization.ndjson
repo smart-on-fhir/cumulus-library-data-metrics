@@ -1,0 +1,6 @@
+{"resourceType": "Immunization", "id": "occurrence_valid", "occurrenceDateTime": "2000-01-01", "patient": {"reference": "Patient/alive"}}
+{"resourceType": "Immunization", "id": "occurrence_before_invalid", "occurrenceDateTime": "1700-01-01", "patient": {"reference": "Patient/alive"}}
+{"resourceType": "Immunization", "id": "occurrence_after_invalid", "occurrenceDateTime": "9999-01-01", "patient": {"reference": "Patient/dead"}}
+{"resourceType": "Immunization", "id": "recorded_valid", "recorded": "2000-01-01", "patient": {"reference": "Patient/alive"}}
+{"resourceType": "Immunization", "id": "recorded_before_invalid", "recorded": "1700-01-01", "patient": {"reference": "Patient/alive"}}
+{"resourceType": "Immunization", "id": "recorded_after_invalid", "recorded": "9999-01-01", "patient": {"reference": "Patient/dead"}}

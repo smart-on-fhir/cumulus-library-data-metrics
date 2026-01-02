@@ -1,0 +1,3 @@
+{"resourceType": "MedicationRequest", "id": "valid", "authoredOn": "2000-01-01", "subject": {"reference":  "Patient/alive"}}
+{"resourceType": "MedicationRequest", "id": "before_invalid", "authoredOn": "1300-01-01", "subject": {"reference":  "Patient/alive"}}
+{"resourceType": "MedicationRequest", "id": "after_death_invalid", "authoredOn": "2022-01-01", "subject": {"reference": "Patient/dead"}}

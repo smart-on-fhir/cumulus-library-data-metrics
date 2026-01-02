@@ -1,0 +1,5 @@
+patient_ref,id,invalid_fields
+Patient/dead,performed-start-after-death-invalid,"[performedPeriod.start, performedPeriod.end]"
+Patient/dead,performed-after-death-invalid,[performedDateTime]
+Patient/alive,performed-start-before-invalid,"[performedPeriod.start, performedPeriod.end]"
+Patient/alive,performed-before-invalid,[performedDateTime]

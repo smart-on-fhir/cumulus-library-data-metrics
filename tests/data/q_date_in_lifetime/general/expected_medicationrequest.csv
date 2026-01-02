@@ -1,0 +1,3 @@
+patient_ref,id,invalid_fields
+Patient/dead,after_death_invalid,[authoredOn]
+Patient/alive,before_invalid,[authoredOn]
