@@ -1,0 +1,8 @@
+id,valid_status,valid_code,valid_subject,valid_effective,valid_issued,valid,status
+lab-valid,true,true,true,true,true,true,partial
+lab-status-bad,false,false,false,true,true,false,hello
+lab-nothing,false,false,false,true,true,false,
+lab-multiple-categories,false,false,false,true,true,false,
+lab-incomplete-status-with-no-dates,true,false,false,true,true,false,cancelled
+lab-effective-period,true,false,false,true,false,false,final
+lab-complete-status-with-no-dates,true,false,false,false,false,false,preliminary

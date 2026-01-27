@@ -1,0 +1,2 @@
+id,valid_participant_type,valid_participant_period,valid_participant_individual,valid_period,valid_reason,valid_discharge_disposition,valid_location,valid,status
+nothing,false,false,false,false,false,false,false,false,

@@ -1,0 +1,16 @@
+id,valid_status,valid_code,valid_subject,valid_performed,valid,status
+valid-with-string,true,true,true,true,true,completed
+valid-with-range,true,true,true,true,true,completed
+valid-with-period,true,true,true,true,true,completed
+valid-with-datetime,true,true,true,true,true,completed
+valid-with-age,true,true,true,true,true,completed
+status-wrong-type-without-performed,true,false,false,true,false,unknown
+status-wrong-type-with-performed,true,false,false,true,false,unknown
+status-without-performed,true,false,false,false,false,completed
+status-with-performed,true,false,false,true,false,completed
+nothing,false,false,false,true,false,
+no-subject,true,true,false,true,false,completed
+no-status,false,true,true,true,false,
+no-performed-time,true,true,true,false,false,completed
+no-code,true,false,true,true,false,completed
+group-subject,true,true,false,true,false,completed

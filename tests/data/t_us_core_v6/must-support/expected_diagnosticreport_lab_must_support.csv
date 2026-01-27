@@ -1,0 +1,7 @@
+id,valid_effective_date_time,valid_performer,valid_result,valid,status
+lab-valid,true,true,true,true,
+lab-performer-bad,false,false,false,false,
+lab-nothing,false,false,false,false,
+lab-multiple-result,false,false,true,false,
+lab-multiple-categories,false,false,false,false,
+lab-effective-period,false,false,false,false,

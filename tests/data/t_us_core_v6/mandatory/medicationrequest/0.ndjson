@@ -1,0 +1,11 @@
+{"resourceType": "MedicationRequest", "id": "valid-concept", "status": "active", "intent": "plan", "medicationCodeableConcept": {"text": "X"}, "subject": {"reference": "Patient/A"}, "requester": {"reference": "RelatedPerson/X"}}
+{"resourceType": "MedicationRequest", "id": "valid-external-reference", "status": "active", "intent": "plan", "medicationReference": {"reference": "Medication/A"}, "subject": {"reference": "Patient/A"}, "requester": {"reference": "Patient/X"}}
+{"resourceType": "MedicationRequest", "id": "valid-contained-reference", "status": "active", "intent": "plan", "medicationReference": {"reference": "#A"}, "subject": {"reference": "Patient/A"}, "requester": {"reference": "Device/X"}}
+{"resourceType": "MedicationRequest", "id": "medication-invalid-ref", "medicationReference": {"reference": "Condition/A"}}
+{"resourceType": "MedicationRequest", "id": "group-subject", "subject": {"reference": "Group/A"}, "requester": {"reference": "Organization/X"}}
+{"resourceType": "MedicationRequest", "id": "requester-invalid", "intent": "order", "requester": {"reference": "Condition/A"}}
+{"resourceType": "MedicationRequest", "id": "requester-display", "intent": "filler-order", "requester": {"display": "X"}}
+{"resourceType": "MedicationRequest", "id": "dose-quantity-invalid", "dosageInstruction": [{"doseAndRate": [{"doseQuantity": {"system": "nope"}}, {"doseQuantity": {"system": "http://unitsofmeasure.org"}}]}]}
+{"resourceType": "MedicationRequest", "id": "dose-range-invalid", "dosageInstruction": [{"doseAndRate": [{"doseRange": {"low": {"system": "nope"}}}, {"doseRange": {"low": {"system": "http://unitsofmeasure.org"}}}]}]}
+{"resourceType": "MedicationRequest", "id": "dose-valid", "dosageInstruction": [{"doseAndRate": [{"doseQuantity": {"system": "http://unitsofmeasure.org"}}, {"doseRange": {"low": {"system": "http://unitsofmeasure.org"}}}, {"doseRange": {"high": {"system": "http://unitsofmeasure.org"}}}]}]}
+{"resourceType": "MedicationRequest", "id": "nothing"}

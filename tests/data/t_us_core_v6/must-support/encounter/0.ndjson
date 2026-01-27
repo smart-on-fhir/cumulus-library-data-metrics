@@ -1,0 +1,9 @@
+{"resourceType": "Encounter", "id": "valid", "participant": [{"type": [{"text": "Nurse"}], "period": {"start": "2025"}, "individual": {"reference": "Practitioner/X"}}], "period": {"start": "2013"}, "reasonCode": [{"text": "X"}], "hospitalization": {"dischargeDisposition": {"text": "X"}}, "location": [{"location": {"reference": "Location/A"}}]}
+{"resourceType": "Encounter", "id": "hospitalization-no-disposition", "hospitalization": {"reAdmission": {"text": "X"}}}
+{"resourceType": "Encounter", "id": "location-multiple", "location": [{"location": {"reference": "Location/A"}}, {"status": "active"}]}
+{"resourceType": "Encounter", "id": "reason-ref-good", "reasonReference": [{"reference": "Condition/A"}]}
+{"resourceType": "Encounter", "id": "reason-ref-multiple", "reasonReference": [{"reference": "Condition/A"}, {"reference": "Patient/B"}]}
+{"resourceType": "Encounter", "id": "reason-ref-wrong-target", "reasonReference": [{"reference": "Patient/A"}]}
+{"resourceType": "Encounter", "id": "service-provider-good", "serviceProvider": {"reference": "Organization/A"}}
+{"resourceType": "Encounter", "id": "service-provider-wrong-target", "serviceProvider": {"reference": "Patient/A"}}
+{"resourceType": "Encounter", "id": "nothing"}

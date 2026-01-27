@@ -1,0 +1,8 @@
+{"resourceType": "Immunization", "id": "reason-with-null-status"}
+{"resourceType": "Immunization", "id": "reason-with-valid-status", "status": "completed"}
+{"resourceType": "Immunization", "id": "reason-given", "status": "not-done", "statusReason": {"text": "X"}}
+{"resourceType": "Immunization", "id": "reason-missing", "status": "not-done"}
+{"resourceType": "Immunization", "id": "occurrence-good", "occurrenceDateTime": "2022"}
+{"resourceType": "Immunization", "id": "occurrence-bad", "occurrenceString": "2022"}
+{"resourceType": "Immunization", "id": "primary-source", "primarySource": false}
+{"resourceType": "Immunization", "id": "nothing"}

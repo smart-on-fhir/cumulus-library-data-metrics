@@ -1,0 +1,28 @@
+-- http://hl7.org/fhir/us/core/STU6.1/StructureDefinition-us-core-immunization.html
+
+{% import 'us_core_v6/utils.jinja' as core_utils %}
+
+WITH
+tmp_simplified AS (
+    SELECT
+        id,
+        {{ utils.extract_status(src) }} AS status,
+        (
+            status IS NULL
+            OR status <> 'not-done'
+            OR {{ utils.is_concept_valid('statusReason') }}
+        ) AS valid_status_reason,
+        occurrenceDateTime IS NOT NULL AS valid_occurrence_date_time,
+        primarySource IS NOT NULL AS valid_primary_source
+    FROM {{ src }}
+)
+
+{%
+set ns.fields = [
+    'valid_status_reason',
+    'valid_occurrence_date_time',
+    'valid_primary_source',
+]
+%}
+
+{{ core_utils.select_all_fields(ns.fields) }}

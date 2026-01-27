@@ -1,0 +1,126 @@
+-- http://hl7.org/fhir/us/core/STU6.1/StructureDefinition-us-core-documentreference.html
+
+-- CUMULUS-QUIRK
+-- Doesn't look at support for `identifier`, because Cumulus strips that field.
+
+{% import 'us_core_v6/utils.jinja' as core_utils %}
+
+WITH
+
+tmp_categories AS {{ utils.extract_codes(
+    src,
+    'category',
+    system='http://hl7.org/fhir/us/core/CodeSystem/us-core-documentreference-category',
+    is_array=true,
+) }},
+
+{% if schema["content"]["format"]["code"] or schema["content"]["format"]["system"] %}
+tmp_content_flat AS (
+    SELECT
+        id,
+        u.content.format
+    FROM {{ src }},
+        UNNEST(content) AS u (content)
+),
+tmp_content_grouped AS (
+    SELECT
+        id,
+        BOOL_OR({{ utils.is_coding_valid('format') }}) AS valid_format
+    FROM tmp_content_flat
+    GROUP BY id
+),
+{% else %}
+tmp_content_grouped AS (
+    SELECT id, FALSE AS valid_format FROM {{ src }} WHERE 1=0  -- return an empty table
+),
+{% endif %}
+
+tmp_encounters AS (
+    SELECT
+        id,
+
+    {% if schema["context"]["encounter"] %}
+        BOOL_OR({{ utils.is_reference_of_type('u.encounter', 'Encounter') }}) as valid_encounter,
+        COUNT(u.encounter) AS encounter_count
+
+    FROM {{ src }},
+        UNNEST(context.encounter) AS u (encounter)
+    GROUP BY id
+
+    {% else %}
+        FALSE AS valid_encounter,
+        0 AS encounter_count
+    FROM {{ src }}
+    {% endif %}
+),
+
+tmp_authors AS (
+    SELECT
+        id,
+        BOOL_OR({{ utils.is_reference_of_type('u.author', 'Practitioner') }}) as valid_author
+    FROM {{ src }},
+        UNNEST(author) AS u (author)
+    GROUP BY id
+),
+
+tmp_simplified AS (
+    SELECT
+        src.id,
+        {{ utils.extract_status(src) }} AS status,
+        tmp_categories.codes IS NOT NULL AS valid_category,
+        "date" IS NOT NULL AS valid_date,
+        (tmp_authors.valid_author IS NOT NULL AND tmp_authors.valid_author) AS valid_author,
+        (
+            tmp_content_grouped.valid_format IS NOT NULL
+            AND tmp_content_grouped.valid_format
+        ) AS valid_content_format,
+
+        (
+            -- Base spec allows many encounters and they can be Encounters or Episodes Of Care.
+            -- But the US Core profile only allows exactly one Encounter.
+            tmp_encounters.encounter_count IS NOT NULL
+            AND tmp_encounters.encounter_count = 1
+            AND tmp_encounters.valid_encounter
+        ) AS valid_context_encounter,
+
+        (
+            {# This is basically is_period_valid() with schema-checking, since unlike most,
+               this one period is a deeply nested field that our schema does not guarantee #}
+            {% set period_schema = schema["context"]["period"] %}
+            {% if period_schema["start"] or period_schema["end"] %}
+            context.period IS NOT NULL
+            AND (
+                {% if period_schema["start"] %}
+                context.period.start IS NOT NULL
+                {% endif %}
+                {% if period_schema["start"] and period_schema["end"] %}
+                OR
+                {% endif %}
+                {% if period_schema["end"] %}
+                context.period."end" IS NOT NULL
+                {% endif %}
+            )
+            {% else %}
+            FALSE
+            {% endif %}
+        ) AS valid_context_period
+
+    FROM {{ src }} AS src
+    LEFT JOIN tmp_content_grouped ON tmp_content_grouped.id = src.id
+    LEFT JOIN tmp_encounters ON tmp_encounters.id = src.id
+    LEFT JOIN tmp_authors ON tmp_authors.id = src.id
+    LEFT JOIN tmp_categories ON tmp_categories.id = src.id
+)
+
+{%
+set ns.fields = [
+    'valid_category',
+    'valid_date',
+    'valid_author',
+    'valid_content_format',
+    'valid_context_encounter',
+    'valid_context_period',
+]
+%}
+
+{{ core_utils.select_all_fields(ns.fields) }}

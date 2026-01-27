@@ -1,0 +1,10 @@
+-- http://hl7.org/fhir/us/core/STU6.1/StructureDefinition-us-core-smokingstatus.html
+
+WITH
+tmp_slice AS {% include 'us_core_v6/slice.jinja' %}
+
+SELECT
+    id,
+    TRUE AS valid,
+    {{ utils.extract_status(src) }} AS status
+FROM tmp_slice

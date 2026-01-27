@@ -1,0 +1,6 @@
+id,valid_gender,valid,status
+with-inactive-status,false,false,inactive
+with-active-status,false,false,active
+valid,true,true,
+nothing,false,false,
+invalid-gender,false,false,

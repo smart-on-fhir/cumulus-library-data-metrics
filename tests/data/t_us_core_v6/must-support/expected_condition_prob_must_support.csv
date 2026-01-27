@@ -1,0 +1,5 @@
+id,valid_clinical_status,valid_verification_status,valid_assessment_category,valid_onset_date_time,valid_abatement_date_time,valid_recorded_date,valid_asserted_date,valid,status
+prob-verification-just-text,false,false,false,false,false,false,false,false,
+prob-valid,true,true,true,true,true,true,true,true,unconfirmed
+prob-status-just-text,false,false,false,false,false,false,false,false,
+prob-nothing,false,false,false,false,false,false,false,false,

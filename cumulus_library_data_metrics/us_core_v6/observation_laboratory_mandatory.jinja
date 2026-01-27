@@ -1,0 +1,51 @@
+-- http://hl7.org/fhir/us/core/STU6.1/StructureDefinition-us-core-observation-lab.html
+
+{% import 'us_core_v6/utils.jinja' as core_utils %}
+{% import 'us_core_v6/observation_utils.jinja' as obs_utils %}
+
+WITH
+tmp_slice AS {% include 'us_core_v6/slice.jinja' %},
+
+tmp_simplified AS (
+    SELECT
+        src.id,
+        {{ utils.extract_status(src) }} AS status,
+        {{ obs_utils.is_obs_status_valid() }} AS valid_status,
+        {{ utils.is_concept_valid('code') }} AS valid_code,
+        {{ utils.is_reference_of_type('subject', 'Patient') }} AS valid_subject,
+        -- us-core-1: DateTime must be at least to day (ed: no mention of effectivePeriod...)
+        (
+            effectiveDateTime IS NULL
+            OR LENGTH(effectiveDateTime) >= 10  -- YYYY-MM-DD
+        ) AS valid_us_core_1,
+        -- us-core-2: If there is no component or hasMember element then
+        -- either a value[x] or a data absent reason must be present
+        (
+            component IS NOT NULL
+            OR hasMember IS NOT NULL
+            OR {{ utils.is_concept_valid('dataAbsentReason') }}
+            OR {{ obs_utils.is_value_valid('value', schema) }}
+        ) AS valid_us_core_2,
+        -- us-core-3: SHALL use UCUM for coded quantity units
+        (
+            valueQuantity.code IS NULL
+            OR (
+              valueQuantity.system IS NOT NULL
+              AND valueQuantity.system = 'http://unitsofmeasure.org'
+            )
+        ) AS valid_us_core_3
+    FROM tmp_slice AS src
+)
+
+{%
+set ns.fields = [
+    'valid_status',
+    'valid_code',
+    'valid_subject',
+    'valid_us_core_1',
+    'valid_us_core_2',
+    'valid_us_core_3',
+]
+%}
+
+{{ core_utils.select_all_fields(ns.fields) }}

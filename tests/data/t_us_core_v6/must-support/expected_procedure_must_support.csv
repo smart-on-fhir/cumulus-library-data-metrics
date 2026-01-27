@@ -1,0 +1,6 @@
+id,valid_based_on,valid_performed_date_time,valid,status
+valid,true,true,true,
+performed-wrong-type,false,false,false,
+nothing,false,false,false,
+based-on-wrong-type,false,false,false,
+based-on-multiple,true,false,false,

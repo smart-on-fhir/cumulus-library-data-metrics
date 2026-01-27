@@ -1,0 +1,77 @@
+{% import 'us_core_v6/utils.jinja' as core_utils %}
+
+WITH
+tmp_slice AS {% include 'us_core_v6/slice.jinja' %},
+
+tmp_clinical_status AS {{
+    utils.extract_codes_flat(
+        'tmp_slice',
+        'clinicalStatus',
+        system='http://terminology.hl7.org/CodeSystem/condition-clinical',
+    )
+}},
+
+tmp_verification_status AS {{
+    utils.extract_codes_flat(
+        'tmp_slice',
+        'verificationStatus',
+        system='http://terminology.hl7.org/CodeSystem/condition-ver-status',
+    )
+}},
+
+tmp_grouped AS (
+    SELECT
+        src.id,
+        ARBITRARY(src.code) AS code,
+        ARBITRARY(src.subject) AS subject,
+        ARBITRARY(src.verificationStatus) AS verificationStatus,
+
+        ARBITRARY(NOT {{ utils.is_concept_valid('src.clinicalStatus') }})
+        OR BOOL_AND(
+            {{ utils.is_code_valid(
+                'tmp_clinical_status.code',
+                'active | recurrence | relapse | inactive | remission | resolved'
+            ) }}
+        ) AS valid_clinical_status,
+
+        ARBITRARY(NOT {{ utils.is_concept_valid('src.verificationStatus') }})
+        OR BOOL_AND(
+            {{ utils.is_code_valid(
+                'tmp_verification_status.code',
+                'unconfirmed | provisional | differential | confirmed | refuted | entered-in-error'
+            ) }}
+        ) AS valid_verification_status
+
+    FROM tmp_slice as src
+    LEFT JOIN tmp_clinical_status ON tmp_clinical_status.id = src.id
+    LEFT JOIN tmp_verification_status ON tmp_verification_status.id = src.id
+    GROUP BY src.id
+),
+
+tmp_simplified AS (
+    SELECT
+        id,
+        {{ utils.extract_status(src) }} AS status,
+        valid_clinical_status,
+        valid_verification_status,
+        {{ utils.is_concept_valid('code') }} AS valid_code,
+        {{ utils.is_reference_of_type('subject', 'Patient') }} AS valid_subject
+    FROM tmp_grouped
+)
+
+{% if skip_duplicated_mandatory_checks %}
+{% set ns.fields = [] %}
+{% else %}
+{% set ns.fields = [
+    'valid_clinical_status',
+    'valid_verification_status',
+] %}
+{% endif %}
+{%
+set ns.fields = ns.fields + [
+    'valid_code',
+    'valid_subject',
+]
+%}
+
+{{ core_utils.select_all_fields(ns.fields) }}

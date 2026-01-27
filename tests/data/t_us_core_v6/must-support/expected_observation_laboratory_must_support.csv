@@ -1,0 +1,12 @@
+id,valid_effective_date_time,valid_value_quantity,valid_value_codeable_concept,valid_value_string,valid_specimen,valid,status
+labs-value-string,false,false,false,true,false,false,
+labs-value-quantity,false,true,false,false,false,false,
+labs-value-int,false,false,false,false,false,false,
+labs-value-datetime,false,false,false,false,false,false,
+labs-value-concept,false,false,true,false,false,false,
+labs-timing,false,false,false,false,false,false,
+labs-specimen,false,false,false,false,true,false,
+labs-period,false,false,false,false,false,false,
+labs-nothing,false,false,false,false,false,false,
+labs-instant,false,false,false,false,false,false,
+labs-datetime,true,false,false,false,false,false,

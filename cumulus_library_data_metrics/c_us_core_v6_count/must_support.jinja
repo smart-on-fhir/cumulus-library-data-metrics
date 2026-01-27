@@ -1,0 +1,40 @@
+{% import 'utils.jinja' as utils %}
+
+{% set ns = namespace(fields=[]) %}
+
+CREATE TABLE {{ study_prefix }}__count_c_us_core_v6_count_{{ profile_name }}_must_support{{ table_num|default('') }} AS (
+WITH
+src_must_support AS ({% include 'us_core_v6/' + profile_name + '_must_support.jinja' %}),
+{% if table_max %}
+    {% set field_slices = ns.fields|slice(table_max)|list %}
+    {% set ns.fields = field_slices[table_num - 1] %}
+{% endif %}
+
+simplified AS (
+    SELECT
+        src.id,
+        {{ utils.coalesce_missing('src_must_support.status') }} AS status
+
+        {% if dates %}
+        , {{ utils.get_date_string(dates, 'year') }} AS "year"
+        {% endif %}
+
+        {% if ns.fields %}
+        , src_must_support.{{ ns.fields|join(", src_must_support.") }}
+        {% endif %}
+
+    FROM {{ src }} AS src
+    INNER JOIN src_must_support
+    ON src_must_support.id = src.id
+)
+
+{% call utils.make_counts('simplified', output_mode) %}
+    {% if dates %}
+    "year",
+    {% endif %}
+    status
+    {% if ns.fields %}
+    , {{ ns.fields|join(", ") }}
+    {% endif %}
+{% endcall %}
+);

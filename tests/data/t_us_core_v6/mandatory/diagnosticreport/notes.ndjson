@@ -1,0 +1,13 @@
+{"resourceType": "DiagnosticReport", "id": "valid-datetime", "status": "final", "category": [], "code": {"text": "X"}, "subject": {"reference": "Patient/A"}, "effectiveDateTime": "2000"}
+{"resourceType": "DiagnosticReport", "id": "valid-period-start", "status": "final", "category": [], "code": {"text": "X"}, "subject": {"reference": "Patient/A"}, "effectivePeriod": {"start": "2000"}}
+{"resourceType": "DiagnosticReport", "id": "valid-period-end", "status": "final", "category": [], "code": {"text": "X"}, "subject": {"reference": "Patient/A"}, "effectivePeriod": {"end": "2000"}}
+{"resourceType": "DiagnosticReport", "id": "no-status", "category": [], "code": {"text": "X"}, "subject": {"reference": "Patient/A"}, "effectiveDateTime": "2000"}
+{"resourceType": "DiagnosticReport", "id": "incomplete-status-with-no-date", "status": "cancelled", "category": []}
+{"resourceType": "DiagnosticReport", "id": "no-category", "status": "final", "code": {"text": "X"}, "subject": {"reference": "Patient/A"}, "effectiveDateTime": "2000"}
+{"resourceType": "DiagnosticReport", "id": "no-code", "status": "final", "category": [], "subject": {"reference": "Patient/A"}, "effectiveDateTime": "2000"}
+{"resourceType": "DiagnosticReport", "id": "empty-code", "status": "final", "category": [], "code": {}, "subject": {"reference": "Patient/A"}, "effectiveDateTime": "2000"}
+{"resourceType": "DiagnosticReport", "id": "no-subject", "status": "final", "category": [], "code": {"text": "X"}, "effectiveDateTime": "2000"}
+{"resourceType": "DiagnosticReport", "id": "group-subject", "status": "final", "category": [], "code": {"text": "X"}, "subject": {"reference": "Group/A"}, "effectiveDateTime": "2000"}
+{"resourceType": "DiagnosticReport", "id": "no-datetime", "status": "final", "category": [], "code": {"text": "X"}, "subject": {"reference": "Patient/A"}}
+{"resourceType": "DiagnosticReport", "id": "empty-period", "status": "final", "category": [], "code": {"text": "X"}, "subject": {"reference": "Patient/A"}, "effectivePeriod": {}}
+{"resourceType": "DiagnosticReport", "id": "nothing"}

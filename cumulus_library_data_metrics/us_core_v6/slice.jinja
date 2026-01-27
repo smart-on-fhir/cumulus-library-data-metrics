@@ -1,0 +1,24 @@
+{% if src == "Condition" %}
+    {% import 'us_core_v6/condition_utils.jinja' as con_utils %}
+    {% if name == "Enc" %}
+        {{ con_utils.extract_encounter_diagnosis_slice(src) }}
+    {% else %}
+        {{ con_utils.extract_problem_or_health_concern_slice(src) }}
+    {% endif %}
+{% elif src == "DiagnosticReport" %}
+    {% import 'us_core_v6/diagnosticreport_utils.jinja' as dr_utils %}
+    {% if name == "Lab" %}
+        {{ dr_utils.extract_lab_slice(src) }}
+    {% else %}
+        {{ dr_utils.extract_non_lab_slice(src) }}
+    {% endif %}
+{% elif src == "Observation" %}
+    {% import 'us_core_v6/observation_utils.jinja' as obs_utils %}
+    {% if loinc %}
+        {{ obs_utils.extract_loinc_slice(src, loinc) }}
+    {% elif category %}
+        {{ obs_utils.extract_category_slice(src, category) }}
+    {% elif ignore_categories %}
+        {{ obs_utils.extract_other_categories_slice(src, ignore_categories) }}
+    {% endif %}
+{% endif %}

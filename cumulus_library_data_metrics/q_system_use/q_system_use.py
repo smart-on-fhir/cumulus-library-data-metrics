@@ -70,7 +70,7 @@ class SystemUseBuilder(MetricMixin, cumulus_library.BaseTableBuilder):
             field="code",
             systems=[
                 # Base FHIR only gives SNOMED as an example,
-                # but the US Core v4 profile lists all these.
+                # but the US Core v6 profile lists all these.
                 systems.CPT,
                 systems.LOINC,
                 systems.SNOMED,

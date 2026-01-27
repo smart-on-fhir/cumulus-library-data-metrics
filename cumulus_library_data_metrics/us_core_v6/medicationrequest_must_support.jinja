@@ -1,0 +1,92 @@
+-- http://hl7.org/fhir/us/core/STU6.1/StructureDefinition-us-core-medicationrequest.html
+
+-- CUMULUS-QUIRK
+-- Doesn't look for "dosageInstruction.text", because Cumulus strips that field.
+
+{% import 'us_core_v6/utils.jinja' as core_utils %}
+
+WITH
+tmp_categories AS {{ utils.extract_codes(
+    src,
+    'category',
+    system='http://terminology.hl7.org/CodeSystem/medicationrequest-category',
+    is_array=true,
+) }},
+
+tmp_dosage AS (
+    SELECT
+        id,
+
+        {% if schema["dosageInstruction"]["timing"] %}
+        BOOL_OR(u.dosageInstruction.timing IS NOT NULL) AS valid_timing,
+        {% else %}
+        FALSE AS valid_timing,
+        {% endif %}
+
+        {% if schema["dosageInstruction"]["doseAndRate"]["doseQuantity"]["system"] %}
+        BOOL_OR(d.doseAndRate.doseQuantity IS NOT NULL) AS valid_quantity
+        {% else %}
+        FALSE AS valid_quantity
+        {% endif %}
+
+    FROM {{ src }},
+        UNNEST(dosageInstruction) AS u (dosageInstruction)
+        {% if schema["dosageInstruction"]["doseAndRate"]["doseQuantity"]["system"] %}
+        , UNNEST(u.dosageInstruction.doseAndRate) AS d (doseAndRate)
+        {% endif %}
+
+    GROUP BY id
+),
+
+tmp_simplified AS (
+    SELECT
+        src.id,
+        {{ utils.extract_status(src) }} AS status,
+        tmp_categories.codes IS NOT NULL AS valid_category,
+        (
+            reportedBoolean IS NOT NULL
+            OR {{ utils.is_reference_of_type('reportedReference', 'Practitioner')}}
+        ) AS valid_reported,
+        {{ utils.is_reference_of_type('encounter', 'Encounter') }} AS valid_encounter,
+        authoredOn IS NOT NULL AS valid_authored_on,
+        {{ utils.is_reference_of_type('requester', 'Practitioner') }} AS valid_requester,
+        reasonCode IS NOT NULL AS valid_reason_code,
+        reasonReference IS NOT NULL AS valid_reason_reference,
+
+        (
+            tmp_dosage.valid_timing IS NOT NULL AND tmp_dosage.valid_timing
+        ) AS valid_dosage_instruction_timing,
+
+        (
+            tmp_dosage.valid_quantity IS NOT NULL AND tmp_dosage.valid_quantity
+        ) AS valid_dosage_instruction_dose_and_rate_dose_quantity,
+
+        dispenseRequest.numberOfRepeatsAllowed IS NOT NULL AS valid_dispense_request_number_of_repeats_allowed,
+
+        {% if schema["dispenseRequest"]["quantity"] %}
+        dispenseRequest.quantity IS NOT NULL AS valid_dispense_request_quantity
+        {% else %}
+        FALSE AS valid_dispense_request_quantity
+        {% endif %}
+    FROM {{ src }} AS src
+    LEFT JOIN tmp_categories ON tmp_categories.id = src.id
+    LEFT JOIN tmp_dosage ON tmp_dosage.id = src.id
+)
+
+{%
+set ns.fields = [
+    'valid_category',
+    'valid_reported',
+    'valid_encounter',
+    'valid_authored_on',
+    'valid_requester',
+    'valid_reason_code',
+    'valid_reason_reference',
+    'valid_dosage_instruction_timing',
+    'valid_dosage_instruction_dose_and_rate_dose_quantity',
+    'valid_dispense_request_number_of_repeats_allowed',
+    'valid_dispense_request_quantity',
+]
+%}
+
+{{ core_utils.select_all_fields(ns.fields) }}

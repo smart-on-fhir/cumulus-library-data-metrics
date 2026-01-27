@@ -1,0 +1,97 @@
+-- http://hl7.org/fhir/us/core/STU6.1/StructureDefinition-us-core-diagnosticreport-note.html
+-- There is another lab-report-specific profile,
+-- but this is the "base DiagnosticReport" profile that covers the bare minimum.
+
+{% import 'us_core_v6/utils.jinja' as core_utils %}
+
+WITH
+tmp_slice AS {% include 'us_core_v6/slice.jinja' %},
+
+-- The spec is must-support for just the Radiology, Cardiology, or Pathology categories.
+tmp_categories AS {{ utils.extract_codes(
+    src,
+    'category',
+    system='http://loinc.org',
+    codes=['LP29684-5', 'LP29708-2', 'LP7839-6'],
+    is_array=true,
+) }},
+
+tmp_performers AS (
+    SELECT
+        id,
+        BOOL_OR(
+            {{ utils.is_reference_of_type('u.performer', ['Practitioner', 'Organization']) }}
+        ) AS valid_performer
+    FROM tmp_slice,
+        UNNEST(performer) AS u (performer)
+    GROUP BY id
+),
+
+tmp_results AS (
+    SELECT
+        id,
+        BOOL_OR(
+            {{ utils.is_reference_of_type('u.result', 'Observation') }}
+        ) AS valid_result
+    FROM tmp_slice,
+        UNNEST(result) AS u (result)
+    GROUP BY id
+),
+
+tmp_links AS (
+    SELECT
+        id,
+{% if schema["media"]["link"] %}
+        BOOL_OR(
+            {{ utils.is_reference_of_type('u.media.link', 'Media') }}
+        ) AS valid_link
+{% else %}
+        FALSE AS valid_link
+{% endif %}
+    FROM tmp_slice,
+        UNNEST(media) AS u (media)
+    GROUP BY id
+),
+
+tmp_simplified AS (
+    SELECT
+        tmp_slice.id,
+        {{ utils.extract_status(src) }} AS status,
+        tmp_categories.codes IS NOT NULL AS valid_category,
+        {{ utils.is_reference_of_type('encounter', 'Encounter') }} AS valid_encounter,
+        effectiveDateTime IS NOT NULL AS valid_effective_date_time,
+        issued IS NOT NULL AS valid_issued,
+        (
+            tmp_performers.valid_performer IS NOT NULL
+            AND tmp_performers.valid_performer
+        ) AS valid_performer,
+        (
+            tmp_results.valid_result IS NOT NULL
+            AND tmp_results.valid_result
+        ) AS valid_result,
+        (
+            tmp_links.valid_link IS NOT NULL
+            AND tmp_links.valid_link
+        ) AS valid_media_link,
+        presentedForm IS NOT NULL AS valid_presented_form
+    FROM tmp_slice
+    LEFT JOIN tmp_categories ON tmp_categories.id = tmp_slice.id
+    LEFT JOIN tmp_performers ON tmp_performers.id = tmp_slice.id
+    LEFT JOIN tmp_links ON tmp_links.id = tmp_slice.id
+    LEFT JOIN tmp_results ON tmp_results.id = tmp_slice.id
+)
+
+{%
+set ns.fields = [
+    'valid_category',
+    'valid_encounter',
+    'valid_effective_date_time',
+    'valid_issued',
+    'valid_performer',
+    'valid_result',
+    'valid_media_link',
+    'valid_presented_form',
+]
+%}
+
+{{ core_utils.select_all_fields(ns.fields) }}

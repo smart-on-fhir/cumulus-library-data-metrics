@@ -1,0 +1,7 @@
+-- http://hl7.org/fhir/us/core/STU6.1/StructureDefinition-us-core-medication.html
+
+SELECT
+    id,
+    TRUE AS valid,
+    {{ utils.extract_status(src) }} AS status
+FROM {{ src }}

@@ -1,0 +1,2 @@
+id,valid_birth_date,valid_address_state,valid_address_postal_code,valid_communication_language,valid_race,valid_ethnicity,valid_tribal_affiliation,valid_birth_sex,valid_sex,valid_gender_identity,valid,status
+nothing,false,false,false,false,false,false,false,false,false,false,false,

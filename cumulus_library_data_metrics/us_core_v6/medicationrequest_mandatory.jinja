@@ -1,0 +1,103 @@
+-- http://hl7.org/fhir/us/core/STU6.1/StructureDefinition-us-core-medicationrequest.html
+
+{% import 'us_core_v6/utils.jinja' as core_utils %}
+
+WITH
+tmp_dosage AS (
+    SELECT
+        id,
+
+        -- Confirm that all dose systems use UCUM (it has a "max" binding on UCUM)
+        TRUE
+        {% if schema["dosageInstruction"]["doseAndRate"]["doseQuantity"]["system"] %}
+        AND BOOL_AND(
+            d.doseAndRate.doseQuantity IS NULL
+            OR (
+                d.doseAndRate.doseQuantity.system IS NOT NULL
+                AND d.doseAndRate.doseQuantity.system = 'http://unitsofmeasure.org'
+            )
+        )
+        {% endif %}
+        {% if schema["dosageInstruction"]["doseAndRate"]["doseRange"]["low"]["system"] %}
+        AND BOOL_AND(
+            d.doseAndRate.doseRange IS NULL
+            OR d.doseAndRate.doseRange.low IS NULL
+            OR (
+                d.doseAndRate.doseRange.low.system IS NOT NULL
+                AND d.doseAndRate.doseRange.low.system = 'http://unitsofmeasure.org'
+            )
+        )
+        {% endif %}
+        {% if schema["dosageInstruction"]["doseAndRate"]["doseRange"]["high"]["system"] %}
+        AND BOOL_AND(
+            d.doseAndRate.doseRange IS NULL
+            OR d.doseAndRate.doseRange.high IS NULL
+            OR (
+                d.doseAndRate.doseRange.high.system IS NOT NULL
+                AND d.doseAndRate.doseRange.high.system = 'http://unitsofmeasure.org'
+            )
+        )
+        {% endif %}
+        AS valid_system
+
+    FROM {{ src }},
+        UNNEST(dosageInstruction) AS u (dosageInstruction)
+        {% if schema["dosageInstruction"]["doseAndRate"]["doseQuantity"]["system"]
+           or schema["dosageInstruction"]["doseAndRate"]["doseRange"]["low"]["system"]
+           or schema["dosageInstruction"]["doseAndRate"]["doseRange"]["high"]["system"] %}
+        , UNNEST(u.dosageInstruction.doseAndRate) AS d (doseAndRate)
+        {% endif %}
+
+    GROUP BY id
+),
+
+tmp_simplified AS (
+    SELECT
+        src.id,
+        {{ utils.extract_status(src) }} AS status,
+        {{ utils.is_code_valid(
+            'status',
+            'active | on-hold | cancelled | completed | entered-in-error | stopped | draft | unknown'
+        ) }} AS valid_status,
+        {{ utils.is_code_valid(
+            'intent',
+            'proposal | plan | order | original-order | reflex-order | filler-order | instance-order | option'
+        ) }} AS valid_intent,
+        (
+            {{ utils.is_concept_valid('medicationCodeableConcept') }}
+            OR {{ utils.is_reference_of_type('medicationReference', 'Medication', allow_contained=true) }}
+        ) AS valid_medication,
+        {{ utils.is_reference_of_type('subject', 'Patient') }} AS valid_subject,
+        (
+            intent IS NULL
+            OR intent NOT IN (
+                'order', 'original-order', 'reflex-order', 'filler-order', 'instance-order'
+            )
+            OR {{ utils.is_reference_of_type('requester', [
+                'Practitioner',
+                'Patient',
+                'Organization',
+                'PractitionerRole',
+                'RelatedPerson',
+                'Device',
+            ]) }}
+        ) AS valid_requester,
+        (
+            tmp_dosage.valid_system IS NULL OR tmp_dosage.valid_system
+        ) AS valid_dosage_instruction_dose_and_rate_dose
+    FROM {{ src }} AS src
+    LEFT JOIN tmp_dosage ON tmp_dosage.id = src.id
+)
+
+{%
+set ns.fields = [
+    'valid_status',
+    'valid_intent',
+    'valid_medication',
+    'valid_subject',
+    'valid_requester',
+    'valid_dosage_instruction_dose_and_rate_dose',
+]
+%}
+
+{{ core_utils.select_all_fields(ns.fields) }}

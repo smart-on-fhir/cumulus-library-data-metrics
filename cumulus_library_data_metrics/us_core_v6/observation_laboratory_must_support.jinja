@@ -1,0 +1,42 @@
+-- http://hl7.org/fhir/us/core/STU6.1/StructureDefinition-us-core-observation-lab.html
+
+{% import 'us_core_v6/utils.jinja' as core_utils %}
+
+WITH
+tmp_slice AS {% include 'us_core_v6/slice.jinja' %},
+
+tmp_simplified AS (
+    SELECT
+        id,
+        {{ utils.extract_status(src) }} AS status,
+        effectiveDateTime IS NOT NULL AS valid_effective_date_time, -- only one spec cares about
+        {{ utils.is_quantity_valid('valueQuantity') }} AS valid_value_quantity,
+        {{ utils.is_concept_valid('valueCodeableConcept') }} AS valid_value_codeable_concept,
+        {{ utils.is_string_valid('valueString') }} AS valid_value_string,
+        {{ utils.is_reference_of_type('specimen', 'Specimen') }} AS valid_specimen
+
+        -- the other "must support" requirements are:
+        -- * A result value or a reason why the data is absent.
+        -- * If the result value is a numeric quantity, a standard UCUM unit.
+        --
+        -- Both of which are already specified elsewhere in the profile as constraint requirements.
+        -- (us-core-2 and us-core-3). So... we'll just leave those in the mandatory checks.
+        -- 
+        -- * If the result value is a coded quantity, a standard SNOMED CT
+        --
+        -- Which is more of a SHOULD "best practice" constraint.
+
+    FROM tmp_slice
+)
+
+{%
+set ns.fields = [
+    'valid_effective_date_time',
+    'valid_value_quantity',
+    'valid_value_codeable_concept',
+    'valid_value_string',
+    'valid_specimen',
+]
+%}
+
+{{ core_utils.select_all_fields(ns.fields) }}

@@ -1,0 +1,8 @@
+{"resourceType": "DocumentReference", "id": "valid", "category": [{"coding": [{"system": "http://hl7.org/fhir/us/core/CodeSystem/us-core-documentreference-category", "code": "clinical-note"}]}], "date": "2012-10-12", "author": [{"reference": "Practitioner/A"}], "content": [{"format": {"display": "X"}}], "context": {"encounter": [{"reference": "Encounter/X"}], "period": {"start": "2014"}}}
+{"resourceType": "DocumentReference", "id": "format-multiple", "content": [{"format": {"display": "X"}}, {"attachment": {"contentType": "text/plain"}}]}
+{"resourceType": "DocumentReference", "id": "encounter-multiple", "context": {"encounter": [{"reference": "Encounter/X"}, {"reference": "Encounter/Y"}]}}
+{"resourceType": "DocumentReference", "id": "encounter-none-in-context", "context": {"related": [{"display": "X"}]}}
+{"resourceType": "DocumentReference", "id": "encounter-wrong-type", "context": {"encounter": [{"reference": "EpisodeOfCare/X"}]}}
+{"resourceType": "DocumentReference", "id": "author-wrong-type", "author": [{"reference": "Patient/A"}]}
+{"resourceType": "DocumentReference", "id": "author-multiple", "author": [{"reference": "Patient/A"}, {"reference": "Practitioner/A"}]}
+{"resourceType": "DocumentReference", "id": "nothing"}

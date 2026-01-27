@@ -1,0 +1,117 @@
+-- http://hl7.org/fhir/us/core/STU6.1/StructureDefinition-us-core-encounter.html
+
+-- CUMULUS-QUIRK
+-- Doesn't look for "identifier", because Cumulus strips that field.
+
+{% import 'us_core_v6/utils.jinja' as core_utils %}
+
+WITH
+
+tmp_participants AS (
+    SELECT
+        id,
+
+    {% if schema["participant"]["type"] %}
+        BOOL_OR(u.participant.type IS NOT NULL) AS valid_type,
+    {% else %}
+        FALSE AS valid_type,
+    {% endif %}
+
+    {% if schema["participant"]["period"] %}
+        BOOL_OR({{ utils.is_period_valid('u.participant.period') }}) AS valid_period,
+    {% else %}
+        FALSE AS valid_period,
+    {% endif %}
+
+    {% if schema["participant"]["individual"] %}
+        BOOL_OR(
+            {{ utils.is_reference_of_type('u.participant.individual', 'Practitioner') }}
+        ) AS valid_individual
+    {% else %}
+        FALSE AS valid_individual
+    {% endif %}
+
+    FROM {{ src }},
+        UNNEST(participant) AS u (participant)
+    GROUP BY id
+),
+
+tmp_locations AS (
+    SELECT
+        id,
+
+    {% if schema["location"]["location"] %}
+        BOOL_OR({{ utils.is_reference_of_type('u.location.location', 'Location') }}) AS valid_location
+    {% else %}
+        FALSE AS valid_location
+    {% endif %}
+
+    FROM {{ src }},
+        UNNEST(location) AS u (location)
+    GROUP BY id
+),
+
+tmp_reason_references AS (
+    SELECT
+        id,
+        BOOL_OR(
+            {{ utils.is_reference_of_type('u.reasonReference', 'Condition') }}
+        ) as valid_reason_reference
+    FROM {{ src }},
+        UNNEST(reasonReference) AS u (reasonReference)
+    GROUP BY id
+),
+
+tmp_simplified AS (
+    SELECT
+        src.id,
+        {{ utils.extract_status(src) }} AS status,
+        (
+            tmp_participants.valid_type IS NOT NULL
+            AND tmp_participants.valid_type
+        ) AS valid_participant_type,
+        (
+            tmp_participants.valid_period IS NOT NULL
+            AND tmp_participants.valid_period
+        ) AS valid_participant_period,
+        (
+            tmp_participants.valid_individual IS NOT NULL
+            AND tmp_participants.valid_individual
+        ) AS valid_participant_individual,
+        {{ utils.is_period_valid('period') }} AS valid_period,
+        reasonCode IS NOT NULL -- array
+        OR (
+            tmp_reason_references.valid_reason_reference IS NOT NULL
+            AND tmp_reason_references.valid_reason_reference
+        ) AS valid_reason,
+        (
+            {% if schema["hospitalization"]["dischargeDisposition"] %}
+            {{ utils.is_concept_valid('hospitalization.dischargeDisposition') }}
+            {% else %}
+            FALSE
+            {% endif %}
+        ) AS valid_discharge_disposition,
+        {{ utils.is_reference_of_type('serviceProvider', 'Organization') }}
+        OR (
+            tmp_locations.valid_location IS NOT NULL
+            AND tmp_locations.valid_location
+        ) AS valid_location
+    FROM {{ src }} AS src
+    LEFT JOIN tmp_locations ON src.id = tmp_locations.id
+    LEFT JOIN tmp_reason_references ON tmp_reason_references.id = src.id
+    LEFT JOIN tmp_participants ON tmp_participants.id = src.id
+)
+
+{%
+set ns.fields = [
+    'valid_participant_type',
+    'valid_participant_period',
+    'valid_participant_individual',
+    'valid_period',
+    'valid_reason',
+    'valid_discharge_disposition',
+    'valid_location',
+]
+%}
+
+{{ core_utils.select_all_fields(ns.fields) }}

@@ -1,0 +1,7 @@
+{"resourceType": "DiagnosticReport", "id": "valid", "status": "final", "category": [{"coding": [{"system": "http://loinc.org", "code": "LP29708-2"}]}], "encounter": {"reference": "Encounter/A"}, "effectiveDateTime": "2022", "issued": "2022", "performer": [{"reference": "Organization/A"}], "result": [{"reference": "Observation/A"}], "media": [{"link": {"reference": "Media/A"}}], "presentedForm": [{"contentType": "text/html"}]}
+{"resourceType": "DiagnosticReport", "id": "multiple-categories", "category": [{"coding": [{"system": "http://loinc.org", "code": "LP7839-6"}, {"system": "http://loinc.org", "code": "nope"}]}]}
+{"resourceType": "DiagnosticReport", "id": "wrong-encounter-type", "encounter": {"reference": "EpisodeOfCare/A"}}
+{"resourceType": "DiagnosticReport", "id": "performer-pract", "performer": [{"reference": "Practitioner/A"}]}
+{"resourceType": "DiagnosticReport", "id": "performer-random", "performer": [{"reference": "EpisodeOfCare/A"}]}
+{"resourceType": "DiagnosticReport", "id": "media-random", "media": [{"link": {"reference": "EpisodeOfCare/A"}}]}
+{"resourceType": "DiagnosticReport", "id": "nothing"}

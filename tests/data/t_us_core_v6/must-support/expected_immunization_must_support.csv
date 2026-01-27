@@ -1,0 +1,9 @@
+id,valid_status_reason,valid_occurrence_date_time,valid_primary_source,valid,status
+reason-with-valid-status,true,false,false,false,completed
+reason-with-null-status,true,false,false,false,
+reason-missing,false,false,false,false,not-done
+reason-given,true,false,false,false,not-done
+primary-source,true,false,true,false,
+occurrence-good,true,true,false,false,
+occurrence-bad,true,false,false,false,
+nothing,true,false,false,false,

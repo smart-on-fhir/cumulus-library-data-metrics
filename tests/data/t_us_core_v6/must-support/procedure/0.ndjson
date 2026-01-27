@@ -1,0 +1,5 @@
+{"resourceType": "Procedure", "id": "valid", "basedOn": [{"reference": "ServiceRequest/A"}], "performedDateTime": "2020"}
+{"resourceType": "Procedure", "id": "based-on-multiple", "basedOn": [{"reference": "ServiceRequest/A"}, {"reference": "CarePlan/A"}]}
+{"resourceType": "Procedure", "id": "based-on-wrong-type", "basedOn": [{"reference": "CarePlan/A"}]}
+{"resourceType": "Procedure", "id": "performed-wrong-type", "performedString": "2020"}
+{"resourceType": "Procedure", "id": "nothing"}

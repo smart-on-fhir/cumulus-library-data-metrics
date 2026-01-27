@@ -1,4 +1,0 @@
-{"resourceType": "MedicationRequest", "id": "valid", "category": [{"text": "X"}], "reportedBoolean": true, "encounter": {"reference": "Encounter/A"}, "authoredOn": "2013"}
-{"resourceType": "MedicationRequest", "id": "reported-ref-good", "reportedReference": {"reference": "Practitioner/X"}}
-{"resourceType": "MedicationRequest", "id": "reported-ref-bad", "reportedReference": {"reference": "Condition/X"}}
-{"resourceType": "MedicationRequest", "id": "nothing"}

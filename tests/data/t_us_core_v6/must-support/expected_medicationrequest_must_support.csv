@@ -1,0 +1,6 @@
+id,valid_category,valid_reported,valid_encounter,valid_authored_on,valid_requester,valid_reason_code,valid_reason_reference,valid_dosage_instruction_timing,valid_dosage_instruction_dose_and_rate_dose_quantity,valid_dispense_request_number_of_repeats_allowed,valid_dispense_request_quantity,valid,status
+valid,true,true,true,true,true,true,true,true,true,true,true,true,
+reported-ref-good,false,true,false,false,false,false,false,false,false,false,false,false,
+reported-ref-bad,false,false,false,false,false,false,false,false,false,false,false,false,
+nothing,false,false,false,false,false,false,false,false,false,false,false,false,
+category-bad,false,false,false,false,false,false,false,false,false,false,false,false,

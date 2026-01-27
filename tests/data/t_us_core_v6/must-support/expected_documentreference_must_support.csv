@@ -1,0 +1,9 @@
+id,valid_category,valid_date,valid_author,valid_content_format,valid_context_encounter,valid_context_period,valid,status
+valid,true,true,true,true,true,true,true,
+nothing,false,false,false,false,false,false,false,
+format-multiple,false,false,false,true,false,false,false,
+encounter-wrong-type,false,false,false,false,false,false,false,
+encounter-none-in-context,false,false,false,false,false,false,false,
+encounter-multiple,false,false,false,false,false,false,false,
+author-wrong-type,false,false,false,false,false,false,false,
+author-multiple,false,false,true,false,false,false,false,

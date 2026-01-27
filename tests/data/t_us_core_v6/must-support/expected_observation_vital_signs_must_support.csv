@@ -1,0 +1,5 @@
+id,valid_effective_date_time,valid_value_quantity,valid_component_value_quantity,valid,status
+vitals-valid,true,true,true,true,
+vitals-ucum-bad,false,false,false,false,
+vitals-nothing,false,false,false,false,
+vitals-component-ucum-bad,false,false,false,false,

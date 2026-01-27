@@ -1,0 +1,34 @@
+-- http://hl7.org/fhir/us/core/STU6.1/StructureDefinition-us-core-procedure.html
+
+{% import 'us_core_v6/utils.jinja' as core_utils %}
+
+WITH
+tmp_based_on AS (
+    SELECT
+        src.id,
+        -- basedOn isn't marked in the US Core spec as must support, but it is called out as such
+        -- for USCDI in the narrative text, so we look for it.
+        BOOL_OR({{ utils.is_reference_of_type('u.basedOn', 'ServiceRequest') }}) AS valid_based_on
+    FROM {{ src }} AS src,
+        UNNEST(basedOn) AS u (basedOn)
+    GROUP BY id
+),
+
+tmp_simplified AS (
+    SELECT
+        src.id,
+        {{ utils.extract_status(src) }} AS status,
+        tmp_based_on.valid_based_on IS NOT NULL AND tmp_based_on.valid_based_on AS valid_based_on,
+        performedDateTime IS NOT NULL AS valid_performed_date_time -- spec only cares about this one
+    FROM {{ src }} AS src
+    LEFT JOIN tmp_based_on ON tmp_based_on.id = src.id
+)
+
+{%
+set ns.fields = [
+    'valid_based_on',
+    'valid_performed_date_time',
+]
+%}
+
+{{ core_utils.select_all_fields(ns.fields) }}

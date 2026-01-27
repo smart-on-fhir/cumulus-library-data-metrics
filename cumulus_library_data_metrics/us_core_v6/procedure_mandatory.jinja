@@ -1,0 +1,39 @@
+-- http://hl7.org/fhir/us/core/STU6.1/StructureDefinition-us-core-procedure.html
+
+{% import 'us_core_v6/utils.jinja' as core_utils %}
+
+WITH
+tmp_simplified AS (
+    SELECT
+        id,
+        {{ utils.extract_status(src) }} AS status,
+        {{ utils.is_code_valid(
+            'status',
+            'preparation | in-progress | not-done | on-hold | stopped | completed | entered-in-error | unknown'
+        )}} AS valid_status,
+        {{ utils.is_concept_valid('code') }} AS valid_code,
+        {{ utils.is_reference_of_type('subject', 'Patient') }} AS valid_subject,
+        (
+            status IS NULL
+            OR status NOT IN ('completed', 'in-progress')
+            OR (
+                performedDateTime IS NOT NULL
+                OR {{ utils.is_period_valid('performedPeriod') }}
+                OR {{ utils.is_string_valid('performedString') }}
+                OR {{ utils.is_quantity_valid('performedAge') }}
+                OR performedRange IS NOT NULL
+            )
+        ) AS valid_performed
+    FROM {{ src }}
+)
+
+{%
+set ns.fields = [
+    'valid_status',
+    'valid_code',
+    'valid_subject',
+    'valid_performed',
+]
+%}
+
+{{ core_utils.select_all_fields(ns.fields) }}

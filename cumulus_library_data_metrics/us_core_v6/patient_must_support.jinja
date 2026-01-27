@@ -1,0 +1,110 @@
+-- http://hl7.org/fhir/us/core/STU6.1/StructureDefinition-us-core-patient.html
+-- This looks at USCDI v1 must-support elements too, where Cumulus doesn't strip them.
+
+-- CUMULUS-QUIRK
+-- This profile mentions supporting an address, name, and other contact info,
+-- but Cumulus strips those bits so we ignore them.
+
+{% import 'us_core_v6/utils.jinja' as core_utils %}
+{% import 'us_core_v6/patient_utils.jinja' as patient_utils %}
+
+WITH
+
+tmp_ethnicity AS {{ patient_utils.extract_ethnicity(schema) }},
+tmp_race AS {{ patient_utils.extract_race(schema) }},
+tmp_birth_sex AS {{ patient_utils.extract_birth_sex() }},
+tmp_sex AS {{ patient_utils.extract_sex() }},
+tmp_has_gender_identity AS {{ patient_utils.extract_has_gender_identity(schema) }},
+tmp_has_tribal_affiliation AS {{ patient_utils.extract_has_tribal_affiliation(schema) }},
+
+tmp_address AS (
+    SELECT
+        id,
+        BOOL_OR(u.address.state IS NOT NULL) AS valid_state,
+        BOOL_OR(u.address.postalCode IS NOT NULL) AS valid_postal_code
+    FROM {{ src }},
+        UNNEST(address) AS u (address)
+    GROUP BY id
+),
+
+tmp_communication AS (
+    SELECT
+        id,
+        {% if schema["communication"]["language"] %}
+        BOOL_AND({{ utils.is_concept_valid('u.communication.language') }}) AS valid_language
+        {% else %}
+        FALSE AS valid_language
+        {% endif %}
+    FROM {{ src }},
+        UNNEST(communication) AS u (communication)
+    GROUP BY id
+),
+
+tmp_simplified AS (
+    SELECT
+        src.id,
+        {{ utils.extract_status(src) }} AS status,
+        birthDate IS NOT NULL AS valid_birth_date,
+        (
+            tmp_address.valid_state IS NOT NULL
+            AND tmp_address.valid_state
+        ) AS valid_address_state,
+        (
+            tmp_address.valid_postal_code IS NOT NULL
+            AND tmp_address.valid_postal_code
+        ) AS valid_address_postal_code,
+        (
+            tmp_communication.valid_language IS NOT NULL
+            AND tmp_communication.valid_language
+        ) AS valid_communication_language,
+        (
+            tmp_race.display IS NOT NULL
+            AND tmp_race.display <> 'cumulus__none'
+        ) AS valid_race,
+        (
+            tmp_ethnicity.display IS NOT NULL
+            AND tmp_ethnicity.display <> 'cumulus__none'
+        ) AS valid_ethnicity,
+        (
+            tmp_has_tribal_affiliation.has_tribal_affiliation IS NOT NULL
+            AND tmp_has_tribal_affiliation.has_tribal_affiliation
+        ) AS valid_tribal_affiliation,
+        (
+            tmp_birth_sex.display IS NOT NULL
+            AND tmp_birth_sex.display <> 'cumulus__none'
+        ) AS valid_birth_sex,
+        (
+            tmp_sex.display IS NOT NULL
+            AND tmp_sex.display <> 'cumulus__none'
+        ) AS valid_sex,
+        (
+            tmp_has_gender_identity.has_gender_identity IS NOT NULL
+            AND tmp_has_gender_identity.has_gender_identity
+        ) AS valid_gender_identity
+    FROM {{ src }} AS src
+    LEFT JOIN tmp_address ON tmp_address.id = src.id
+    LEFT JOIN tmp_race ON tmp_race.id = src.id
+    LEFT JOIN tmp_ethnicity ON tmp_ethnicity.id = src.id
+    LEFT JOIN tmp_birth_sex ON tmp_birth_sex.id = src.id
+    LEFT JOIN tmp_sex ON tmp_sex.id = src.id
+    LEFT JOIN tmp_has_gender_identity ON tmp_has_gender_identity.id = src.id
+    LEFT JOIN tmp_has_tribal_affiliation ON tmp_has_tribal_affiliation.id = src.id
+    LEFT JOIN tmp_communication ON tmp_communication.id = src.id
+)
+
+{%
+set ns.fields = [
+    'valid_birth_date',
+    'valid_address_state',
+    'valid_address_postal_code',
+    'valid_communication_language',
+    'valid_race',
+    'valid_ethnicity',
+    'valid_tribal_affiliation',
+    'valid_birth_sex',
+    'valid_sex',
+    'valid_gender_identity',
+]
+%}
+
+{{ core_utils.select_all_fields(ns.fields) }}

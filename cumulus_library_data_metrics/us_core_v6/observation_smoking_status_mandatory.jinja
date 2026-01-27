@@ -1,0 +1,50 @@
+-- http://hl7.org/fhir/us/core/STU6.1/StructureDefinition-us-core-smokingstatus.html
+
+{% import 'us_core_v6/utils.jinja' as core_utils %}
+{% import 'us_core_v6/observation_utils.jinja' as obs_utils %}
+
+WITH
+tmp_slice AS {% include 'us_core_v6/slice.jinja' %},
+
+tmp_categories AS ({{ obs_utils.extract_category('tmp_slice') }}),
+tmp_grouped_categories AS (
+    SELECT
+        id,
+        BOOL_OR(code = 'social-history') AS valid_category
+    FROM tmp_categories
+    GROUP BY id
+),
+
+tmp_value_codes AS {{ utils.extract_codes(
+    src, 'valueCodeableConcept', system='http://snomed.info/sct',
+) }},
+
+tmp_simplified AS (
+    SELECT DISTINCT
+        src.id,
+        {{ utils.extract_status(src) }} AS status,
+        -- Smoking Status restricts the set of statuses further than base Observation
+        {{ utils.is_code_valid('status', ['final', 'entered-in-error'])}} AS valid_status,
+        (
+            tmp_grouped_categories.valid_category IS NOT NULL
+            AND tmp_grouped_categories.valid_category
+        ) as valid_category,
+        {{ utils.is_reference_of_type('subject', 'Patient') }} AS valid_subject,
+        effectiveDateTime IS NOT NULL AS valid_effective_date_time,
+        tmp_value_codes.codes IS NOT NULL AS valid_value_codeable_concept
+    FROM tmp_slice AS src
+    LEFT JOIN tmp_grouped_categories ON tmp_grouped_categories.id = src.id
+    LEFT JOIN tmp_value_codes ON tmp_value_codes.id = src.id
+)
+
+{%
+set ns.fields = [
+    'valid_status',
+    'valid_category',
+    'valid_subject',
+    'valid_effective_date_time',
+    'valid_value_codeable_concept',
+]
+%}
+
+{{ core_utils.select_all_fields(ns.fields) }}

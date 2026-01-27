@@ -1,0 +1,40 @@
+-- http://hl7.org/fhir/us/core/STU6.1/StructureDefinition-us-core-diagnosticreport-lab.html
+-- There is another non-lab-report-specific profile,
+-- but this is the DiagnosticReport profile that covers the LAB rows.
+
+{% import 'us_core_v6/utils.jinja' as core_utils %}
+{% import 'us_core_v6/diagnosticreport_utils.jinja' as dr_utils %}
+
+WITH
+tmp_slice AS {% include 'us_core_v6/slice.jinja' %},
+
+tmp_simplified AS (
+    SELECT
+        id,
+        {{ utils.extract_status(src) }} AS status,
+        {{ dr_utils.is_dr_status_valid() }} AS valid_status,
+        {{ utils.is_concept_valid('code') }} AS valid_code,
+        {{ utils.is_reference_of_type('subject', 'Patient') }} AS valid_subject,
+        (
+            NOT {{ dr_utils.is_dr_status_started() }}
+            OR effectiveDateTime IS NOT NULL
+            OR {{ utils.is_period_valid('effectivePeriod') }}
+        ) AS valid_effective,
+        (
+            NOT {{ dr_utils.is_dr_status_started() }}
+            OR issued IS NOT NULL
+        ) AS valid_issued
+    FROM tmp_slice
+)
+
+{%
+set ns.fields = [
+    'valid_status',
+    'valid_code',
+    'valid_subject',
+    'valid_effective',
+    'valid_issued',
+]
+%}
+
+{{ core_utils.select_all_fields(ns.fields) }}

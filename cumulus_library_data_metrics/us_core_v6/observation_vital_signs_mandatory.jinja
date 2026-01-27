@@ -1,0 +1,118 @@
+-- http://hl7.org/fhir/us/core/STU6.1/StructureDefinition-us-core-vital-signs.html
+-- and also http://hl7.org/fhir/R4/vitalsigns.html?
+--
+-- The US Core profile links to that base FHIR profile. But that base FHIR profile seems...
+-- unfinished? Like it talks about "Observation.related.type == 'has-member'" instead of the
+-- Observation.hasMember field. Still, the base FHIR profile holds some constraints that do
+-- seem to apply, like datetime must be at least to a day. (the labs US Core profile has that rule
+-- too, but not the vitals US Core profile, presumably because it was already specified in this
+-- parent profile)
+--
+-- There seem to also be some disagreements between the profiles. Like the base FHIR Vitals
+-- profile says Observation.component.valueQuantity SHALL be UCUM. And in a separate
+-- (less official?) text area, suggests that might also be true for for Observation.valueQuantity.
+-- But then the US Core profile allows both to be an extensible binding to UCUM - so more of a
+-- SHOULD then a SHALL. Where those conflicts exist, I've followed US Core.
+--
+-- But in general, this check does try to follow both profiles' constraints.
+
+{% import 'us_core_v6/utils.jinja' as core_utils %}
+{% import 'us_core_v6/observation_utils.jinja' as obs_utils %}
+
+-- We may be slicing on category or code - make sure to check non-sliced attributes
+{% set check_category = not category %}
+{% set check_code = not loinc %}
+
+WITH
+tmp_slice AS {% include 'us_core_v6/slice.jinja' %},
+
+{% if check_category %}
+tmp_categories AS ({{ obs_utils.extract_category('tmp_slice') }}),
+tmp_grouped_categories AS (
+    SELECT
+        id,
+        BOOL_OR(code = 'vital-signs') AS valid_category
+    FROM tmp_categories
+    GROUP BY id
+),
+{% endif %}
+
+tmp_vs3 AS (
+    SELECT
+        src.id,
+
+        -- vs-3: each component must have value or a dataAbsentReason
+        BOOL_AND(
+            c.component IS NULL
+            {% if schema["component"]["dataAbsentReason"] %}
+                OR {{ utils.is_concept_valid('c.component.dataAbsentReason') }}
+            {% endif %}
+            OR {{ obs_utils.is_value_valid('c.component.value', schema) }}
+        ) AS valid_vs_3
+
+    FROM tmp_slice AS src,
+        UNNEST(component) AS c (component)
+    GROUP BY src.id
+),
+
+tmp_simplified AS (
+    SELECT
+        src.id,
+        {{ utils.extract_status(src) }} AS status,
+        {{ obs_utils.is_obs_status_valid() }} AS valid_status,
+        {% if check_category %}
+        (
+            tmp_grouped_categories.valid_category IS NOT NULL
+            AND tmp_grouped_categories.valid_category
+        ) AS valid_category
+        {% endif %}
+        {% if check_code %}
+        {{ utils.is_concept_valid('code') }} AS valid_code,
+        {% endif %}
+        {{ utils.is_reference_of_type('subject', 'Patient') }} AS valid_subject,
+        (
+            effectiveDateTime IS NOT NULL
+            OR {{ utils.is_period_valid('effectivePeriod') }}
+        ) AS valid_effective,
+        -- vs-1: DateTime must be at least to day (ed: no mention of effectivePeriod...)
+        (
+            effectiveDateTime IS NULL
+            OR LENGTH(effectiveDateTime) >= 10  -- YYYY-MM-DD
+        ) AS valid_vs_1,
+        -- vs-2: If there is no component or hasMember element then
+        -- either a value[x] or a data absent reason must be present
+        (
+            component IS NOT NULL
+            OR hasMember IS NOT NULL
+            OR {{ utils.is_concept_valid('dataAbsentReason') }}
+            OR {{ obs_utils.is_value_valid('value', schema) }}
+        ) AS valid_vs_2,
+        -- vs-3: each component must have value or a dataAbsentReason
+        (tmp_vs3.valid_vs_3 IS NULL OR tmp_vs3.valid_vs_3) AS valid_vs_3
+    FROM tmp_slice AS src
+    LEFT JOIN tmp_vs3
+    ON tmp_vs3.id = src.id
+    {% if check_category %}
+    LEFT JOIN tmp_grouped_categories
+    ON tmp_grouped_categories.id = src.id
+    {% endif %}
+)
+
+{%
+set ns.fields = [
+    'valid_status',
+    'valid_subject',
+    'valid_effective',
+    'valid_vs_1',
+    'valid_vs_2',
+    'valid_vs_3',
+]
+%}
+{% if check_category %}
+    {% set ns.fields = ns.fields + ['valid_category'] %}
+{% endif %}
+{% if check_code %}
+    {% set ns.fields = ns.fields + ['valid_code'] %}
+{% endif %}
+
+{{ core_utils.select_all_fields(ns.fields) }}

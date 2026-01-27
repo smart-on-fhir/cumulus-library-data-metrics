@@ -1,0 +1,80 @@
+-- http://hl7.org/fhir/us/core/STU6.1/StructureDefinition-us-core-documentreference.html
+
+-- CUMULUS-QUIRK
+-- Doesn't look at the us-core-6 attachment data/url check, because Cumulus strips those fields.
+
+{% import 'attachment_utils.jinja' as attachment_utils with context %}
+{% import 'us_core_v6/utils.jinja' as core_utils %}
+
+WITH
+tmp_attachment_flat AS {{ attachment_utils.extract_attachments(src, schema) }},
+tmp_type_codes_flat AS {{ utils.extract_codes_flat(src, 'type')}},
+
+tmp_grouped AS (
+    SELECT
+        src.id AS id,
+        ARBITRARY(src.status) AS status,
+        ARBITRARY(src.category) AS category,
+        ARBITRARY(src.subject) AS subject,
+
+        BOOL_OR(
+            tc.code IS NOT NULL
+            AND tc.system IS NOT NULL
+            AND (
+                -- technically only LOINC codes with SCALE_TYP = DOC are valid here,
+                -- but that's difficult to check. So we just look for any LOINC code.
+                tc.system = 'http://loinc.org'
+                OR (
+                    tc.system = 'http://terminology.hl7.org/CodeSystem/v3-NullFlavor'
+                    AND tc.code = 'UNK'
+                )
+            )
+        ) AS valid_type,
+
+        -- This is no longer marked as minimum cardinality 1 (it was in v4).
+        -- But... the narrative text still describes it as required.
+        -- The minimum cardinality seems to have accidentally been changed due to:
+        -- https://github.com/HL7/US-Core/commit/ac479b2d8f95256cf21fe6673b02076a6a989cc6
+        -- https://jira.hl7.org/browse/FHIR-32848
+        BOOL_AND(
+            att.content_type IS NOT NULL
+        ) AS valid_content_attachment_content_type,
+
+        BOOL_AND(
+            att.has_data OR att.has_url
+        ) AS valid_us_core_6
+
+    FROM {{ src }} AS src
+    LEFT JOIN tmp_attachment_flat AS att ON att.id = src.id
+    LEFT JOIN tmp_type_codes_flat AS tc ON tc.id = src.id
+    GROUP BY src.id
+),
+
+tmp_simplified AS (
+    SELECT
+        id,
+        {{ utils.extract_status(src) }} AS status,
+        {{ utils.is_code_valid(
+            'status',
+            'current | superseded | entered-in-error'
+        ) }} AS valid_status,
+        valid_type,
+        category IS NOT NULL AS valid_category,
+        {{ utils.is_reference_of_type('subject', 'Patient') }} AS valid_subject,
+        valid_content_attachment_content_type,
+        valid_us_core_6
+    FROM tmp_grouped
+)
+
+{%
+set ns.fields = [
+    'valid_status',
+    'valid_type',
+    'valid_category',
+    'valid_subject',
+    'valid_content_attachment_content_type',
+    'valid_us_core_6',
+]
+%}
+
+{{ core_utils.select_all_fields(ns.fields) }}

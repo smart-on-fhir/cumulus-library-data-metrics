@@ -1,0 +1,69 @@
+-- http://hl7.org/fhir/us/core/STU6.1/StructureDefinition-us-core-vital-signs.html
+-- and also http://hl7.org/fhir/R4/vitalsigns.html?
+--
+-- See notes in the mandatory checks file for extra details on approach here.
+
+{% import 'us_core_v6/utils.jinja' as core_utils %}
+
+WITH
+tmp_slice AS {% include 'us_core_v6/slice.jinja' %},
+
+tmp_components AS (
+    SELECT
+        src.id,
+
+        {% if schema["component"]["valueQuantity"]["system"] %}
+        BOOL_OR(
+            c.component IS NOT NULL
+            AND c.component.valueQuantity IS NOT NULL
+            AND c.component.valueQuantity.system IS NOT NULL
+            AND c.component.valueQuantity.system = 'http://unitsofmeasure.org'
+        ) AS valid_value_quantity
+        {% else %}
+        FALSE AS valid_value_quantity
+        {% endif %}
+
+    FROM tmp_slice AS src,
+        UNNEST(component) AS c (component)
+    GROUP BY src.id
+),
+
+tmp_simplified AS (
+    SELECT
+        tmp_slice.id,
+        {{ utils.extract_status(src) }} AS status,
+        effectiveDateTime IS NOT NULL AS valid_effective_date_time,
+        (
+            {{ utils.is_quantity_valid("valueQuantity") }}
+            AND valueQuantity.system IS NOT NULL
+            AND valueQuantity.system = 'http://unitsofmeasure.org'
+        ) AS valid_value_quantity,
+        (
+            tmp_components.valid_value_quantity IS NOT NULL
+            AND tmp_components.valid_value_quantity
+        ) AS valid_component_value_quantity
+
+        -- the other "must support" requirements are:
+        -- * a reason if the value is absent
+        --
+        -- But that is already specified elsewhere in the profile as constraint requirements.
+        -- (vs-2 and vs-3). So... we'll just leave those in the mandatory checks.
+        -- The reason it mentions it in must support seems to just be because they say
+        -- "Systems that never provide a (component) observation without a (component) value are
+        -- not required to support Observation.(component.)dataAbsentReason."
+        -- But that just means that the mandatory check would still pass. So we don't need to
+        -- duplicate any logic here.
+
+    FROM tmp_slice
+    LEFT JOIN tmp_components ON tmp_components.id = tmp_slice.id
+)
+
+{%
+set ns.fields = [
+    'valid_effective_date_time',
+    'valid_value_quantity',
+    'valid_component_value_quantity',
+]
+%}
+
+{{ core_utils.select_all_fields(ns.fields) }}

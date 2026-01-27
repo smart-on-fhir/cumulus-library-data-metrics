@@ -68,14 +68,14 @@ class MetricsTestCase(unittest.TestCase):
     def test_c_system_use(self):
         self.run_study("c_system_use", prefix="count_")
 
-    def test_c_us_core_v4_count(self):
-        # Just spot checks one resource - the main logic is tested in t_us_core_v4
-        self.run_study("c_us_core_v4_count", prefix="count_")
+    def test_c_us_core_v6_count(self):
+        # Just spot checks one resource - the main logic is tested in t_us_core_v6
+        self.run_study("c_us_core_v6_count", prefix="count_")
 
-    def test_c_us_core_v4_count_cubed(self):
+    def test_c_us_core_v6_count_cubed(self):
         # We have special support for cutting up observation profiles into multiple
         # tables in cube mode.
-        self.run_study("c_us_core_v4_count", test="cubed", prefix="count_", output="cube")
+        self.run_study("c_us_core_v6_count", test="cubed", prefix="count_", output="cube")
 
     def test_q_date_recent(self):
         self.run_study("q_date_recent")
@@ -89,9 +89,9 @@ class MetricsTestCase(unittest.TestCase):
     def test_q_system_use(self):
         self.run_study("q_system_use")
 
-    def test_q_valid_us_core_v4(self):
-        # Just spot checks one resource & the summary - the main logic is tested in t_us_core_v4
-        self.run_study("q_valid_us_core_v4")
+    def test_q_valid_us_core_v6(self):
+        # Just spot checks one resource & the summary - the main logic is tested in t_us_core_v6
+        self.run_study("q_valid_us_core_v6")
 
     def test_q_date_in_lifetime(self):
         self.run_study("q_date_in_lifetime")
@@ -102,12 +102,13 @@ class MetricsTestCase(unittest.TestCase):
         "allergy-low-schema",
         "docref-low-schema",
         "encounter-low-schema",
+        "medreq-low-schema",
         "obs-low-schema",
         "patient-low-schema",
     )
-    def test_t_us_core_v4(self, test_name):
+    def test_t_us_core_v6(self, test_name):
         """This is a fake metric, designed just to test profile validity detection"""
-        self.run_study("t_us_core_v4", test=test_name)
+        self.run_study("t_us_core_v6", test=test_name)
 
     def test_end_to_end_no_data(self):
         """
@@ -202,7 +203,7 @@ class MetricsTestCase(unittest.TestCase):
                 f.write(
                     f"""
 study_prefix = "data_metrics"
-[table_builder_config]
+[file_config]
 file_names = [
     "{metric}/{metric}.py",
 ]

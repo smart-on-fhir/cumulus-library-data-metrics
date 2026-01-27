@@ -1,0 +1,5 @@
+{"resourceType": "MedicationRequest", "id": "valid", "category": [{"coding": [{"system": "http://terminology.hl7.org/CodeSystem/medicationrequest-category", "code": "inpatient"}]}], "reportedBoolean": true, "encounter": {"reference": "Encounter/A"}, "authoredOn": "2013", "requester": {"reference": "Practitioner/A"}, "reasonCode": [{"text": "code"}], "reasonReference": [{"display": "ref"}], "dosageInstruction": [{"timing": {"repeat": {"count": 1}}, "doseAndRate": [{"doseQuantity": {"system": "yup", "unit": "mL"}}]}], "dispenseRequest": {"numberOfRepeatsAllowed": 2, "quantity": {"unit": "mL"}}}
+{"resourceType": "MedicationRequest", "id": "reported-ref-good", "reportedReference": {"reference": "Practitioner/X"}}
+{"resourceType": "MedicationRequest", "id": "reported-ref-bad", "reportedReference": {"reference": "Condition/X"}}
+{"resourceType": "MedicationRequest", "id": "category-bad", "category": [{"coding": [{"system": "my-system", "code": "inpatient"}]}]}
+{"resourceType": "MedicationRequest", "id": "nothing"}

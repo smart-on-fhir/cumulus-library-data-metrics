@@ -1,0 +1,67 @@
+-- http://hl7.org/fhir/us/core/STU6.1/StructureDefinition-us-core-condition-encounter-diagnosis.html
+
+{% import 'us_core_v6/utils.jinja' as core_utils %}
+
+WITH
+tmp_slice AS {% include 'us_core_v6/slice.jinja' %},
+
+-- These clinical and verification status checks are some repeated checks with the mandatory side.
+-- We check the code binding on the mandatory side, since that's a required binding
+-- and we like to validate those where possible.
+-- But these fields are really only must-support fields, so we also report them here.
+
+tmp_clinical_status_flat AS {{
+    utils.extract_codes_flat(
+        'tmp_slice',
+        'clinicalStatus',
+        system='http://terminology.hl7.org/CodeSystem/condition-clinical',
+    )
+}},
+tmp_clinical_status AS (
+    SELECT
+        id,
+        BOOL_AND(
+            {{ utils.is_code_valid(
+                'tmp_clinical_status_flat.code',
+                'active | recurrence | relapse | inactive | remission | resolved'
+            ) }}
+        ) AS valid_clinical_status
+    FROM tmp_clinical_status_flat
+    GROUP BY id
+),
+
+tmp_verification_flat AS {{
+    utils.extract_codes_flat(
+        'tmp_slice',
+        'verificationStatus',
+        system='http://terminology.hl7.org/CodeSystem/condition-ver-status',
+    )
+}},
+tmp_verification AS (
+    SELECT
+        id,
+        BOOL_AND(
+            {{ utils.is_code_valid(
+                'tmp_verification_flat.code',
+                'unconfirmed | provisional | differential | confirmed | refuted | entered-in-error'
+            ) }}
+        ) AS valid_verification_status
+    FROM tmp_verification_flat
+    GROUP BY id
+),
+
+tmp_asserted_date AS (
+{% if schema["extension"]["url"] and schema["extension"]["valueDateTime"] %}
+    SELECT
+        id,
+        ARBITRARY(u.ext.valueDateTime) AS asserted_date
+    FROM
+        tmp_slice,
+        UNNEST(extension) AS u (ext)
+    WHERE
+        u.ext.url = 'http://hl7.org/fhir/StructureDefinition/condition-assertedDate'
+    GROUP BY id
+{% else %}
+    SELECT id, '' AS asserted_date FROM tmp_slice WHERE 1=0  -- return an empty table
+{% endif %}
+),
