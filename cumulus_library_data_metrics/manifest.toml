@@ -1,8 +1,13 @@
 study_prefix = "data_metrics"
-dynamic_study_prefix = "gen_prefix.py"
 
-[file_config]
-file_names = [
+description = """
+A collection of data metrics to help surface issues with your FHIR data.
+"""
+
+[[stages.metrics]]
+description = "metric"
+type = "build:parallel"
+files = [
     "meta/meta.py",
     "c_attachment_count/c_attachment_count.py",
     "c_content_type_use/c_content_type_use.py",
@@ -20,8 +25,21 @@ file_names = [
     "q_valid_us_core_v6/q_valid_us_core_v6.py",
 ]
 
-[export_config]
-count_list = [
+[[stages.metrics]]
+description = "summary"
+type = "build:parallel"
+files = [
+    "q_date_in_lifetime/summary.py",
+    "q_date_recent/summary.py",
+    "q_ref_target_pop/summary.py",
+    "q_ref_target_valid/summary.py",
+    "q_system_use/summary.py",
+    "q_valid_us_core_v6/summary.py",
+]
+
+[[stages.metrics]]
+type = "export:counts"
+tables = [
     "count_c_attachment_count_diagnosticreport",
     "count_c_attachment_count_documentreference",
     "count_c_content_type_use_diagnosticreport",
@@ -109,7 +127,10 @@ count_list = [
     "count_c_us_core_v6_count_procedure_mandatory",
     "count_c_us_core_v6_count_procedure_must_support",
 ]
-flat_list = [
+
+[[stages.metrics]]
+type = "export:flat"
+tables = [
     "c_resources_per_pt_summary",
     "q_date_in_lifetime_summary",
     "q_date_recent_summary",
@@ -118,7 +139,13 @@ flat_list = [
     "q_system_use_summary",
     "q_valid_us_core_v6_summary",
 ]
-meta_list = [
+
+[[stages.metrics]]
+type = "export:meta"
+tables = [
     "meta_date",
     "meta_version",
 ]
+
+[advanced_options]
+dynamic_study_prefix = "gen_prefix.py"

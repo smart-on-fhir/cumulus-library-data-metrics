@@ -5,7 +5,7 @@ import cumulus_library
 from cumulus_library_data_metrics.base import MetricMixin
 
 
-class TargetPopBuilder(MetricMixin, cumulus_library.BaseTableBuilder):
+class Builder(MetricMixin, cumulus_library.BaseTableBuilder):
     name = "q_ref_target_pop"
 
     def make_table(self, **kwargs) -> str:
@@ -24,4 +24,3 @@ class TargetPopBuilder(MetricMixin, cumulus_library.BaseTableBuilder):
         self.make_table(src="MedicationRequest", dest="Patient", field="subject")
         self.make_table(src="Observation", dest="Patient", field="subject")
         self.make_table(src="Procedure", dest="Patient", field="subject")
-        self.make_summary(group_column="target")

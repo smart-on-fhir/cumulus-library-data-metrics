@@ -6,7 +6,7 @@ from cumulus_library_data_metrics import systems
 from cumulus_library_data_metrics.base import MetricMixin
 
 
-class SystemUseBuilder(MetricMixin, cumulus_library.BaseTableBuilder):
+class Builder(MetricMixin, cumulus_library.BaseTableBuilder):
     name = "q_system_use"
 
     def make_table(self, **kwargs) -> None:
@@ -79,4 +79,3 @@ class SystemUseBuilder(MetricMixin, cumulus_library.BaseTableBuilder):
                 "http://www.cms.gov/Medicare/Coding/ICD10",
             ],
         )
-        self.make_summary(group_column="field")

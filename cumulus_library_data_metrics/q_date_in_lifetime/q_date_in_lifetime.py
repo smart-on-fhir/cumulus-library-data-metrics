@@ -6,7 +6,7 @@ from cumulus_library_data_metrics.base import MetricMixin
 from cumulus_library_data_metrics.resource_info import DATES
 
 
-class TargetPopBuilder(MetricMixin, cumulus_library.BaseTableBuilder):
+class Builder(MetricMixin, cumulus_library.BaseTableBuilder):
     name = "q_date_in_lifetime"
 
     def make_table(self, **kwargs) -> None:
@@ -16,4 +16,3 @@ class TargetPopBuilder(MetricMixin, cumulus_library.BaseTableBuilder):
     def add_metric_queries(self) -> None:
         for resource in DATES:
             self.make_table(src=resource)
-        self.make_summary()
