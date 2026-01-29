@@ -2,7 +2,7 @@
 name = "cumulus-library-data-metrics"
 requires-python = ">= 3.11"
 dependencies = [
-    "cumulus-library >= 5, < 6",
+    "cumulus-library >= 5, < 7",
 ]
 readme = "README.md"
 license = "Apache-2.0"

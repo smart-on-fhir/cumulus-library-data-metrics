@@ -22,7 +22,7 @@ The following qualifier metrics are implemented (per December 2025 qualifier def
 
 \* These are US Core profile-based metrics, and the following profiles are not yet implemented:
   - Implantable Device (due to the difficulty in identify implantable records)
-  - The various Vital Signs sub-profiles like Blood Pressure (just haven't gotten around to them yet)
+  - Some Observation profiles and also its various Vital Signs sub-profiles like Blood Pressure (just haven't gotten around to them yet)
 
 ## Installing
 
@@ -37,20 +37,10 @@ These metrics are designed as a
 study and are run using the `cumulus-library` command.
 
 ### Local Ndjson
-First, you'll want to organize your ndjson into the following file tree format:
-```
-root/
-  condition/
-    my-conditions.ndjson
-  medicationrequest/
-    1.ndjson
-    2.ndjson
-  patient/
-    Patient.ndjson
-```
-(This is the same format that Cumulus ETL writes out when using `--output-format=ndjson`.)
+Let's say you have a collection of FHIR-formatted NDJSON files.
+They can all be in one folder or in organized subfolders.
 
-Here's a sample command to run against that pile of ndjson data:
+Here's a sample command to run against that pile of NDJSON data:
 ```sh
 cumulus-library build \
   --db-type duckdb \

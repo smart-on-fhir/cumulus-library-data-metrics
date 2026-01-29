@@ -130,19 +130,25 @@ class UsCoreV6Mixin(MetricMixin):
         # - src: FHIR resource
         # - name: subcategory of profile, used in table names
         # - category/loinc: property to slice on for Observations
-        # - mandatory_split: some profiles have a lot of mandatory fields, which can cause
-        #   performance issues when cubing. This is a recommended hint of how many tables to
-        #   split any mandatory cube into. Note that this argument gets passed on to the metric
-        #   classes that implement this mixin, and _optionally_ used. For example, the
-        #   q_valid_us_core_v6 metric does not care about this argument, because it doesn't cube.
+        # - *_split: some profiles have a lot of fields, which can cause performance issues when
+        #   cubing. This is a recommended hint of how many tables to split any cube into.
+        #   Note that this argument gets passed on to the metric classes that implement this mixin,
+        #   and _optionally_ used. For example, the q_valid_us_core_v6 metric does not care about
+        #   this argument, because it doesn't cube.
         #   The c_us_core_v6_count metric *does* care about it, when cubing. It will split its
         #   output tables into multiple tables, to keep CUBE time low.
+        #   The recommendation is to split a profile such that each table's field count is <= 4.
+        #   This ends up meaning the final table will have 6 fields or less, because fields like
+        #   status or year may get added.
 
         # Observation is so big, that if it falls over in Athena, let's know early.
         # So we run these first,
-        # self.make_table(src="Observation", name="blood_pressure", loinc="85354-9")
         self.make_table(
-            src="Observation", name="Laboratory", category="laboratory", mandatory_split=2
+            src="Observation",
+            name="Laboratory",
+            category="laboratory",
+            mandatory_split=2,
+            must_support_split=2,
         )
         self.make_table(
             src="Observation", name="Smoking Status", loinc="72166-2", mandatory_split=2
@@ -153,14 +159,14 @@ class UsCoreV6Mixin(MetricMixin):
 
         # Rest of profiles
         self.make_table(src="AllergyIntolerance")
-        self.make_table(src="Condition", name="Enc")
-        self.make_table(src="Condition", name="Prob")
+        self.make_table(src="Condition", name="Enc", must_support_split=2)
+        self.make_table(src="Condition", name="Prob", must_support_split=2)
         self.make_table(src="DiagnosticReport", name="Lab")
-        self.make_table(src="DiagnosticReport", name="Note")
-        self.make_table(src="DocumentReference", mandatory_split=2)
-        self.make_table(src="Encounter")
+        self.make_table(src="DiagnosticReport", name="Note", must_support_split=2)
+        self.make_table(src="DocumentReference", mandatory_split=2, must_support_split=2)
+        self.make_table(src="Encounter", must_support_split=2)
         self.make_table(src="Immunization")
         self.make_table(src="Medication")
-        self.make_table(src="MedicationRequest", must_support_split=3)
-        self.make_table(src="Patient", must_support_split=2)
+        self.make_table(src="MedicationRequest", mandatory_split=2, must_support_split=3)
+        self.make_table(src="Patient", must_support_split=3)
         self.make_table(src="Procedure")
