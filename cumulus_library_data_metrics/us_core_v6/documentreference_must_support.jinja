@@ -1,8 +1,5 @@
 -- http://hl7.org/fhir/us/core/STU6.1/StructureDefinition-us-core-documentreference.html
 
--- CUMULUS-QUIRK
--- Doesn't look at support for `identifier`, because Cumulus strips that field.
-
 {% import 'us_core_v6/utils.jinja' as core_utils %}
 
 WITH
@@ -67,6 +64,9 @@ tmp_simplified AS (
     SELECT
         src.id,
         {{ utils.extract_status(src) }} AS status,
+        {% if not cumulus_mode %}
+        src.identifier IS NOT NULL AS valid_identifier,
+        {% endif %}
         tmp_categories.codes IS NOT NULL AS valid_category,
         "date" IS NOT NULL AS valid_date,
         (tmp_authors.valid_author IS NOT NULL AND tmp_authors.valid_author) AS valid_author,
@@ -112,8 +112,13 @@ tmp_simplified AS (
     LEFT JOIN tmp_categories ON tmp_categories.id = src.id
 )
 
+{% if cumulus_mode %}
+{% set ns.fields = [] %}
+{% else %}
+{% set ns.fields = ['valid_identifier'] %}
+{% endif %}
 {%
-set ns.fields = [
+set ns.fields = ns.fields + [
     'valid_category',
     'valid_date',
     'valid_author',

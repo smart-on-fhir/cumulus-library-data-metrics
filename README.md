@@ -52,6 +52,21 @@ cumulus-library build \
 And then you can load `output-tables.db` in a DuckDB session and see the results.
 Or read below to export the counts tables.
 
+#### Running Without Cumulus
+
+This study is designed to be used as part of a Cumulus installation,
+against an Athena database of anonymized FHIR.
+
+As a result, several of the US Core metrics ignore checks for fields that the Cumulus
+pipeline strips out as part of its de-identification effort.
+For example, the `Patient.name` and `Patient.identifier` fields.
+
+But if you are working without Cumulus on actual NDJSON,
+you probably do want those checks to be performed.
+
+If you pass `--option cumulus-mode:false` when building,
+those extra checks will be included and your output tables will have a few extra columns.
+
 ### Athena
 Here's a sample command to run against your Cumulus data in Athena:
 ```sh

@@ -9,3 +9,20 @@ SELECT
     status
 FROM tmp_simplified
 {% endmacro %}
+
+{% macro check_complete_identifier(src, mandatory) %}
+SELECT
+    id,
+    {% if mandatory %}
+    BOOL_AND
+    {% else %}
+    BOOL_OR
+    {% endif %}
+    (
+        {{ utils.is_string_valid('u.identifier.system') }}
+        AND {{ utils.is_string_valid('u.identifier.value') }}
+    ) AS complete,
+FROM {{ src }},
+    UNNEST(identifier) AS u (identifier)
+GROUP BY id
+{% endmacro %}

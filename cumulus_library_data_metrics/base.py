@@ -109,11 +109,24 @@ class MetricMixin:
         **kwargs,
     ) -> None:
         self.study_prefix = manifest.get_study_prefix()
+        self.cumulus_mode = self.get_cumulus_mode(config)
         self.output_mode = self.get_output_mode(config)
         self.min_bucket_size = self.get_min_bucket_size(config)
         self._query_schema(config)
         self.extra_schema_checks(config)
         self.add_metric_queries()
+
+    def get_cumulus_mode(self, config: cumulus_library.StudyConfig) -> str:
+        if cumulus_mode := config.options.get("cumulus-mode"):
+            folded = cumulus_mode.casefold()
+            if folded not in {"false", "true"}:
+                print(
+                    f"Did not understand Cumulus mode '{cumulus_mode}'. Using 'true' instead.",
+                    file=sys.stderr,
+                )
+                return True
+            return folded == "true"
+        return True
 
     def get_output_mode(self, config: cumulus_library.StudyConfig) -> str:
         output_mode = (
@@ -154,7 +167,8 @@ class MetricMixin:
             kwargs["schema"] = self.schemas.get(src)
             kwargs["cat_info"] = resource_info.CATEGORIES.get(src, {})
 
-        # See how we should combine counts.
+        # Grab some options that all templates will want to know about.
+        kwargs["cumulus_mode"] = self.cumulus_mode
         kwargs["output_mode"] = self.output_mode
         kwargs["study_prefix"] = self.study_prefix
 

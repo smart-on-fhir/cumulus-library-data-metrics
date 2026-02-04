@@ -7,15 +7,20 @@
 {% import 'us_core_v6/utils.jinja' as core_utils %}
 
 WITH
+{% if not cumulus_mode %}
+tmp_identifiers AS {{ core_utils.check_complete_identifier(src, true) }},
+{% endif %}
+
 tmp_simplified AS (
     SELECT
-        id,
+        src.id,
         {{ utils.extract_status(src) }} AS status,
         {{ utils.is_code_valid(
             'gender',
             'male | female | other | unknown'
         )}} AS valid_gender
-    FROM {{ src }}
+    FROM {{ src }} AS src
+    LEFT JOIN tmp_identifiers ON src.id = tmp_identifiers.id
 )
 
 {%

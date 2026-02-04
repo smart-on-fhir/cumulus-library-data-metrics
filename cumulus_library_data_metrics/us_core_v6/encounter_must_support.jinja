@@ -1,11 +1,12 @@
 -- http://hl7.org/fhir/us/core/STU6.1/StructureDefinition-us-core-encounter.html
 
--- CUMULUS-QUIRK
--- Doesn't look for "identifier", because Cumulus strips that field.
-
 {% import 'us_core_v6/utils.jinja' as core_utils %}
 
 WITH
+
+{% if not cumulus_mode %}
+tmp_identifiers AS {{ core_utils.check_complete_identifier(src, false) }},
+{% endif %}
 
 tmp_participants AS (
     SELECT
@@ -66,6 +67,9 @@ tmp_simplified AS (
     SELECT
         src.id,
         {{ utils.extract_status(src) }} AS status,
+        {% if not cumulus_mode %}
+        (tmp_identifiers.complete IS NOT NULL AND tmp_identifiers.complete) AS valid_identifier,
+        {% endif %}
         (
             tmp_participants.valid_type IS NOT NULL
             AND tmp_participants.valid_type
@@ -97,13 +101,21 @@ tmp_simplified AS (
             AND tmp_locations.valid_location
         ) AS valid_location
     FROM {{ src }} AS src
+    {% if not cumulus_mode %}
+    LEFT JOIN tmp_identifiers ON src.id = tmp_identifiers.id
+    {% endif %}
     LEFT JOIN tmp_locations ON src.id = tmp_locations.id
     LEFT JOIN tmp_reason_references ON tmp_reason_references.id = src.id
     LEFT JOIN tmp_participants ON tmp_participants.id = src.id
 )
 
+{% if cumulus_mode %}
+{% set ns.fields = [] %}
+{% else %}
+{% set ns.fields = ['valid_identifier'] %}
+{% endif %}
 {%
-set ns.fields = [
+set ns.fields = ns.fields + [
     'valid_participant_type',
     'valid_participant_period',
     'valid_participant_individual',
