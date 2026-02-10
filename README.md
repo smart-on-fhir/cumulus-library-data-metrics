@@ -52,6 +52,19 @@ cumulus-library build \
 And then you can load `output-tables.db` in a DuckDB session and see the results.
 Or read below to export the counts tables.
 
+#### Visualization
+The metrics can also be reviewed in an interactive web interface by installing and running the open source [Cumulus Data Metrics Reporting Tool](https://github.com/smart-on-fhir/cumulus-data-metrics-reporting). When generating a metrics file for this view, the `output-mode:aggregate` flag should be used. E.g.,
+
+```sh
+cumulus-library build \
+--option output-mode:aggregate \
+--option min-bucket-size:0 \
+--db-type duckdb \
+--database src/data/metrics.duckdb \
+--target data_metrics \
+--load-ndjson-dir {path/to/ndjson/root}
+```
+
 ### Athena
 Here's a sample command to run against your Cumulus data in Athena:
 ```sh
