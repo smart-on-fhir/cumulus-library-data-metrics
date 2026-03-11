@@ -5,7 +5,7 @@ import cumulus_library
 from cumulus_library_data_metrics.us_core_v6 import UsCoreV6Mixin
 
 
-class ValidUsCoreV6Builder(UsCoreV6Mixin, cumulus_library.BaseTableBuilder):
+class Builder(UsCoreV6Mixin, cumulus_library.BaseTableBuilder):
     name = "q_valid_us_core_v6"
 
     def make_table(self, **kwargs) -> None:
@@ -19,4 +19,3 @@ class ValidUsCoreV6Builder(UsCoreV6Mixin, cumulus_library.BaseTableBuilder):
 
     def add_metric_queries(self) -> None:
         super().add_metric_queries()
-        self.make_summary(group_column="profile")

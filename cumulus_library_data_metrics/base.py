@@ -65,7 +65,7 @@ class MetricMixin:
             group_values=self.summary_groups,
             metric=self.name,
         )
-        self.queries.append(sql)
+        self.queries = [sql]  # replaces previous queries
 
     def _check_for_deep_docref_date(self, field: str, fields_to_check: dict) -> bool:
         check_docref_period = f"context.period.{field}" in self.date_fields["DocumentReference"]

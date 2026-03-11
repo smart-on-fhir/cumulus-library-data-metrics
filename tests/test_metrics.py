@@ -203,12 +203,24 @@ class MetricsTestCase(unittest.TestCase):
                 f.write(
                     f"""
 study_prefix = "data_metrics"
-[file_config]
-file_names = [
+[[stages.metrics]]
+description = "metric"
+type = "build:parallel"
+files = [
     "{metric}/{metric}.py",
 ]
                     """
                 )
+                # Some metrics have a secondary summary file
+                if os.path.exists(f"{tmpdir}/cumulus_library_data_metrics/{metric}/summary.py"):
+                    f.write(f"""
+[[stages.metrics]]
+description = "summary"
+type = "build:parallel"
+files = [
+    "{metric}/summary.py",
+]
+                    """)
 
             args = [
                 "build",
