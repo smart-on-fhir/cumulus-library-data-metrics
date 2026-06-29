@@ -15,6 +15,7 @@ The following qualifier metrics are implemented (per December 2025 qualifier def
 - [c_system_use](https://github.com/sync-for-science/qualifier/blob/master/metrics.md#c_system_use)
 - [c_us_core_v6_count](https://github.com/sync-for-science/qualifier/blob/master/metrics.md#c_us_core_v6_count) *
 - [q_date_recent](https://github.com/sync-for-science/qualifier/blob/master/metrics.md#q_date_recent)
+- [q_date_in_lifetime](https://github.com/sync-for-science/qualifier/blob/master/metrics.md#q_date_in_lifetime)
 - [q_ref_target_pop](https://github.com/sync-for-science/qualifier/blob/master/metrics.md#q_ref_target_pop)
 - [q_ref_target_valid](https://github.com/sync-for-science/qualifier/blob/master/metrics.md#q_ref_target_valid)
 - [q_system_use](https://github.com/sync-for-science/qualifier/blob/master/metrics.md#q_system_use)
